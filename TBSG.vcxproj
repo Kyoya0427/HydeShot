@@ -73,12 +73,16 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(ProjectDir)/Sources/pch;$(ProjectDir)/Sources;C:\DirectXTK\Inc;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\DirectXTK\Bin\Desktop_2015\Win32\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(ProjectDir)/Sources/pch;$(ProjectDir)/Sources;C:\DirectXTK\Inc;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\DirectXTK\Bin\Desktop_2015\Win32\Release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -92,11 +96,12 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <FloatingPointModel>Fast</FloatingPointModel>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3d11.lib;dxgi.lib;dxguid.lib;uuid.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>directxtk.lib;d3d11.lib;dxgi.lib;dxguid.lib;uuid.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -125,13 +130,15 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <FloatingPointModel>Fast</FloatingPointModel>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>d3d11.lib;dxgi.lib;dxguid.lib;uuid.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>directxtk.lib;d3d11.lib;dxgi.lib;dxguid.lib;uuid.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -157,6 +164,21 @@
     <ClInclude Include="DeviceResources.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Sources\Game\Camera\Camera.h" />
+    <ClInclude Include="Sources\Game\GameState\GameStateManager.h" />
+    <ClInclude Include="Sources\Game\GameState\IGameState.h" />
+    <ClInclude Include="Sources\Game\GameState\PauseState.h" />
+    <ClInclude Include="Sources\Game\GameState\PlayState.h" />
+    <ClInclude Include="Sources\Game\GameState\ResultState.h" />
+    <ClInclude Include="Sources\Game\GameState\TitleState.h" />
+    <ClInclude Include="Sources\Game\MyGame.h" />
+    <ClInclude Include="Sources\Game\UI\Blink.h" />
+    <ClInclude Include="Sources\Utils\BinaryFile.h" />
+    <ClInclude Include="Sources\Utils\DebugFont.h" />
+    <ClInclude Include="Sources\Utils\GameContext.h" />
+    <ClInclude Include="Sources\Utils\Projection.h" />
+    <ClInclude Include="Sources\Utils\ServiceLocator.h" />
+    <ClInclude Include="Sources\Utils\Utilities.h" />
     <ClInclude Include="StepTimer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -169,6 +191,16 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Sources\Game\Camera\Camera.cpp" />
+    <ClCompile Include="Sources\Game\GameState\GameStateManager.cpp" />
+    <ClCompile Include="Sources\Game\GameState\PauseState.cpp" />
+    <ClCompile Include="Sources\Game\GameState\PlayState.cpp" />
+    <ClCompile Include="Sources\Game\GameState\ResultState.cpp" />
+    <ClCompile Include="Sources\Game\GameState\TitleState.cpp" />
+    <ClCompile Include="Sources\Game\MyGame.cpp" />
+    <ClCompile Include="Sources\Game\UI\Blink.cpp" />
+    <ClCompile Include="Sources\Utils\BinaryFile.cpp" />
+    <ClCompile Include="Sources\Utils\DebugFont.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

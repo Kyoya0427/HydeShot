@@ -1,31 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Common">
-      <UniqueIdentifier>35cbd59f-f262-418e-a41d-f39bbca67401</UniqueIdentifier>
-    </Filter>
     <Filter Include="Assets">
       <UniqueIdentifier>51725f1f-2e0f-4092-a3db-1e3196659886</UniqueIdentifier>
       <Extensions>ico;cur;bmp;dds;dlg;fbx;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tga;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="pch.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="StepTimer.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="DeviceResources.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="pch.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="DeviceResources.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
+    <Filter Include="FrameWork">
+      <UniqueIdentifier>{c3ff8924-c352-4972-be68-cd536c1697f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{02b64e07-b490-4854-8261-48d7820f6dd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="pch">
+      <UniqueIdentifier>{f4452a35-08de-4705-a116-e20368bd5168}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{534850c7-52ee-4ccd-a957-1e3717a5dfeb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Camera">
+      <UniqueIdentifier>{e439606a-c030-4ed5-a076-0ed788f3da5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameState">
+      <UniqueIdentifier>{0810e9b6-2ea7-4f40-aa26-5bf665906144}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\UI">
+      <UniqueIdentifier>{84afbf6a-650f-4c7c-ba8f-85b5a5092cab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
@@ -39,5 +39,106 @@
     <Manifest Include="settings.manifest">
       <Filter>Assets</Filter>
     </Manifest>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="DeviceResources.cpp">
+      <Filter>FrameWork</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>FrameWork</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>pch</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Game\MyGame.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Game\UI\Blink.cpp">
+      <Filter>Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Game\GameState\GameStateManager.cpp">
+      <Filter>Game\GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Game\GameState\PauseState.cpp">
+      <Filter>Game\GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Game\GameState\PlayState.cpp">
+      <Filter>Game\GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Game\GameState\ResultState.cpp">
+      <Filter>Game\GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Game\GameState\TitleState.cpp">
+      <Filter>Game\GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Game\Camera\Camera.cpp">
+      <Filter>Game\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Utils\BinaryFile.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Utils\DebugFont.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DeviceResources.h">
+      <Filter>FrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>FrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>pch</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Game\MyGame.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Game\UI\Blink.h">
+      <Filter>Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Game\GameState\GameStateManager.h">
+      <Filter>Game\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Game\GameState\IGameState.h">
+      <Filter>Game\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Game\GameState\PauseState.h">
+      <Filter>Game\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Game\GameState\PlayState.h">
+      <Filter>Game\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Game\GameState\ResultState.h">
+      <Filter>Game\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Game\GameState\TitleState.h">
+      <Filter>Game\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Game\Camera\Camera.h">
+      <Filter>Game\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="StepTimer.h">
+      <Filter>FrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Utils\BinaryFile.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Utils\DebugFont.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Utils\GameContext.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Utils\Projection.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Utils\ServiceLocator.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Utils\Utilities.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
