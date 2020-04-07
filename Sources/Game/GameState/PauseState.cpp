@@ -1,51 +1,43 @@
-//======================================================
-// File Name	 : PauseState.cpp
-// Summary	 : ƒ|[ƒYƒXƒeƒCƒg
-// Author		 : Kyoya Sakamoto
-//======================================================
-#include <pch.h>
+ï»¿#include <pch.h>
 
 #include "PauseState.h"
-#include "GameStateManager.h"
 
 #include <Keyboard.h>
+ 
 
-#include <Utils\GameContext.h>
+#include <Game\Common\DebugFont.h>
+#include <Game\Common\GameContext.h>
+#include "GameStateManager.h"
 
 
-/// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-/// </summary>
+
 PauseState::PauseState()
-	:IGameState()
+	:GameState()
 {
 }
 
-/// <summary>
-/// ƒfƒXƒgƒ‰ƒNƒ^
-/// </summary>
+
+
 PauseState::~PauseState()
 {
 }
-/// <summary>
-/// ‰Šú‰»
-/// </summary>
+
+
+
 void PauseState::Initialize()
 {
 }
-/// <summary>
-/// XV
-/// </summary>
-/// <param name="elapsedTime">ƒ^ƒCƒ}[</param>
-void PauseState::Update(const DX::StepTimer& timer)
+
+
+
+void PauseState::Update(float elapsedTime)
 {
-	timer;
+	elapsedTime;
 	DirectX::Keyboard::State keyState = DirectX::Keyboard::Get().GetState();
 	if (keyState.IsKeyDown(DirectX::Keyboard::Z))
 	{
-		using StateID = GameStateManager::GameStateID;
 		GameStateManager* gameStateManager = GameContext().Get<GameStateManager>();
-		gameStateManager->RequestState(StateID::TITLE_STATE);
+		gameStateManager->RequestState("Title");
 	}
 
 	if (keyState.IsKeyDown(DirectX::Keyboard::X))
@@ -54,16 +46,19 @@ void PauseState::Update(const DX::StepTimer& timer)
 		gameStateManager->PopState();
 	}
 }
-/// <summary>
-/// •`‰æ
-/// </summary>
-void PauseState::Render(const DX::StepTimer& timer)
+
+
+
+void PauseState::Render()
 {
-	timer;
+	DebugFont* debugFont = DebugFont::GetInstance();
+	debugFont->print(300, 280, L"[Z] Title   [X] Play");
+	debugFont->draw();
 }
-/// <summary>
-/// I—¹
-/// </summary>
+
+
+
 void PauseState::Finalize()
 {
+
 }

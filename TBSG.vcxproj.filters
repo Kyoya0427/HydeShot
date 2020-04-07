@@ -26,6 +26,9 @@
     <Filter Include="Game\UI">
       <UniqueIdentifier>{84afbf6a-650f-4c7c-ba8f-85b5a5092cab}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameWindow">
+      <UniqueIdentifier>{5f1f6eec-7a73-40cb-9ded-b9b9cf77c163}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
@@ -42,35 +45,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="DeviceResources.cpp">
-      <Filter>FrameWork</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>FrameWork</Filter>
-    </ClCompile>
-    <ClCompile Include="pch.cpp">
-      <Filter>pch</Filter>
-    </ClCompile>
     <ClCompile Include="Sources\Game\MyGame.cpp">
       <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="Sources\Game\UI\Blink.cpp">
       <Filter>Game\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\Game\GameState\GameStateManager.cpp">
-      <Filter>Game\GameState</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\Game\GameState\PauseState.cpp">
-      <Filter>Game\GameState</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\Game\GameState\PlayState.cpp">
-      <Filter>Game\GameState</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\Game\GameState\ResultState.cpp">
-      <Filter>Game\GameState</Filter>
-    </ClCompile>
-    <ClCompile Include="Sources\Game\GameState\TitleState.cpp">
-      <Filter>Game\GameState</Filter>
     </ClCompile>
     <ClCompile Include="Sources\Game\Camera\Camera.cpp">
       <Filter>Game\Camera</Filter>
@@ -81,46 +60,43 @@
     <ClCompile Include="Sources\Utils\DebugFont.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\pch\pch.cpp">
+      <Filter>pch</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Framework\DeviceResources.cpp">
+      <Filter>FrameWork</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Framework\Game.cpp">
+      <Filter>FrameWork</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Game\GameState\GameStateManager.cpp">
+      <Filter>Game\GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Game\GameState\PauseState.cpp">
+      <Filter>Game\GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Game\GameState\PlayState.cpp">
+      <Filter>Game\GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Game\GameState\TitleState.cpp">
+      <Filter>Game\GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Game\GameWindow\Bg.cpp">
+      <Filter>Game\GameWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Game\GameWindow\GameWindow.cpp">
+      <Filter>Game\GameWindow</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DeviceResources.h">
-      <Filter>FrameWork</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>FrameWork</Filter>
-    </ClInclude>
-    <ClInclude Include="pch.h">
-      <Filter>pch</Filter>
-    </ClInclude>
     <ClInclude Include="Sources\Game\MyGame.h">
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Sources\Game\UI\Blink.h">
       <Filter>Game\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Sources\Game\GameState\GameStateManager.h">
-      <Filter>Game\GameState</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\Game\GameState\IGameState.h">
-      <Filter>Game\GameState</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\Game\GameState\PauseState.h">
-      <Filter>Game\GameState</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\Game\GameState\PlayState.h">
-      <Filter>Game\GameState</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\Game\GameState\ResultState.h">
-      <Filter>Game\GameState</Filter>
-    </ClInclude>
-    <ClInclude Include="Sources\Game\GameState\TitleState.h">
-      <Filter>Game\GameState</Filter>
-    </ClInclude>
     <ClInclude Include="Sources\Game\Camera\Camera.h">
       <Filter>Game\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="StepTimer.h">
-      <Filter>FrameWork</Filter>
     </ClInclude>
     <ClInclude Include="Sources\Utils\BinaryFile.h">
       <Filter>Utils</Filter>
@@ -139,6 +115,39 @@
     </ClInclude>
     <ClInclude Include="Sources\Utils\Utilities.h">
       <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\pch\pch.h">
+      <Filter>pch</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Framework\DeviceResources.h">
+      <Filter>FrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Framework\Game.h">
+      <Filter>FrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Framework\StepTimer.h">
+      <Filter>FrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Game\GameState\GameState.h">
+      <Filter>Game\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Game\GameState\GameStateManager.h">
+      <Filter>Game\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Game\GameState\PauseState.h">
+      <Filter>Game\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Game\GameState\PlayState.h">
+      <Filter>Game\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Game\GameState\TitleState.h">
+      <Filter>Game\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Game\GameWindow\Bg.h">
+      <Filter>Game\GameWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Game\GameWindow\GameWindow.h">
+      <Filter>Game\GameWindow</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,38 +1,37 @@
-//======================================================
-// File Name	: GameStateManager.cpp
-// Summary	: ƒQ[ƒ€ƒXƒeƒCƒgƒ}ƒlƒWƒƒ[
-// Author		: Kyoya Sakamoto
-//======================================================
-#include <cassert>
+ï»¿#include <pch.h>
 
 #include "GameStateManager.h"
-#include "IGameState.h"
 
-#include <Utils\Utilities.h>
+#include <cassert>
 
-/// <summary>
-/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-/// </summary>
+#include "GameState.h"
+#include <Game\Common\Utilities.h>
+
+
+
 GameStateManager::GameStateManager()
-	:m_stateFactories()
-	,m_states()
-	,m_popCount(0)
-	,m_nextStateName()
+	: m_stateFactories()
+	, m_states()
+	, m_popCount(0)
+	, m_nextStateName()
 {
 }
 
-/// <summary>
-/// ƒfƒXƒgƒ‰ƒNƒ^
-/// </summary>
+
+
 GameStateManager::~GameStateManager()
 {
 }
 
-/// <summary>
-/// XV
-/// </summary>
-/// <param name="elapsedTime">ƒ^ƒCƒ}[</param>
-void GameStateManager::Update(const DX::StepTimer& timer)
+
+void GameStateManager::SetStartState(const std::string& stateName)
+{
+	RequestState(stateName);
+}
+
+
+
+void GameStateManager::Update(float elapsedTime)
 {
 	if (m_popCount > 0)
 	{
@@ -44,87 +43,67 @@ void GameStateManager::Update(const DX::StepTimer& timer)
 		m_popCount = 0;
 	}
 
-	if (m_nextStateName != GameStateID::NONE_STATE)
+
+	if (!m_nextStateName.empty())
 	{
 		ChangeState();
 	}
 
+
 	assert(m_states.size() > 0 && "There is no active state.");
-	m_states.back()->Update(timer);
+	m_states.back()->Update(elapsedTime);
 }
 
 
-/// <summary>
-/// •`‰æ
-/// </summary>
-void GameStateManager::Render(const DX::StepTimer& timer)
+
+void GameStateManager::Render()
 {
 	assert(m_states.size() > 0 && "There is no active state.");
 
-	for (const IGameStatePtr& state : m_states)
+	for (const GameStatePtr& state : m_states)
 	{
-		state->Render(timer);
+		state->Render();
 	}
 }
 
 
 
-/// <summary>
-/// n‚ß‚ÌƒXƒeƒCƒg‚Ì‰Šúİ’è
-/// </summary>
-/// <param name="id">ƒXƒeƒCƒgID</param>
-void GameStateManager::SetStartState(const GameStateID id)
+void GameStateManager::RequestState(const std::string& stateName)
 {
-	RequestState(id);
-}
-
-
-
-/// <summary>
-/// Ÿ‚ÌƒXƒeƒCƒg‚Ìİ’è
-/// </summary>
-/// <param name="id">ƒXƒeƒCƒgID</param>
-void GameStateManager::RequestState(const GameStateID id)
-{
-	assert(m_stateFactories.count(id) != -1 && "A GameState with this name is not registered.");
+	assert(m_stateFactories.count(stateName) == 1 && "A GameState with this name is not registered.");
 
 	m_popCount = m_states.size();
-	m_nextStateName = id;
+	m_nextStateName = stateName;
 }
 
 
-/// <summary>
-/// Šù‘¶ƒXƒeƒCƒg‚ÉƒXƒeƒCƒg‚ğ’Ç‰Á
-/// </summary>
-/// <param name="id">ƒXƒeƒCƒgID</param>
-void GameStateManager::PushState(const GameStateID id)
+
+void GameStateManager::PushState(const std::string& stateName)
 {
-	m_nextStateName = id;
+	m_nextStateName = stateName;
 }
 
-/// <summary>
-/// ’Ç‰ÁƒXƒeƒCƒg‚ğÁ‹
-/// </summary>
-/// <param name="count"></param>
+
+
 void GameStateManager::PopState(int count)
 {
 	assert(count > 0 && "Count is invalid.");
-	if (m_nextStateName != GameStateID::NONE_STATE)
-	{
-		m_nextStateName = NONE_STATE;
-	}
-	m_popCount = Clamp<int>(m_popCount + count, 0, m_states.size() - 1);
 
+	if (!m_nextStateName.empty())
+	{
+		m_nextStateName.clear();
+		count--;
+	}
+
+	m_popCount = Clamp<int>(m_popCount + count, 0, m_states.size()-1);
 }
 
-/// <summary>
-/// ƒXƒeƒCƒg‚ğ•ÏX
-/// </summary>
+
+
 void GameStateManager::ChangeState()
 {
 	m_states.push_back(m_stateFactories[m_nextStateName]());
 	m_states.back()->Initialize();
-
-	m_nextStateName = NONE_STATE;
+	
+	m_nextStateName.clear();
 }
-

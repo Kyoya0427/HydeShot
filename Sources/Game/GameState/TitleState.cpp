@@ -1,99 +1,138 @@
-//======================================================
-// File Name	: TitleState.cpp
-// Summary	: É^ÉCÉgÉãÉXÉeÉCÉg
-// Author		: Kyoya Sakamoto
-//======================================================
-#include <WICTextureLoader.h>
-#include <Keyboard.h>
+Ôªø#include <pch.h>
 
 #include "TitleState.h"
+
+#include <Keyboard.h>
+
+#include <Common\DebugFont.h>
+#include <Common\GameContext.h>
+#include <Common\DeviceResources.h>
+#include <WICTextureLoader.h>
+
 #include "GameStateManager.h"
 
-#include <Utils\GameContext.h>
+#include <Effect\EffectMask.h>
 
-#include <Framework\DeviceResources.h>
+#include <ADX2LE\Adx2Le.h>
 
-/// <summary>
-/// ÉRÉìÉXÉgÉâÉNÉ^
-/// </summary>
+#include <BinaryFile.h>
+
+
 TitleState::TitleState()
-	:IGameState()
+	: GameState()
+	, m_pos(0,0)
+	, m_pushPos(0,0)
 	, m_blinkFlag(false)
 {
 }
 
-/// <summary>
-/// ÉfÉXÉgÉâÉNÉ^
-/// </summary>
+
+
 TitleState::~TitleState()
 {
 }
 
-/// <summary>
-/// ÉCÉjÉVÉÉÉâÉCÉY
-/// </summary>
+
+
 void TitleState::Initialize()
 {
+	auto device = GameContext::Get<DX::DeviceResources>()->GetD3DDevice();
 	m_spriteBatch = std::make_unique<DirectX::SpriteBatch>(GameContext().Get<DX::DeviceResources>()->GetD3DDeviceContext());
-	DirectX::CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\Title.png", NULL, m_texture.ReleaseAndGetAddressOf());
+	DirectX::CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\title.png", NULL, m_texture.ReleaseAndGetAddressOf());
+	DirectX::CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\push_space.png", NULL, m_pushTexture.ReleaseAndGetAddressOf());
+	DirectX::CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\TitleShader.png", NULL, m_shaderTexture.ReleaseAndGetAddressOf());
+	
+	BinaryFile PSData = BinaryFile::LoadFile(L"Resources/Shaders/ParticlePS.cso");
+	device->CreatePixelShader(PSData.GetData(), PSData.GetSize(), NULL, m_PixelShader.ReleaseAndGetAddressOf());
 	m_pos = DirectX::SimpleMath::Vector2(0, 0);
+	m_shaderPos = DirectX::SimpleMath::Vector2(0, 0);
+	m_pushPos = DirectX::SimpleMath::Vector2(430, 600);
 
-	DirectX::CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\space.png", NULL, m_pushTexture.ReleaseAndGetAddressOf());
-	m_pushPos = DirectX::SimpleMath::Vector2(430, 500);
+	//GameContext::Get<EffectMask>()->Open();
 
 	m_blink = std::make_unique<Blink>();
 	m_blink->Initialize(0.16f);
 	m_blink->Start();
+	GameContext::Get<Adx2Le>()->Play(0);
+
+	D3D11_BUFFER_DESC bd;
+	ZeroMemory(&bd, sizeof(bd));
+	bd.Usage = D3D11_USAGE_DEFAULT;
+	bd.ByteWidth = sizeof(ConstBuffer);
+	bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	bd.CPUAccessFlags = 0;
+	device->CreateBuffer(&bd, nullptr, &m_CBuffer);
 }
 
-/// <summary>
-///ÉAÉbÉvÉfÅ[Ég 
-/// </summary>
-/// <param name="elapsedTime">É^ÉCÉ}Å[</param>
-void TitleState::Update(const DX::StepTimer& timer)
+
+
+void TitleState::Update(float elapsedTime)
 {
-	timer;
 	DirectX::Keyboard::State keyState = DirectX::Keyboard::Get().GetState();
-	m_keyTracker.Update(keyState);
 
-	if (m_keyTracker.IsKeyReleased(DirectX::Keyboard::Space))
+	m_constBuffer.time.x += elapsedTime;
+
+	if (GameContext::Get<EffectMask>()->IsOpen() && keyState.Space)
 	{
-		using StateID = GameStateManager::GameStateID;
-
-		GameStateManager* gameStateManager = GameContext().Get<GameStateManager>();
-		gameStateManager->RequestState(StateID::PLAY_STATE);
+		// „Ç®„Éï„Çß„ÇØ„Éà„Éû„Çπ„ÇØ„ÇíÈñâ„Åò„Çã
+		GameContext::Get<EffectMask>()->Close();
+	}
+	// „Ç®„Éï„Çß„ÇØ„Éà„Éû„Çπ„ÇØ„ÅåÈñâ„Åò„Åç„Å£„Åü„Çâ
+	if (GameContext::Get<EffectMask>()->IsClose())
+	{
+		// „Éó„É¨„Ç§„Å∏
+		GameStateManager* gameStateManager = GameContext::Get<GameStateManager>();
+		gameStateManager->RequestState("Play");
 	}
 
 	SelectPartsMode(true);
-	m_blink->Update(timer);
+	m_blink->Update(elapsedTime);
+	
 }
 
-/// <summary>
-/// ï`âÊ
-/// </summary>
-void TitleState::Render(const DX::StepTimer& timer)
+
+
+void TitleState::Render()
 {
-	timer;
+	DebugFont* debugFont = DebugFont::GetInstance();
+	debugFont->print(10, 10, L"TitleState");
+	debugFont->draw();
+
+	auto context = GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext();
+	ID3D11Buffer* cb[1] = { m_CBuffer.Get() };
+	context->UpdateSubresource(m_CBuffer.Get(), 0, NULL, &m_constBuffer, 0, 0);
+
+	m_spriteBatch->Begin(DirectX::SpriteSortMode::SpriteSortMode_Deferred, nullptr, nullptr, nullptr, nullptr, [&]() {
+		context->PSSetShader(m_PixelShader.Get(), nullptr, 0);
+		context->PSSetConstantBuffers(0, 1, cb);
+	});
+	m_spriteBatch->Draw(m_shaderTexture.Get(), m_shaderPos);
+	m_spriteBatch->End();
+
+
 	m_spriteBatch->Begin();
+
 	m_spriteBatch->Draw(m_texture.Get(), m_pos);
+	
 	if (m_blinkFlag == false || m_blink->GetState())
 	{
 		m_spriteBatch->Draw(m_pushTexture.Get(), m_pushPos);
 	}
+
 	m_spriteBatch->End();
 }
 
-/// <summary>
-/// èIóπ
-/// </summary>
+
+
 void TitleState::Finalize()
 {
+
 }
 
 void TitleState::SelectPartsMode(bool flag)
 {
 	m_blinkFlag = flag;
-	// ì_ñ≈ä‘äuÇÃê›íË
+	// ÁÇπÊªÖÈñìÈöî„ÅÆË®≠ÂÆö
 	if (m_blinkFlag == true)
 	{
 		m_blink->Initialize(0.2f);

@@ -1,93 +1,77 @@
-//======================================================
-// File Name	: GameStateManager.h
-// Summary	: ƒQ[ƒ€ƒXƒeƒCƒgƒ}ƒlƒWƒƒ[
-// Author		: Kyoya Sakamoto
-//======================================================
-#pragma once
+ï»¿#pragma once
+
 
 #include <functional>
 #include <memory>
 #include <deque>
+#include <string>
 #include <unordered_map>
-#include <Framework\StepTimer.h>
 
-class IGameState;
 
-class GameStateManager
+class GameState;
+
+
+class GameStateManager final
 {
-public:
-	//ƒXƒeƒCƒgID
-	enum GameStateID
-	{
-		NONE_STATE = -1,
-		TITLE_STATE,
-		PLAY_STATE,
-		PAUSE_STATE,
-		RESULT_STATE,
-	};
-
-private:
-	//–¼‘O•ÏX
-	using IGameStatePtr         = std::unique_ptr<IGameState>;
-	using IGameStateStack       = std::deque<IGameStatePtr>;
-	using IGameStateFactory     = std::function<IGameStatePtr()>;
-	using IGameStateFactoryList = std::unordered_map<GameStateID, IGameStateFactory>;
+	private:
+		using GameStatePtr         = std::unique_ptr<GameState>;
+		using GameStateStack       = std::deque<GameStatePtr>;
+		using GameStateFactory     = std::function<GameStatePtr()>;
+		using GameStateFactoryList = std::unordered_map<std::string, GameStateFactory>;
 
 
-public:
-	GameStateManager();
-	~GameStateManager();
+	private:
+		GameStateFactoryList m_stateFactories;
+		GameStateStack       m_states;
+		int                  m_popCount;
+		std::string          m_nextStateName;
 
-private:
-	template<typename State>
-	static IGameStatePtr CrateState();
 
-public:
-	
-	void Update(const DX::StepTimer& timer);
-	void Render(const DX::StepTimer& timer);
+	private:
+		template<typename State>
+		static GameStatePtr CreateState();
 
-public:
-	template<typename State>
-	void RegisterState(const GameStateID id);
-	
-	void SetStartState(const GameStateID id);
 
-	void RequestState(const GameStateID id);
-	void PushState(const GameStateID id);
-	void PopState(int count = 1);
+	public:
+		GameStateManager();
 
-	
 
-private:
-	void ChangeState();
+	public:
+		~GameStateManager();
 
-private:
-	IGameStateFactoryList m_stateFactories;
-	IGameStateStack       m_states;
-	int                   m_popCount;
-	GameStateID           m_nextStateName;
+
+	public:
+		template<typename State>
+		void RegisterState(const std::string& stateName);
+
+		void SetStartState(const std::string& stateName);
+
+		void Update(float elapsedTime);
+		void Render();
+
+		void RequestState(const std::string& stateName);
+		void PushState(const std::string& stateName);
+		void PopState(int count = 1);
+
+	private:
+		void ChangeState();
 };
 
 
+
 template<typename State>
-/// <summary>
-/// ƒXƒeƒCƒgì¬
-/// </summary>
-/// <returns></returns>
- GameStateManager::IGameStatePtr GameStateManager::CrateState()
+GameStateManager::GameStatePtr GameStateManager::CreateState()
 {
 	return std::make_unique<State>();
 }
 
 
-
 template<typename State>
-/// <summary>
-///  ƒXƒeƒCƒg‚ğ“o˜^
-/// </summary>
-/// <param name="id"></param>
- void GameStateManager::RegisterState(const GameStateID id)
+void GameStateManager::RegisterState(const std::string& stateName)
 {
-	 m_stateFactories.emplace(std::make_pair(id, CrateState<State>));
+	// 1. é™çš„ãƒ¡ãƒ³ãƒé–¢æ•°
+	m_stateFactories.insert(std::make_pair(stateName, CreateState<State>));
+
+	// 2. ãƒ©ãƒ ãƒ€å¼
+	//m_stateFactories.insert(std::make_pair(stateName, [](){ return std::make_unique<State>(); }));
 }

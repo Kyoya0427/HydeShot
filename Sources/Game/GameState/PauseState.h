@@ -1,28 +1,21 @@
-//======================================================
-// File Name	 : PauseState.h
-// Summary	 : ƒ|[ƒYƒXƒeƒCƒg
-// Author		 : Kyoya Sakamoto
-//======================================================
-#pragma once
+ï»¿#pragma once
 
-#include "IGameState.h"
 
-class PauseState :public IGameState
+#include "GameState.h"
+
+
+class PauseState: public GameState
 {
-public:
-	PauseState();
+	public:
+		PauseState();
 
-public:
-	virtual ~PauseState();
+	public:
+		virtual ~PauseState();
 
-public:
-	//‰Šú‰»
-	void Initialize() override;
-	//XV
-	void Update(const DX::StepTimer& timer) override;
-	//•`‰æ
-	void Render(const DX::StepTimer& timer) override;
-	//I—¹
-	void Finalize() override;
+
+	public:
+		void Initialize() override;
+		void Update(float elapsedTime) override;
+		void Render() override;
+		void Finalize() override;
 };
-

@@ -1,50 +1,46 @@
-//======================================================
-// File Name	 : PlayState.h
-// Summary	 : ƒvƒŒƒCƒXƒeƒCƒg
-// Author		 : Kyoya Sakamoto
-//======================================================
-#pragma once
+ï»¿#pragma once
 
 #include <memory>
 
-#include <Model.h>
+#include "GameState.h"
 
-#include "IGameState.h"
 
+class DebugCamera;
+class GridFloor;
+class InfoWindow;
 class CollisionManager;
-class PlayerManager;
-class TPSCamera;
-class StageManager;
+class ObjectManager;
+class GameWindow;
 
-class PlayState :public IGameState
+
+
+class PlayState: public GameState
 {
+
 public:
 	PlayState();
 
 public:
 	virtual ~PlayState();
 
+
 public:
-	//‰Šú‰»
 	void Initialize() override;
-	//XV
-	void Update(const DX::StepTimer& timer) override;
-	//•`‰æ
-	void Render(const DX::StepTimer& timer) override;
-	//I—¹
+	void Update(float elapsedTime) override;
+	void Render() override;
 	void Finalize() override;
 
 private:
+	// ã‚²ãƒ¼ãƒ ç”»é¢ã®ãƒ“ãƒ¥ãƒ¼ãƒãƒ¼ãƒˆ
+	D3D11_VIEWPORT                          m_viewportGame;
+	// æƒ…å ±ç”»é¢ã®ãƒ“ãƒ¥ãƒ¼ãƒãƒ¼ãƒˆ
+	D3D11_VIEWPORT                          m_viewportInfo;
+	// æƒ…å ±ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦
+	std::unique_ptr<InfoWindow>             m_infoWindow;
 
-	//“–‚½‚è”»’èƒ}ƒl[ƒWƒƒ[
-	std::unique_ptr<CollisionManager>   m_collisionManager;
-	//ƒXƒe[ƒWƒ}ƒl[ƒWƒƒ[
-	std::unique_ptr<StageManager>       m_stageManager;
-	//ƒvƒŒƒCƒ„[ƒ}ƒl[ƒWƒƒ[
-	std::unique_ptr<PlayerManager>      m_playerManager;
-	//TPSƒJƒƒ‰
-	std::unique_ptr<TPSCamera>          m_tpsCamera;
-
-
+	std::unique_ptr<GameWindow>				m_gameWindow;
+	//ã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼
+	std::unique_ptr<CollisionManager>       m_collisionManager;
+	// ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼
+	std::unique_ptr<ObjectManager>          m_objectManager;
 };
-

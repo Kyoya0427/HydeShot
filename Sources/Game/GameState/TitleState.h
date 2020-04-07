@@ -1,49 +1,48 @@
-//======================================================
-// File Name	 : TitleState.h
-// Summary	 : É^ÉCÉgÉãÉXÉeÉCÉg
-// Author		 : Kyoya Sakamoto
-//======================================================
-#pragma once
+Ôªø#pragma once
 
-#include "IGameState.h"
+
+#include "GameState.h"
 #include <SpriteBatch.h>
 #include <SimpleMath.h>	
-#include <Keyboard.h>
-#include <Game\UI\Blink.h>
+#include <UI\Blink.h>
 
-class TitleState :public IGameState
+class TitleState: public GameState
 {
-public:
-	TitleState();
+	public:
+		TitleState();
 
-public:
-	virtual ~TitleState();
+	public:
+		virtual ~TitleState();
 
-public:
-	//èâä˙âª
-	void Initialize() override;
-	//çXêV
-	void Update(const DX::StepTimer& timer) override;
-	//ï`âÊ
-	void Render(const DX::StepTimer& timer) override;
-	//èIóπ
-	void Finalize() override;
 
-public:
+	public:
+		void Initialize() override;
+		void Update(float elapsedTime) override;
+		void Render() override;
+		void Finalize() override;
+		// ‰ΩøÁî®„Åô„Çã„Éë„Éº„ÉÑ„ÇíË®≠ÂÆö„Åô„ÇãÊôÇ„ÅÆÁÇπÊªÖË®≠ÂÆö
+		void SelectPartsMode(bool flag);
 
-	void SelectPartsMode(bool flag);
+	private:
+		struct ConstBuffer {
+			DirectX::SimpleMath::Vector4 time;
+		};
 
-private:
+	private:
+		int m_count;
+		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_texture;
+		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_pushTexture;
+		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_shaderTexture;
+		ConstBuffer                                      m_constBuffer;
+		Microsoft::WRL::ComPtr<ID3D11Buffer>	         m_CBuffer;
+		Microsoft::WRL::ComPtr<ID3D11PixelShader>        m_PixelShader;
+		std::unique_ptr<DirectX::SpriteBatch>            m_spriteBatch;
+		DirectX::SimpleMath::Vector2                     m_pos;
+		DirectX::SimpleMath::Vector2                     m_pushPos;
+		DirectX::SimpleMath::Vector2                     m_shaderPos;
+		
+		std::unique_ptr<Blink>                           m_blink;
+		bool                                             m_blinkFlag;
 
-	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_texture;
-	std::unique_ptr<DirectX::SpriteBatch>            m_spriteBatch;
-	DirectX::SimpleMath::Vector2                     m_pos;
-	DirectX::Keyboard::KeyboardStateTracker          m_keyTracker;
 
-	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_pushTexture;
-	DirectX::SimpleMath::Vector2                     m_pushPos;
-
-	std::unique_ptr<Blink>                           m_blink;
-	bool                                             m_blinkFlag;
 };
-
