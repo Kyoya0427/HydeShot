@@ -4,10 +4,15 @@
 
 #pragma once
 
-#include "Common\DeviceResources.h"
-#include "Common\StepTimer.h"
+#include <Game\Common\DeviceResources.h>
+#include <Game\Common\StepTimer.h>
 
+#include <DirectXTK\SpriteBatch.h>
+#include <DirectXTK\CommonStates.h>
+#include <DirectXTK\Keyboard.h>
+#include <DirectXTK\Mouse.h>
 
+#include <Game\MyGame.h>
 
 // A basic game implementation that creates a D3D11 device and
 // provides a game loop.
@@ -54,8 +59,18 @@ private:
     void CreateWindowSizeDependentResources();
 
     // Device resources.
-    std::unique_ptr<DX::DeviceResources>    m_deviceResources;
+    std::unique_ptr<DX::DeviceResources>        m_deviceResources;
 
     // Rendering loop timer.
-    DX::StepTimer                           m_timer;
+    DX::StepTimer                               m_timer;
+	//スプライトバッチ
+	std::unique_ptr<DirectX::SpriteBatch>       m_spriteBatch;
+	// コモンステート
+	std::unique_ptr<DirectX::CommonStates>	    m_state;
+	// マウス
+	std::unique_ptr<DirectX::Mouse>			    m_mouse;
+	//キーボード
+	std::unique_ptr<DirectX::Keyboard>          m_keyboard;
+	//マイゲーム
+	std::unique_ptr<MyGame>                     m_myGame;
 };

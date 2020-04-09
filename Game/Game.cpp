@@ -4,6 +4,9 @@
 
 
 #include "Game.h"
+#include "MyGame.h"
+
+#include <Game\Common\GameContext.h>
 
 extern void ExitGame();
 
@@ -12,7 +15,7 @@ using namespace DirectX;
 using Microsoft::WRL::ComPtr;
 
 
-const wchar_t* Game::WINDOW_TITLE  = L"SampleGame";
+const wchar_t* Game::WINDOW_TITLE  = L"TBSG";
 const int      Game::WINDOW_WIDTH  = 1280;
 const int      Game::WINDOW_HEIGHT = 720;
 
@@ -21,12 +24,15 @@ Game::Game() noexcept(false)
 {
     m_deviceResources = std::make_unique<DX::DeviceResources>();
     m_deviceResources->RegisterDeviceNotify(this);
+	GameContext().Register<DX::DeviceResources>(m_deviceResources);
 }
 
 // Initialize the Direct3D resources required to run.
 void Game::Initialize(HWND window, int width, int height)
 {
-    m_deviceResources->SetWindow(window, width, height);
+	width; height;
+
+    m_deviceResources->SetWindow(window, WINDOW_WIDTH, WINDOW_HEIGHT);
 
     m_deviceResources->CreateDeviceResources();
     CreateDeviceDependentResources();
@@ -34,12 +40,27 @@ void Game::Initialize(HWND window, int width, int height)
     m_deviceResources->CreateWindowSizeDependentResources();
     CreateWindowSizeDependentResources();
 
+	 
+	// コモンステート作成
+	m_state = std::make_unique<CommonStates>(m_deviceResources->GetD3DDevice());
+	GameContext().Register<DirectX::CommonStates>(m_state);
+
+	// マウスの作成
+	m_mouse = std::make_unique<Mouse>();
+	m_mouse->SetWindow(window);
+	//キーボードの作成
+	m_keyboard = std::make_unique<Keyboard>();
+
+
+
+	m_myGame = std::make_unique<MyGame>();
+	m_myGame->Initialize();
     // TODO: Change the timer settings if you want something other than the default variable timestep mode.
     // e.g. for 60 FPS fixed timestep update logic, call:
-    /*
+
     m_timer.SetFixedTimeStep(true);
-    m_timer.SetTargetElapsedSeconds(1.0 / 60);
-    */
+	m_timer.SetTargetElapsedSeconds(1.0 / 60.0);
+    
 }
 
 #pragma region Frame Update
@@ -61,6 +82,8 @@ void Game::Update(const DX::StepTimer& timer)
 
     // TODO: Add your game logic here.
     elapsedTime;
+
+	m_myGame->Update(timer);
 }
 #pragma endregion
 
@@ -83,7 +106,9 @@ void Game::Render()
     context;
 
     m_deviceResources->PIXEndEvent();
+	
 
+	m_myGame->Render(m_timer);
     // Show the new frame.
     m_deviceResources->Present();
 }
