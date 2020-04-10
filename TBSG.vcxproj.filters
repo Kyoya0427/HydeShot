@@ -82,6 +82,9 @@
     <Filter Include="Game\GameState">
       <UniqueIdentifier>{2bef6e33-7557-405c-b27c-59860237487d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Camera">
+      <UniqueIdentifier>{0a5dc624-f135-4b37-88b0-61380f06e172}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <!-- アプリケーションマニフェスト -->
@@ -318,6 +321,9 @@
     </ClInclude>
     <ClInclude Include="Game\GameState\TitleState.h">
       <Filter>Game\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Camera\Camera.h">
+      <Filter>Game\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

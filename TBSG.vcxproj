@@ -136,6 +136,7 @@
     <ClInclude Include="3rdParty\ADX2LE\Include\ADX2LE\cri_le_xpt.h" />
     <ClInclude Include="3rdParty\PicoJSON\Include\PicoJSON\picojson.h" />
     <ClInclude Include="3rdParty\PicoJSON\PicoJSONHeaderList.h" />
+    <ClInclude Include="Game\Camera\Camera.h" />
     <ClInclude Include="Game\Common\DebugFont.h" />
     <ClInclude Include="Game\Common\GameContext.h" />
     <ClInclude Include="Game\Common\Projection.h" />
