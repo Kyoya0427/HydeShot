@@ -10,6 +10,9 @@
 #include <Game\Common\GameContext.h>
 
 #include <Game\GameState\GameStateManager.h>
+
+using namespace DirectX;
+
 /// <summary>
 /// コンストラクタ
 /// </summary>
@@ -41,9 +44,9 @@ void ResultState::Initialize()
 void ResultState::Update(const DX::StepTimer& timer)
 {
 	timer;
-	DirectX::Keyboard::State keyState = DirectX::Keyboard::Get().GetState();
+	Keyboard::KeyboardStateTracker* keyTracker = GameContext().Get<Keyboard::KeyboardStateTracker>();
 
-	if (keyState.IsKeyDown(DirectX::Keyboard::Z))
+	if (keyTracker->IsKeyReleased(DirectX::Keyboard::Z))
 	{
 		using StateID = GameStateManager::GameStateID;
 		GameStateManager* gameStateManager = GameContext().Get<GameStateManager>();

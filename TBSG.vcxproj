@@ -188,22 +188,11 @@
     <ClCompile Include="Game\Common\DeviceResources.cpp" />
     <ClInclude Include="Game\Common\StepTimer.h" />
     <!-- アセット -->
-    <MeshContentTask Include="Game\Assets\Models\WoodenBox.fbx" />
     <MeshContentTask Include="Resources\FBX\bg.FBX" />
     <None Include="3rdParty\ADX2LE\ADX2LE.props" />
     <None Include="3rdParty\ADX2LE\Bin\cri_ware_pcx86_le.dll" />
     <None Include="3rdParty\ADX2LE\License\CRI ADX2 LE 著作権表記.pdf" />
     <None Include="3rdParty\PicoJSON\PicoJSON.props" />
-    <None Include="Game\Assets\Shaders\Particle.hlsli" />
-    <FxCompile Include="Game\Assets\Shaders\ParticleGS.hlsl">
-      <ShaderType>Geometry</ShaderType>
-    </FxCompile>
-    <FxCompile Include="Game\Assets\Shaders\ParticlePS.hlsl">
-      <ShaderType>Pixel</ShaderType>
-    </FxCompile>
-    <FxCompile Include="Game\Assets\Shaders\ParticleVS.hlsl">
-      <ShaderType>Vertex</ShaderType>
-    </FxCompile>
     <!-- [3rdParty]フォルダ -->
     <!-- DirectXTK -->
     <!-- プロパティシート -->

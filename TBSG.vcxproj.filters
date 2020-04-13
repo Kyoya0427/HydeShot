@@ -7,15 +7,6 @@
     <Filter Include="Game\Common">
       <UniqueIdentifier>{cd7e1b52-69f7-4d03-add3-d60bc3f02230}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Assets">
-      <UniqueIdentifier>{12d76628-35ac-41da-a64b-d128d08dbb39}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Assets\Models">
-      <UniqueIdentifier>{914661a5-17bf-4143-a081-6baa4fda7552}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Assets\Shaders">
-      <UniqueIdentifier>{acbb5958-eba3-4b9a-98d7-555701ddefd1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="3rdParty">
       <UniqueIdentifier>{d18d8924-e420-4106-a787-2c76892c1166}</UniqueIdentifier>
     </Filter>
@@ -131,21 +122,6 @@
       <Filter>Game\Common</Filter>
     </ClInclude>
     <!-- アセット -->
-    <MeshContentTask Include="Game\Assets\Models\WoodenBox.fbx">
-      <Filter>Game\Assets\Models</Filter>
-    </MeshContentTask>
-    <None Include="Game\Assets\Shaders\Particle.hlsli">
-      <Filter>Game\Assets\Shaders</Filter>
-    </None>
-    <FxCompile Include="Game\Assets\Shaders\ParticleGS.hlsl">
-      <Filter>Game\Assets\Shaders</Filter>
-    </FxCompile>
-    <FxCompile Include="Game\Assets\Shaders\ParticlePS.hlsl">
-      <Filter>Game\Assets\Shaders</Filter>
-    </FxCompile>
-    <FxCompile Include="Game\Assets\Shaders\ParticleVS.hlsl">
-      <Filter>Game\Assets\Shaders</Filter>
-    </FxCompile>
     <!-- 3rdPartyフォルダ -->
     <!-- DirectXTK -->
     <!-- プロパティシート -->

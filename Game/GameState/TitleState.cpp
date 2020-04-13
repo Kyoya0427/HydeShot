@@ -11,12 +11,15 @@
 
 #include <Game\GameState\GameStateManager.h>
 
+using namespace DirectX;
+
 /// <summary>
 /// コンストラクタ
 /// </summary>
 TitleState::TitleState()
 	:IGameState()
 {
+	
 }
 
 /// <summary>
@@ -41,8 +44,9 @@ void TitleState::Initialize()
 void TitleState::Update(const DX::StepTimer& timer)
 {
 	timer;
-	DirectX::Keyboard::State keyState = DirectX::Keyboard::Get().GetState();
-	if (keyState.IsKeyDown(DirectX::Keyboard::Z))
+	Keyboard::KeyboardStateTracker* keyTracker = GameContext().Get<Keyboard::KeyboardStateTracker>();
+
+	if (keyTracker->IsKeyReleased(DirectX::Keyboard::Z))
 	{
 		using StateID = GameStateManager::GameStateID;
 		GameStateManager* gameStateManager = GameContext().Get<GameStateManager>();

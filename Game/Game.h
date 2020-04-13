@@ -59,18 +59,20 @@ private:
     void CreateWindowSizeDependentResources();
 
     // Device resources.
-    std::unique_ptr<DX::DeviceResources>        m_deviceResources;
+    std::unique_ptr<DX::DeviceResources>                      m_deviceResources;
 
     // Rendering loop timer.
-    DX::StepTimer                               m_timer;
+    DX::StepTimer                                             m_timer;
 	//スプライトバッチ
-	std::unique_ptr<DirectX::SpriteBatch>       m_spriteBatch;
+	std::unique_ptr<DirectX::SpriteBatch>                     m_spriteBatch;
 	// コモンステート
-	std::unique_ptr<DirectX::CommonStates>	    m_state;
+	std::unique_ptr<DirectX::CommonStates>	                  m_state;
 	// マウス
-	std::unique_ptr<DirectX::Mouse>			    m_mouse;
+	std::unique_ptr<DirectX::Mouse>			                  m_mouse;
 	//キーボード
-	std::unique_ptr<DirectX::Keyboard>          m_keyboard;
+	std::unique_ptr<DirectX::Keyboard>                        m_keyboard;
+	//キーボードトラッカー
+	std::unique_ptr<DirectX::Keyboard::KeyboardStateTracker>  m_keyTracker;
 	//マイゲーム
-	std::unique_ptr<MyGame>                     m_myGame;
+	std::unique_ptr<MyGame>                                   m_myGame;
 };

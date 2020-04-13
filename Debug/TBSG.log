@@ -1,31 +1,26 @@
-﻿  Game\Assets\Models\WoodenBox.fbx
-  Resources\FBX\bg.FBX
-  GameWindow.cpp
-c:\program files (x86)\microsoft visual studio 14.0\vc\include\memory(1630): error C2259: 'Bg': 抽象クラスをインスタンス化できません。
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\memory(1630): note: 次のメンバーが原因です:
-  c:\program files (x86)\microsoft visual studio 14.0\vc\include\memory(1630): note: 'void GameObject::OnCollision(GameObject *)': は抽象型です
-  c:\users\s182106\documents\visual studio 2015\projects\tbsg\game\gameobject\gameobject.h(42): note: 'GameObject::OnCollision' の宣言を確認してください
-  c:\users\s182106\documents\visual studio 2015\projects\tbsg\game\gamewindow\gamewindow.cpp(41): note: コンパイル対象の関数 テンプレート インスタンス化 'std::unique_ptr<Bg,std::default_delete<_Ty>> std::make_unique<Bg,>(void)' のリファレンスを確認してください
-          with
-          [
-              _Ty=Bg
-          ]
-  Bg.cpp
-  GameObject.cpp
-  コードを生成中...
-  コンパイル中...
-  Camera.cpp
-  コードを生成中...
-  スキップ中... (関連する変更は検出されませんでした)
+﻿  Resources\FBX\bg.FBX
+  pch.cpp
+  DeviceResources.cpp
+  BinaryFile.cpp
+  Game.cpp
   Main.cpp
   MyGame.cpp
+  GameWindow.cpp
+  Bg.cpp
   TitleState.cpp
   ResultState.cpp
   PlayState.cpp
   PauseState.cpp
   GameStateManager.cpp
-  Game.cpp
-  DeviceResources.cpp
+  ObjectManager.cpp
+  GameObjectManager.cpp
+  GameObject.cpp
   DebugFont.cpp
-  BinaryFile.cpp
+  Camera.cpp
   Adx2Le.cpp
+  コードを生成中...
+     ライブラリ C:\Users\s182106\Documents\Visual Studio 2015\Projects\TBSG\Debug\TBSG.lib とオブジェクト C:\Users\s182106\Documents\Visual Studio 2015\Projects\TBSG\Debug\TBSG.exp を作成中
+  TBSG.vcxproj -> C:\Users\s182106\Documents\Visual Studio 2015\Projects\TBSG\Debug\TBSG.exe
+  TBSG.vcxproj -> C:\Users\s182106\Documents\Visual Studio 2015\Projects\TBSG\Debug\TBSG.pdb (Full PDB)
+  C:\Users\s182106\Documents\Visual Studio 2015\Projects\TBSG\3rdParty\ADX2LE\Bin\cri_ware_pcx86_le.dll
+  1 個のファイルをコピーしました

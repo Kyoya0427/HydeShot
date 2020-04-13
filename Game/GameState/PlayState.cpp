@@ -9,6 +9,7 @@
 #include <Game\Common\GameContext.h>
 
 #include <Game\GameState\GameStateManager.h>
+
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
@@ -44,15 +45,16 @@ void PlayState::Initialize()
 void PlayState::Update(const DX::StepTimer& timer)
 {
 	timer;
-	DirectX::Keyboard::State keyState = DirectX::Keyboard::Get().GetState();
-	if (keyState.IsKeyDown(DirectX::Keyboard::Z))
+	Keyboard::KeyboardStateTracker* keyTracker = GameContext().Get<Keyboard::KeyboardStateTracker>();
+	
+	if (keyTracker->IsKeyReleased(DirectX::Keyboard::Z))
 	{
 		using StateID = GameStateManager::GameStateID;
 		GameStateManager* gameStateManager = GameContext().Get<GameStateManager>();
 		gameStateManager->RequestState(StateID::RESULT_STATE);
 	}
 
-	if (keyState.IsKeyDown(DirectX::Keyboard::Escape))
+	if (keyTracker->IsKeyReleased(DirectX::Keyboard::Escape))
 	{
 		using StateID = GameStateManager::GameStateID;
 		GameStateManager* gameStateManager = GameContext().Get<GameStateManager>();

@@ -50,8 +50,9 @@ void Game::Initialize(HWND window, int width, int height)
 	m_mouse->SetWindow(window);
 	//キーボードの作成
 	m_keyboard = std::make_unique<Keyboard>();
-
-
+	//キーボードトラッカー作成
+	m_keyTracker = std::make_unique<DirectX::Keyboard::KeyboardStateTracker>();
+	GameContext().Register<DirectX::Keyboard::KeyboardStateTracker>(m_keyTracker);
 
 	m_myGame = std::make_unique<MyGame>();
 	m_myGame->Initialize();
@@ -82,8 +83,10 @@ void Game::Update(const DX::StepTimer& timer)
 
     // TODO: Add your game logic here.
     elapsedTime;
-
+	DirectX::Keyboard::State keyState = DirectX::Keyboard::Get().GetState();
+	m_keyTracker->Update(keyState);
 	m_myGame->Update(timer);
+	
 }
 #pragma endregion
 

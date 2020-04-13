@@ -11,6 +11,9 @@
 #include <DirectXTK\VertexTypes.h>
 
 #include <Game\GameObject\GameObject.h>
+
+
+
 class Camera;
 class Bg;
 

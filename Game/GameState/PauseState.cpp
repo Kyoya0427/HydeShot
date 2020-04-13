@@ -11,6 +11,7 @@
 
 #include <Game\GameState\GameStateManager.h>
 
+using namespace DirectX;
 
 /// <summary>
 /// コンストラクタ
@@ -39,15 +40,15 @@ void PauseState::Initialize()
 void PauseState::Update(const DX::StepTimer& timer)
 {
 	timer;
-	DirectX::Keyboard::State keyState = DirectX::Keyboard::Get().GetState();
-	if (keyState.IsKeyDown(DirectX::Keyboard::Z))
+	Keyboard::KeyboardStateTracker* keyTracker = GameContext().Get<Keyboard::KeyboardStateTracker>();
+	if (keyTracker->IsKeyReleased(DirectX::Keyboard::Z))
 	{
 		using StateID = GameStateManager::GameStateID;
 		GameStateManager* gameStateManager = GameContext().Get<GameStateManager>();
 		gameStateManager->RequestState(StateID::TITLE_STATE);
 	}
 
-	if (keyState.IsKeyDown(DirectX::Keyboard::X))
+	if (keyTracker->IsKeyReleased(DirectX::Keyboard::X))
 	{
 		GameStateManager* gameStateManager = GameContext().Get<GameStateManager>();
 		gameStateManager->PopState();
