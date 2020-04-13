@@ -142,21 +142,33 @@
     <ClInclude Include="Game\Common\Projection.h" />
     <ClInclude Include="Game\Common\ServiceLocator.h" />
     <ClInclude Include="Game\Common\Utilities.h" />
+    <ClInclude Include="Game\GameObject\GameObject.h" />
+    <ClInclude Include="Game\GameObject\GameObjectManager.h" />
+    <ClInclude Include="Game\GameObject\ObjectManager.h" />
+    <ClInclude Include="Game\GameObject\ObjectTag.h" />
     <ClInclude Include="Game\GameState\GameStateManager.h" />
     <ClInclude Include="Game\GameState\IGameState.h" />
     <ClInclude Include="Game\GameState\PauseState.h" />
     <ClInclude Include="Game\GameState\PlayState.h" />
     <ClInclude Include="Game\GameState\ResultState.h" />
     <ClInclude Include="Game\GameState\TitleState.h" />
+    <ClInclude Include="Game\GameWindow\Bg.h" />
+    <ClInclude Include="Game\GameWindow\GameWindow.h" />
     <ClInclude Include="Game\MyGame.h" />
     <ClInclude Include="pch.h" />
     <ClCompile Include="3rdParty\ADX2LE\Facade\Adx2Le.cpp" />
+    <ClCompile Include="Game\Camera\Camera.cpp" />
     <ClCompile Include="Game\Common\DebugFont.cpp" />
+    <ClCompile Include="Game\GameObject\GameObject.cpp" />
+    <ClCompile Include="Game\GameObject\GameObjectManager.cpp" />
+    <ClCompile Include="Game\GameObject\ObjectManager.cpp" />
     <ClCompile Include="Game\GameState\GameStateManager.cpp" />
     <ClCompile Include="Game\GameState\PauseState.cpp" />
     <ClCompile Include="Game\GameState\PlayState.cpp" />
     <ClCompile Include="Game\GameState\ResultState.cpp" />
     <ClCompile Include="Game\GameState\TitleState.cpp" />
+    <ClCompile Include="Game\GameWindow\Bg.cpp" />
+    <ClCompile Include="Game\GameWindow\GameWindow.cpp" />
     <ClCompile Include="Game\MyGame.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
@@ -177,6 +189,7 @@
     <ClInclude Include="Game\Common\StepTimer.h" />
     <!-- アセット -->
     <MeshContentTask Include="Game\Assets\Models\WoodenBox.fbx" />
+    <MeshContentTask Include="Resources\FBX\bg.FBX" />
     <None Include="3rdParty\ADX2LE\ADX2LE.props" />
     <None Include="3rdParty\ADX2LE\Bin\cri_ware_pcx86_le.dll" />
     <None Include="3rdParty\ADX2LE\License\CRI ADX2 LE 著作権表記.pdf" />
