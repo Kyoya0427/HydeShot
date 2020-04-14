@@ -53,7 +53,12 @@ void Game::Initialize(HWND window, int width, int height)
 	//キーボードトラッカー作成
 	m_keyTracker = std::make_unique<DirectX::Keyboard::KeyboardStateTracker>();
 	GameContext().Register<DirectX::Keyboard::KeyboardStateTracker>(m_keyTracker);
-
+	// コモンステート作成
+	m_state = std::make_unique<CommonStates>(m_deviceResources->GetD3DDevice());
+	GameContext::Register<DirectX::CommonStates>(m_state);
+	// スプライトバッチの作成
+	m_spriteBatch = std::make_unique<SpriteBatch>(m_deviceResources->GetD3DDeviceContext());
+	GameContext::Register<SpriteBatch>(m_spriteBatch);
 	m_myGame = std::make_unique<MyGame>();
 	m_myGame->Initialize();
     // TODO: Change the timer settings if you want something other than the default variable timestep mode.

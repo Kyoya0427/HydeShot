@@ -4,7 +4,7 @@
 //======================================================
 #pragma once
 
-class GameObjectManager;
+class IGameObjectManager;
 
 class ObjectManager
 {
@@ -14,20 +14,20 @@ public:
 
 public:	// アクセッサ
 		// ゲーム画面のオブジェクトマネージャー取得
-	GameObjectManager* GetGameOM()
+	IGameObjectManager* GetGameOM()
 	{
 		return m_gameOM.get();
 	}
 	// 情報画面のオブジェクトマネージャー取得
-	GameObjectManager* GetInfoOM()
+	IGameObjectManager* GetInfoOM()
 	{
 		return m_infoOM.get();
 	}
 
 private:
 	// ゲームオブジェクトマネージャー（ゲーム画面）
-	std::unique_ptr<GameObjectManager>      m_gameOM;
+	std::unique_ptr<IGameObjectManager>      m_gameOM;
 	// ゲームオブジェクトマネージャー（情報画面）
-	std::unique_ptr<GameObjectManager>      m_infoOM;
+	std::unique_ptr<IGameObjectManager>      m_infoOM;
 };
 

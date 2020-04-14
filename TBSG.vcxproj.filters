@@ -88,6 +88,12 @@
     <Filter Include="Resources\FBX">
       <UniqueIdentifier>{5cb58e9d-eacf-4d00-ad12-565ba7f6df18}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Player">
+      <UniqueIdentifier>{777e5353-1af7-4110-868c-042adb24d22b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemy">
+      <UniqueIdentifier>{f7ca104b-0a7b-46cb-97ef-19074548da34}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <!-- アプリケーションマニフェスト -->
@@ -319,9 +325,6 @@
     <ClInclude Include="Game\GameWindow\GameWindow.h">
       <Filter>Game\GameWindow</Filter>
     </ClInclude>
-    <ClInclude Include="Game\GameObject\GameObject.h">
-      <Filter>Game\GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="Game\GameObject\ObjectTag.h">
       <Filter>Game\GameObject</Filter>
     </ClInclude>
@@ -329,6 +332,18 @@
       <Filter>Game\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="Game\GameObject\ObjectManager.h">
+      <Filter>Game\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\UI\Blink.h">
+      <Filter>Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\UI\InfoWindow.h">
+      <Filter>Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\UI\Letter.h">
+      <Filter>Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\IGameObject.h">
       <Filter>Game\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
@@ -360,9 +375,6 @@
     <ClCompile Include="Game\Camera\Camera.cpp">
       <Filter>Game\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="Game\GameObject\GameObject.cpp">
-      <Filter>Game\GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="Game\GameWindow\GameWindow.cpp">
       <Filter>Game\GameWindow</Filter>
     </ClCompile>
@@ -373,6 +385,18 @@
       <Filter>Game\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Game\GameObject\ObjectManager.cpp">
+      <Filter>Game\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\UI\Blink.cpp">
+      <Filter>Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\UI\InfoWindow.cpp">
+      <Filter>Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\UI\Letter.cpp">
+      <Filter>Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\IGameObject.cpp">
       <Filter>Game\GameObject</Filter>
     </ClCompile>
   </ItemGroup>

@@ -2,12 +2,12 @@
 
 #include "GameObjectManager.h"
 
-#include "GameObject.h"
+#include "IGameObject.h"
 
 
 
 
-GameObjectManager::GameObjectManager()
+IGameObjectManager::IGameObjectManager()
 	: m_objects()
 	, m_objectQueue()
 	,m_drawPrio(0)
@@ -16,13 +16,13 @@ GameObjectManager::GameObjectManager()
 
 
 
-GameObjectManager::~GameObjectManager()
+IGameObjectManager::~IGameObjectManager()
 {
 }
 
 
 
-void GameObjectManager::Update(const DX::StepTimer& timer)
+void IGameObjectManager::Update(const DX::StepTimer& timer)
 {
 	DestroyObjects();
 
@@ -38,20 +38,20 @@ void GameObjectManager::Update(const DX::StepTimer& timer)
 
 
 
-void GameObjectManager::Render(const DX::StepTimer& timer)
+void IGameObjectManager::Render(const DX::StepTimer& timer)
 {
-	std::list<GameObject*> pObjects;
-	GameObjectList::iterator it = m_objects.begin();
-	GameObjectList::iterator end = m_objects.end();
+	std::list<IGameObject*> pObjects;
+	IGameObjectList::iterator it = m_objects.begin();
+	IGameObjectList::iterator end = m_objects.end();
 	while (it != end)
 	{
 		pObjects.push_back((*it).get());
 		++it;
 	}
-	pObjects.sort([](const GameObject* a, const GameObject* b) {
+	pObjects.sort([](const IGameObject* a, const IGameObject* b) {
 		return a->GetDrawPrio() > b->GetDrawPrio();
 	});
-	for (GameObject* object : pObjects)
+	for (IGameObject* object : pObjects)
 	{
 		object->Render(timer);
 	}
@@ -59,25 +59,25 @@ void GameObjectManager::Render(const DX::StepTimer& timer)
 
 
 
-void GameObjectManager::Add(GameObjectPtr&& object)
+void IGameObjectManager::Add(IGameObjectPtr&& object)
 {
 	m_objectQueue.push_back(std::move(object));
 }
 
 
 
-void GameObjectManager::UpdateObjects(const DX::StepTimer& timer)
+void IGameObjectManager::UpdateObjects(const DX::StepTimer& timer)
 {
 	// 実装1 範囲for文
-	for (GameObjectPtr& object : m_objects)
+	for (IGameObjectPtr& object : m_objects)
 	{
 		object->Update(timer);
 	}
 
 
 	// 実装2 イテレータ
-	//GameObjectList::iterator it  = m_objects.begin();
-	//GameObjectList::iterator end = m_objects.end();
+	//IGameObjectList::iterator it  = m_objects.begin();
+	//IGameObjectList::iterator end = m_objects.end();
 	//while (it != end)
 	//{
 	//	(*it)->Update(elapsedTime);
@@ -89,16 +89,16 @@ void GameObjectManager::UpdateObjects(const DX::StepTimer& timer)
 	//std::for_each(
 	//	m_objects.begin(),
 	//	m_objects.end(),
-	//	[&](GameObjectPtr& object) { object->Update(elapsedTime); }
+	//	[&](IGameObjectPtr& object) { object->Update(elapsedTime); }
 	//);
 }
 
 
 
-void GameObjectManager::AcceptObjects()
+void IGameObjectManager::AcceptObjects()
 {
 	// 実装1 範囲for文
-	//for (GameObjectPtr& object : m_objectQueue)
+	//for (IGameObjectPtr& object : m_objectQueue)
 	//{
 	//	m_objects.push_back(std::move(object));
 	//}
@@ -106,8 +106,8 @@ void GameObjectManager::AcceptObjects()
 
 
 	// 実装2 イテレータ
-	//GameObjectList::iterator it  = m_objectQueue.begin();
-	//GameObjectList::iterator end = m_objectQueue.end();
+	//IGameObjectList::iterator it  = m_objectQueue.begin();
+	//IGameObjectList::iterator end = m_objectQueue.end();
 	//while (it != end)
 	//{
 	//	m_objects.push_back(std::move(*it));
@@ -122,10 +122,10 @@ void GameObjectManager::AcceptObjects()
 
 
 
-void GameObjectManager::DestroyObjects()
+void IGameObjectManager::DestroyObjects()
 {
 	// 実装1 イテレータ
-	//GameObjectList::iterator it  = m_objects.begin();
+	//IGameObjectList::iterator it  = m_objects.begin();
 	//while (it != m_objects.end())
 	//{
 	//	if ((*it)->IsInvalid())
@@ -140,9 +140,9 @@ void GameObjectManager::DestroyObjects()
 
 
 	// 実装2 条件一致する全ての要素を削除
-	m_objects.remove_if(std::mem_fn(&GameObject::IsInvalid));
+	m_objects.remove_if(std::mem_fn(&IGameObject::IsInvalid));
 
 
 	// 実装3 ラムダ式
-	//m_objects.remove_if([](const GameObjectPtr& object) { return object->IsInvalid(); });
+	//m_objects.remove_if([](const IGameObjectPtr& object) { return object->IsInvalid(); });
 }

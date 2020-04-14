@@ -9,9 +9,9 @@
 ObjectManager::ObjectManager()
 {
 	// ゲーム画面用オブジェクトマネージャー生成
-	m_gameOM = std::make_unique<GameObjectManager>();
+	m_gameOM = std::make_unique<IGameObjectManager>();
 	// 情報画面用オブジェクトマネージャー生成
-	m_infoOM = std::make_unique<GameObjectManager>();
+	m_infoOM = std::make_unique<IGameObjectManager>();
 }
 
 

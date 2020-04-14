@@ -1,26 +1,5 @@
 ﻿  Resources\FBX\bg.FBX
-  pch.cpp
-  DeviceResources.cpp
-  BinaryFile.cpp
-  Game.cpp
-  Main.cpp
-  MyGame.cpp
   GameWindow.cpp
-  Bg.cpp
-  TitleState.cpp
-  ResultState.cpp
-  PlayState.cpp
-  PauseState.cpp
-  GameStateManager.cpp
-  ObjectManager.cpp
-  GameObjectManager.cpp
-  GameObject.cpp
-  DebugFont.cpp
-  Camera.cpp
-  Adx2Le.cpp
-  コードを生成中...
-     ライブラリ C:\Users\s182106\Documents\Visual Studio 2015\Projects\TBSG\Debug\TBSG.lib とオブジェクト C:\Users\s182106\Documents\Visual Studio 2015\Projects\TBSG\Debug\TBSG.exp を作成中
   TBSG.vcxproj -> C:\Users\s182106\Documents\Visual Studio 2015\Projects\TBSG\Debug\TBSG.exe
   TBSG.vcxproj -> C:\Users\s182106\Documents\Visual Studio 2015\Projects\TBSG\Debug\TBSG.pdb (Full PDB)
-  C:\Users\s182106\Documents\Visual Studio 2015\Projects\TBSG\3rdParty\ADX2LE\Bin\cri_ware_pcx86_le.dll
-  1 個のファイルをコピーしました
+  0 個のファイルをコピーしました

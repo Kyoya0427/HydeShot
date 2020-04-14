@@ -10,7 +10,7 @@
 #include <DirectXTK\PrimitiveBatch.h>
 #include <DirectXTK\VertexTypes.h>
 
-#include <Game\GameObject\GameObject.h>
+#include <Game\GameObject\IGameObject.h>
 
 
 
@@ -19,7 +19,7 @@ class Bg;
 
 
 
-class GameWindow : public GameObject
+class GameWindow : public IGameObject
 {
 public:
 	enum DIR
@@ -73,9 +73,11 @@ public:
 	void Initialize();
 
 	// 更新
-	virtual void Update(const DX::StepTimer& timer);
+	void Update(const DX::StepTimer& timer) override;
 	// 描画関数
-	virtual void Render(const DX::StepTimer & timer);
+	void Render(const DX::StepTimer & timer) override;
+
+	void OnCollision(IGameObject* object) override;
 
 	//	Stage* GetStage() { return m_stage.get(); }
 	Camera* GetCamera() { return m_camera.get(); }

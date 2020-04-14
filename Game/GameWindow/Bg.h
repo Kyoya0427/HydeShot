@@ -4,12 +4,12 @@
 //======================================================
 #pragma once
 
-#include <Game\GameObject\GameObject.h>
+#include <Game\GameObject\IGameObject.h>
 #include <DirectXTK\Model.h>
 
 class GameWindow;
 
-class Bg : public GameObject
+class Bg : public IGameObject
 {
 	// ゲームウインドウへのポインタ
 	GameWindow* m_gameWindow;
@@ -28,7 +28,9 @@ public:
 	void Initialize();
 
 	// 更新
-	virtual void Update(const DX::StepTimer& timer);
+	void Update(const DX::StepTimer& timer) override;
 	// 描画関数
-	virtual void Render(const DX::StepTimer& timer);
+	void Render(const DX::StepTimer& timer) override;
+
+	void OnCollision(IGameObject* object) override;
 };

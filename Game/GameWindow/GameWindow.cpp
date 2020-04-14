@@ -22,11 +22,11 @@ GameWindow::GameWindow()
 /// </summary>
 GameWindow::~GameWindow()
 {
-	/*if (m_bg != nullptr)
+	if (m_bg != nullptr)
 	{
 		m_bg->Invalidate();
 		m_bg = nullptr;
-	}*/
+	}
 }
 
 /// <summary>
@@ -38,8 +38,8 @@ void GameWindow::Initialize()
 	m_camera->Initialize();
 	GameContext().Register<Camera>(m_camera.get());
 
-	//m_bg = std::make_unique<Bg>();
-	//m_bg->Initialize();
+	m_bg = std::make_unique<Bg>();
+	m_bg->Initialize();
 }
 
 /// <summary>
@@ -49,7 +49,7 @@ void GameWindow::Initialize()
 void GameWindow::Update(const DX::StepTimer & timer)
 {
 	timer;
-//	m_bg->Update(timer);
+	m_bg->Update(timer);
 }
 
 /// <summary>
@@ -59,5 +59,10 @@ void GameWindow::Update(const DX::StepTimer & timer)
 void GameWindow::Render(const DX::StepTimer & timer)
 {
 	timer;
-//	m_bg->Render(timer);
+	m_bg->Render(timer);
+}
+
+void GameWindow::OnCollision(IGameObject * object)
+{
+	object;
 }

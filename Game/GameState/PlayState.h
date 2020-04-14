@@ -7,7 +7,9 @@
 
 #include "IGameState.h"
 
-
+class GameWindow;
+class InfoWindow;
+class ObjectManager;
 
 class PlayState :public IGameState
 {
@@ -27,5 +29,20 @@ public:
 	//終了
 	void Finalize() override;
 
+public: 
+	//ポーズ画面に行く処理
+	void ChangePauseState();
+
+private:
+	// ゲーム画面のビューポート
+	D3D11_VIEWPORT                          m_viewportGame;
+	// 情報画面のビューポート
+	D3D11_VIEWPORT                          m_viewportInfo;
+	// 情報ウィンドウ
+	std::unique_ptr<InfoWindow>             m_infoWindow;
+	//ゲームウィンドウ
+	std::unique_ptr<GameWindow>				m_gameWindow;
+	// ゲームオブジェクトマネージャー
+	std::unique_ptr<ObjectManager>          m_objectManager;
 };
 

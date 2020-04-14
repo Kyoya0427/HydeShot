@@ -84,3 +84,8 @@ void Bg::Render(const DX::StepTimer& timer)
 		*GameContext::Get<CommonStates>(),
 		world, view, GameContext::Get<Camera>()->GetProjection());
 }
+
+void Bg::OnCollision(IGameObject * object)
+{
+	object;
+}

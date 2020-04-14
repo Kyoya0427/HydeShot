@@ -142,7 +142,7 @@
     <ClInclude Include="Game\Common\Projection.h" />
     <ClInclude Include="Game\Common\ServiceLocator.h" />
     <ClInclude Include="Game\Common\Utilities.h" />
-    <ClInclude Include="Game\GameObject\GameObject.h" />
+    <ClInclude Include="Game\GameObject\IGameObject.h" />
     <ClInclude Include="Game\GameObject\GameObjectManager.h" />
     <ClInclude Include="Game\GameObject\ObjectManager.h" />
     <ClInclude Include="Game\GameObject\ObjectTag.h" />
@@ -155,11 +155,14 @@
     <ClInclude Include="Game\GameWindow\Bg.h" />
     <ClInclude Include="Game\GameWindow\GameWindow.h" />
     <ClInclude Include="Game\MyGame.h" />
+    <ClInclude Include="Game\UI\Blink.h" />
+    <ClInclude Include="Game\UI\InfoWindow.h" />
+    <ClInclude Include="Game\UI\Letter.h" />
     <ClInclude Include="pch.h" />
     <ClCompile Include="3rdParty\ADX2LE\Facade\Adx2Le.cpp" />
     <ClCompile Include="Game\Camera\Camera.cpp" />
     <ClCompile Include="Game\Common\DebugFont.cpp" />
-    <ClCompile Include="Game\GameObject\GameObject.cpp" />
+    <ClCompile Include="Game\GameObject\IGameObject.cpp" />
     <ClCompile Include="Game\GameObject\GameObjectManager.cpp" />
     <ClCompile Include="Game\GameObject\ObjectManager.cpp" />
     <ClCompile Include="Game\GameState\GameStateManager.cpp" />
@@ -170,6 +173,9 @@
     <ClCompile Include="Game\GameWindow\Bg.cpp" />
     <ClCompile Include="Game\GameWindow\GameWindow.cpp" />
     <ClCompile Include="Game\MyGame.cpp" />
+    <ClCompile Include="Game\UI\Blink.cpp" />
+    <ClCompile Include="Game\UI\InfoWindow.cpp" />
+    <ClCompile Include="Game\UI\Letter.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
       <ForcedIncludeFiles>

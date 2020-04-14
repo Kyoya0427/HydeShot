@@ -8,30 +8,30 @@
 #include <Game\Common\StepTimer.h>
 
 
-class GameObject;
+class IGameObject;
 
 
 
-class GameObjectManager final
+class IGameObjectManager final
 {
-	using GameObjectPtr  = std::unique_ptr<GameObject>;
-	using GameObjectList = std::list<GameObjectPtr>;
+	using IGameObjectPtr  = std::unique_ptr<IGameObject>;
+	using IGameObjectList = std::list<IGameObjectPtr>;
 
 	private:
-		GameObjectList m_objects;
-		GameObjectList m_objectQueue;
+		IGameObjectList m_objects;
+		IGameObjectList m_objectQueue;
 		int m_drawPrio;
 
 	public:
-		GameObjectManager();
+		IGameObjectManager();
 
 	public:
-		~GameObjectManager();
+		~IGameObjectManager();
 
 	public:
 		void Update(const DX::StepTimer& timer);
 		void Render(const DX::StepTimer& timer);
-		void Add(GameObjectPtr&& object);
+		void Add(IGameObjectPtr&& object);
 
 	private:
 		void UpdateObjects(const DX::StepTimer& timer);
@@ -41,12 +41,12 @@ class GameObjectManager final
 		void SetDrawPrio(int prio);
 };
 
-inline const int GameObjectManager::GetDrawPrio() const
+inline const int IGameObjectManager::GetDrawPrio() const
 {
 	return m_drawPrio;
 }
 
-inline void GameObjectManager::SetDrawPrio(int prio)
+inline void IGameObjectManager::SetDrawPrio(int prio)
 {
 	m_drawPrio = prio;
 }
