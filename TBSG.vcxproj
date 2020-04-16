@@ -155,6 +155,8 @@
     <ClInclude Include="Game\GameWindow\Bg.h" />
     <ClInclude Include="Game\GameWindow\GameWindow.h" />
     <ClInclude Include="Game\MyGame.h" />
+    <ClInclude Include="Game\Stage\Stage.h" />
+    <ClInclude Include="Game\Stage\StageCSV.h" />
     <ClInclude Include="Game\UI\Blink.h" />
     <ClInclude Include="Game\UI\InfoWindow.h" />
     <ClInclude Include="Game\UI\Letter.h" />
@@ -173,6 +175,8 @@
     <ClCompile Include="Game\GameWindow\Bg.cpp" />
     <ClCompile Include="Game\GameWindow\GameWindow.cpp" />
     <ClCompile Include="Game\MyGame.cpp" />
+    <ClCompile Include="Game\Stage\Stage.cpp" />
+    <ClCompile Include="Game\Stage\StageCSV.cpp" />
     <ClCompile Include="Game\UI\Blink.cpp" />
     <ClCompile Include="Game\UI\InfoWindow.cpp" />
     <ClCompile Include="Game\UI\Letter.cpp" />

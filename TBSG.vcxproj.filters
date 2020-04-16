@@ -94,6 +94,9 @@
     <Filter Include="Game\Enemy">
       <UniqueIdentifier>{f7ca104b-0a7b-46cb-97ef-19074548da34}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Stage">
+      <UniqueIdentifier>{eec01eb4-317f-46fe-acf8-5e090f3545f6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <!-- アプリケーションマニフェスト -->
@@ -346,6 +349,12 @@
     <ClInclude Include="Game\GameObject\IGameObject.h">
       <Filter>Game\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Stage\StageCSV.h">
+      <Filter>Game\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Stage\Stage.h">
+      <Filter>Game\Stage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="3rdParty\ADX2LE\Facade\Adx2Le.cpp">
@@ -398,6 +407,12 @@
     </ClCompile>
     <ClCompile Include="Game\GameObject\IGameObject.cpp">
       <Filter>Game\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Stage\StageCSV.cpp">
+      <Filter>Game\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Stage\Stage.cpp">
+      <Filter>Game\Stage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
