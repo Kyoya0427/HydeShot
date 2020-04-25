@@ -23,7 +23,7 @@ using namespace DirectX::SimpleMath;
 Bg::Bg()
 	: m_angle(0.0f)
 {
-	SetDrawPrio(GameWindow::BG);
+	SetDrawPrio(GameWindow::DRAW_BG);
 }
 
 /// <summary>

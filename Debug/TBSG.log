@@ -1,5 +1,18 @@
 ﻿  Resources\FBX\bg.FBX
+  Resources\FBX\floorPanel_00.FBX
+  Resources\FBX\floorPanel_01.FBX
   GameWindow.cpp
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\game\gamewindow\gamewindow.cpp(117): warning C4100: 'object': 引数は関数の本体部で 1 度も参照されません。
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\game\gamewindow\gamewindow.cpp(163): warning C4100: 'timer': 引数は関数の本体部で 1 度も参照されません。
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\game\gamewindow\gamewindow.cpp(199): warning C4189: 'infoWindow': ローカル変数が初期化されましたが、参照されていません
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\game\gamewindow\gamewindow.cpp(224): warning C4100: 'elapsedTime': 引数は関数の本体部で 1 度も参照されません。
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\game\gamewindow\gamewindow.cpp(226): warning C4189: 'infoWindow': ローカル変数が初期化されましたが、参照されていません
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\game\gamewindow\gamewindow.cpp(260): warning C4100: 'elapsedTime': 引数は関数の本体部で 1 度も参照されません。
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\game\gamewindow\gamewindow.cpp(267): warning C4100: 'elapsedTime': 引数は関数の本体部で 1 度も参照されません。
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\game\gamewindow\gamewindow.cpp(269): warning C4189: 'infoWindow': ローカル変数が初期化されましたが、参照されていません
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\game\gamewindow\gamewindow.cpp(270): warning C4189: 'state': ローカル変数が初期化されましたが、参照されていません
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\game\gamewindow\gamewindow.cpp(280): warning C4100: 'score': 引数は関数の本体部で 1 度も参照されません。
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\game\gamewindow\gamewindow.cpp(304): warning C4100: 'stageClearFlag': 引数は関数の本体部で 1 度も参照されません。
   TBSG.vcxproj -> C:\Users\s182106\Documents\Visual Studio 2015\Projects\TBSG\Debug\TBSG.exe
   TBSG.vcxproj -> C:\Users\s182106\Documents\Visual Studio 2015\Projects\TBSG\Debug\TBSG.pdb (Full PDB)
   0 個のファイルをコピーしました

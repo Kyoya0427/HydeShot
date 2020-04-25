@@ -1,10 +1,13 @@
 //======================================================
 // File Name	: Stage.h
 // Summary	: ステージクラス
+// Date		: 2019/11/28
+// Author		: Takafumi Ban
 //======================================================
 #pragma once
 
 #include <vector>
+#include "Floor.h"
 
 
 #include <DirectXTK\Model.h>
@@ -21,9 +24,12 @@ public:
 	{
 		NONE,			// なし
 		PLAYER,			// プレイヤー
+		POWERUP_PARTS,	// パワーアップパーツ
+		JUMP_PARTS,		// ジャンプパーツ
 		ENEMY_1,		// 敵１
+		ENEMY_2,		// 敵２
 	};
-
+	
 	// ステージの大きさ
 	static const int STAGE_W = 10;
 	static const int STAGE_H = 10;
@@ -44,9 +50,10 @@ public:
 	// 初期化関数
 	void Initialize();
 
-
-
 	
+
+	// 床タスク取得関数
+	Floor* GetFloor(int x, int y);
 
 	// ステージデータの読み込み関数
 	bool LoadStageData(wchar_t* fname);
@@ -57,7 +64,6 @@ public:
 	// ステージデータのリセット関数
 	void ResetStageData();
 
-	
 private:
 	// 落下チェック関数
 	bool CheckFloor(DirectX::SimpleMath::Vector3 pos, float w, float h);
@@ -74,10 +80,23 @@ private:
 private:
 	//----- ゲームオブジェクトへのポインタ -----//
 
-
+	// 床オブジェクトへのポインタ
+	Floor* m_floors[STAGE_H][STAGE_W];
+	//パーツオブジェクトへのポインター
 
 	//----- モデルへのポインタ -----//
+	// 床のモデル
+	std::unique_ptr<DirectX::Model> m_floorModels[Floor::STATE_NUM];
+	//プレイヤーのモデル
+	//パワーアップパーツのモデル
+	std::unique_ptr<DirectX::Model> m_powerupModel;
+	//ジャンプパーツモデル
+	std::unique_ptr<DirectX::Model> m_jumpModel;
+	//敵のモデル
 	
+	//影モデル
+	std::unique_ptr<DirectX::Model> m_shadowModel;
+
 	// ステージデータ
 	StageData m_stageData;
 

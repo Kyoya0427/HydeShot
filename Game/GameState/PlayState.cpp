@@ -78,6 +78,7 @@ void PlayState::Initialize()
 		static_cast<float>(320),
 		static_cast<float>(720)
 	);
+
 }
 
 /// <summary>
@@ -125,6 +126,8 @@ void PlayState::Render(const DX::StepTimer& timer)
 	// TODO: ビュー行列とプロジェクション行列を設定
 	SimpleMath::Matrix viewMat, projMat;
 	// ゲーム画面のオブジェクト描画
+
+
 	m_objectManager->GetGameOM()->Render(timer);
 	spriteBach->End(); // <---スプライトの描画はここでまとめて行われている
 

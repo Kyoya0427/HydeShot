@@ -139,7 +139,6 @@
     <ClInclude Include="Game\Camera\Camera.h" />
     <ClInclude Include="Game\Common\DebugFont.h" />
     <ClInclude Include="Game\Common\GameContext.h" />
-    <ClInclude Include="Game\Common\Projection.h" />
     <ClInclude Include="Game\Common\ServiceLocator.h" />
     <ClInclude Include="Game\Common\Utilities.h" />
     <ClInclude Include="Game\GameObject\IGameObject.h" />
@@ -155,6 +154,7 @@
     <ClInclude Include="Game\GameWindow\Bg.h" />
     <ClInclude Include="Game\GameWindow\GameWindow.h" />
     <ClInclude Include="Game\MyGame.h" />
+    <ClInclude Include="Game\Stage\Floor.h" />
     <ClInclude Include="Game\Stage\Stage.h" />
     <ClInclude Include="Game\Stage\StageCSV.h" />
     <ClInclude Include="Game\UI\Blink.h" />
@@ -175,6 +175,7 @@
     <ClCompile Include="Game\GameWindow\Bg.cpp" />
     <ClCompile Include="Game\GameWindow\GameWindow.cpp" />
     <ClCompile Include="Game\MyGame.cpp" />
+    <ClCompile Include="Game\Stage\Floor.cpp" />
     <ClCompile Include="Game\Stage\Stage.cpp" />
     <ClCompile Include="Game\Stage\StageCSV.cpp" />
     <ClCompile Include="Game\UI\Blink.cpp" />
@@ -199,6 +200,8 @@
     <ClInclude Include="Game\Common\StepTimer.h" />
     <!-- アセット -->
     <MeshContentTask Include="Resources\FBX\bg.FBX" />
+    <MeshContentTask Include="Resources\FBX\floorPanel_00.FBX" />
+    <MeshContentTask Include="Resources\FBX\floorPanel_01.FBX" />
     <None Include="3rdParty\ADX2LE\ADX2LE.props" />
     <None Include="3rdParty\ADX2LE\Bin\cri_ware_pcx86_le.dll" />
     <None Include="3rdParty\ADX2LE\License\CRI ADX2 LE 著作権表記.pdf" />

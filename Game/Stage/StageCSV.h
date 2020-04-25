@@ -18,5 +18,6 @@ public:
 	StageData m_stageData;
 	// ステージデータの読み込み関数
 	bool LoadStageData(wchar_t* fname);
+
 };
 
