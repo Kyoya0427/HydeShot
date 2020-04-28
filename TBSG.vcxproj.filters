@@ -325,9 +325,6 @@
     <ClInclude Include="Game\GameWindow\GameWindow.h">
       <Filter>Game\GameWindow</Filter>
     </ClInclude>
-    <ClInclude Include="Game\GameObject\ObjectTag.h">
-      <Filter>Game\GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="Game\GameObject\GameObjectManager.h">
       <Filter>Game\GameObject</Filter>
     </ClInclude>
@@ -354,6 +351,12 @@
     </ClInclude>
     <ClInclude Include="Game\Stage\Floor.h">
       <Filter>Game\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Player\Player.h">
+      <Filter>Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Enemy\Enemy.h">
+      <Filter>Game\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -417,6 +420,12 @@
     <ClCompile Include="Game\Stage\Floor.cpp">
       <Filter>Game\Stage</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Player\Player.cpp">
+      <Filter>Game\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Enemy\Enemy.cpp">
+      <Filter>Game\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="3rdParty\ADX2LE\Lib\cri_ware_pcx86_le_import.lib">
@@ -444,6 +453,12 @@
       <Filter>Resources\FBX</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Resources\FBX\floorPanel_01.FBX">
+      <Filter>Resources\FBX</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Resources\FBX\player.FBX">
+      <Filter>Resources\FBX</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Resources\FBX\enemy.FBX">
       <Filter>Resources\FBX</Filter>
     </MeshContentTask>
   </ItemGroup>

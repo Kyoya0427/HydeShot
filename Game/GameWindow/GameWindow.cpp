@@ -151,7 +151,7 @@ GameWindow::GAME_STATE GameWindow::InitializeGame()
 	
 
 	// ステージデータの読み込み
-	m_stage->LoadStageData(GetStageFilename(m_round));
+	m_stage->LoadStageData(L"Resources\\StageData\\Stage01.csv");
 	// ステージデータの設定
 	m_stage->SetStageData();
 // パーツ選択画面へ

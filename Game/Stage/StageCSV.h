@@ -6,8 +6,8 @@ public:
 	~StageCSV();
 
 	// ステージの大きさ
-	static const int STAGE_W = 10;
-	static const int STAGE_H = 10;
+	static const int STAGE_W = 15;
+	static const int STAGE_H = 15;
 	// ステージデータの構造体
 	struct StageData
 	{

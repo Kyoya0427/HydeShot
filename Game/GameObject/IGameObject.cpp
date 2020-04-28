@@ -4,7 +4,6 @@
 //======================================================
 #include "IGameObject.h"
 
-#include <Game\GameObject\ObjectTag.h>
 
 /// <summary>
 /// コンストラクタ
@@ -12,7 +11,7 @@
 /// <param name="tag">タグ名</param>
 IGameObject::IGameObject(const ObjectTag tag)
 {
-	tag;
+	m_tag = tag;
 }
 
 /// <summary>
@@ -52,7 +51,7 @@ bool IGameObject::IsInvalid() const
 /// タグを取得
 /// </summary>
 /// <returns></returns>
-const ObjectTag IGameObject::GetTag() const
+const IGameObject::ObjectTag IGameObject::GetTag() const
 {
 	return m_tag;
 }

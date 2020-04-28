@@ -20,9 +20,7 @@ public:
 	{
 		NONE,		// °‚È‚µ
 		NORMAL,		// ’Êí
-		DAMAGED,	// ”j‘¹‚µ‚½°
-		FALL,		// —Ž‰º’†
-		DEAD,		// —Ž‰º‚µ‚ÄÁ‚¦‚½
+		
 
 		STATE_NUM
 	};

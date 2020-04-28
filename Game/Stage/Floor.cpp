@@ -48,28 +48,15 @@ void Floor::Update(const DX::StepTimer & timer)
 			switch (m_state)
 			{
 			case NORMAL:	// ’Êí
-				m_state = Floor::DAMAGED;	// ”j‘¹‚µ‚½°‚Ö
 				break;
-			case DAMAGED:	// ”j‘¹‚µ‚½°
-				m_state = Floor::FALL;		// —‰º‚Ö
-				break;
+			
+			
 			default:
 				break;
 			}
 		}
 	}
 
-	// —‰ºó‘Ô‚Ìê‡‚Í°‚ğ‰º‚É—‚Æ‚·
-	if (m_state == Floor::FALL)
-	{
-		m_pos.y -= 0.1f;
-
-		// ‚ ‚é’ö“x—‰º‚µ‚½‚çÁ‚·
-		if (m_pos.y < -3.0f)
-		{
-			m_state = Floor::DEAD;
-		}
-	}
 }
 
 void Floor::Render(const DX::StepTimer & timer)

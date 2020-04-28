@@ -9,12 +9,21 @@
 #include <DirectXTK\SimpleMath.h>
 
 #include <Game\Common\StepTimer.h>
-#include <Game\GameObject\ObjectTag.h>
+
 
 
 
 class IGameObject
 {
+public:
+
+	enum ObjectTag
+	{
+		None,
+		Player,
+		Enemy
+	};
+
 private:
 	bool m_isValid;
 	// 描画順序管理用(小さいほど手前に描画される）
@@ -26,7 +35,8 @@ protected:
 	DirectX::SimpleMath::Vector3 m_position;
 	DirectX::SimpleMath::Vector3 m_rotation;
 	DirectX::SimpleMath::Vector3 m_scale;
-
+	// ステージ上の位置
+	int m_x, m_y;
 
 public:
 	IGameObject(const ObjectTag tag = ObjectTag::None);
@@ -61,3 +71,7 @@ public:
 public:
 	static void Destroy(IGameObject* object);
 };
+
+
+
+

@@ -141,10 +141,10 @@
     <ClInclude Include="Game\Common\GameContext.h" />
     <ClInclude Include="Game\Common\ServiceLocator.h" />
     <ClInclude Include="Game\Common\Utilities.h" />
+    <ClInclude Include="Game\Enemy\Enemy.h" />
     <ClInclude Include="Game\GameObject\IGameObject.h" />
     <ClInclude Include="Game\GameObject\GameObjectManager.h" />
     <ClInclude Include="Game\GameObject\ObjectManager.h" />
-    <ClInclude Include="Game\GameObject\ObjectTag.h" />
     <ClInclude Include="Game\GameState\GameStateManager.h" />
     <ClInclude Include="Game\GameState\IGameState.h" />
     <ClInclude Include="Game\GameState\PauseState.h" />
@@ -154,6 +154,7 @@
     <ClInclude Include="Game\GameWindow\Bg.h" />
     <ClInclude Include="Game\GameWindow\GameWindow.h" />
     <ClInclude Include="Game\MyGame.h" />
+    <ClInclude Include="Game\Player\Player.h" />
     <ClInclude Include="Game\Stage\Floor.h" />
     <ClInclude Include="Game\Stage\Stage.h" />
     <ClInclude Include="Game\Stage\StageCSV.h" />
@@ -164,6 +165,7 @@
     <ClCompile Include="3rdParty\ADX2LE\Facade\Adx2Le.cpp" />
     <ClCompile Include="Game\Camera\Camera.cpp" />
     <ClCompile Include="Game\Common\DebugFont.cpp" />
+    <ClCompile Include="Game\Enemy\Enemy.cpp" />
     <ClCompile Include="Game\GameObject\IGameObject.cpp" />
     <ClCompile Include="Game\GameObject\GameObjectManager.cpp" />
     <ClCompile Include="Game\GameObject\ObjectManager.cpp" />
@@ -175,6 +177,7 @@
     <ClCompile Include="Game\GameWindow\Bg.cpp" />
     <ClCompile Include="Game\GameWindow\GameWindow.cpp" />
     <ClCompile Include="Game\MyGame.cpp" />
+    <ClCompile Include="Game\Player\Player.cpp" />
     <ClCompile Include="Game\Stage\Floor.cpp" />
     <ClCompile Include="Game\Stage\Stage.cpp" />
     <ClCompile Include="Game\Stage\StageCSV.cpp" />
@@ -200,8 +203,10 @@
     <ClInclude Include="Game\Common\StepTimer.h" />
     <!-- アセット -->
     <MeshContentTask Include="Resources\FBX\bg.FBX" />
+    <MeshContentTask Include="Resources\FBX\enemy.FBX" />
     <MeshContentTask Include="Resources\FBX\floorPanel_00.FBX" />
     <MeshContentTask Include="Resources\FBX\floorPanel_01.FBX" />
+    <MeshContentTask Include="Resources\FBX\player.FBX" />
     <None Include="3rdParty\ADX2LE\ADX2LE.props" />
     <None Include="3rdParty\ADX2LE\Bin\cri_ware_pcx86_le.dll" />
     <None Include="3rdParty\ADX2LE\License\CRI ADX2 LE 著作権表記.pdf" />

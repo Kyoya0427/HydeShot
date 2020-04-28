@@ -11,7 +11,8 @@
 
 
 #include <DirectXTK\Model.h>
-
+#include <Game\Player\Player.h>
+#include <Game\Enemy\Enemy.h>
 
 
 class GameWindow;
@@ -24,15 +25,12 @@ public:
 	{
 		NONE,			// なし
 		PLAYER,			// プレイヤー
-		POWERUP_PARTS,	// パワーアップパーツ
-		JUMP_PARTS,		// ジャンプパーツ
-		ENEMY_1,		// 敵１
-		ENEMY_2,		// 敵２
+		ENEMY,		// 敵１
 	};
 	
 	// ステージの大きさ
-	static const int STAGE_W = 10;
-	static const int STAGE_H = 10;
+	static const int STAGE_W = 15;
+	static const int STAGE_H = 15;
 
 	// ステージデータの構造体
 	struct StageData
@@ -65,11 +63,7 @@ public:
 	void ResetStageData();
 
 private:
-	// 落下チェック関数
-	bool CheckFloor(DirectX::SimpleMath::Vector3 pos, float w, float h);
 
-	// 床にダメージを与える関数
-	void DamageFloor(DirectX::SimpleMath::Vector3 pos, float w, float h);
 
 	// 登録されているタスク（プレイヤー、敵、パーツ）を全て削除する関数
 	void DeleteAllObject();
@@ -79,7 +73,8 @@ private:
 
 private:
 	//----- ゲームオブジェクトへのポインタ -----//
-
+	Player* m_player;
+	Enemy* m_enemy;
 	// 床オブジェクトへのポインタ
 	Floor* m_floors[STAGE_H][STAGE_W];
 	//パーツオブジェクトへのポインター
@@ -87,17 +82,12 @@ private:
 	//----- モデルへのポインタ -----//
 	// 床のモデル
 	std::unique_ptr<DirectX::Model> m_floorModels[Floor::STATE_NUM];
-	//プレイヤーのモデル
-	//パワーアップパーツのモデル
-	std::unique_ptr<DirectX::Model> m_powerupModel;
-	//ジャンプパーツモデル
-	std::unique_ptr<DirectX::Model> m_jumpModel;
-	//敵のモデル
-	
-	//影モデル
-	std::unique_ptr<DirectX::Model> m_shadowModel;
 
 	// ステージデータ
 	StageData m_stageData;
+
+	//プレイヤーのモデル
+	std::unique_ptr<DirectX::Model> m_playerModel[Player::MODEL_TYPE_NUM];
+	std::unique_ptr<DirectX::Model> m_enemy_Model[Enemy::MODEL_TYPE_NUM];
 
 };
