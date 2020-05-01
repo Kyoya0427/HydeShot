@@ -1,8 +1,9 @@
-﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppClean.targets(76,5): warning : 別のプロセスで使用されているため、プロセスはファイル 'c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.pdb' にアクセスできません。
-  Resources\FBX\bg.FBX
+﻿  Resources\FBX\bg.FBX
   Resources\FBX\enemy.FBX
   Resources\FBX\floorPanel_00.FBX
   Resources\FBX\floorPanel_01.FBX
+  Resources\FBX\floorPanel_02.FBX
+  Resources\FBX\floorPanel_03.FBX
   Resources\FBX\player.FBX
   pch.cpp
   DeviceResources.cpp
@@ -15,13 +16,14 @@
   StageCSV.cpp
   Stage.cpp
   Floor.cpp
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\game\stage\floor.cpp(62): warning C4100: 'timer': 引数は関数の本体部で 1 度も参照されません。
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\game\stage\floor.cpp(64): warning C4189: 'gameWindow': ローカル変数が初期化されましたが、参照されていません
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\game\stage\floor.cpp(87): warning C4100: 'object': 引数は関数の本体部で 1 度も参照されません。
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\game\stage\floor.cpp(61): warning C4100: 'timer': 引数は関数の本体部で 1 度も参照されません。
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\game\stage\floor.cpp(63): warning C4189: 'gameWindow': ローカル変数が初期化されましたが、参照されていません
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\game\stage\floor.cpp(86): warning C4100: 'object': 引数は関数の本体部で 1 度も参照されません。
   Player.cpp
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\game\player\player.cpp(59): warning C4100: 'object': 引数は関数の本体部で 1 度も参照されません。
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\game\player\player.cpp(63): warning C4100: 'timer': 引数は関数の本体部で 1 度も参照されません。
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\game\player\player.cpp(68): warning C4100: 'timer': 引数は関数の本体部で 1 度も参照されません。
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\game\player\player.cpp(57): warning C4100: 'timer': 引数は関数の本体部で 1 度も参照されません。
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\game\player\player.cpp(59): warning C4189: 'keyTracker': ローカル変数が初期化されましたが、参照されていません
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\game\player\player.cpp(66): warning C4100: 'timer': 引数は関数の本体部で 1 度も参照されません。
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\game\player\player.cpp(82): warning C4100: 'object': 引数は関数の本体部で 1 度も参照されません。
   MyGame.cpp
   GameWindow.cpp
 c:\users\s182106\documents\visual studio 2015\projects\tbsg\game\gamewindow\gamewindow.cpp(139): warning C4100: 'object': 引数は関数の本体部で 1 度も参照されません。

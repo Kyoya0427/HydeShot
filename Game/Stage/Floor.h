@@ -18,15 +18,15 @@ public:
 	// 床の状態
 	enum State
 	{
-		NONE,		// 床なし
+		NONE,
 		NORMAL,		// 通常
-		
+		WATER,
 
-		STATE_NUM
+		STATE_NUM,
+		
 	};
 
-	// ダメージの移行時間
-	static const float DAMEGE_DELAY_TIME;
+	
 
 private:
 	// ステージへのポインタ
@@ -70,8 +70,7 @@ public:
 	// 床の状態を取得する関数
 	Floor::State GetState() { return m_state; }
 
-	// ダメージを与える関数
-	void Damage();
+	
 
 	// リセット関数
 	void Reset();

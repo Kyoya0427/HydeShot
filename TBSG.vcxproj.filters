@@ -461,5 +461,11 @@
     <MeshContentTask Include="Resources\FBX\enemy.FBX">
       <Filter>Resources\FBX</Filter>
     </MeshContentTask>
+    <MeshContentTask Include="Resources\FBX\floorPanel_02.FBX">
+      <Filter>Resources\FBX</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Resources\FBX\floorPanel_03.FBX">
+      <Filter>Resources\FBX</Filter>
+    </MeshContentTask>
   </ItemGroup>
 </Project>

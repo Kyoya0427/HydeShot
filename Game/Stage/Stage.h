@@ -71,6 +71,7 @@ private:
 	// 位置からステージのマップチップの位置に変換する関数
 	void ConvertPosToMapChip(float x, float z, int* floor_x, int* floor_y);
 
+
 private:
 	//----- ゲームオブジェクトへのポインタ -----//
 	Player* m_player;
@@ -83,11 +84,13 @@ private:
 	// 床のモデル
 	std::unique_ptr<DirectX::Model> m_floorModels[Floor::STATE_NUM];
 
-	// ステージデータ
-	StageData m_stageData;
+
 
 	//プレイヤーのモデル
 	std::unique_ptr<DirectX::Model> m_playerModel[Player::MODEL_TYPE_NUM];
 	std::unique_ptr<DirectX::Model> m_enemy_Model[Enemy::MODEL_TYPE_NUM];
 
+public:
+	// ステージデータ
+	StageData m_stageData;
 };

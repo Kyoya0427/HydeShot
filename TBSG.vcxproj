@@ -206,6 +206,8 @@
     <MeshContentTask Include="Resources\FBX\enemy.FBX" />
     <MeshContentTask Include="Resources\FBX\floorPanel_00.FBX" />
     <MeshContentTask Include="Resources\FBX\floorPanel_01.FBX" />
+    <MeshContentTask Include="Resources\FBX\floorPanel_02.FBX" />
+    <MeshContentTask Include="Resources\FBX\floorPanel_03.FBX" />
     <MeshContentTask Include="Resources\FBX\player.FBX" />
     <None Include="3rdParty\ADX2LE\ADX2LE.props" />
     <None Include="3rdParty\ADX2LE\Bin\cri_ware_pcx86_le.dll" />

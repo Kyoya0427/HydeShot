@@ -1,0 +1,56 @@
+﻿  Resources\FBX\bg.FBX
+  Resources\FBX\enemy.FBX
+  Resources\FBX\floorPanel_00.FBX
+  Resources\FBX\floorPanel_01.FBX
+  Resources\FBX\player.FBX
+  pch.cpp
+  Adx2Le.cpp
+  Camera.cpp
+  DebugFont.cpp
+  Enemy.cpp
+Game\Enemy\Enemy.cpp(28): warning C4100: 'timer': 引数は関数の本体部で 1 度も参照されません。
+Game\Enemy\Enemy.cpp(33): warning C4100: 'timer': 引数は関数の本体部で 1 度も参照されません。
+Game\Enemy\Enemy.cpp(52): warning C4100: 'object': 引数は関数の本体部で 1 度も参照されません。
+  IGameObject.cpp
+  GameObjectManager.cpp
+  ObjectManager.cpp
+  GameStateManager.cpp
+  PauseState.cpp
+  PlayState.cpp
+  ResultState.cpp
+  TitleState.cpp
+  Bg.cpp
+  GameWindow.cpp
+Game\GameWindow\GameWindow.cpp(139): warning C4100: 'object': 引数は関数の本体部で 1 度も参照されません。
+Game\GameWindow\GameWindow.cpp(145): warning C4189: 'infoWindow': ローカル変数が初期化されましたが、参照されていません
+Game\GameWindow\GameWindow.cpp(164): warning C4100: 'elapsedTime': 引数は関数の本体部で 1 度も参照されません。
+Game\GameWindow\GameWindow.cpp(166): warning C4189: 'infoWindow': ローカル変数が初期化されましたが、参照されていません
+Game\GameWindow\GameWindow.cpp(167): warning C4189: 'state': ローカル変数が初期化されましたが、参照されていません
+  MyGame.cpp
+  Player.cpp
+Game\Player\Player.cpp(57): warning C4100: 'timer': 引数は関数の本体部で 1 度も参照されません。
+Game\Player\Player.cpp(59): warning C4189: 'keyTracker': ローカル変数が初期化されましたが、参照されていません
+Game\Player\Player.cpp(65): warning C4100: 'timer': 引数は関数の本体部で 1 度も参照されません。
+Game\Player\Player.cpp(81): warning C4100: 'object': 引数は関数の本体部で 1 度も参照されません。
+  Floor.cpp
+Game\Stage\Floor.cpp(61): warning C4100: 'timer': 引数は関数の本体部で 1 度も参照されません。
+Game\Stage\Floor.cpp(63): warning C4189: 'gameWindow': ローカル変数が初期化されましたが、参照されていません
+Game\Stage\Floor.cpp(86): warning C4100: 'object': 引数は関数の本体部で 1 度も参照されません。
+  Stage.cpp
+  StageCSV.cpp
+  Blink.cpp
+  コンパイル中...
+  InfoWindow.cpp
+  Letter.cpp
+  Main.cpp
+  Game.cpp
+  BinaryFile.cpp
+  DeviceResources.cpp
+     ライブラリ C:\Users\s182106\Documents\Visual Studio 2015\Projects\TBSG\Release\TBSG.lib とオブジェクト C:\Users\s182106\Documents\Visual Studio 2015\Projects\TBSG\Release\TBSG.exp を作成中
+  コード生成しています。
+  All 2867 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  コード生成が終了しました。
+  TBSG.vcxproj -> C:\Users\s182106\Documents\Visual Studio 2015\Projects\TBSG\Release\TBSG.exe
+  TBSG.vcxproj -> C:\Users\s182106\Documents\Visual Studio 2015\Projects\TBSG\Release\TBSG.pdb (Full PDB)
+  C:\Users\s182106\Documents\Visual Studio 2015\Projects\TBSG\3rdParty\ADX2LE\Bin\cri_ware_pcx86_le.dll
+  1 個のファイルをコピーしました

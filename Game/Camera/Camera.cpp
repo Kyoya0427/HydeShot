@@ -20,8 +20,8 @@ Camera::~Camera()
 
 void Camera::Initialize()
 {
-	m_eye = DirectX::SimpleMath::Vector3(4.5f, 10.5f, 11.0f);
-	m_target = DirectX::SimpleMath::Vector3(4.5f, 0, 5.5f);
+	m_eye = DirectX::SimpleMath::Vector3(7.0f, 15.5f, 16.0f);
+	m_target = DirectX::SimpleMath::Vector3(7.0f, 0, 8.5f);
 
 	m_projection = DirectX::SimpleMath::Matrix::CreatePerspectiveFieldOfView(
 		DirectX::XMConvertToRadians(45.0f),

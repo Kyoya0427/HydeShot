@@ -38,6 +38,7 @@ void Stage::Initialize()
 	DirectX::EffectFactory fx(GameContext::Get<DX::DeviceResources>()->GetD3DDevice());
 	fx.SetDirectory(L"Resources\\Models");
 	m_floorModels[Floor::NORMAL]     = DirectX::Model::CreateFromCMO(GameContext::Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Models\\floorPanel_00.cmo", fx);
+	m_floorModels[Floor::WATER]     = DirectX::Model::CreateFromCMO(GameContext::Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Models\\floorPanel_01.cmo", fx);
 	m_playerModel[Player::NORMAL] = DirectX::Model::CreateFromCMO(GameContext::Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Models\\player.cmo", fx);
 	m_enemy_Model[Enemy::NORMAL] = DirectX::Model::CreateFromCMO(GameContext::Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Models\\enemy.cmo", fx);
 
@@ -52,6 +53,7 @@ void Stage::Initialize()
 			GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(pFloor));
 			// Šeó‘Ô‚Ìƒ‚ƒfƒ‹‚ðÝ’è
 			m_floors[j][i]->SetModel(Floor::NORMAL, m_floorModels[Floor::NORMAL].get());
+			m_floors[j][i]->SetModel(Floor::WATER, m_floorModels[Floor::WATER].get());
 		}
 	}
 }
@@ -156,7 +158,7 @@ void Stage::SetStageData()
 				m_player = player.get();
 				GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(player));
 			}
-				m_player->Initialize(i, j);
+				m_player->Initialize(i, j,this);
 				m_player->SetModel(Player::NORMAL, m_playerModel[Player::NORMAL].get());
 
 				break;

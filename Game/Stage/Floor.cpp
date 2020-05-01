@@ -16,8 +16,7 @@
 
 #include <Game\Camera\Camera.h>
 
-// ダメージの移行時間
-const float Floor::DAMEGE_DELAY_TIME = 0.2f;
+
 
 Floor::Floor()
 	: m_stage(nullptr), m_models{nullptr}, m_state(NONE)
@@ -93,15 +92,7 @@ void Floor::SetModel(State state, DirectX::Model * model)
 	m_models[state] = model;
 }
 
-void Floor::Damage()
-{
-	// １フレームにダメージは１度だけ
-	if (m_damageFlag) return;
-	m_damageFlag = true;
 
-	// ダメージ移行タイマーセット
-	m_damageTimer = DAMEGE_DELAY_TIME;
-}
 
 void Floor::Reset()
 {
