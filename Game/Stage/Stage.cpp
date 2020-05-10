@@ -37,10 +37,12 @@ void Stage::Initialize()
 	// モデルデータの読み込み
 	DirectX::EffectFactory fx(GameContext::Get<DX::DeviceResources>()->GetD3DDevice());
 	fx.SetDirectory(L"Resources\\Models");
-	m_floorModels[Floor::NORMAL]     = DirectX::Model::CreateFromCMO(GameContext::Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Models\\floorPanel_00.cmo", fx);
-	m_floorModels[Floor::WATER]     = DirectX::Model::CreateFromCMO(GameContext::Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Models\\floorPanel_01.cmo", fx);
-	m_playerModel[Player::NORMAL] = DirectX::Model::CreateFromCMO(GameContext::Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Models\\player.cmo", fx);
-	m_enemy_Model[Enemy::NORMAL] = DirectX::Model::CreateFromCMO(GameContext::Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Models\\enemy.cmo", fx);
+	m_floorModels[Floor::NORMAL]           = DirectX::Model::CreateFromCMO(GameContext::Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Models\\floorPanel_00.cmo", fx);
+	m_floorModels[Floor::WATER]            = DirectX::Model::CreateFromCMO(GameContext::Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Models\\floorPanel_01.cmo", fx);
+	m_playerModel[Player::NORMAL]          = DirectX::Model::CreateFromCMO(GameContext::Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Models\\player.cmo", fx);
+	m_playerModel[Player::SELECTION_RANGE] = DirectX::Model::CreateFromCMO(GameContext::Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Models\\floorPanel_02.cmo", fx);
+	m_playerModel[Player::CURSOR]          = DirectX::Model::CreateFromCMO(GameContext::Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Models\\floorPanel_03.cmo", fx);
+	m_enemy_Model[Enemy::NORMAL]           = DirectX::Model::CreateFromCMO(GameContext::Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Models\\enemy.cmo", fx);
 
 	// 床のタスク生成
 	for (int j = 0; j < STAGE_H; j++)
@@ -160,6 +162,8 @@ void Stage::SetStageData()
 			}
 				m_player->Initialize(i, j,this);
 				m_player->SetModel(Player::NORMAL, m_playerModel[Player::NORMAL].get());
+				m_player->SetModel(Player::SELECTION_RANGE, m_playerModel[Player::SELECTION_RANGE].get());
+				m_player->SetModel(Player::CURSOR, m_playerModel[Player::CURSOR].get());
 
 				break;
 

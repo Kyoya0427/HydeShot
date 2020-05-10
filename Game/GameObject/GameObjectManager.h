@@ -20,7 +20,8 @@ class IGameObjectManager final
 	private:
 		IGameObjectList m_objects;
 		IGameObjectList m_objectQueue;
-		int m_drawPrio;
+		int m_drawPrio;
+
 
 	public:
 		IGameObjectManager();
@@ -41,7 +42,8 @@ class IGameObjectManager final
 		void SetDrawPrio(int prio);
 };
 
-inline const int IGameObjectManager::GetDrawPrio() const
+
+inline const int IGameObjectManager::GetDrawPrio() const
 {
 	return m_drawPrio;
 }

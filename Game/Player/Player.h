@@ -17,6 +17,9 @@ public:
 	enum ModelType
 	{
 		NORMAL,	// 通常
+		SELECTION_RANGE,
+		CURSOR,
+
 		MODEL_TYPE_NUM
 	};
 
@@ -38,7 +41,7 @@ public:
 	struct Map
 	{
 		int size;
-		int map[7][7];
+		int map[9][9];
 	};
 
 	struct RangeMap
@@ -58,6 +61,10 @@ private:
 	Stage* m_stage;
 	
 	RangeMap m_rangeMap;
+
+	DirectX::SimpleMath::Vector3 m_cursorPos;
+
+	bool     m_isChoice;
 public:
 	// コンストラクタ
 	Player(const ObjectTag tag);
@@ -76,10 +83,13 @@ public:
 	void OnCollision(IGameObject* object) override;
 
 
+
 	float SLerap(float start, float end, float t);
 
 	void MoveRange(Map* map, int x, int y, int step_count);
 	void AttackRange(Map* map, int x, int y, int range_count);
+	void MovePhaseRender();
+	void MoveCursor();
 
 private:
 	void GetMap(int x, int y, int size1, int size2);
