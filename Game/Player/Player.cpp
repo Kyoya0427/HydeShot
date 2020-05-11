@@ -1,6 +1,8 @@
 //======================================================
 // File Name	: Player.cpp
 // Summary	: プレイヤークラス
+//日付け
+//作成者
 //======================================================
 #include "pch.h"
 #include "Player.h"
@@ -54,6 +56,7 @@ void Player::Initialize(int x, int y, Stage* stage)
 
 void Player::Update(const DX::StepTimer& timer)
 {
+	timer;
 	Keyboard::KeyboardStateTracker* keyTracker = GameContext().Get<Keyboard::KeyboardStateTracker>();
 
 	if (keyTracker->IsKeyReleased(DirectX::Keyboard::Space) && (m_isChoice == false))
@@ -76,20 +79,24 @@ void Player::Update(const DX::StepTimer& timer)
 
 void Player::Render(const DX::StepTimer& timer)
 {
+	timer;
 	GameWindow* gameWindow = GameContext::Get<GameWindow>();
 	DX::DeviceResources* deviceResources = GameContext::Get<DX::DeviceResources>();
 	
 
 	if (!gameWindow || !m_models[ModelType::NORMAL] ) return;
-	// ワールド行列を作成
-	Matrix world =  DirectX::SimpleMath::Matrix::CreateTranslation(m_position);
 
-	// モデルの描画（ジャンプパーツを付けているかどうかでモデルが違う）
-	m_models[ModelType::NORMAL]->Draw(deviceResources->GetD3DDeviceContext(),
-		*GameContext::Get<DirectX::CommonStates>(),
-		world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection());
 
-	
+	{
+		// ワールド行列を作成
+		Matrix world = DirectX::SimpleMath::Matrix::CreateTranslation(m_position);
+
+		// モデルの描画（ジャンプパーツを付けているかどうかでモデルが違う）
+		m_models[ModelType::NORMAL]->Draw(deviceResources->GetD3DDeviceContext(),
+			*GameContext::Get<DirectX::CommonStates>(),
+			world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection());
+
+	}
 
 	if (m_isChoice == true)
 	{
@@ -109,9 +116,9 @@ void Player::Render(const DX::StepTimer& timer)
 	}
 }
 
-void Player::OnCollision(IGameObject * object)
+void Player::OnCollision(IGameObject* object)
 {
-
+	object;
 }
 
 void Player::SetModel(ModelType modelType, DirectX::Model * model)
@@ -224,9 +231,9 @@ void Player::MovePhaseRender()
 		{
 			if (m_rangeMap.move.map[i][j] > 0)
 			{
-				int x = (j - m_rangeMap.move.size + m_position.x);
-				int z = (i - m_rangeMap.move.size + m_position.z);
-				Vector3 pos = Vector3(x, 0.1, z);
+				int x = (j - m_rangeMap.move.size + static_cast<int>(m_position.x));
+				int z = (i - m_rangeMap.move.size + static_cast<int>(m_position.z));
+				Vector3 pos = Vector3(static_cast<float>(x), 0.1f, static_cast<float>(z));
 				DirectX::SimpleMath::Matrix world = DirectX::SimpleMath::Matrix::CreateTranslation(pos);
 
 				// モデルの描画（ジャンプパーツを付けているかどうかでモデルが違う）

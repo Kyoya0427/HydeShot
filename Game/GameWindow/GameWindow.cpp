@@ -138,11 +138,11 @@ void GameWindow::Render(const DX::StepTimer& timer)
 
 void GameWindow::OnCollision(IGameObject * object)
 {
+	object;
 }
 
 GameWindow::GAME_STATE GameWindow::InitializeGame()
 {
-	InfoWindow* infoWindow = GameContext::Get<InfoWindow>();
 	
 
 	// ラウンド数を設定
@@ -163,8 +163,7 @@ GameWindow::GAME_STATE GameWindow::InitializeGame()
 
 GameWindow::GAME_STATE GameWindow::PlayGame(float elapsedTime)
 {
-	InfoWindow* infoWindow = GameContext::Get<InfoWindow>();
-	GAME_STATE state = STATE_GAME;
+	elapsedTime;
 	// プレイヤーの移動処理
 	return STATE_GAME;
 }

@@ -58,9 +58,10 @@ void Floor::Update(const DX::StepTimer & timer)
 
 }
 
-void Floor::Render(const DX::StepTimer & timer)
+void Floor::Render(const DX::StepTimer& timer)
 {
-	GameWindow* gameWindow = GameContext::Get<GameWindow>();
+	timer;
+
 
 	if (!m_stage || !m_models[m_state]) return;
 
@@ -85,6 +86,7 @@ void Floor::Render(const DX::StepTimer & timer)
 
 void Floor::OnCollision(IGameObject * object)
 {
+	object;
 }
 
 void Floor::SetModel(State state, DirectX::Model * model)

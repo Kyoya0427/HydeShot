@@ -142,9 +142,7 @@ void PlayState::Render(const DX::StepTimer& timer)
 
 	auto viewport = deviceResources->GetScreenViewport();
 	context->RSSetViewports(1, &viewport);
-	DebugFont* debugFont = DebugFont::GetInstance();
-	debugFont->print(10, 10, L"PlayState");
-	debugFont->draw();
+	
 }
 
 /// <summary>

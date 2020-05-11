@@ -78,7 +78,7 @@ public:
 	// XV
 	void Update(const DX::StepTimer& timer) override;
 	// •`‰æŠÖ”
-	void Render(const DX::StepTimer & timer) override;
+	void Render(const DX::StepTimer& timer) override;
 
 	void OnCollision(IGameObject* object) override;
 

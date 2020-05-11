@@ -27,11 +27,13 @@ void Enemy::Initialize(int x, int y)
 
 void Enemy::Update(const DX::StepTimer & timer)
 {
+	timer;
 }
 
 
 void Enemy::Render(const DX::StepTimer & timer)
 {
+	timer;
 	GameWindow* gameWindow = GameContext::Get<GameWindow>();
 	DX::DeviceResources* deviceResources = GameContext::Get<DX::DeviceResources>();
 
@@ -51,6 +53,7 @@ void Enemy::Render(const DX::StepTimer & timer)
 
 void Enemy::OnCollision(IGameObject * object)
 {
+	object;
 }
 
 void Enemy::SetModel(ModelType modelType, DirectX::Model * model)

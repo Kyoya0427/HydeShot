@@ -97,6 +97,9 @@
     <Filter Include="Game\Stage">
       <UniqueIdentifier>{eec01eb4-317f-46fe-acf8-5e090f3545f6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\AI">
+      <UniqueIdentifier>{d791624b-656b-4107-bc19-c9e25547587f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <!-- アプリケーションマニフェスト -->
