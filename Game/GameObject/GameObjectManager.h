@@ -1,3 +1,9 @@
+//======================================================
+// File Name	: GameObjectManager.h
+// Summary	: ゲームオブジェクトマネジャー
+// Date		: 2020/5/12
+// Author		: Kyoya  Sakamoto
+//======================================================
 #pragma once
 
 #include <list>
@@ -12,43 +18,61 @@ class IGameObject;
 
 
 
-class IGameObjectManager final
+class GameObjectManager final
 {
-	using IGameObjectPtr  = std::unique_ptr<IGameObject>;
-	using IGameObjectList = std::list<IGameObjectPtr>;
+//名前変更
+using GameObjectPtr  = std::unique_ptr<IGameObject>;
+using GameObjectList = std::list<GameObjectPtr>;
 
-	private:
-		IGameObjectList m_objects;
-		IGameObjectList m_objectQueue;
-		int m_drawPrio;
+public:
+	//コンストラクタ
+	GameObjectManager();
 
+public:
+	//デストラクタ
+	~GameObjectManager();
 
-	public:
-		IGameObjectManager();
+public:
+	//更新
+	void Update(const DX::StepTimer& timer);
+	//描画
+	void Render(const DX::StepTimer& timer);
+	//追加
+	void Add(GameObjectPtr&& object);
 
-	public:
-		~IGameObjectManager();
+private:
+	//追加されたオブジェクトの更新
+	void UpdateObjects(const DX::StepTimer& timer);
+	//一番後ろに追加
+	void AcceptObjects();
+	//オブジェクト消去
+	void DestroyObjects();
+	//描画順登録
+	const int GetDrawPrio() const;
+	//描画順設定
+	void SetDrawPrio(int prio);
 
-	public:
-		void Update(const DX::StepTimer& timer);
-		void Render(const DX::StepTimer& timer);
-		void Add(IGameObjectPtr&& object);
-
-	private:
-		void UpdateObjects(const DX::StepTimer& timer);
-		void AcceptObjects();
-		void DestroyObjects();
-		const int GetDrawPrio() const;
-		void SetDrawPrio(int prio);
+private:
+	GameObjectList m_objects;
+	GameObjectList m_objectQueue;
+	int m_drawPrio;
 };
 
 
-inline const int IGameObjectManager::GetDrawPrio() const
+/// <summary>
+/// 描画順登録
+/// </summary>
+/// <returns></returns>
+inline const int GameObjectManager::GetDrawPrio() const
 {
 	return m_drawPrio;
 }
 
-inline void IGameObjectManager::SetDrawPrio(int prio)
+/// <summary>
+/// 描画順設定
+/// </summary>
+/// <param name="prio"></param>
+inline void GameObjectManager::SetDrawPrio(int prio)
 {
 	m_drawPrio = prio;
 }

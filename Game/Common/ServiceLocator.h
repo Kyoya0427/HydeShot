@@ -1,3 +1,9 @@
+//======================================================
+// File Name	: ServiceLocator.h
+// Summary	: ÉTÅ[ÉrÉXÉçÉPÅ[É^Å[
+// Date		: 2020/5/12
+// Author		: Kyoya  Sakamoto
+//======================================================
 #pragma once
 
 
@@ -28,27 +34,28 @@ class ServiceLocator final
 
 
 	public:
+		//ìoò^
 		template<typename ConcreteService>
 		static void Register(ConcreteService* service)
 		{
 			s_serviceHolder = std::make_unique<ServicePtrHolder<ConcreteService>>(service);
 		}
 
-
+		//ìoò^
 		template<typename ConcreteService>
 		static void Register(std::unique_ptr<ConcreteService>& service)
 		{
 			s_serviceHolder = std::make_unique<ServiceRefHolder<ConcreteService>>(service);
 		}
 
-
+		//ìoò^
 		template<typename ConcreteService>
 		static void Register(std::unique_ptr<ConcreteService>&& service)
 		{
 			s_serviceHolder = std::make_unique<ServiceValHolder<ConcreteService>>(std::move(service));
 		}
 
-
+		//éÊìæ
 		static Service* Get()
 		{
 			assert(s_serviceHolder && "The service has not been registered.");
@@ -56,7 +63,7 @@ class ServiceLocator final
 			return s_serviceHolder->Get();
 		}
 
-
+		//âï˙
 		static void Reset()
 		{
 			s_serviceHolder.reset();

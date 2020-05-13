@@ -1,6 +1,8 @@
 //======================================================
-// File Name : DebugFont.h
-// Summary : デバッグフォント
+// File Name	: DebugFont.h
+// Summary	: カメラ
+// Date		: 2020/5/12
+// Author		: Kyoya  Sakamoto
 //======================================================
 #pragma once
 
@@ -18,9 +20,10 @@ class DebugFont
 public:
 	// 文字列最大数サイズ
 	static const size_t STRING_SIZE_MAX = 256;
-private:
-	DebugFont();
 public:
+	//コンストラクタ
+	DebugFont();
+	//デストラクタ
 	~DebugFont();
 public:
 	// 生成

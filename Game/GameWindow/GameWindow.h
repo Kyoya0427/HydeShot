@@ -1,8 +1,8 @@
 ﻿//======================================================
 // File Name	: GameWindow.h
-// Summary		: ゲームウィンドウ
-// Date			: 2019/11/26
-// Author		: Takafumi Ban
+// Summary	: ゲームウィンドウ
+// Date		: 2020/5/12
+// Author		: Kyoya  Sakamoto
 //======================================================
 #pragma once
 

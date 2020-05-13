@@ -1,6 +1,8 @@
 //======================================================
 // File Name	 : PauseState.cpp
 // Summary	 : ポーズステイト
+// Date		: 2020/5/12
+// Author		: Kyoya  Sakamoto
 //======================================================
 #include "PauseState.h"
 

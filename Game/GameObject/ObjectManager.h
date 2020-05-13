@@ -1,10 +1,12 @@
 //======================================================
 // File Name	: ObjectManager.h
 // Summary	: ゲーム画面と情報画面のオブジェクトマネージャーをまとめたクラス
+// Date		: 2020/5/12
+// Author		: Kyoya  Sakamoto
 //======================================================
 #pragma once
 
-class IGameObjectManager;
+class GameObjectManager;
 
 class ObjectManager
 {
@@ -13,21 +15,21 @@ public:
 	~ObjectManager();
 
 public:	// アクセッサ
-		// ゲーム画面のオブジェクトマネージャー取得
-	IGameObjectManager* GetGameOM()
+	// ゲーム画面のオブジェクトマネージャー取得
+	GameObjectManager* GetGameOM()
 	{
 		return m_gameOM.get();
 	}
 	// 情報画面のオブジェクトマネージャー取得
-	IGameObjectManager* GetInfoOM()
+	GameObjectManager* GetInfoOM()
 	{
 		return m_infoOM.get();
 	}
 
 private:
 	// ゲームオブジェクトマネージャー（ゲーム画面）
-	std::unique_ptr<IGameObjectManager>      m_gameOM;
+	std::unique_ptr<GameObjectManager>      m_gameOM;
 	// ゲームオブジェクトマネージャー（情報画面）
-	std::unique_ptr<IGameObjectManager>      m_infoOM;
+	std::unique_ptr<GameObjectManager>      m_infoOM;
 };
 

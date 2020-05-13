@@ -1,6 +1,8 @@
 //======================================================
 // File Name	: PlayState.h
 // Summary	: プレイステイト
+// Date		: 2020/5/12
+// Author		: Kyoya  Sakamoto
 //======================================================
 #include "PlayState.h"
 #include <DirectXTK\Keyboard.h>

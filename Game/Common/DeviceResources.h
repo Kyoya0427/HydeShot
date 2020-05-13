@@ -1,6 +1,9 @@
-﻿//
-// DeviceResources.h - A wrapper for the Direct3D 11 device and swapchain
-//
+﻿//======================================================
+// File Name	: DeviceResources.h
+// Summary	: デバイスリソーシーズ
+// Date		: 2020/5/12
+// Author		: Kyoya  Sakamoto
+//======================================================
 
 #pragma once
 

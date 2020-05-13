@@ -1,6 +1,8 @@
 //======================================================
 // File Name	: ResultState.cpp
 // Summary	: リザルトステイト
+// Date		: 2020/5/12
+// Author		: Kyoya  Sakamoto
 //======================================================
 
 #include "ResultState.h"

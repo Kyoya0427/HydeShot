@@ -1,12 +1,39 @@
-﻿/// <summary>
-/// バイナリファイルを扱うクラス
-/// </summary>
+﻿//======================================================
+// File Name	: BinaryFile.h
+// Summary	: ファイルロード
+// Date		: 2020/5/12
+// Author		: Kyoya  Sakamoto
+//======================================================
 #include "BinaryFile.h"
 
 #include <fstream>
 #include <cassert>
 
 
+/// <summary>
+/// コンストラクタ
+/// </summary>
+BinaryFile::BinaryFile()
+{
+	m_size = 0;
+}
+
+/// <summary>
+/// ムーブコンストラクタ
+/// </summary>
+/// <param name="in"></param>
+BinaryFile::BinaryFile(BinaryFile && in)
+{
+	m_data = std::move(in.m_data);
+	m_size = in.m_size;
+}
+
+
+/// <summary>
+/// ファイルロード
+/// </summary>
+/// <param name="fileName">ファイル名</param>
+/// <returns></returns>
 BinaryFile BinaryFile::LoadFile(const wchar_t * fileName)
 {
 	BinaryFile bin;
@@ -25,27 +52,16 @@ BinaryFile BinaryFile::LoadFile(const wchar_t * fileName)
 	ifs.clear();
 	ifs.seekg(0, std::fstream::beg);
 	std::streamoff begPos = ifs.tellg();
-	bin.m_Size = (unsigned int)(eofPos - begPos);
+	bin.m_size = (unsigned int)(eofPos - begPos);
 
 	// 読み込むためのメモリを確保
-	bin.m_Data.reset(new char[bin.m_Size]);
+	bin.m_data.reset(new char[bin.m_size]);
 
 	// ファイル先頭からバッファへコピー 
-	ifs.read(bin.m_Data.get(), bin.m_Size);
+	ifs.read(bin.m_data.get(), bin.m_size);
 
 	// ファイルクローズ
 	ifs.close();
 
 	return std::move(bin);
-}
-
-BinaryFile::BinaryFile()
-{
-	m_Size = 0;
-}
-
-BinaryFile::BinaryFile(BinaryFile && in)
-{
-	m_Data = std::move(in.m_Data);
-	m_Size = in.m_Size;
 }

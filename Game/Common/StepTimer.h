@@ -1,7 +1,9 @@
-//
-// StepTimer.h - A simple timer that provides elapsed time information
-//
-
+//======================================================
+// File Name	: StepTimer.h
+// Summary	: タイマー
+// Date		: 2020/5/12
+// Author		: Kyoya  Sakamoto
+//======================================================
 #pragma once
 
 #include <cmath>

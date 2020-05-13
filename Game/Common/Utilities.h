@@ -1,3 +1,9 @@
+//======================================================
+// File Name	: Utilities.h
+// Summary	: ï÷óòä÷êî
+// Date		: 2020/5/12
+// Author		: Kyoya  Sakamoto
+//======================================================
 #pragma once
 
 #include <algorithm>

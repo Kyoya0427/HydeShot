@@ -1,6 +1,8 @@
 //======================================================
 // File Name	 : IGameState.h
 // Summary	 : ゲームステイトのインターフェイス
+// Date		: 2020/5/12
+// Author		: Kyoya  Sakamoto
 //======================================================
 #pragma once
 #include <Game\Common\StepTimer.h>

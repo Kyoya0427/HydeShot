@@ -4,10 +4,16 @@
 
 
 #include "Game.h"
-#include "MyGame.h"
 
+#include <Game\Common\DeviceResources.h>
 #include <Game\Common\GameContext.h>
+#include <Game\Common\DebugFont.h>
 
+#include <Game\GameState\GameStateManager.h>
+#include <Game\GameState\TitleState.h>
+#include <Game\GameState\PlayState.h>
+#include <Game\GameState\PauseState.h>
+#include <Game\GameState\ResultState.h>
 extern void ExitGame();
 
 using namespace DirectX;
@@ -25,6 +31,12 @@ Game::Game() noexcept(false)
     m_deviceResources = std::make_unique<DX::DeviceResources>();
     m_deviceResources->RegisterDeviceNotify(this);
 	GameContext().Register<DX::DeviceResources>(m_deviceResources);
+}
+
+Game::~Game()
+{
+	DebugFont* debugFont = DebugFont::GetInstance();
+	debugFont->reset();
 }
 
 // Initialize the Direct3D resources required to run.
@@ -59,8 +71,24 @@ void Game::Initialize(HWND window, int width, int height)
 	// スプライトバッチの作成
 	m_spriteBatch = std::make_unique<SpriteBatch>(m_deviceResources->GetD3DDeviceContext());
 	GameContext::Register<SpriteBatch>(m_spriteBatch);
-	m_myGame = std::make_unique<MyGame>();
-	m_myGame->Initialize();
+	
+	DX::DeviceResources* deviceResources = GameContext::Get<DX::DeviceResources>();
+	//ステイトマネジャー生成
+	m_stateManager = std::make_unique<GameStateManager>();
+	//ゲームステイト登録
+	using StateID = GameStateManager::GameStateID;
+	m_stateManager->RegisterState<TitleState>(StateID::TITLE_STATE);
+	m_stateManager->RegisterState<PlayState>(StateID::PLAY_STATE);
+	m_stateManager->RegisterState<PauseState>(StateID::PAUSE_STATE);
+	m_stateManager->RegisterState<ResultState>(StateID::RESULT_STATE);
+	//初期ステイト設定
+	m_stateManager->SetStartState(StateID::TITLE_STATE);
+	//コンテキストに登録
+	GameContext().Register<GameStateManager>(m_stateManager);
+
+	DebugFont* debugFont = DebugFont::GetInstance();
+	debugFont->create(deviceResources->GetD3DDevice(), deviceResources->GetD3DDeviceContext());
+
     // TODO: Change the timer settings if you want something other than the default variable timestep mode.
     // e.g. for 60 FPS fixed timestep update logic, call:
 
@@ -78,7 +106,7 @@ void Game::Tick()
         Update(m_timer);
     });
 
-    Render();
+    Render(m_timer);
 }
 
 // Updates the world.
@@ -88,16 +116,19 @@ void Game::Update(const DX::StepTimer& timer)
 
     // TODO: Add your game logic here.
     elapsedTime;
+
+	//キーボードの更新
 	DirectX::Keyboard::State keyState = DirectX::Keyboard::Get().GetState();
 	m_keyTracker->Update(keyState);
-	m_myGame->Update(timer);
-	
+
+	//ゲームステイトの更新
+	m_stateManager->Update(timer);
 }
 #pragma endregion
 
 #pragma region Frame Render
 // Draws the scene.
-void Game::Render()
+void Game::Render(const DX::StepTimer& timer)
 {
     // Don't try to render anything before the first Update.
     if (m_timer.GetFrameCount() == 0)
@@ -115,8 +146,9 @@ void Game::Render()
 
     m_deviceResources->PIXEndEvent();
 	
+	//ゲームステイト描画
+	m_stateManager->Render(timer);
 
-	m_myGame->Render(m_timer);
     // Show the new frame.
     m_deviceResources->Present();
 }
@@ -140,6 +172,8 @@ void Game::Clear()
     context->RSSetViewports(1, &viewport);
 
     m_deviceResources->PIXEndEvent();
+
+
 }
 #pragma endregion
 

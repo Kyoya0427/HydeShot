@@ -1,4 +1,9 @@
-#include "pch.h"
+//======================================================
+// File Name	: GameObjectManager.cpp
+// Summary	: ゲームオブジェクトマネジャー
+// Date		: 2020/5/12
+// Author		: Kyoya  Sakamoto
+//======================================================
 
 #include "GameObjectManager.h"
 
@@ -6,23 +11,28 @@
 
 
 
-
-IGameObjectManager::IGameObjectManager()
+/// <summary>
+/// コンストラクタ
+/// </summary>
+GameObjectManager::GameObjectManager()
 	: m_objects()
 	, m_objectQueue()
 	,m_drawPrio(0)
 {
 }
 
-
-
-IGameObjectManager::~IGameObjectManager()
+/// <summary>
+/// デストラクタ
+/// </summary>
+GameObjectManager::~GameObjectManager()
 {
 }
 
-
-
-void IGameObjectManager::Update(const DX::StepTimer& timer)
+/// <summary>
+/// 更新
+/// </summary>
+/// <param name="timer"></param>
+void GameObjectManager::Update(const DX::StepTimer& timer)
 {
 	DestroyObjects();
 
@@ -36,13 +46,15 @@ void IGameObjectManager::Update(const DX::StepTimer& timer)
 	UpdateObjects(timer);
 }
 
-
-
-void IGameObjectManager::Render(const DX::StepTimer& timer)
+/// <summary>
+/// 描画
+/// </summary>
+/// <param name="timer"></param>
+void GameObjectManager::Render(const DX::StepTimer& timer)
 {
 	std::list<IGameObject*> pObjects;
-	IGameObjectList::iterator it = m_objects.begin();
-	IGameObjectList::iterator end = m_objects.end();
+	GameObjectList::iterator it = m_objects.begin();
+	GameObjectList::iterator end = m_objects.end();
 	while (it != end)
 	{
 		pObjects.push_back((*it).get());
@@ -57,92 +69,61 @@ void IGameObjectManager::Render(const DX::StepTimer& timer)
 	}
 }
 
-
-
-void IGameObjectManager::Add(IGameObjectPtr&& object)
+/// <summary>
+/// 追加
+/// </summary>
+/// <param name="object"></param>
+void GameObjectManager::Add(GameObjectPtr&& object)
 {
 	m_objectQueue.push_back(std::move(object));
 }
 
 
-
-void IGameObjectManager::UpdateObjects(const DX::StepTimer& timer)
+/// <summary>
+/// オブジェクト更新
+/// </summary>
+/// <param name="timer"></param>
+void GameObjectManager::UpdateObjects(const DX::StepTimer& timer)
 {
-	// 実装1 範囲for文
-	for (IGameObjectPtr& object : m_objects)
+	for (GameObjectList::iterator itr = m_objects.begin(); itr != m_objects.end(); itr++)
 	{
-		object->Update(timer);
+		(*itr)->Update(timer);
 	}
-
-
-	// 実装2 イテレータ
-	//IGameObjectList::iterator it  = m_objects.begin();
-	//IGameObjectList::iterator end = m_objects.end();
-	//while (it != end)
-	//{
-	//	(*it)->Update(elapsedTime);
-	//	++it;
-	//}
-
-
-	// 実装3 ラムダ式
-	//std::for_each(
-	//	m_objects.begin(),
-	//	m_objects.end(),
-	//	[&](IGameObjectPtr& object) { object->Update(elapsedTime); }
-	//);
 }
 
-
-
-void IGameObjectManager::AcceptObjects()
+/// <summary>
+/// 一番後ろに追加
+/// </summary>
+void GameObjectManager::AcceptObjects()
 {
-	// 実装1 範囲for文
-	//for (IGameObjectPtr& object : m_objectQueue)
-	//{
-	//	m_objects.push_back(std::move(object));
-	//}
-	//m_objectQueue.clear();
+	// イテレータ
+	GameObjectList::iterator it  = m_objectQueue.begin();
+	GameObjectList::iterator end = m_objectQueue.end();
+	while (it != end)
+	{
+		m_objects.push_back(std::move(*it));
+		++it;
+	}
+	m_objectQueue.clear();
 
-
-	// 実装2 イテレータ
-	//IGameObjectList::iterator it  = m_objectQueue.begin();
-	//IGameObjectList::iterator end = m_objectQueue.end();
-	//while (it != end)
-	//{
-	//	m_objects.push_back(std::move(*it));
-	//	++it;
-	//}
-	//m_objectQueue.clear();
-
-
-	// 実装3 要素の移動
-	m_objects.splice(m_objects.end(), m_objectQueue);
 }
 
-
-
-void IGameObjectManager::DestroyObjects()
+/// <summary>
+/// オブジェクト消去
+/// </summary>
+void GameObjectManager::DestroyObjects()
 {
-	// 実装1 イテレータ
-	//IGameObjectList::iterator it  = m_objects.begin();
-	//while (it != m_objects.end())
-	//{
-	//	if ((*it)->IsInvalid())
-	//	{
-	//		it = m_objects.erase(it);
-	//	}
-	//	else
-	//	{
-	//		++it;
-	//	}
-	//}
-
-
-	// 実装2 条件一致する全ての要素を削除
-	m_objects.remove_if(std::mem_fn(&IGameObject::IsInvalid));
-
-
-	// 実装3 ラムダ式
-	//m_objects.remove_if([](const IGameObjectPtr& object) { return object->IsInvalid(); });
+	//  イテレータ
+	GameObjectList::iterator it  = m_objects.begin();
+	while (it != m_objects.end())
+	{
+		if ((*it)->IsInvalid())
+		{
+			it = m_objects.erase(it);
+		}
+		else
+		{
+			++it;
+		}
+	}
 }

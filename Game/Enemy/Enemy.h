@@ -1,3 +1,9 @@
+//======================================================
+// File Name	: Enemy.h
+// Summary	: エネミー
+// Date		: 2020/5/12
+// Author		: Kyoya  Sakamoto
+//======================================================
 #pragma once
 
 #include <Game\GameObject\IGameObject.h>
@@ -17,10 +23,11 @@ public:
 	// 敵の状態
 	enum STATE
 	{
-		STATE_NORMAL, // 通常
-		STATE_HIT, // 吹き飛ばされ状態
-		STATE_FALL, // 落下中
-		STATE_DEAD, // 死亡
+		STANDING,	// 通常
+		MOVE,
+		ATTACK,
+		DEAD,		// 死亡
+		NEXT
 	};
 	
 	// 思考間隔（単位：秒）
@@ -28,19 +35,17 @@ public:
 
 public: 
 	Enemy(const ObjectTag tag);
-	// 初期化関数
+	// 初期化
 	void Initialize(int x, int y);
 	// 更新
 	void Update(const DX::StepTimer& timer) override;
-	// 描画関数
+	// 描画
 	void Render(const DX::StepTimer & timer) override;
-
+	//衝突後の処理
 	void OnCollision(IGameObject* object) override;
 
-	
-
-
-	// モデル設定関数
+public:
+	// モデル設定
 	void SetModel(ModelType modelType, DirectX::Model* model);
 	
 private:

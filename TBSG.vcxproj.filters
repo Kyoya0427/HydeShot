@@ -289,9 +289,6 @@
     <ClInclude Include="Game\Common\DebugFont.h">
       <Filter>Game\Common</Filter>
     </ClInclude>
-    <ClInclude Include="Game\MyGame.h">
-      <Filter>Game</Filter>
-    </ClInclude>
     <ClInclude Include="Game\GameState\GameStateManager.h">
       <Filter>Game\GameState</Filter>
     </ClInclude>
@@ -383,9 +380,6 @@
     </ClCompile>
     <ClCompile Include="Game\GameState\TitleState.cpp">
       <Filter>Game\GameState</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\MyGame.cpp">
-      <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="Game\Camera\Camera.cpp">
       <Filter>Game\Camera</Filter>

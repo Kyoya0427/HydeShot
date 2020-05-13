@@ -12,7 +12,7 @@
 #include <DirectXTK\Keyboard.h>
 #include <DirectXTK\Mouse.h>
 
-#include <Game\MyGame.h>
+#include <Game\GameState\GameStateManager.h>
 
 // A basic game implementation that creates a D3D11 device and
 // provides a game loop.
@@ -26,6 +26,7 @@ public:
 public:
 
     Game() noexcept(false);
+	~Game();
 
     // Initialization and management
     void Initialize(HWND window, int width, int height);
@@ -51,7 +52,7 @@ public:
 private:
 
     void Update(const DX::StepTimer& timer);
-    void Render();
+    void Render(const DX::StepTimer& timer);
 
     void Clear();
 
@@ -73,6 +74,6 @@ private:
 	std::unique_ptr<DirectX::Keyboard>                        m_keyboard;
 	//キーボードトラッカー
 	std::unique_ptr<DirectX::Keyboard::KeyboardStateTracker>  m_keyTracker;
-	//マイゲーム
-	std::unique_ptr<MyGame>                                   m_myGame;
+	//ステイトマネジャー
+	std::unique_ptr<GameStateManager>                         m_stateManager;
 };

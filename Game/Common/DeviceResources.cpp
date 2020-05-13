@@ -1,7 +1,9 @@
-﻿//
-// DeviceResources.cpp - A wrapper for the Direct3D 11 device and swapchain
-//                       (requires DirectX 11.1 Runtime)
-//
+﻿//======================================================
+// File Name	: DeviceResources.cpp
+// Summary	: デバイスリソーシーズ
+// Date		: 2020/5/12
+// Author		: Kyoya  Sakamoto
+//======================================================
 
 #include "DeviceResources.h"
 

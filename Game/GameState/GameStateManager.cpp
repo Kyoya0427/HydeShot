@@ -1,6 +1,8 @@
 //======================================================
 // File Name	: GameStateManager.cpp
 // Summary	: ゲームステイトマネジャー
+// Date		: 2020/5/12
+// Author		: Kyoya  Sakamoto
 //======================================================
 #include <cassert>
 
