@@ -61,7 +61,7 @@ void Enemy::Update(const DX::StepTimer & timer)
 	float speed = 0.01f;
 	float rot = 0.01f;
 
-	m_interval += timer.GetElapsedSeconds();
+	m_interval += float(timer.GetElapsedSeconds());
 	m_velocity = DirectX::SimpleMath::Vector3::Zero;
 
 	if (m_interval >= 2.0f)
@@ -104,10 +104,10 @@ void Enemy::Render(const DX::StepTimer & timer)
 {
 	timer;
 	GameWindow* gameWindow = GameContext::Get<GameWindow>();
-	DX::DeviceResources* deviceResources = GameContext::Get<DX::DeviceResources>();
 	DebugFont* debugFont = DebugFont::GetInstance();
-	debugFont->print(10, 30, L"%f",m_interval);
+	debugFont->print(10, 30, L"%f / 2.0",m_interval);
 	debugFont->draw();
+
 	switch (m_state)
 	{
 	case FORWARD:

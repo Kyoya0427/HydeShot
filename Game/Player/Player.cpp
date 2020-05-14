@@ -101,7 +101,6 @@ void Player::Render(const DX::StepTimer& timer)
 {
 	timer;
 	GameWindow* gameWindow = GameContext::Get<GameWindow>();
-	DX::DeviceResources* deviceResources = GameContext::Get<DX::DeviceResources>();
 	
 	Quaternion rot = DirectX::SimpleMath::Quaternion::CreateFromAxisAngle(DirectX::SimpleMath::Vector3::UnitY, m_rotation.y);
 
