@@ -1,8 +1,8 @@
 //======================================================
 // File Name	: Floor.h
-// Summary		: 床クラス
-// Date			: 2019/11/28
-// Author		: Takafumi Ban
+// Summary	: 床クラス
+// Date		: 2020/5/12
+// Author		: Kyoya  Sakamoto
 //======================================================
 #pragma once
 

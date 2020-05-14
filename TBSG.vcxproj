@@ -141,6 +141,7 @@
     <ClInclude Include="Game\Common\GameContext.h" />
     <ClInclude Include="Game\Common\ServiceLocator.h" />
     <ClInclude Include="Game\Common\Utilities.h" />
+    <ClInclude Include="Game\Controller\CharacterController.h" />
     <ClInclude Include="Game\Enemy\Enemy.h" />
     <ClInclude Include="Game\GameObject\IGameObject.h" />
     <ClInclude Include="Game\GameObject\GameObjectManager.h" />
@@ -164,6 +165,7 @@
     <ClCompile Include="3rdParty\ADX2LE\Facade\Adx2Le.cpp" />
     <ClCompile Include="Game\Camera\Camera.cpp" />
     <ClCompile Include="Game\Common\DebugFont.cpp" />
+    <ClCompile Include="Game\Controller\CharacterController.cpp" />
     <ClCompile Include="Game\Enemy\Enemy.cpp" />
     <ClCompile Include="Game\GameObject\IGameObject.cpp" />
     <ClCompile Include="Game\GameObject\GameObjectManager.cpp" />

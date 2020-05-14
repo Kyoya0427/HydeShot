@@ -6,10 +6,10 @@
 //======================================================
 #pragma once
 
-#include <Game\GameObject\IGameObject.h>
+#include <Game\Controller\CharacterController.h>
 
 
-class Enemy : public IGameObject
+class Enemy : public CharacterController
 {
 public:
 	// 敵のタイプ別モデル
@@ -23,11 +23,13 @@ public:
 	// 敵の状態
 	enum STATE
 	{
-		STANDING,	// 通常
-		MOVE,
-		ATTACK,
-		DEAD,		// 死亡
-		NEXT
+		FORWARD,	// 通常
+		BACKWARD,
+		LEFTWARD,
+		RIGHTWARD,		// 死亡
+		LEFT_TURN,
+		RIGHT_TURN,
+		NUM
 	};
 	
 	// 思考間隔（単位：秒）
@@ -52,6 +54,8 @@ private:
 	// モデルデータへのポインタ
 	DirectX::Model* m_models[MODEL_TYPE_NUM];
 	// プレイヤーの状態
+	int m_state;
+	float m_interval;
 
-
+	std::unique_ptr<DirectX::GeometricPrimitive> m_geometricPrimitive;
 };

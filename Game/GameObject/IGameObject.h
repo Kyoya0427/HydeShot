@@ -30,7 +30,6 @@ public:
 	//コンストラクタ
 	IGameObject(const ObjectTag tag = ObjectTag::None);
 
-public:
 	//デストラクタ
 	virtual ~IGameObject();
 
@@ -84,10 +83,15 @@ private:
 protected:
 	//座標
 	DirectX::SimpleMath::Vector3 m_position;
+	//ベロシティー
+	DirectX::SimpleMath::Vector3 m_velocity;
 	//回転
 	DirectX::SimpleMath::Vector3 m_rotation;
 	//サイズ
 	DirectX::SimpleMath::Vector3 m_scale;
+	//ワールド行列
+	DirectX::SimpleMath::Matrix     m_world;
+
 	// ステージ上の位置
 	int m_x, m_y;
 };

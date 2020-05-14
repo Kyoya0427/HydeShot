@@ -1,16 +1,17 @@
 //======================================================
 // File Name	: Player.h
-// Summary		: プレイヤークラス
-// Date			: 2019/12/05
-// Author		: Takafumi Ban
+// Summary	: プレイヤークラス
+// Date		: 2020/5/12
+// Author		: Kyoya  Sakamoto
 //======================================================
 #pragma once
+#include <DirectXTK\GeometricPrimitive.h>
 
-#include <Game\GameObject\IGameObject.h>
+#include <Game\Controller\CharacterController.h>
 
 class Stage;
 
-class Player : public IGameObject
+class Player : public CharacterController
 {
 public:
 	// プレイヤーのタイプ別モデル
@@ -38,17 +39,7 @@ public:
 	static const float HEIGHT;
 
 
-	struct Map
-	{
-		int size;
-		int map[9][9];
-	};
-
-	struct RangeMap
-	{
-		Map move;
-		Map attack;
-	};
+	;
 
 private:
 	// モデルデータへのポインタ
@@ -60,9 +51,7 @@ private:
 	// ステージへのポインタ
 	Stage* m_stage;
 	
-	RangeMap m_rangeMap;
-
-	DirectX::SimpleMath::Vector3 m_cursorPos;
+	std::unique_ptr<DirectX::GeometricPrimitive> m_geometricPrimitive;
 
 	bool     m_isChoice;
 public:
@@ -72,9 +61,7 @@ public:
 	// 初期化関数
 	void Initialize(int x, int y, Stage* stage);
 
-	// モデル設定関数
-	void SetModel(ModelType modelType, DirectX::Model* model);
-
+public:
 	// 更新
 	void Update(const DX::StepTimer& timer) override;
 	// 描画関数
@@ -82,15 +69,14 @@ public:
 
 	void OnCollision(IGameObject* object) override;
 
-
+public:
+	// モデル設定関数
+	void SetModel(ModelType modelType, DirectX::Model* model);
 
 	float SLerap(float start, float end, float t);
 
-	void MoveRange(Map* map, int x, int y, int step_count);
-	void AttackRange(Map* map, int x, int y, int range_count);
-	void MovePhaseRender();
-	void MoveCursor();
+	
 
 private:
-	void GetMap(int x, int y, int size1, int size2);
+
 };

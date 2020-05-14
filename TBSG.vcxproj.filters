@@ -100,6 +100,9 @@
     <Filter Include="Game\AI">
       <UniqueIdentifier>{d791624b-656b-4107-bc19-c9e25547587f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Controller">
+      <UniqueIdentifier>{39cdac4b-c16a-4005-b2a7-084a34aab475}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <!-- アプリケーションマニフェスト -->
@@ -358,6 +361,9 @@
     <ClInclude Include="Game\Enemy\Enemy.h">
       <Filter>Game\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Controller\CharacterController.h">
+      <Filter>Game\Controller</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="3rdParty\ADX2LE\Facade\Adx2Le.cpp">
@@ -422,6 +428,9 @@
     </ClCompile>
     <ClCompile Include="Game\Enemy\Enemy.cpp">
       <Filter>Game\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Controller\CharacterController.cpp">
+      <Filter>Game\Controller</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

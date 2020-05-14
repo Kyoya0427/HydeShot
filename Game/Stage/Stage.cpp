@@ -1,8 +1,8 @@
 //======================================================
 // File Name	: Stage.
 // Summary	: ステージクラス
-// Date		: 2019/11/28
-// Author		: Takafumi Ban
+// Date		: 2020/5/12
+// Author		: Kyoya  Sakamoto
 //======================================================
 #include "pch.h"
 #include "Stage.h"
@@ -174,7 +174,7 @@ void Stage::SetStageData()
 				m_enemy = enemy.get();
 				GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(enemy));
 			}
-			m_enemy->Initialize(i, j);
+			m_enemy->Initialize(8,8);
 			m_enemy->SetModel(Enemy::NORMAL, m_enemy_Model[Enemy::NORMAL].get());
 
 				break;

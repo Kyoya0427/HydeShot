@@ -12,8 +12,11 @@
 /// </summary>
 /// <param name="tag">タグ名</param>
 IGameObject::IGameObject(const ObjectTag tag)
+	: m_tag(tag)
+	, m_position(0.0f, 0.0f, 0.0f)
+	, m_rotation()
+	, m_scale(1.0f, 1.0f, 1.0f)
 {
-	m_tag = tag;
 }
 
 /// <summary>
@@ -62,7 +65,7 @@ const IGameObject::ObjectTag IGameObject::GetTag() const
 /// 座標を取得
 /// </summary>
 /// <returns></returns>
-const DirectX::SimpleMath::Vector3 & IGameObject::GetPosition() const
+const DirectX::SimpleMath::Vector3& IGameObject::GetPosition() const
 {
 	return m_position;
 }
@@ -71,7 +74,7 @@ const DirectX::SimpleMath::Vector3 & IGameObject::GetPosition() const
 /// 回転量を取得
 /// </summary>
 /// <returns></returns>
-const DirectX::SimpleMath::Vector3 & IGameObject::GetRotation() const
+const DirectX::SimpleMath::Vector3& IGameObject::GetRotation() const
 {
 	return m_rotation;
 }
@@ -80,7 +83,7 @@ const DirectX::SimpleMath::Vector3 & IGameObject::GetRotation() const
 /// サイズを取得
 /// </summary>
 /// <returns></returns>
-const DirectX::SimpleMath::Vector3 & IGameObject::GetScale() const
+const DirectX::SimpleMath::Vector3& IGameObject::GetScale() const
 {
 	return m_scale;
 }
