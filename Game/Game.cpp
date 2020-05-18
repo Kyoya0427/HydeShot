@@ -9,11 +9,8 @@
 #include <Game\Common\GameContext.h>
 #include <Game\Common\DebugFont.h>
 
-#include <Game\GameState\GameStateManager.h>
-#include <Game\GameState\TitleState.h>
 #include <Game\GameState\PlayState.h>
-#include <Game\GameState\PauseState.h>
-#include <Game\GameState\ResultState.h>
+
 extern void ExitGame();
 
 using namespace DirectX;
@@ -73,18 +70,9 @@ void Game::Initialize(HWND window, int width, int height)
 	GameContext::Register<SpriteBatch>(m_spriteBatch);
 	
 	DX::DeviceResources* deviceResources = GameContext::Get<DX::DeviceResources>();
-	//ステイトマネジャー生成
-	m_stateManager = std::make_unique<GameStateManager>();
-	//ゲームステイト登録
-	using StateID = GameStateManager::GameStateID;
-	m_stateManager->RegisterState<TitleState>(StateID::TITLE_STATE);
-	m_stateManager->RegisterState<PlayState>(StateID::PLAY_STATE);
-	m_stateManager->RegisterState<PauseState>(StateID::PAUSE_STATE);
-	m_stateManager->RegisterState<ResultState>(StateID::RESULT_STATE);
-	//初期ステイト設定
-	m_stateManager->SetStartState(StateID::TITLE_STATE);
-	//コンテキストに登録
-	GameContext().Register<GameStateManager>(m_stateManager);
+
+	m_playState = std::make_unique<PlayState>();
+	m_playState->Initialize();
 
 	DebugFont* debugFont = DebugFont::GetInstance();
 	debugFont->create(deviceResources->GetD3DDevice(), deviceResources->GetD3DDeviceContext());
@@ -122,7 +110,7 @@ void Game::Update(const DX::StepTimer& timer)
 	m_keyTracker->Update(keyState);
 
 	//ゲームステイトの更新
-	m_stateManager->Update(timer);
+	m_playState->Update(timer);
 }
 #pragma endregion
 
@@ -147,7 +135,7 @@ void Game::Render(const DX::StepTimer& timer)
     m_deviceResources->PIXEndEvent();
 	
 	//ゲームステイト描画
-	m_stateManager->Render(timer);
+	m_playState->Render(timer);
 
     // Show the new frame.
     m_deviceResources->Present();

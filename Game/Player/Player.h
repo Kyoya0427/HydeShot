@@ -48,8 +48,7 @@ private:
 	// プレイヤーの状態
 	STATE m_state;
 
-	// ステージへのポインタ
-	Stage* m_stage;
+
 	
 	std::unique_ptr<DirectX::GeometricPrimitive> m_geometricPrimitive;
 
@@ -59,7 +58,7 @@ public:
 	Player(const ObjectTag tag);
 	~Player();
 	// 初期化関数
-	void Initialize(int x, int y, Stage* stage);
+	void Initialize(DirectX::SimpleMath::Vector2& pos);
 
 public:
 	// 更新
@@ -74,9 +73,5 @@ public:
 	void SetModel(ModelType modelType, DirectX::Model* model);
 
 	float SLerap(float start, float end, float t);
-
-	
-
-private:
 
 };

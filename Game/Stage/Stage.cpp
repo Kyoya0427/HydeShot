@@ -4,13 +4,11 @@
 // Date		: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
-#include "pch.h"
 #include "Stage.h"
 
 #include <fstream>
 #include <sstream>
 
-#include <Game\GameWindow\GameWindow.h>
 #include <Effects.h>
 #include <DirectXTK\CommonStates.h>
 #include <Game\Common\GameContext.h>
@@ -21,6 +19,8 @@
 #include <Game\GameObject\IGameObject.h>
 
 using namespace std;
+using namespace DirectX;
+using namespace DirectX::SimpleMath;
 
 Stage::Stage()
 	: m_floors{nullptr}
@@ -39,10 +39,6 @@ void Stage::Initialize()
 	fx.SetDirectory(L"Resources\\Models");
 	m_floorModels[Floor::NORMAL]           = DirectX::Model::CreateFromCMO(GameContext::Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Models\\floorPanel_00.cmo", fx);
 	m_floorModels[Floor::WATER]            = DirectX::Model::CreateFromCMO(GameContext::Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Models\\floorPanel_01.cmo", fx);
-	m_playerModel[Player::NORMAL]          = DirectX::Model::CreateFromCMO(GameContext::Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Models\\player.cmo", fx);
-	m_playerModel[Player::SELECTION_RANGE] = DirectX::Model::CreateFromCMO(GameContext::Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Models\\floorPanel_02.cmo", fx);
-	m_playerModel[Player::CURSOR]          = DirectX::Model::CreateFromCMO(GameContext::Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Models\\floorPanel_03.cmo", fx);
-	m_enemy_Model[Enemy::NORMAL]           = DirectX::Model::CreateFromCMO(GameContext::Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Models\\enemy.cmo", fx);
 
 	// 床のタスク生成
 	for (int j = 0; j < STAGE_H; j++)
@@ -141,9 +137,6 @@ void Stage::SetStageData()
 		}
 	}
 
-	// 全てのオブジェクトタスクの削除
-	DeleteAllObject();
-
 	//----- 各ゲームオブジェクトの生成 -----//
 
 	// ステージ上のオブジェクトを配置する
@@ -155,52 +148,43 @@ void Stage::SetStageData()
 			switch (m_stageData.object[j][i])
 			{
 			case OBJECT_ID::PLAYER:	// プレイヤー
-			{
-				std::unique_ptr<Player>player = std::make_unique<Player>(IGameObject::ObjectTag::Player);
-				m_player = player.get();
-				GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(player));
-			}
-				m_player->Initialize(i, j,this);
-				m_player->SetModel(Player::NORMAL, m_playerModel[Player::NORMAL].get());
-				m_player->SetModel(Player::SELECTION_RANGE, m_playerModel[Player::SELECTION_RANGE].get());
-				m_player->SetModel(Player::CURSOR, m_playerModel[Player::CURSOR].get());
-
+				SetPlayerPos(i, j);
 				break;
 
 		
 			case OBJECT_ID::ENEMY:	// 敵２
-			{
-				std::unique_ptr<Enemy>enemy = std::make_unique<Enemy>(IGameObject::ObjectTag::Player);
-				m_enemy = enemy.get();
-				GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(enemy));
-			}
-			m_enemy->Initialize(8,8);
-			m_enemy->SetModel(Enemy::NORMAL, m_enemy_Model[Enemy::NORMAL].get());
-
+				SetEnemyPos(i, j);
 				break;
 			}
 		}
 	}
 }
 
-void Stage::ResetStageData()
+
+
+void Stage::SetPlayerPos(int x, int y)
 {
-
-
-
+	m_playerPos = Vector2(x, y);
 }
 
+void Stage::SetEnemyPos(int x, int y)
+{
+	m_enemyPos = Vector2(x, y);
+}
 
-
-
-void Stage::DeleteAllObject()
+DirectX::SimpleMath::Vector2 Stage::GetPlayerPos()
 {
 	
+	return m_playerPos;
 }
 
-void Stage::ConvertPosToMapChip(float x, float z, int* floor_x, int* floor_y)
+DirectX::SimpleMath::Vector2 Stage::GetEnemyPos()
 {
-	*floor_x = (int)floorf(x + 0.5f);
-	*floor_y = (int)floorf(z + 0.5f);
+	return m_enemyPos;
 }
+
+
+
+
+
 

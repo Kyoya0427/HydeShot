@@ -7,7 +7,6 @@
 
 #include "pch.h"
 #include "Floor.h"
-#include <Game\GameWindow\GameWindow.h>
 #include "Stage.h"
 #include <DirectXTK\CommonStates.h>
 
@@ -21,7 +20,6 @@
 Floor::Floor()
 	: m_stage(nullptr), m_models{nullptr}, m_state(NONE)
 {
-	SetDrawPrio(GameWindow::DRAW_TOP);
 }
 
 void Floor::Initialize(Stage * stage, int x, int y)

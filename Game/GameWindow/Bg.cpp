@@ -14,7 +14,6 @@
 
 #include <Game\Camera\Camera.h>
 
-#include <Game\GameWindow\GameWindow.h>
 
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
@@ -25,7 +24,6 @@ using namespace DirectX::SimpleMath;
 Bg::Bg()
 	: m_angle(0.0f)
 {
-	SetDrawPrio(GameWindow::DRAW_BG);
 }
 
 /// <summary>

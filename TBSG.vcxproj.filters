@@ -292,12 +292,6 @@
     <ClInclude Include="Game\Common\DebugFont.h">
       <Filter>Game\Common</Filter>
     </ClInclude>
-    <ClInclude Include="Game\GameState\GameStateManager.h">
-      <Filter>Game\GameState</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\GameState\IGameState.h">
-      <Filter>Game\GameState</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Common\GameContext.h">
       <Filter>Game\Common</Filter>
     </ClInclude>
@@ -307,25 +301,13 @@
     <ClInclude Include="Game\Common\Utilities.h">
       <Filter>Game\Common</Filter>
     </ClInclude>
-    <ClInclude Include="Game\GameState\PauseState.h">
-      <Filter>Game\GameState</Filter>
-    </ClInclude>
     <ClInclude Include="Game\GameState\PlayState.h">
-      <Filter>Game\GameState</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\GameState\ResultState.h">
-      <Filter>Game\GameState</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\GameState\TitleState.h">
       <Filter>Game\GameState</Filter>
     </ClInclude>
     <ClInclude Include="Game\Camera\Camera.h">
       <Filter>Game\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Game\GameWindow\Bg.h">
-      <Filter>Game\GameWindow</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\GameWindow\GameWindow.h">
       <Filter>Game\GameWindow</Filter>
     </ClInclude>
     <ClInclude Include="Game\GameObject\GameObjectManager.h">
@@ -372,26 +354,11 @@
     <ClCompile Include="Game\Common\DebugFont.cpp">
       <Filter>Game\Common</Filter>
     </ClCompile>
-    <ClCompile Include="Game\GameState\GameStateManager.cpp">
-      <Filter>Game\GameState</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\GameState\PauseState.cpp">
-      <Filter>Game\GameState</Filter>
-    </ClCompile>
     <ClCompile Include="Game\GameState\PlayState.cpp">
-      <Filter>Game\GameState</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\GameState\ResultState.cpp">
-      <Filter>Game\GameState</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\GameState\TitleState.cpp">
       <Filter>Game\GameState</Filter>
     </ClCompile>
     <ClCompile Include="Game\Camera\Camera.cpp">
       <Filter>Game\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\GameWindow\GameWindow.cpp">
-      <Filter>Game\GameWindow</Filter>
     </ClCompile>
     <ClCompile Include="Game\GameWindow\Bg.cpp">
       <Filter>Game\GameWindow</Filter>

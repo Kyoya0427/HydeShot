@@ -13,7 +13,6 @@
 #include <Game\Common\GameContext.h>
 #include <Game\Common\DeviceResources.h>
 
-#include <Game\GameWindow\GameWindow.h>
 
 #include <Game\Camera\Camera.h>
 
@@ -40,11 +39,11 @@ Enemy::Enemy(const ObjectTag tag)
 /// </summary>
 /// <param name="x"></param>
 /// <param name="y"></param>
-void Enemy::Initialize(int x, int y)
+void Enemy::Initialize(DirectX::SimpleMath::Vector2& pos)
 {
-	m_x = x;
-	m_y = y;
-	m_position = DirectX::SimpleMath::Vector3((float)x, 0.0f, (float)y);
+	m_x = pos.x;
+	m_y = pos.y;
+	m_position = DirectX::SimpleMath::Vector3((float)pos.x, 0.0f, (float)pos.y);
 
 	
 	m_state = 0;
@@ -103,7 +102,6 @@ void Enemy::Update(const DX::StepTimer & timer)
 void Enemy::Render(const DX::StepTimer & timer)
 {
 	timer;
-	GameWindow* gameWindow = GameContext::Get<GameWindow>();
 	DebugFont* debugFont = DebugFont::GetInstance();
 	debugFont->print(10, 30, L"%f / 2.0",m_interval);
 	debugFont->draw();
@@ -131,7 +129,6 @@ void Enemy::Render(const DX::StepTimer & timer)
 		debugFont->draw();		break;
 	}
 
-	if (!gameWindow || !m_models[NORMAL] ) return;
 
 	Quaternion rot = DirectX::SimpleMath::Quaternion::CreateFromAxisAngle(DirectX::SimpleMath::Vector3::UnitY, m_rotation.y);
 

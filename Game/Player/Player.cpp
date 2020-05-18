@@ -9,7 +9,6 @@
 #include <Game\Common\GameContext.h>
 #include <Game\Common\DeviceResources.h>
 #include <DirectXTK\CommonStates.h>
-#include <Game\GameWindow\GameWindow.h>
 #include <Game\Camera\Camera.h>
 
 #include <Game\GameObject\ObjectManager.h>
@@ -44,12 +43,11 @@ Player::~Player()
 }
 
 
-void Player::Initialize(int x, int y, Stage* stage)
+void Player::Initialize(DirectX::SimpleMath::Vector2& pos)
 {
-	m_x = x;
-	m_y = y;
-	m_position = DirectX::SimpleMath::Vector3((float)x, 0.0f, (float)y);
-	m_stage = stage;
+	m_x = pos.x;
+	m_y = pos.y;
+	m_position = DirectX::SimpleMath::Vector3((float)pos.x, 0.0f, (float)pos.y);
 
 	
 }
@@ -100,11 +98,9 @@ void Player::Update(const DX::StepTimer& timer)
 void Player::Render(const DX::StepTimer& timer)
 {
 	timer;
-	GameWindow* gameWindow = GameContext::Get<GameWindow>();
 	
 	Quaternion rot = DirectX::SimpleMath::Quaternion::CreateFromAxisAngle(DirectX::SimpleMath::Vector3::UnitY, m_rotation.y);
 
-	if (!gameWindow || !m_models[ModelType::NORMAL] ) return;
 
 	Matrix scalemat = Matrix::CreateScale(m_scale);	
 	Matrix r = Matrix::CreateRotationX(DirectX::XMConvertToRadians(-90.0f));

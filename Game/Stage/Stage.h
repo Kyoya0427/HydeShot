@@ -59,23 +59,20 @@ public:
 	// ステージデータ初期化関数
 	void SetStageData();
 
-	// ステージデータのリセット関数
-	void ResetStageData();
 
-private:
+	void SetPlayerPos(int x, int y);
+	void SetEnemyPos(int x, int y);
 
-
-	// 登録されているタスク（プレイヤー、敵、パーツ）を全て削除する関数
-	void DeleteAllObject();
-
-	// 位置からステージのマップチップの位置に変換する関数
-	void ConvertPosToMapChip(float x, float z, int* floor_x, int* floor_y);
-
-
+	DirectX::SimpleMath::Vector2 GetPlayerPos();
+	DirectX::SimpleMath::Vector2 GetEnemyPos();
 private:
 	//----- ゲームオブジェクトへのポインタ -----//
 	Player* m_player;
 	Enemy* m_enemy;
+
+	DirectX::SimpleMath::Vector2  m_playerPos;
+
+	DirectX::SimpleMath::Vector2  m_enemyPos;
 	// 床オブジェクトへのポインタ
 	Floor* m_floors[STAGE_H][STAGE_W];
 	//パーツオブジェクトへのポインター

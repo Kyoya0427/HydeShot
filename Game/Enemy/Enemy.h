@@ -38,7 +38,7 @@ public:
 public: 
 	Enemy(const ObjectTag tag);
 	// ‰Šú‰»
-	void Initialize(int x, int y);
+	void Initialize(DirectX::SimpleMath::Vector2& pos);
 	// XV
 	void Update(const DX::StepTimer& timer) override;
 	// •`‰æ

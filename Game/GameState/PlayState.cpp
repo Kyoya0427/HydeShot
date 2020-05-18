@@ -11,14 +11,22 @@
 #include <Game\Common\GameContext.h>
 #include <Game\Common\DeviceResources.h>
 
-#include <Game\GameState\GameStateManager.h>
-
 #include <Game\GameObject\ObjectManager.h>
 #include <Game\GameObject\GameObjectManager.h>
 
-#include <Game\GameWindow\GameWindow.h>
+#include <Game\Camera\Camera.h>
+
+#include <Game\Stage\Stage.h>
+#include <Game\Stage\Floor.h>
+
+#include <Game\GameWindow\Bg.h>
 
 #include <Game\UI\InfoWindow.h>
+
+
+#include <Game\Player\Player.h>
+
+#include <Game\Enemy\Enemy.h>
 
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
@@ -28,7 +36,6 @@ using namespace DX;
 /// コンストラクタ
 /// </summary>
 PlayState::PlayState()
-	: IGameState()
 {
 }
 
@@ -48,23 +55,40 @@ void PlayState::Initialize()
 	// オブジェクトマネージャー生成
 	m_objectManager = std::make_unique<ObjectManager>();
 	// 情報ウィンドウを登録
+
 	GameContext::Register<ObjectManager>(m_objectManager);
+	//カメラを生成
+	m_camera = std::make_unique<Camera>();
+	m_camera->Initialize();
+	GameContext::Register<Camera>(m_camera.get());
+
+	//ステージを生成
+	m_stage = std::make_unique<Stage>();
+	m_stage->Initialize();
+	// ステージデータの読み込み
+	m_stage->LoadStageData(L"Resources\\StageData\\Stage01.csv");
+	// ステージデータの設定
+	m_stage->SetStageData();
+	GameContext::Register<Stage>(m_stage.get());
+	//プレイヤー
+	m_player = std::make_unique<Player>(IGameObject::Player);
+	m_player->Initialize(m_stage->GetPlayerPos());
+	//エネミー
+	m_enemy = std::make_unique<Enemy>(IGameObject::Enemy);
+	m_enemy->Initialize(m_stage->GetEnemyPos());
 
 	// 情報ウィンドウ
 	m_infoWindow = std::make_unique<InfoWindow>();
+	m_infoWindow->Initialize();
 	GameContext::Register<InfoWindow>(m_infoWindow.get());
 
+
 	//ゲームウィンドウ
-	m_gameWindow = std::make_unique<GameWindow>();
-	GameContext::Register<GameWindow>(m_gameWindow.get());
+	m_bg = std::make_unique<Bg>();
+	m_bg->Initialize();
+	
 
-	//情報ウィンドウオブジェクトを登録
-	m_objectManager->GetInfoOM()->Add(std::move(m_infoWindow));
-	GameContext::Get<InfoWindow>()->Initialize();
 
-	//ゲームウィンドウオブジェクトを登録
-	m_objectManager->GetGameOM()->Add(std::move(m_gameWindow));
-	GameContext::Get<GameWindow>()->Initialize();
 
 	// ビューポートの矩形領域の設定（ゲーム画面）
 	m_viewportGame = CD3D11_VIEWPORT(
@@ -90,24 +114,13 @@ void PlayState::Initialize()
 void PlayState::Update(const DX::StepTimer& timer)
 {
 	timer;
-	Keyboard::KeyboardStateTracker* keyTracker = GameContext().Get<Keyboard::KeyboardStateTracker>();
 	
-	if (keyTracker->IsKeyReleased(DirectX::Keyboard::Z))
-	{
-		using StateID = GameStateManager::GameStateID;
-		GameStateManager* gameStateManager = GameContext().Get<GameStateManager>();
-		gameStateManager->RequestState(StateID::RESULT_STATE);
-	}
-
-	ChangePauseState();
+	m_bg->Update(timer);
+	m_infoWindow->Update(timer);
 	// ゲーム画面のオブジェクト更新
 	m_objectManager->GetGameOM()->Update(timer);
-	// 情報画面のオブジェクト更新
-	m_objectManager->GetInfoOM()->Update(timer);
-
-	
-
-
+	m_player->Update(timer);
+	m_enemy->Update(timer);
 }
 
 /// <summary>
@@ -128,18 +141,21 @@ void PlayState::Render(const DX::StepTimer& timer)
 	// TODO: ビュー行列とプロジェクション行列を設定
 	SimpleMath::Matrix viewMat, projMat;
 	// ゲーム画面のオブジェクト描画
-
-
+	m_bg->Render(timer);
+	// ゲーム画面のオブジェクト描画
 	m_objectManager->GetGameOM()->Render(timer);
+//	m_floor->Render(timer);
+	m_player->Render(timer);
+	m_enemy->Render(timer);
 	spriteBach->End(); // <---スプライトの描画はここでまとめて行われている
 
 
 	// ビューポートを変更する（右側へ描画エリアを変更する）
 	context->RSSetViewports(1, &m_viewportInfo);
-
 	spriteBach->Begin(SpriteSortMode_Deferred, state->NonPremultiplied());
+
 	// 情報画面のオブジェクト描画
-	m_objectManager->GetInfoOM()->Render(timer);
+	m_infoWindow->Render(timer);
 	spriteBach->End(); // <---スプライトの描画はここでまとめて行われている
 
 	auto viewport = deviceResources->GetScreenViewport();
@@ -152,20 +168,6 @@ void PlayState::Render(const DX::StepTimer& timer)
 /// </summary>
 void PlayState::Finalize()
 {
-	GameContext::Reset<ObjectManager>();
-	GameContext().Reset<GameWindow>();
 	GameContext().Reset<InfoWindow>();
-	m_objectManager.reset();
 }
 
-void PlayState::ChangePauseState()
-{
-	Keyboard::KeyboardStateTracker* keyTracker = GameContext().Get<Keyboard::KeyboardStateTracker>();
-
-	if (keyTracker->IsKeyReleased(DirectX::Keyboard::Escape))
-	{
-		using StateID = GameStateManager::GameStateID;
-		GameStateManager* gameStateManager = GameContext().Get<GameStateManager>();
-		gameStateManager->RequestState(StateID::PAUSE_STATE);
-	}
-}

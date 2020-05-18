@@ -6,8 +6,7 @@
 //======================================================
 #include "Camera.h"
 
-#include <Game\GameWindow\GameWindow.h>
-
+#include <Game\GameState\PlayState.h>
 /// <summary>
 /// コンストラクタ
 /// </summary>
@@ -38,7 +37,7 @@ void Camera::Initialize()
 	//射影行列設定
 	m_projection = DirectX::SimpleMath::Matrix::CreatePerspectiveFieldOfView(
 		DirectX::XMConvertToRadians(45.0f),
-		GameWindow::SCREEN_W / static_cast<float>(GameWindow::SCREEN_H),
+		PlayState::SCREEN_W / static_cast<float>(PlayState::SCREEN_H),
 		0.1f,
 		200.0f);
 
