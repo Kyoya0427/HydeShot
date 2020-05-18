@@ -19,14 +19,17 @@
 #include <Game\Stage\Stage.h>
 #include <Game\Stage\Floor.h>
 
-#include <Game\GameWindow\Bg.h>
+#include <Game\Bg\Bg.h>
 
 #include <Game\UI\InfoWindow.h>
 
 
 #include <Game\Player\Player.h>
+#include <Game\Controller\PlayerController.h>
 
 #include <Game\Enemy\Enemy.h>
+#include <Game\Controller\AIController.h>
+
 
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
@@ -73,10 +76,11 @@ void PlayState::Initialize()
 	//プレイヤー
 	m_player = std::make_unique<Player>(IGameObject::Player);
 	m_player->Initialize(m_stage->GetPlayerPos());
+	m_playerController = std::make_unique<PlayerController>(m_player.get());
 	//エネミー
 	m_enemy = std::make_unique<Enemy>(IGameObject::Enemy);
 	m_enemy->Initialize(m_stage->GetEnemyPos());
-
+	m_aIController = std::make_unique<AIController>(m_enemy.get());
 	// 情報ウィンドウ
 	m_infoWindow = std::make_unique<InfoWindow>();
 	m_infoWindow->Initialize();
@@ -119,8 +123,10 @@ void PlayState::Update(const DX::StepTimer& timer)
 	m_infoWindow->Update(timer);
 	// ゲーム画面のオブジェクト更新
 	m_objectManager->GetGameOM()->Update(timer);
+	m_playerController->Update(timer);
 	m_player->Update(timer);
 	m_enemy->Update(timer);
+	m_aIController->Update(timer);
 }
 
 /// <summary>

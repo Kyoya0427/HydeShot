@@ -76,9 +76,6 @@
     <Filter Include="Game\Camera">
       <UniqueIdentifier>{0a5dc624-f135-4b37-88b0-61380f06e172}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\GameWindow">
-      <UniqueIdentifier>{6b513902-ec90-4dd5-9aa4-c317cdb11476}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\GameObject">
       <UniqueIdentifier>{d64b63b5-b7af-4ac8-a920-39f7d6332d69}</UniqueIdentifier>
     </Filter>
@@ -102,6 +99,9 @@
     </Filter>
     <Filter Include="Game\Controller">
       <UniqueIdentifier>{39cdac4b-c16a-4005-b2a7-084a34aab475}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Bg">
+      <UniqueIdentifier>{6b513902-ec90-4dd5-9aa4-c317cdb11476}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -307,9 +307,6 @@
     <ClInclude Include="Game\Camera\Camera.h">
       <Filter>Game\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="Game\GameWindow\Bg.h">
-      <Filter>Game\GameWindow</Filter>
-    </ClInclude>
     <ClInclude Include="Game\GameObject\GameObjectManager.h">
       <Filter>Game\GameObject</Filter>
     </ClInclude>
@@ -346,6 +343,18 @@
     <ClInclude Include="Game\Controller\CharacterController.h">
       <Filter>Game\Controller</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Bg\Bg.h">
+      <Filter>Game\Bg</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Controller\Character.h">
+      <Filter>Game\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Controller\AIController.h">
+      <Filter>Game\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Controller\PlayerController.h">
+      <Filter>Game\Controller</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="3rdParty\ADX2LE\Facade\Adx2Le.cpp">
@@ -359,9 +368,6 @@
     </ClCompile>
     <ClCompile Include="Game\Camera\Camera.cpp">
       <Filter>Game\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\GameWindow\Bg.cpp">
-      <Filter>Game\GameWindow</Filter>
     </ClCompile>
     <ClCompile Include="Game\GameObject\GameObjectManager.cpp">
       <Filter>Game\GameObject</Filter>
@@ -397,6 +403,18 @@
       <Filter>Game\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="Game\Controller\CharacterController.cpp">
+      <Filter>Game\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Bg\Bg.cpp">
+      <Filter>Game\Bg</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Controller\Character.cpp">
+      <Filter>Game\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Controller\AIController.cpp">
+      <Filter>Game\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Controller\PlayerController.cpp">
       <Filter>Game\Controller</Filter>
     </ClCompile>
   </ItemGroup>

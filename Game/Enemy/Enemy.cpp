@@ -27,7 +27,7 @@ const float Enemy::THINK_INTERVAL = 0.4f;
 /// </summary>
 /// <param name="tag"></param>
 Enemy::Enemy(const ObjectTag tag)
-	: CharacterController(tag)
+	: IGameObject(tag)
 	, m_models{nullptr}
 {
 	ID3D11DeviceContext* deviceContext = GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext();
@@ -41,9 +41,10 @@ Enemy::Enemy(const ObjectTag tag)
 /// <param name="y"></param>
 void Enemy::Initialize(DirectX::SimpleMath::Vector2& pos)
 {
-	m_x = pos.x;
-	m_y = pos.y;
-	m_position = DirectX::SimpleMath::Vector3((float)pos.x, 0.0f, (float)pos.y);
+	m_x = (int)pos.x;
+	m_y = (int)pos.y;
+//	m_position = DirectX::SimpleMath::Vector3((float)pos.x, 0.0f, (float)pos.y);
+	m_position = DirectX::SimpleMath::Vector3(8.0f, 0.0f, 8.0f);
 
 	
 	m_state = 0;
@@ -54,43 +55,9 @@ void Enemy::Initialize(DirectX::SimpleMath::Vector2& pos)
 /// çXêV
 /// </summary>
 /// <param name="timer"></param>
-void Enemy::Update(const DX::StepTimer & timer)
+void Enemy::Update(const DX::StepTimer& timer)
 {
 	timer;
-	float speed = 0.01f;
-	float rot = 0.01f;
-
-	m_interval += float(timer.GetElapsedSeconds());
-	m_velocity = DirectX::SimpleMath::Vector3::Zero;
-
-	if (m_interval >= 2.0f)
-	{
-		m_interval = 0.0f;
-		m_state = rand() % NUM;
-	}
-
-	switch (m_state)
-	{
-	case FORWARD:
-		Forward(speed);
-		break;
-	case BACKWARD:
-		Backward(-speed);
-		break;
-	case LEFTWARD:
-		Leftward(speed);
-		break;
-	case RIGHTWARD:
-		Rightward(-speed);
-		break;
-	case LEFT_TURN:
-		LeftTurn(rot);
-		break;
-	case RIGHT_TURN:
-		RightTurn(rot);
-		break;
-	}
-
 	m_position += m_velocity;
 }
 
@@ -106,6 +73,8 @@ void Enemy::Render(const DX::StepTimer & timer)
 	debugFont->print(10, 30, L"%f / 2.0",m_interval);
 	debugFont->draw();
 
+	debugFont->print(10, 50, L"X = %f  Y = %f Z = %f", m_velocity.x, m_velocity.y, m_velocity.z);
+	debugFont->draw();
 	switch (m_state)
 	{
 	case FORWARD:
@@ -140,7 +109,7 @@ void Enemy::Render(const DX::StepTimer & timer)
 
 	m_world = scalemat * r * rotMat * transMat;
 
-	m_geometricPrimitive->Draw(m_world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), DirectX::Colors::Red);
+	m_geometricPrimitive->Draw(m_world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), DirectX::Colors::Blue);
 
 }
 
@@ -161,5 +130,15 @@ void Enemy::OnCollision(IGameObject * object)
 void Enemy::SetModel(ModelType modelType, DirectX::Model * model)
 {
 	m_models[modelType] = model;
+}
+
+void Enemy::SetState(int state)
+{
+	m_state = state;
+}
+
+void Enemy::SetInterval(float interval)
+{
+	m_interval = interval;
 }
 

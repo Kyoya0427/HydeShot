@@ -63,8 +63,8 @@ public:
 	void SetPlayerPos(int x, int y);
 	void SetEnemyPos(int x, int y);
 
-	DirectX::SimpleMath::Vector2 GetPlayerPos();
-	DirectX::SimpleMath::Vector2 GetEnemyPos();
+	DirectX::SimpleMath::Vector2& GetPlayerPos();
+	DirectX::SimpleMath::Vector2& GetEnemyPos();
 private:
 	//----- ゲームオブジェクトへのポインタ -----//
 	Player* m_player;

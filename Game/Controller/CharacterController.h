@@ -8,25 +8,21 @@
 
 #include <Game\GameObject\IGameObject.h>
 
-class CharacterController : public IGameObject
+class Character;
+
+class CharacterController
 {
 public:
 	//コンストラク
-	CharacterController(const ObjectTag tag = ObjectTag::None);
+	CharacterController();
 	//デストラクタ
 	~CharacterController();
-
 public:
-	//前進
-	void Forward(float speed);
-	//後進
-	void Backward(float speed);
-	//左に進む
-	void Leftward(float speed);
-	//右に進む
-	void Rightward(float speed);
-	//左に旋回
-	void LeftTurn(float speed);
-	//右に旋回
-	void RightTurn(float speed);
+	//更新
+	virtual void Update(const DX::StepTimer& timer) = 0;
+
+protected:
+
+	Character*     m_character;
+
 };

@@ -70,6 +70,11 @@ const DirectX::SimpleMath::Vector3& IGameObject::GetPosition() const
 	return m_position;
 }
 
+const DirectX::SimpleMath::Vector3& IGameObject::GetVelocity() const
+{
+	return m_velocity;
+}
+
 /// <summary>
 /// ‰ñ“]—Ê‚ðŽæ“¾
 /// </summary>
@@ -113,6 +118,11 @@ void IGameObject::SetTag(const ObjectTag tag)
 void IGameObject::SetPosition(DirectX::SimpleMath::Vector3 & position)
 {
 	m_position = position;
+}
+
+void IGameObject::SetVelocity(DirectX::SimpleMath::Vector3& velocity)
+{
+	m_velocity = velocity;
 }
 
 /// <summary>

@@ -7,11 +7,11 @@
 #pragma once
 #include <DirectXTK\GeometricPrimitive.h>
 
-#include <Game\Controller\CharacterController.h>
+#include <Game\GameObject\IGameObject.h>
 
 class Stage;
 
-class Player : public CharacterController
+class Player : public IGameObject
 {
 public:
 	// プレイヤーのタイプ別モデル

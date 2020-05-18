@@ -5,11 +5,8 @@
   Resources\FBX\floorPanel_02.FBX
   Resources\FBX\floorPanel_03.FBX
   Resources\FBX\player.FBX
-  PlayState.cpp
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\game\gamestate\playstate.cpp(75): warning C4239: 非標準の拡張機能が使用されています: '引数': 'DirectX::SimpleMath::Vector2' から 'DirectX::SimpleMath::Vector2 &' への変換です。
-  c:\users\s182106\documents\visual studio 2015\projects\tbsg\game\gamestate\playstate.cpp(75): note: 非定数の参照は左辺値へのみバインドされます。
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\game\gamestate\playstate.cpp(78): warning C4239: 非標準の拡張機能が使用されています: '引数': 'DirectX::SimpleMath::Vector2' から 'DirectX::SimpleMath::Vector2 &' への変換です。
-  c:\users\s182106\documents\visual studio 2015\projects\tbsg\game\gamestate\playstate.cpp(78): note: 非定数の参照は左辺値へのみバインドされます。
+  Enemy.cpp
+     ライブラリ C:\Users\s182106\Documents\Visual Studio 2015\Projects\TBSG\Debug\TBSG.lib とオブジェクト C:\Users\s182106\Documents\Visual Studio 2015\Projects\TBSG\Debug\TBSG.exp を作成中
   TBSG.vcxproj -> C:\Users\s182106\Documents\Visual Studio 2015\Projects\TBSG\Debug\TBSG.exe
   TBSG.vcxproj -> C:\Users\s182106\Documents\Visual Studio 2015\Projects\TBSG\Debug\TBSG.pdb (Full PDB)
   0 個のファイルをコピーしました

@@ -6,10 +6,10 @@
 //======================================================
 #pragma once
 
-#include <Game\Controller\CharacterController.h>
+#include <Game\GameObject\IGameObject.h>
+#include <DirectXTK\GeometricPrimitive.h>
 
-
-class Enemy : public CharacterController
+class Enemy : public IGameObject
 {
 public:
 	// 敵のタイプ別モデル
@@ -49,6 +49,9 @@ public:
 public:
 	// モデル設定
 	void SetModel(ModelType modelType, DirectX::Model* model);
+
+	void SetState(int state);
+	void SetInterval(float interval);
 	
 private:
 	// モデルデータへのポインタ

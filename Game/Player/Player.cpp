@@ -28,7 +28,7 @@ const float Player::HEIGHT = 0.2f;
 
 
 Player::Player(const ObjectTag tag)
-	: CharacterController(tag)
+	: IGameObject(tag)
 	, m_models{ nullptr }
 	
 {
@@ -45,8 +45,8 @@ Player::~Player()
 
 void Player::Initialize(DirectX::SimpleMath::Vector2& pos)
 {
-	m_x = pos.x;
-	m_y = pos.y;
+	m_x = (int)pos.x;
+	m_y = (int)pos.y;
 	m_position = DirectX::SimpleMath::Vector3((float)pos.x, 0.0f, (float)pos.y);
 
 	
@@ -56,43 +56,7 @@ void Player::Initialize(DirectX::SimpleMath::Vector2& pos)
 void Player::Update(const DX::StepTimer& timer)
 {
 	timer;
-	DirectX::Keyboard::State keyState = DirectX::Keyboard::Get().GetState();
-
-	float speed = 0.2f;
-	float rot = 0.1f;
-
-	m_velocity = DirectX::SimpleMath::Vector3::Zero;
-
-	if (keyState.IsKeyDown(DirectX::Keyboard::Keys::W))
-	{
-		Forward(-speed);
-	}
-	else if (keyState.IsKeyDown(DirectX::Keyboard::Keys::S))
-	{
-		Backward(speed);
-	}
-	else if (keyState.IsKeyDown(DirectX::Keyboard::Keys::A))
-	{
-		Leftward(-speed);
-	}
-	else if (keyState.IsKeyDown(DirectX::Keyboard::Keys::D))
-	{
-		Rightward(speed);
-	}
-
-
-	if (keyState.IsKeyDown(DirectX::Keyboard::Keys::Left))
-	{
-		LeftTurn(rot);
-	}
-	else if (keyState.IsKeyDown(DirectX::Keyboard::Keys::Right))
-	{
-		RightTurn(rot);
-	}
-
-	
-
-
+	m_position += m_velocity;
 }
 
 void Player::Render(const DX::StepTimer& timer)

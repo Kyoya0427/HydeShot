@@ -13,7 +13,9 @@ class InfoWindow;
 class ObjectManager;
 class Camera;
 class Player;
+class PlayerController;
 class Enemy;
+class AIController;
 class Stage;
 class Bg;
 
@@ -54,8 +56,12 @@ private:
 	std::unique_ptr<Stage>					m_stage;
 	//プレイイヤー
 	std::unique_ptr<Player>                 m_player;
+	//プレイイヤーコントローラー
+	std::unique_ptr<PlayerController>       m_playerController;
 	//エネミー
 	std::unique_ptr<Enemy>                  m_enemy;
+	//エネミーコントローラー
+	std::unique_ptr<AIController>           m_aIController;
 	// ゲームオブジェクトマネージャー
 	std::unique_ptr<ObjectManager>          m_objectManager;
 };

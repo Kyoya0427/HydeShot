@@ -52,6 +52,8 @@ public:
 	const ObjectTag GetTag() const;
 	//座標を取得
 	const DirectX::SimpleMath::Vector3& GetPosition() const;
+	//速度を取得
+	const DirectX::SimpleMath::Vector3& GetVelocity() const;
 	//回転量を取得
 	const DirectX::SimpleMath::Vector3& GetRotation() const;
 	//サイズを取得
@@ -62,6 +64,8 @@ public:
 	void SetTag(const ObjectTag tag);
 	//座標を登録
 	void SetPosition(DirectX::SimpleMath::Vector3& position);
+	//速度を登録
+	void SetVelocity(DirectX::SimpleMath::Vector3& velocity);
 	//回転量を登録
 	void SetRotation(DirectX::SimpleMath::Vector3& rotation);
 	//サイズを登録
@@ -82,13 +86,13 @@ private:
 	
 protected:
 	//座標
-	DirectX::SimpleMath::Vector3 m_position;
+	DirectX::SimpleMath::Vector3    m_position;
 	//ベロシティー
-	DirectX::SimpleMath::Vector3 m_velocity;
+	DirectX::SimpleMath::Vector3    m_velocity;
 	//回転
-	DirectX::SimpleMath::Vector3 m_rotation;
+	DirectX::SimpleMath::Vector3    m_rotation;
 	//サイズ
-	DirectX::SimpleMath::Vector3 m_scale;
+	DirectX::SimpleMath::Vector3    m_scale;
 	//ワールド行列
 	DirectX::SimpleMath::Matrix     m_world;
 

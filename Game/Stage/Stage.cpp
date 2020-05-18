@@ -164,21 +164,21 @@ void Stage::SetStageData()
 
 void Stage::SetPlayerPos(int x, int y)
 {
-	m_playerPos = Vector2(x, y);
+	m_playerPos = Vector2((float)x, (float)y);
 }
 
 void Stage::SetEnemyPos(int x, int y)
 {
-	m_enemyPos = Vector2(x, y);
+	m_enemyPos = Vector2((float)x, (float)y);
 }
 
-DirectX::SimpleMath::Vector2 Stage::GetPlayerPos()
+DirectX::SimpleMath::Vector2& Stage::GetPlayerPos()
 {
 	
 	return m_playerPos;
 }
 
-DirectX::SimpleMath::Vector2 Stage::GetEnemyPos()
+DirectX::SimpleMath::Vector2& Stage::GetEnemyPos()
 {
 	return m_enemyPos;
 }
