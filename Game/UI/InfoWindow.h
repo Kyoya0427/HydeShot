@@ -2,7 +2,7 @@
 
 #include <DirectXTK\SpriteBatch.h>
 
-#include <Game\GameObject\IGameObject.h>
+#include <Game\GameObject\GameObject.h>
 
 #include <Game\UI\Blink.h>
 #include <Game\UI\Letter.h>
@@ -11,7 +11,7 @@
 
 
 
-class InfoWindow :public IGameObject
+class InfoWindow :public GameObject
 {
 public:
 	//画面サイズ
@@ -28,7 +28,7 @@ public:
 	void Initialize();
 	 void Update(const DX::StepTimer & timer) override;
 	 void Render(const DX::StepTimer & timer) override;
-	 void OnCollision(IGameObject* object) override;
+	 void HitContact(GameObject* object) override;
 
 private:
 	//テクスチャーハンドル（背景）

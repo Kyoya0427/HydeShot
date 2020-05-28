@@ -14,19 +14,18 @@ class PlayerController : public  CharacterController
 {
 public:
 	//コンストラク
-	PlayerController(Player* player);
+	PlayerController(Character* character);
 	//デストラクタ
 	~PlayerController();
 
 public:
 	//更新
 	void Update(const DX::StepTimer& timer) override;
+	void Render();
 
 public:
 	static const float  MOVE_SPEED;
 	static const float  ROT_SPEED;
 
-private:
-	Player*						    m_player;
 
 };

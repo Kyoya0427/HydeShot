@@ -6,7 +6,7 @@
 //======================================================
 #pragma once
 
-#include <Game\GameObject\IGameObject.h>
+#include <Game\GameObject\GameObject.h>
 
 class Character;
 
@@ -14,7 +14,7 @@ class CharacterController
 {
 public:
 	//コンストラク
-	CharacterController();
+	CharacterController(Character* character);
 	//デストラクタ
 	~CharacterController();
 public:
@@ -24,5 +24,7 @@ public:
 protected:
 
 	Character*     m_character;
+	//ステイト変更インターバル
+	float m_shotInterval;
 
 };

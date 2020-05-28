@@ -5,6 +5,7 @@
 // Author		: Kyoya  Sakamoto
 //======================================================
 #pragma once
+
 #include <DirectXTK\SimpleMath.h>
 
 class Camera

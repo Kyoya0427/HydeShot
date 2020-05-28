@@ -23,12 +23,14 @@
 
 #include <Game\UI\InfoWindow.h>
 
+#include <Game\GameObject\Character.h>
 
-#include <Game\Player\Player.h>
 #include <Game\Controller\PlayerController.h>
-
-#include <Game\Enemy\Enemy.h>
 #include <Game\Controller\AIController.h>
+
+#include <Game\ArtilleryShell\ArtilleryShell.h>
+
+#include <Game\Collider\CollisionManager.h>
 
 
 using namespace DirectX;
@@ -64,23 +66,40 @@ void PlayState::Initialize()
 	m_camera = std::make_unique<Camera>();
 	m_camera->Initialize();
 	GameContext::Register<Camera>(m_camera.get());
+	//コライダーマネジャー生成
+	m_collisionManager = std::make_unique<CollisionManager>();
+	GameContext().Register<CollisionManager>(m_collisionManager.get());
+
+	m_collisionManager->AllowCollision("Character", "Wall");
+	m_collisionManager->AllowCollision("Shell", "Wall");
 
 	//ステージを生成
 	m_stage = std::make_unique<Stage>();
-	m_stage->Initialize();
+	
 	// ステージデータの読み込み
 	m_stage->LoadStageData(L"Resources\\StageData\\Stage01.csv");
 	// ステージデータの設定
 	m_stage->SetStageData();
+	m_stage->Initialize();
 	GameContext::Register<Stage>(m_stage.get());
 	//プレイヤー
-	m_player = std::make_unique<Player>(IGameObject::Player);
+	m_player = std::make_unique<Character>(GameObject::Player);
 	m_player->Initialize(m_stage->GetPlayerPos());
+	m_player->SetColor(Color(Colors::Red));
+
 	m_playerController = std::make_unique<PlayerController>(m_player.get());
 	//エネミー
-	m_enemy = std::make_unique<Enemy>(IGameObject::Enemy);
-	m_enemy->Initialize(m_stage->GetEnemyPos());
-	m_aIController = std::make_unique<AIController>(m_enemy.get());
+	m_enemy = std::make_unique<Character>(GameObject::Enemy);
+	Vector2 pos = Vector2(8, 8);
+	m_enemy->Initialize(pos);
+//	m_enemy->Initialize(m_stage->GetEnemyPos());
+
+	m_enemy->SetColor(Color(Colors::Blue));
+	m_aiController = std::make_unique<AIController>(m_enemy.get());
+
+
+
+
 	// 情報ウィンドウ
 	m_infoWindow = std::make_unique<InfoWindow>();
 	m_infoWindow->Initialize();
@@ -118,15 +137,19 @@ void PlayState::Initialize()
 void PlayState::Update(const DX::StepTimer& timer)
 {
 	timer;
-	
 	m_bg->Update(timer);
 	m_infoWindow->Update(timer);
 	// ゲーム画面のオブジェクト更新
 	m_objectManager->GetGameOM()->Update(timer);
+
+
 	m_playerController->Update(timer);
+	m_aiController->Update(timer);
+
 	m_player->Update(timer);
 	m_enemy->Update(timer);
-	m_aIController->Update(timer);
+
+	m_collisionManager->DetectCollision();
 }
 
 /// <summary>
@@ -150,9 +173,12 @@ void PlayState::Render(const DX::StepTimer& timer)
 	m_bg->Render(timer);
 	// ゲーム画面のオブジェクト描画
 	m_objectManager->GetGameOM()->Render(timer);
-//	m_floor->Render(timer);
+	m_aiController->Render();
+	m_playerController->Render();
 	m_player->Render(timer);
 	m_enemy->Render(timer);
+
+	
 	spriteBach->End(); // <---スプライトの描画はここでまとめて行われている
 
 
@@ -162,6 +188,7 @@ void PlayState::Render(const DX::StepTimer& timer)
 
 	// 情報画面のオブジェクト描画
 	m_infoWindow->Render(timer);
+	
 	spriteBach->End(); // <---スプライトの描画はここでまとめて行われている
 
 	auto viewport = deviceResources->GetScreenViewport();

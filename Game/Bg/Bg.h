@@ -1,38 +1,40 @@
 //======================================================
 // File Name	: Bg.h
-// Summary	: 背景クラス
+// Summary	: 背景
 // Date		: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 #pragma once
 
-#include <Game\GameObject\IGameObject.h>
 #include <DirectXTK\Model.h>
+
+#include <Game\GameObject\GameObject.h>
 
 class GameWindow;
 
-class Bg : public IGameObject
+class Bg : public GameObject
 {
-	// ゲームウインドウへのポインタ
-	GameWindow* m_gameWindow;
-
-	// モデルデータへのポインタ
-	std::unique_ptr<DirectX::Model> m_model;
-
-	// 回転角
-	float m_angle;
-
 public:
 	// コンストラクタ
 	Bg();
-	
+	//デストラクタ
+	~Bg();
+
+public:
 	// 初期化関数
 	void Initialize();
-
 	// 更新
 	void Update(const DX::StepTimer& timer) override;
 	// 描画関数
 	void Render(const DX::StepTimer& timer) override;
+	//当たった後の処理
+	void HitContact(GameObject* object) override;
 
-	void OnCollision(IGameObject* object) override;
+private:
+	// ゲームウインドウへのポインタ
+	GameWindow* m_gameWindow;
+	// モデルデータへのポインタ
+	std::unique_ptr<DirectX::Model> m_model;
+	// 回転角
+	float m_angle;
 };

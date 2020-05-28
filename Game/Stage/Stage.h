@@ -8,11 +8,10 @@
 
 #include <vector>
 #include "Floor.h"
-
+#include "Wall.h"
 
 #include <DirectXTK\Model.h>
-#include <Game\Player\Player.h>
-#include <Game\Enemy\Enemy.h>
+
 
 
 class GameWindow;
@@ -28,9 +27,17 @@ public:
 		ENEMY,		// 敵１
 	};
 	
+	enum Map
+	{
+		NIX,
+		NORMAL,
+		WALL,
+
+		NUM
+	};
 	// ステージの大きさ
-	static const int STAGE_W = 15;
-	static const int STAGE_H = 15;
+	static const int STAGE_W = 16;
+	static const int STAGE_H = 16;
 
 	// ステージデータの構造体
 	struct StageData
@@ -51,7 +58,7 @@ public:
 	
 
 	// 床タスク取得関数
-	Floor* GetFloor(int x, int y);
+	int GetFloor(int x, int y);
 
 	// ステージデータの読み込み関数
 	bool LoadStageData(wchar_t* fname);
@@ -67,25 +74,18 @@ public:
 	DirectX::SimpleMath::Vector2& GetEnemyPos();
 private:
 	//----- ゲームオブジェクトへのポインタ -----//
-	Player* m_player;
-	Enemy* m_enemy;
+	Floor* m_floor;
+	Wall* m_wall;
 
 	DirectX::SimpleMath::Vector2  m_playerPos;
 
 	DirectX::SimpleMath::Vector2  m_enemyPos;
-	// 床オブジェクトへのポインタ
-	Floor* m_floors[STAGE_H][STAGE_W];
+	
 	//パーツオブジェクトへのポインター
 
 	//----- モデルへのポインタ -----//
 	// 床のモデル
-	std::unique_ptr<DirectX::Model> m_floorModels[Floor::STATE_NUM];
-
-
-
-	//プレイヤーのモデル
-	std::unique_ptr<DirectX::Model> m_playerModel[Player::MODEL_TYPE_NUM];
-	std::unique_ptr<DirectX::Model> m_enemy_Model[Enemy::MODEL_TYPE_NUM];
+	std::unique_ptr<DirectX::Model> m_floorModels[Map::NUM];
 
 public:
 	// ステージデータ

@@ -14,8 +14,10 @@
 /// コンストラクタ
 /// </summary>
 BinaryFile::BinaryFile()
+	: m_size()
+	, m_data()
 {
-	m_size = 0;
+	
 }
 
 /// <summary>

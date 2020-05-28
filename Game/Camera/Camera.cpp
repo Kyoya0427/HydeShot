@@ -11,9 +11,9 @@
 /// コンストラクタ
 /// </summary>
 Camera::Camera()
-	: m_eye()
+	: m_eye(0.0f, 0.0f, 0.0f)
 	, m_projection()
-	, m_target()
+	, m_target(0.0f, 0.0f, 0.0f)
 	, m_view()
 {
 }
@@ -31,9 +31,9 @@ Camera::~Camera()
 void Camera::Initialize()
 {
 	//視点設定
-	m_eye    = DirectX::SimpleMath::Vector3(7.0f, 15.5f, 16.0f);
+	m_eye    = DirectX::SimpleMath::Vector3(7.2f, 16.0f, 16.0f);
 	//注視点設定
-	m_target = DirectX::SimpleMath::Vector3(7.0f, 0, 8.5f);
+	m_target = DirectX::SimpleMath::Vector3(7.2f, 0, 8.5f);
 	//射影行列設定
 	m_projection = DirectX::SimpleMath::Matrix::CreatePerspectiveFieldOfView(
 		DirectX::XMConvertToRadians(45.0f),
@@ -43,7 +43,8 @@ void Camera::Initialize()
 
 	//カメラupを作成
 	DirectX::SimpleMath::Vector3 up = DirectX::SimpleMath::Vector3(0.0f, 1.0f, 0.0f);
-	
 	// ビュー行列
 	m_view = DirectX::SimpleMath::Matrix::CreateLookAt(m_eye, m_target, up);
 }
+
+

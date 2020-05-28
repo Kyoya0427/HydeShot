@@ -43,12 +43,10 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <Import Project="3rdParty\ADX2LE\ADX2LE.props" />
     <Import Project="3rdParty\DirectXTK\DirectXTK.props" />
     <Import Project="3rdParty\PicoJSON\PicoJSON.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <Import Project="3rdParty\ADX2LE\ADX2LE.props" />
     <Import Project="3rdParty\DirectXTK\DirectXTK.props" />
     <Import Project="3rdParty\PicoJSON\PicoJSON.props" />
   </ImportGroup>
@@ -75,7 +73,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3d11.lib;dxgi.lib;dxguid.lib;uuid.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;odbc32.lib;odbccp32.lib;cri_ware_pcx86_le_import.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;dxgi.lib;dxguid.lib;uuid.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -124,60 +122,55 @@
     <!-- アプリケーションマニフェスト -->
     <Manifest Include="settings.manifest" />
     <!-- プリコンパイル済みヘッダ -->
-    <ClInclude Include="3rdParty\ADX2LE\ADX2LEHeaderList.h" />
-    <ClInclude Include="3rdParty\ADX2LE\Facade\Adx2Le.h" />
-    <ClInclude Include="3rdParty\ADX2LE\Include\ADX2LE\cri_adx2le.h" />
-    <ClInclude Include="3rdParty\ADX2LE\Include\ADX2LE\cri_le_atom.h" />
-    <ClInclude Include="3rdParty\ADX2LE\Include\ADX2LE\cri_le_atom_asr.h" />
-    <ClInclude Include="3rdParty\ADX2LE\Include\ADX2LE\cri_le_atom_ex.h" />
-    <ClInclude Include="3rdParty\ADX2LE\Include\ADX2LE\cri_le_atom_ex_monitor.h" />
-    <ClInclude Include="3rdParty\ADX2LE\Include\ADX2LE\cri_le_atom_pc.h" />
-    <ClInclude Include="3rdParty\ADX2LE\Include\ADX2LE\cri_le_atom_wasapi.h" />
-    <ClInclude Include="3rdParty\ADX2LE\Include\ADX2LE\cri_le_error.h" />
-    <ClInclude Include="3rdParty\ADX2LE\Include\ADX2LE\cri_le_file_system.h" />
-    <ClInclude Include="3rdParty\ADX2LE\Include\ADX2LE\cri_le_xpt.h" />
     <ClInclude Include="3rdParty\PicoJSON\Include\PicoJSON\picojson.h" />
     <ClInclude Include="3rdParty\PicoJSON\PicoJSONHeaderList.h" />
+    <ClInclude Include="Game\ArtilleryShell\ArtilleryShell.h" />
     <ClInclude Include="Game\Bg\Bg.h" />
     <ClInclude Include="Game\Camera\Camera.h" />
+    <ClInclude Include="Game\Collider\BoxCollider.h" />
+    <ClInclude Include="Game\Collider\Collider.h" />
+    <ClInclude Include="Game\Collider\CollisionManager.h" />
+    <ClInclude Include="Game\Collider\SphereCollider.h" />
     <ClInclude Include="Game\Common\DebugFont.h" />
     <ClInclude Include="Game\Common\GameContext.h" />
     <ClInclude Include="Game\Common\ServiceLocator.h" />
     <ClInclude Include="Game\Common\Utilities.h" />
     <ClInclude Include="Game\Controller\AIController.h" />
-    <ClInclude Include="Game\Controller\Character.h" />
     <ClInclude Include="Game\Controller\CharacterController.h" />
     <ClInclude Include="Game\Controller\PlayerController.h" />
-    <ClInclude Include="Game\Enemy\Enemy.h" />
-    <ClInclude Include="Game\GameObject\IGameObject.h" />
+    <ClInclude Include="Game\GameObject\Character.h" />
+    <ClInclude Include="Game\GameObject\GameObject.h" />
     <ClInclude Include="Game\GameObject\GameObjectManager.h" />
     <ClInclude Include="Game\GameObject\ObjectManager.h" />
     <ClInclude Include="Game\GameState\PlayState.h" />
-    <ClInclude Include="Game\Player\Player.h" />
     <ClInclude Include="Game\Stage\Floor.h" />
     <ClInclude Include="Game\Stage\Stage.h" />
     <ClInclude Include="Game\Stage\StageCSV.h" />
+    <ClInclude Include="Game\Stage\Wall.h" />
     <ClInclude Include="Game\UI\Blink.h" />
     <ClInclude Include="Game\UI\InfoWindow.h" />
     <ClInclude Include="Game\UI\Letter.h" />
     <ClInclude Include="pch.h" />
-    <ClCompile Include="3rdParty\ADX2LE\Facade\Adx2Le.cpp" />
+    <ClCompile Include="Game\ArtilleryShell\ArtilleryShell.cpp" />
     <ClCompile Include="Game\Bg\Bg.cpp" />
     <ClCompile Include="Game\Camera\Camera.cpp" />
+    <ClCompile Include="Game\Collider\BoxCollider.cpp" />
+    <ClCompile Include="Game\Collider\Collider.cpp" />
+    <ClCompile Include="Game\Collider\CollisionManager.cpp" />
+    <ClCompile Include="Game\Collider\SphereCollider.cpp" />
     <ClCompile Include="Game\Common\DebugFont.cpp" />
     <ClCompile Include="Game\Controller\AIController.cpp" />
-    <ClCompile Include="Game\Controller\Character.cpp" />
     <ClCompile Include="Game\Controller\CharacterController.cpp" />
     <ClCompile Include="Game\Controller\PlayerController.cpp" />
-    <ClCompile Include="Game\Enemy\Enemy.cpp" />
-    <ClCompile Include="Game\GameObject\IGameObject.cpp" />
+    <ClCompile Include="Game\GameObject\Character.cpp" />
+    <ClCompile Include="Game\GameObject\GameObject.cpp" />
     <ClCompile Include="Game\GameObject\GameObjectManager.cpp" />
     <ClCompile Include="Game\GameObject\ObjectManager.cpp" />
     <ClCompile Include="Game\GameState\PlayState.cpp" />
-    <ClCompile Include="Game\Player\Player.cpp" />
     <ClCompile Include="Game\Stage\Floor.cpp" />
     <ClCompile Include="Game\Stage\Stage.cpp" />
     <ClCompile Include="Game\Stage\StageCSV.cpp" />
+    <ClCompile Include="Game\Stage\Wall.cpp" />
     <ClCompile Include="Game\UI\Blink.cpp" />
     <ClCompile Include="Game\UI\InfoWindow.cpp" />
     <ClCompile Include="Game\UI\Letter.cpp" />
@@ -206,9 +199,6 @@
     <MeshContentTask Include="Resources\FBX\floorPanel_02.FBX" />
     <MeshContentTask Include="Resources\FBX\floorPanel_03.FBX" />
     <MeshContentTask Include="Resources\FBX\player.FBX" />
-    <None Include="3rdParty\ADX2LE\ADX2LE.props" />
-    <None Include="3rdParty\ADX2LE\Bin\cri_ware_pcx86_le.dll" />
-    <None Include="3rdParty\ADX2LE\License\CRI ADX2 LE 著作権表記.pdf" />
     <None Include="3rdParty\PicoJSON\PicoJSON.props" />
     <!-- [3rdParty]フォルダ -->
     <!-- DirectXTK -->
@@ -237,23 +227,17 @@
     <ClInclude Include="3rdParty\DirectXTK\Include\DirectXTK\VertexTypes.h" />
     <ClInclude Include="3rdParty\DirectXTK\Include\DirectXTK\WICTextureLoader.h" />
     <!-- ライブラリ -->
-    <Library Include="3rdParty\ADX2LE\Lib\cri_ware_pcx86_le_import.lib" />
     <Library Include="3rdParty\DirectXTK\Lib\DirectXTK.lib" />
     <Library Include="3rdParty\DirectXTK\Lib\DirectXTKd.lib" />
     <None Include="3rdParty\DirectXTK\Lib\DirectXTKd.pdb" />
     <!-- [Resources]フォルダ -->
     <!-- アイコン -->
-    <Image Include="3rdParty\ADX2LE\License\LELOGO_256.png" />
-    <Image Include="3rdParty\ADX2LE\License\LELOGO_512.png" />
     <Image Include="Resources\Icon\Icon.ico" />
     <ResourceCompile Include="Resources\Icon\Icon.rc" />
     <!-- フォント -->
     <None Include="Resources\Fonts\SegoeUI_18.spritefont" />
     <!-- テクスチャ -->
     <Image Include="Resources\Textures\TridentLogo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="3rdParty\ADX2LE\License\CRI_ADX2_LE_License_Agreement.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

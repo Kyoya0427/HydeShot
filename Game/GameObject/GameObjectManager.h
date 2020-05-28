@@ -8,20 +8,19 @@
 
 #include <list>
 #include <memory>
+#include <vector>
 
 #include <DirectXTK\SimpleMath.h>
 
 #include <Game\Common\StepTimer.h>
 
-
-class IGameObject;
-
+#include <Game\GameObject\GameObject.h>
 
 
 class GameObjectManager final
 {
 //名前変更
-using GameObjectPtr  = std::unique_ptr<IGameObject>;
+using GameObjectPtr  = std::unique_ptr<GameObject>;
 using GameObjectList = std::list<GameObjectPtr>;
 
 public:
@@ -39,6 +38,8 @@ public:
 	void Render(const DX::StepTimer& timer);
 	//追加
 	void Add(GameObjectPtr&& object);
+	//特定のオブジェクトを取得
+	std::vector<GameObject*> Find(GameObject::ObjectTag tag);
 
 private:
 	//追加されたオブジェクトの更新

@@ -7,7 +7,7 @@
 
 #include "GameObjectManager.h"
 
-#include "IGameObject.h"
+#include "GameObject.h"
 
 
 
@@ -52,7 +52,7 @@ void GameObjectManager::Update(const DX::StepTimer& timer)
 /// <param name="timer"></param>
 void GameObjectManager::Render(const DX::StepTimer& timer)
 {
-	std::list<IGameObject*> pObjects;
+	std::list<GameObject*> pObjects;
 	GameObjectList::iterator it = m_objects.begin();
 	GameObjectList::iterator end = m_objects.end();
 	while (it != end)
@@ -60,10 +60,10 @@ void GameObjectManager::Render(const DX::StepTimer& timer)
 		pObjects.push_back((*it).get());
 		++it;
 	}
-	pObjects.sort([](const IGameObject* a, const IGameObject* b) {
+	pObjects.sort([](const GameObject* a, const GameObject* b) {
 		return a->GetDrawPrio() > b->GetDrawPrio();
 	});
-	for (IGameObject* object : pObjects)
+	for (GameObject* object : pObjects)
 	{
 		object->Render(timer);
 	}
@@ -76,6 +76,29 @@ void GameObjectManager::Render(const DX::StepTimer& timer)
 void GameObjectManager::Add(GameObjectPtr&& object)
 {
 	m_objectQueue.push_back(std::move(object));
+}
+
+std::vector<GameObject*> GameObjectManager::Find(GameObject::ObjectTag tag)
+{
+	std::vector<GameObject*> result;
+
+	for (const GameObjectPtr& object : m_objects)
+	{
+		if (object->GetTag() == tag)
+		{
+			result.push_back(object.get());
+		}
+	}
+
+	for (const GameObjectPtr& object : m_objectQueue)
+	{
+		if (object->GetTag() == tag)
+		{
+			result.push_back(object.get());
+		}
+	}
+
+	return result;
 }
 
 

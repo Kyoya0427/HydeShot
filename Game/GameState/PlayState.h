@@ -6,25 +6,27 @@
 //======================================================
 #pragma once
 
+#include <list>
+
 #include <Game\Common\StepTimer.h>
 
 class GameWindow;
 class InfoWindow;
 class ObjectManager;
 class Camera;
-class Player;
 class PlayerController;
-class Enemy;
 class AIController;
 class Stage;
 class Bg;
+class Character;
+class Collision;
+class ArtilleryShell;
+class CollisionManager;
 
 class PlayState 
 {
 public:
 	PlayState();
-
-public:
 	virtual ~PlayState();
 
 public:
@@ -55,14 +57,16 @@ private:
 	//ステージ
 	std::unique_ptr<Stage>					m_stage;
 	//プレイイヤー
-	std::unique_ptr<Player>                 m_player;
+	std::unique_ptr<Character>              m_player;
 	//プレイイヤーコントローラー
 	std::unique_ptr<PlayerController>       m_playerController;
 	//エネミー
-	std::unique_ptr<Enemy>                  m_enemy;
+	std::unique_ptr<Character>              m_enemy;
 	//エネミーコントローラー
-	std::unique_ptr<AIController>           m_aIController;
+	std::unique_ptr<AIController>           m_aiController;
 	// ゲームオブジェクトマネージャー
 	std::unique_ptr<ObjectManager>          m_objectManager;
+	//当たり判定マネージャー
+	std::unique_ptr<CollisionManager>       m_collisionManager;
 };
 

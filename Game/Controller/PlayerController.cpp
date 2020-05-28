@@ -1,9 +1,9 @@
 
 #include "PlayerController.h"
 
-#include <Game\Player\Player.h>
+#include <Game\GameObject\Character.h>
 
-#include <Game\Controller\Character.h>
+#include <Game\Common\DebugFont.h>
 
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
@@ -11,9 +11,9 @@ using namespace DirectX::SimpleMath;
 const float PlayerController::MOVE_SPEED = 0.1f;
 const float PlayerController::ROT_SPEED  = 0.1f;
 
-PlayerController::PlayerController(Player* player)
+PlayerController::PlayerController(Character* character)
+	: CharacterController(character)
 {
-	m_player = player;
 }
 
 PlayerController::~PlayerController()
@@ -25,41 +25,51 @@ void PlayerController::Update(const DX::StepTimer& timer)
 	timer;
 	DirectX::Keyboard::State keyState = DirectX::Keyboard::Get().GetState();
 
-	Vector3 vel = Vector3::Zero;
-	Vector3 rot = m_player->GetRotation();
-
-	m_player->SetVelocity(vel);
-
+	m_shotInterval += float(timer.GetElapsedSeconds());
 
 	if (keyState.IsKeyDown(DirectX::Keyboard::Keys::W))
 	{
-		m_character->Forward(vel, rot, MOVE_SPEED);
+		m_character->Forward(MOVE_SPEED);
 	}
 	else if (keyState.IsKeyDown(DirectX::Keyboard::Keys::S))
 	{
-		m_character->Backward(vel, rot, MOVE_SPEED);
+		m_character->Backward(MOVE_SPEED);
 	}
 	else if (keyState.IsKeyDown(DirectX::Keyboard::Keys::A))
 	{
-		m_character->Leftward(vel, rot, MOVE_SPEED);
+		m_character->Leftward(MOVE_SPEED);
 	}
 	else if (keyState.IsKeyDown(DirectX::Keyboard::Keys::D))
 	{
-		m_character->Rightward(vel, rot, MOVE_SPEED);
+		m_character->Rightward(MOVE_SPEED);
 	}
 
 
 	if (keyState.IsKeyDown(DirectX::Keyboard::Keys::Left))
 	{
-		m_character->LeftTurn(rot, ROT_SPEED);
+		m_character->LeftTurn(ROT_SPEED);
 	}
 	else if (keyState.IsKeyDown(DirectX::Keyboard::Keys::Right))
 	{
-		m_character->RightTurn(rot, ROT_SPEED);
+		m_character->RightTurn(ROT_SPEED);
 	}
 
-	m_player->SetVelocity(vel);
-	m_player->SetRotation(rot);
+
+	if (keyState.IsKeyDown(DirectX::Keyboard::Keys::Space) && m_shotInterval >= 0.1)
+	{
+		m_character->Shooting();
+		m_shotInterval = 0.0f;
+	}
+
+
+}
+
+void PlayerController::Render()
+{
+	
+	DebugFont* debugFont = DebugFont::GetInstance();
+	debugFont->print(600, 30, L"%f / 2.0", m_shotInterval);
+	debugFont->draw();
 }
 
 

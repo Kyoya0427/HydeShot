@@ -40,29 +40,8 @@
     <Filter Include="Resources\Textures">
       <UniqueIdentifier>{09ea98a4-e177-4738-9b60-2e38109d274a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="3rdParty\ADX2LE">
-      <UniqueIdentifier>{c7769547-8055-4df8-87e9-6556c4d9d5ef}</UniqueIdentifier>
-    </Filter>
     <Filter Include="3rdParty\PicoJSON">
       <UniqueIdentifier>{d55be8a2-bd2f-4837-b314-8f4494aad993}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="3rdParty\ADX2LE\Bin">
-      <UniqueIdentifier>{76cf7f5b-944a-44fe-88c6-6613dfcc21e7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="3rdParty\ADX2LE\Facade">
-      <UniqueIdentifier>{2174e3e9-7360-4a55-84ae-d96e9d97419f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="3rdParty\ADX2LE\Include">
-      <UniqueIdentifier>{3d238405-5241-4103-a74a-ad2ab5f9d3cf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="3rdParty\ADX2LE\Lib">
-      <UniqueIdentifier>{6299842d-7ee6-4cfd-a766-5e672fd801fc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="3rdParty\ADX2LE\License">
-      <UniqueIdentifier>{6994494e-9872-41c6-b589-145b348ce6ff}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="3rdParty\ADX2LE\Include\ADX2LE">
-      <UniqueIdentifier>{0b652988-9d5c-43d7-b43c-e8e4227d0041}</UniqueIdentifier>
     </Filter>
     <Filter Include="3rdParty\PicoJSON\Include">
       <UniqueIdentifier>{59a41ae9-aa83-4227-be74-666cf9993798}</UniqueIdentifier>
@@ -85,12 +64,6 @@
     <Filter Include="Resources\FBX">
       <UniqueIdentifier>{5cb58e9d-eacf-4d00-ad12-565ba7f6df18}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Player">
-      <UniqueIdentifier>{777e5353-1af7-4110-868c-042adb24d22b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Enemy">
-      <UniqueIdentifier>{f7ca104b-0a7b-46cb-97ef-19074548da34}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\Stage">
       <UniqueIdentifier>{eec01eb4-317f-46fe-acf8-5e090f3545f6}</UniqueIdentifier>
     </Filter>
@@ -102,6 +75,12 @@
     </Filter>
     <Filter Include="Game\Bg">
       <UniqueIdentifier>{6b513902-ec90-4dd5-9aa4-c317cdb11476}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Collider">
+      <UniqueIdentifier>{a3616636-1c23-454e-be22-6ddecad3c7e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\ArtilleryShell">
+      <UniqueIdentifier>{8ee4c85f-3418-4ded-9c00-09230e099394}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -233,56 +212,11 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <None Include="3rdParty\ADX2LE\ADX2LE.props">
-      <Filter>3rdParty\ADX2LE</Filter>
-    </None>
-    <None Include="3rdParty\ADX2LE\Bin\cri_ware_pcx86_le.dll">
-      <Filter>3rdParty\ADX2LE\Bin</Filter>
-    </None>
-    <None Include="3rdParty\ADX2LE\License\CRI ADX2 LE 著作権表記.pdf">
-      <Filter>3rdParty\ADX2LE\License</Filter>
-    </None>
     <None Include="3rdParty\PicoJSON\PicoJSON.props">
       <Filter>3rdParty\PicoJSON</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="3rdParty\ADX2LE\ADX2LEHeaderList.h">
-      <Filter>3rdParty\ADX2LE</Filter>
-    </ClInclude>
-    <ClInclude Include="3rdParty\ADX2LE\Facade\Adx2Le.h">
-      <Filter>3rdParty\ADX2LE\Facade</Filter>
-    </ClInclude>
-    <ClInclude Include="3rdParty\ADX2LE\Include\ADX2LE\cri_adx2le.h">
-      <Filter>3rdParty\ADX2LE\Include\ADX2LE</Filter>
-    </ClInclude>
-    <ClInclude Include="3rdParty\ADX2LE\Include\ADX2LE\cri_le_atom.h">
-      <Filter>3rdParty\ADX2LE\Include\ADX2LE</Filter>
-    </ClInclude>
-    <ClInclude Include="3rdParty\ADX2LE\Include\ADX2LE\cri_le_atom_asr.h">
-      <Filter>3rdParty\ADX2LE\Include\ADX2LE</Filter>
-    </ClInclude>
-    <ClInclude Include="3rdParty\ADX2LE\Include\ADX2LE\cri_le_atom_ex.h">
-      <Filter>3rdParty\ADX2LE\Include\ADX2LE</Filter>
-    </ClInclude>
-    <ClInclude Include="3rdParty\ADX2LE\Include\ADX2LE\cri_le_atom_ex_monitor.h">
-      <Filter>3rdParty\ADX2LE\Include\ADX2LE</Filter>
-    </ClInclude>
-    <ClInclude Include="3rdParty\ADX2LE\Include\ADX2LE\cri_le_atom_pc.h">
-      <Filter>3rdParty\ADX2LE\Include\ADX2LE</Filter>
-    </ClInclude>
-    <ClInclude Include="3rdParty\ADX2LE\Include\ADX2LE\cri_le_atom_wasapi.h">
-      <Filter>3rdParty\ADX2LE\Include\ADX2LE</Filter>
-    </ClInclude>
-    <ClInclude Include="3rdParty\ADX2LE\Include\ADX2LE\cri_le_error.h">
-      <Filter>3rdParty\ADX2LE\Include\ADX2LE</Filter>
-    </ClInclude>
-    <ClInclude Include="3rdParty\ADX2LE\Include\ADX2LE\cri_le_file_system.h">
-      <Filter>3rdParty\ADX2LE\Include\ADX2LE</Filter>
-    </ClInclude>
-    <ClInclude Include="3rdParty\ADX2LE\Include\ADX2LE\cri_le_xpt.h">
-      <Filter>3rdParty\ADX2LE\Include\ADX2LE</Filter>
-    </ClInclude>
     <ClInclude Include="3rdParty\PicoJSON\PicoJSONHeaderList.h">
       <Filter>3rdParty\PicoJSON</Filter>
     </ClInclude>
@@ -322,9 +256,6 @@
     <ClInclude Include="Game\UI\Letter.h">
       <Filter>Game\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Game\GameObject\IGameObject.h">
-      <Filter>Game\GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Stage\StageCSV.h">
       <Filter>Game\Stage</Filter>
     </ClInclude>
@@ -334,20 +265,11 @@
     <ClInclude Include="Game\Stage\Floor.h">
       <Filter>Game\Stage</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Player\Player.h">
-      <Filter>Game\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Enemy\Enemy.h">
-      <Filter>Game\Enemy</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Controller\CharacterController.h">
       <Filter>Game\Controller</Filter>
     </ClInclude>
     <ClInclude Include="Game\Bg\Bg.h">
       <Filter>Game\Bg</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Controller\Character.h">
-      <Filter>Game\Controller</Filter>
     </ClInclude>
     <ClInclude Include="Game\Controller\AIController.h">
       <Filter>Game\Controller</Filter>
@@ -355,11 +277,32 @@
     <ClInclude Include="Game\Controller\PlayerController.h">
       <Filter>Game\Controller</Filter>
     </ClInclude>
+    <ClInclude Include="Game\GameObject\Character.h">
+      <Filter>Game\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\GameObject.h">
+      <Filter>Game\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ArtilleryShell\ArtilleryShell.h">
+      <Filter>Game\ArtilleryShell</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Stage\Wall.h">
+      <Filter>Game\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Collider\BoxCollider.h">
+      <Filter>Game\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Collider\Collider.h">
+      <Filter>Game\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Collider\CollisionManager.h">
+      <Filter>Game\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Collider\SphereCollider.h">
+      <Filter>Game\Collider</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="3rdParty\ADX2LE\Facade\Adx2Le.cpp">
-      <Filter>3rdParty\ADX2LE\Facade</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Common\DebugFont.cpp">
       <Filter>Game\Common</Filter>
     </ClCompile>
@@ -384,9 +327,6 @@
     <ClCompile Include="Game\UI\Letter.cpp">
       <Filter>Game\UI</Filter>
     </ClCompile>
-    <ClCompile Include="Game\GameObject\IGameObject.cpp">
-      <Filter>Game\GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Stage\StageCSV.cpp">
       <Filter>Game\Stage</Filter>
     </ClCompile>
@@ -396,20 +336,11 @@
     <ClCompile Include="Game\Stage\Floor.cpp">
       <Filter>Game\Stage</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Player\Player.cpp">
-      <Filter>Game\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Enemy\Enemy.cpp">
-      <Filter>Game\Enemy</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Controller\CharacterController.cpp">
       <Filter>Game\Controller</Filter>
     </ClCompile>
     <ClCompile Include="Game\Bg\Bg.cpp">
       <Filter>Game\Bg</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Controller\Character.cpp">
-      <Filter>Game\Controller</Filter>
     </ClCompile>
     <ClCompile Include="Game\Controller\AIController.cpp">
       <Filter>Game\Controller</Filter>
@@ -417,24 +348,30 @@
     <ClCompile Include="Game\Controller\PlayerController.cpp">
       <Filter>Game\Controller</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Library Include="3rdParty\ADX2LE\Lib\cri_ware_pcx86_le_import.lib">
-      <Filter>3rdParty\ADX2LE\Lib</Filter>
-    </Library>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="3rdParty\ADX2LE\License\LELOGO_256.png">
-      <Filter>3rdParty\ADX2LE\License</Filter>
-    </Image>
-    <Image Include="3rdParty\ADX2LE\License\LELOGO_512.png">
-      <Filter>3rdParty\ADX2LE\License</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="3rdParty\ADX2LE\License\CRI_ADX2_LE_License_Agreement.txt">
-      <Filter>3rdParty\ADX2LE\License</Filter>
-    </Text>
+    <ClCompile Include="Game\GameObject\Character.cpp">
+      <Filter>Game\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\GameObject.cpp">
+      <Filter>Game\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ArtilleryShell\ArtilleryShell.cpp">
+      <Filter>Game\ArtilleryShell</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Stage\Wall.cpp">
+      <Filter>Game\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Collider\BoxCollider.cpp">
+      <Filter>Game\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Collider\Collider.cpp">
+      <Filter>Game\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Collider\CollisionManager.cpp">
+      <Filter>Game\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Collider\SphereCollider.cpp">
+      <Filter>Game\Collider</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Resources\FBX\bg.FBX">
