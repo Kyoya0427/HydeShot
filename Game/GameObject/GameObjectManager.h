@@ -35,7 +35,7 @@ public:
 	//更新
 	void Update(const DX::StepTimer& timer);
 	//描画
-	void Render(const DX::StepTimer& timer);
+	void Render();
 	//追加
 	void Add(GameObjectPtr&& object);
 	//特定のオブジェクトを取得

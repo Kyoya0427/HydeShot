@@ -27,7 +27,7 @@ public:
 
 	void Initialize();
 	 void Update(const DX::StepTimer & timer) override;
-	 void Render(const DX::StepTimer & timer) override;
+	 void Render() override;
 	 void HitContact(GameObject* object) override;
 
 private:

@@ -1,5 +1,5 @@
 //======================================================
-// File Name	: IGameObject.h
+// File Name	: GameObject.h
 // Summary	: ゲームオブジェクト
 // Date		: 2020/5/12
 // Author		: Kyoya  Sakamoto
@@ -38,7 +38,7 @@ public:
 	//更新
 	virtual void Update(const DX::StepTimer& timer) = 0;
 	//描画
-	virtual void Render(const DX::StepTimer& timer) = 0;
+	virtual void Render() = 0;
 	//当たったあとの処理
 	virtual void HitContact(GameObject* object) = 0;
 

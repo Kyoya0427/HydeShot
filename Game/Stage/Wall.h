@@ -1,6 +1,6 @@
 //======================================================
 // File Name	: Wall.h
-// Summary	: 床クラス
+// Summary	: 壁クラス
 // Date		: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
@@ -17,6 +17,24 @@ class Stage;
 
 class Wall : public GameObject
 {
+public:
+	// コンストラクタ
+	Wall();
+
+public:
+	// 初期化関数
+	void Initialize(int x, int y);
+	// 更新
+	void Update(const DX::StepTimer& timer) override;
+	// 描画関数
+	void Render() override;
+
+	void HitContact(GameObject* object) override;
+	// モデル設定関数
+	void SetModel( DirectX::Model* model);
+
+	DirectX::SimpleMath::Vector3 GetCollSize();
+
 private:
 	// モデルデータへのポインタ
 	DirectX::Model* m_models;
@@ -27,23 +45,4 @@ private:
 	std::unique_ptr<BoxCollider>  m_collider;
 
 	DirectX::SimpleMath::Vector3  m_collSize;
-public:
-	// コンストラクタ
-	Wall();
-
-	// 初期化関数
-	void Initialize(int x, int y);
-
-	// 更新
-	void Update(const DX::StepTimer& timer) override;
-	// 描画関数
-	void Render(const DX::StepTimer & timer) override;
-
-	void HitContact(GameObject* object) override;
-
-	// モデル設定関数
-	void SetModel( DirectX::Model* model);
-
-	DirectX::SimpleMath::Vector3 GetCollSize();
-
 };

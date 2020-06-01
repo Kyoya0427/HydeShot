@@ -29,7 +29,7 @@ public:
 	// XV
 	void Update(const DX::StepTimer& timer) override;
 	// •`‰æŠÖ”
-	void Render(const DX::StepTimer & timer) override;
+	void Render() override;
 
 	void HitContact(GameObject* object) override;
 

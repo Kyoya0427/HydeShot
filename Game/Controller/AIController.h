@@ -8,9 +8,6 @@
 
 #include <Game\Controller\CharacterController.h>
 
-class Enemy;
-
-
 class AIController : public  CharacterController
 {
 public:
@@ -23,6 +20,7 @@ public:
 		MOVE_RIGHTWARD,		
 		TURN_LEFT,
 		TURN_RIGHT,
+		SHOOT,
 
 		NUM
 	};

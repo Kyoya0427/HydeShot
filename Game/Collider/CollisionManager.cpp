@@ -1,29 +1,37 @@
-
+//======================================================
+// File Name	: CollisionManager.cpp
+// Summary	: コライダーマネジャー
+// Date		: 2020/5/12
+// Author		: Kyoya Sakamoto
+//======================================================
 #include "CollisionManager.h"
 
+#include <Game\Common\Utilities.h>
 
 #include <Game\Collider\BoxCollider.h>
 #include <Game\Collider\SphereCollider.h>
 
 #include <Game\GameObject\GameObject.h>
 
-#include <Game\Common\Utilities.h>
-
-
+/// <summary>
+/// コンストラクタ
+/// </summary>
 CollisionManager::CollisionManager()
 	: m_colliderGroups()
 	, m_collisionGroups()
 {
 }
 
-
-
+/// <summary>
+/// デストラクタ
+/// </summary>
 CollisionManager::~CollisionManager()
 {
 }
 
-
-
+/// <summary>
+/// 衝突を検出
+/// </summary>
 void CollisionManager::DetectCollision()
 {
 	for (const CollisionGroup& collisionGroup : m_collisionGroups)
@@ -46,8 +54,10 @@ void CollisionManager::DetectCollision()
 	m_colliderGroups.clear();
 }
 
-
-
+/// <summary>
+/// 衝突を検出
+/// </summary>
+/// <param name="colliders">オブジェクト</param>
 void CollisionManager::DetectCollision(const ColliderList& colliders)
 {
 	int numObjects = colliders.size();
@@ -65,8 +75,11 @@ void CollisionManager::DetectCollision(const ColliderList& colliders)
 	}
 }
 
-
-
+/// <summary>
+/// 衝突を検出
+/// </summary>
+/// <param name="colliders1">オブジェクト1</param>
+/// <param name="colliders2">オブジェクト2</param>
 void CollisionManager::DetectCollision(const ColliderList& colliders1, const ColliderList& colliders2)
 {
 	for (const Collider* collider1 : colliders1)
@@ -82,15 +95,22 @@ void CollisionManager::DetectCollision(const ColliderList& colliders1, const Col
 	}
 }
 
-
-
+/// <summary>
+/// オブジェクトを追加
+/// </summary>
+/// <param name="groupName">グループ名</param>
+/// <param name="collider">オブジェクト</param>
 void CollisionManager::Add(const std::string& groupName, Collider* collider)
 {
 	m_colliderGroups[groupName].push_back(collider);
 }
 
 
-
+/// <summary>
+/// 判定を取るグループを取得
+/// </summary>
+/// <param name="groupName1">グループ名</param>
+/// <param name="groupName2">グループ名</param>
 void CollisionManager::AllowCollision(const std::string& groupName1, const std::string& groupName2)
 {
 	if (groupName1 == groupName2)
@@ -104,7 +124,12 @@ void CollisionManager::AllowCollision(const std::string& groupName1, const std::
 }
 
 
-
+/// <summary>
+/// 球と球の当たり判定
+/// </summary>
+/// <param name="collider1">オブジェクト１</param>
+/// <param name="collider2">オブジェクト２</param>
+/// <returns></returns>
 bool CollisionManager::IsCollided(const SphereCollider* collider1, const SphereCollider* collider2)
 {
 	// 中心間の距離の平方を計算
@@ -115,8 +140,12 @@ bool CollisionManager::IsCollided(const SphereCollider* collider1, const SphereC
 	return dist2 <= radiusSum * radiusSum;
 }
 
-
-
+/// <summary>
+/// 箱と箱の当たり判定
+/// </summary>
+/// <param name="collider1">オブジェクト１</param>
+/// <param name="collider2">オブジェクト２</param>
+/// <returns></returns>
 bool CollisionManager::IsCollided(const BoxCollider* collider1, const BoxCollider* collider2)
 {
 	collider1;
@@ -124,21 +153,35 @@ bool CollisionManager::IsCollided(const BoxCollider* collider1, const BoxCollide
 	return false;
 }
 
-
-
+/// <summary>
+/// 球と箱の当たり判定
+/// </summary>
+/// <param name="collider1">オブジェクト１</param>
+/// <param name="collider2">オブジェクト２</param>
+/// <returns></returns>
 bool CollisionManager::IsCollided(const SphereCollider* collider1, const BoxCollider* collider2)
 {
 	float sq = SquareCalculation(collider1, collider2);
 	return sq < collider1->GetRadius() * collider1->GetRadius();
 }
 
-
-
+/// <summary>
+/// 箱と球の当たり判定
+/// </summary>
+/// <param name="collider1">オブジェクト１</param>
+/// <param name="collider2">オブジェクト２</param>
+/// <returns></returns>
 bool CollisionManager::IsCollided(const BoxCollider* collider1, const SphereCollider* collider2)
 {
 	return IsCollided(collider2, collider1);
 }
 
+/// <summary>
+/// 平方計算
+/// </summary>
+/// <param name="collider1">オブジェクト１</param>
+/// <param name="collider2">オブジェクト２</param>
+/// <returns></returns>
 float CollisionManager::SquareCalculation(const SphereCollider* collider1, const BoxCollider* collider2)
 {
 	float point[3] = { collider1->GetPosition().x, collider1->GetPosition().y, collider1->GetPosition().z };

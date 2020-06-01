@@ -1,4 +1,9 @@
-
+//======================================================
+// File Name	: Character.h
+// Summary	: プレイヤークラス
+// Date		: 2020/5/12
+// Author		: Kyoya  Sakamoto
+//======================================================
 #include "Character.h"
 
 #include <Game\Common\GameContext.h>
@@ -8,8 +13,8 @@
 
 #include <Game\GameObject\GameObjectManager.h>
 #include <Game\GameObject\ObjectManager.h>
+#include <Game\GameObject\Bullet.h>
 
-#include <Game\ArtilleryShell\ArtilleryShell.h>
 #include <Game\Collider\CollisionManager.h>
 
 using namespace DirectX;
@@ -30,6 +35,10 @@ Character::~Character()
 {
 }
 
+/// <summary>
+/// 初期化
+/// </summary>
+/// <param name="pos">初期座標</param>
 void Character::Initialize(DirectX::SimpleMath::Vector2 & pos)
 {
 	m_x = (int)pos.x;
@@ -38,14 +47,18 @@ void Character::Initialize(DirectX::SimpleMath::Vector2 & pos)
 	m_radius = 0.5f;
 
 	ID3D11DeviceContext* deviceContext = GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext();
-	m_geometricPrimitive = GeometricPrimitive::CreateCone(deviceContext);
+	m_model = GeometricPrimitive::CreateCone(deviceContext);
 
-	m_sphereCollider = GeometricPrimitive::CreateSphere(deviceContext);
+	m_sphereCollider = GeometricPrimitive::CreateSphere(deviceContext,1.0f,8U);
 
 	m_collider = std::make_unique<SphereCollider>(this, m_radius);
 	GameContext::Get<CollisionManager>()->Add("Character", m_collider.get());
 }
 
+/// <summary>
+/// 更新
+/// </summary>
+/// <param name="timer">タイマー</param>
 void Character::Update(const DX::StepTimer & timer)
 {
 	timer;
@@ -61,10 +74,11 @@ void Character::Update(const DX::StepTimer & timer)
 	
 }
 
-void Character::Render(const DX::StepTimer & timer)
+/// <summary>
+/// 描画
+/// </summary>
+void Character::Render()
 {
-	timer;
-
 	Quaternion rot = DirectX::SimpleMath::Quaternion::CreateFromAxisAngle(DirectX::SimpleMath::Vector3::UnitY, m_rotation.y);
 
 
@@ -76,7 +90,7 @@ void Character::Render(const DX::StepTimer & timer)
 
 	m_world = scalemat * r * rotMat * transMat;
 
-	m_geometricPrimitive->Draw(m_world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_color);
+	m_model->Draw(m_world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_color);
 
 	Matrix world = rotMat * transMat;
 	m_sphereCollider->Draw(world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_color, nullptr, true);
@@ -84,8 +98,13 @@ void Character::Render(const DX::StepTimer & timer)
 	
 }
 
+/// <summary>
+/// 当たった後の処理
+/// </summary>
+/// <param name="object"></param>
 void Character::HitContact(GameObject* object)
 {
+	object;
 	m_position = m_previousPos;
 	m_velocity = Vector3::Zero;
 }
@@ -150,10 +169,10 @@ void Character::RightTurn(float speed)
 /// <summary>
 /// 発砲
 /// </summary>
-void Character::Shooting()
+void Character::Shoot()
 {
 	Quaternion rot = DirectX::SimpleMath::Quaternion::CreateFromAxisAngle(Vector3::UnitY, m_rotation.y);
 
-	std::unique_ptr<ArtilleryShell> shell = std::make_unique<ArtilleryShell>(ObjectTag::Shell,m_position, rot);
+	std::unique_ptr<Bullet> shell = std::make_unique<Bullet>(ObjectTag::Shell,m_position, rot);
 	GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(shell));
 }

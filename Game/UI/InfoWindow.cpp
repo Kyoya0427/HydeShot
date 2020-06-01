@@ -36,13 +36,12 @@ void InfoWindow::Update(const DX::StepTimer & timer)
 	timer;
 }
 
-void InfoWindow::Render(const DX::StepTimer & timer)
+void InfoWindow::Render()
 {
-	timer;
-
 	GameContext::Get<DirectX::SpriteBatch>()->Draw(m_bg01Texture.Get(), DirectX::SimpleMath::Vector2(0.0f, 0.0f));
 }
 
 void InfoWindow::HitContact(GameObject* object)
 {
+	object;
 }

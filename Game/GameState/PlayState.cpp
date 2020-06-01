@@ -28,8 +28,6 @@
 #include <Game\Controller\PlayerController.h>
 #include <Game\Controller\AIController.h>
 
-#include <Game\ArtilleryShell\ArtilleryShell.h>
-
 #include <Game\Collider\CollisionManager.h>
 
 
@@ -156,9 +154,8 @@ void PlayState::Update(const DX::StepTimer& timer)
 /// 描画
 /// </summary>
 /// <param name="timer"></param>
-void PlayState::Render(const DX::StepTimer& timer)
+void PlayState::Render()
 {
-	timer;
 	DeviceResources* deviceResources = GameContext::Get<DeviceResources>();
 	SpriteBatch* spriteBach = GameContext::Get<SpriteBatch>();
 	CommonStates* state = GameContext::Get<CommonStates>();
@@ -170,13 +167,13 @@ void PlayState::Render(const DX::StepTimer& timer)
 	// TODO: ビュー行列とプロジェクション行列を設定
 	SimpleMath::Matrix viewMat, projMat;
 	// ゲーム画面のオブジェクト描画
-	m_bg->Render(timer);
+	m_bg->Render();
 	// ゲーム画面のオブジェクト描画
-	m_objectManager->GetGameOM()->Render(timer);
+	m_objectManager->GetGameOM()->Render();
 	m_aiController->Render();
 	m_playerController->Render();
-	m_player->Render(timer);
-	m_enemy->Render(timer);
+	m_player->Render();
+	m_enemy->Render();
 
 	
 	spriteBach->End(); // <---スプライトの描画はここでまとめて行われている
@@ -187,7 +184,7 @@ void PlayState::Render(const DX::StepTimer& timer)
 	spriteBach->Begin(SpriteSortMode_Deferred, state->NonPremultiplied());
 
 	// 情報画面のオブジェクト描画
-	m_infoWindow->Render(timer);
+	m_infoWindow->Render();
 	
 	spriteBach->End(); // <---スプライトの描画はここでまとめて行われている
 

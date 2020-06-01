@@ -1,6 +1,6 @@
 //======================================================
 // File Name	: Wall.cpp
-// Summary	: 床クラス
+// Summary	: 壁クラス
 // Date		: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
@@ -49,9 +49,8 @@ void Wall::Update(const DX::StepTimer & timer)
 
 }
 
-void Wall::Render(const DX::StepTimer& timer)
+void Wall::Render()
 {
-	timer;
 	// ワールド行列の作成
 	DirectX::SimpleMath::Matrix world = DirectX::SimpleMath::Matrix::CreateTranslation(m_position);
 
@@ -79,7 +78,7 @@ void Wall::Render(const DX::StepTimer& timer)
 
 void Wall::HitContact(GameObject* object)
 {
-	
+	object;
 }
 
 void Wall::SetModel(DirectX::Model * model)

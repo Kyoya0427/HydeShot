@@ -67,9 +67,6 @@
     <Filter Include="Game\Stage">
       <UniqueIdentifier>{eec01eb4-317f-46fe-acf8-5e090f3545f6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\AI">
-      <UniqueIdentifier>{d791624b-656b-4107-bc19-c9e25547587f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\Controller">
       <UniqueIdentifier>{39cdac4b-c16a-4005-b2a7-084a34aab475}</UniqueIdentifier>
     </Filter>
@@ -78,9 +75,6 @@
     </Filter>
     <Filter Include="Game\Collider">
       <UniqueIdentifier>{a3616636-1c23-454e-be22-6ddecad3c7e7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\ArtilleryShell">
-      <UniqueIdentifier>{8ee4c85f-3418-4ded-9c00-09230e099394}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -283,9 +277,6 @@
     <ClInclude Include="Game\GameObject\GameObject.h">
       <Filter>Game\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="Game\ArtilleryShell\ArtilleryShell.h">
-      <Filter>Game\ArtilleryShell</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Stage\Wall.h">
       <Filter>Game\Stage</Filter>
     </ClInclude>
@@ -300,6 +291,9 @@
     </ClInclude>
     <ClInclude Include="Game\Collider\SphereCollider.h">
       <Filter>Game\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Bullet.h">
+      <Filter>Game\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -354,9 +348,6 @@
     <ClCompile Include="Game\GameObject\GameObject.cpp">
       <Filter>Game\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="Game\ArtilleryShell\ArtilleryShell.cpp">
-      <Filter>Game\ArtilleryShell</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Stage\Wall.cpp">
       <Filter>Game\Stage</Filter>
     </ClCompile>
@@ -371,6 +362,9 @@
     </ClCompile>
     <ClCompile Include="Game\Collider\SphereCollider.cpp">
       <Filter>Game\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Bullet.cpp">
+      <Filter>Game\GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

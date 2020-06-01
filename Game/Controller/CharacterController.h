@@ -22,7 +22,6 @@ public:
 	virtual void Update(const DX::StepTimer& timer) = 0;
 
 protected:
-
 	Character*     m_character;
 	//ステイト変更インターバル
 	float m_shotInterval;

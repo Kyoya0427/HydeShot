@@ -28,7 +28,7 @@ public:
 	// XV
 	void Update(const DX::StepTimer& timer) override;
 	// •`‰æ
-	void Render(const DX::StepTimer& timer) override;
+	void Render() override;
 	//“–‚½‚Á‚½Œã‚Ìˆ—
 	void HitContact(GameObject* object) override;
 
@@ -46,10 +46,10 @@ public:
 	//‰E‚Éù‰ñ
 	void RightTurn(float speed);
 	//”­–C
-	void Shooting();
+	void Shoot();
 
 private:
-	std::unique_ptr<DirectX::GeometricPrimitive> m_geometricPrimitive;
+	std::unique_ptr<DirectX::GeometricPrimitive> m_model;
 	std::unique_ptr<DirectX::GeometricPrimitive> m_sphereCollider;
 	DirectX::SimpleMath::Vector3                 m_previousPos;
 

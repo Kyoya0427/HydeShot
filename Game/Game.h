@@ -52,7 +52,7 @@ public:
 private:
 
     void Update(const DX::StepTimer& timer);
-    void Render(const DX::StepTimer& timer);
+    void Render();
 
     void Clear();
 

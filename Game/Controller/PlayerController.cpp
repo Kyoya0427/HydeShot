@@ -1,4 +1,9 @@
-
+//======================================================
+// File Name	: PlayerController.h
+// Summary	: プレイヤークラス
+// Date		: 2020/5/12
+// Author		: Kyoya  Sakamoto
+//======================================================
 #include "PlayerController.h"
 
 #include <Game\GameObject\Character.h>
@@ -11,15 +16,26 @@ using namespace DirectX::SimpleMath;
 const float PlayerController::MOVE_SPEED = 0.1f;
 const float PlayerController::ROT_SPEED  = 0.1f;
 
+/// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="character">コントロールするオブジェクト</param>
 PlayerController::PlayerController(Character* character)
 	: CharacterController(character)
 {
 }
 
+/// <summary>
+/// デストラクタ
+/// </summary>
 PlayerController::~PlayerController()
 {
 }
 
+/// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="timer">タイマー</param>
 void PlayerController::Update(const DX::StepTimer& timer)
 {
 	timer;
@@ -57,13 +73,16 @@ void PlayerController::Update(const DX::StepTimer& timer)
 
 	if (keyState.IsKeyDown(DirectX::Keyboard::Keys::Space) && m_shotInterval >= 0.1)
 	{
-		m_character->Shooting();
+		m_character->Shoot();
 		m_shotInterval = 0.0f;
 	}
 
 
 }
 
+/// <summary>
+/// デバック
+/// </summary>
 void PlayerController::Render()
 {
 	

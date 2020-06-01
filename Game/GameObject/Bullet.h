@@ -1,5 +1,5 @@
 //======================================================
-// File Name	 : ArtilleryShell.h
+// File Name	 : Bullet.h
 // Summary	 : 弾
 // Date		: 2020/5/25
 // Author		: Kyoya  Sakamoto
@@ -14,28 +14,29 @@
 
 #include <Game\Collider\SphereCollider.h>
 
-class ArtilleryShell : public GameObject
+class Bullet : public GameObject
 {
 public:
 	//コンストラク
-	ArtilleryShell(const ObjectTag tag, const DirectX::SimpleMath::Vector3& position, const DirectX::SimpleMath::Quaternion& azimuth);
+	Bullet(const ObjectTag tag, const DirectX::SimpleMath::Vector3& position, const DirectX::SimpleMath::Quaternion& azimuth);
 	//デストラクタ
-	~ArtilleryShell();
-
+	~Bullet();
 
 public:
 	// 更新
 	void Update(const DX::StepTimer& timer) override;
 	// 描画
-	void Render(const DX::StepTimer& timer) override;
+	void Render() override;
 	//当たった後の処理
 	void HitContact(GameObject* object) override;
 
 public:
+	//弾のスピード
 	static const float MOVE_SPEED;
 
 private:
-	std::unique_ptr<DirectX::GeometricPrimitive> m_geometricPrimitive;
+	//弾のモデル
+	std::unique_ptr<DirectX::GeometricPrimitive>  m_sphereModel;
 	// コライダー
 	std::unique_ptr<SphereCollider> m_collider;
 };

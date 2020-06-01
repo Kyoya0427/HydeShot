@@ -94,7 +94,7 @@ void Game::Tick()
         Update(m_timer);
     });
 
-    Render(m_timer);
+    Render();
 }
 
 // Updates the world.
@@ -116,7 +116,7 @@ void Game::Update(const DX::StepTimer& timer)
 
 #pragma region Frame Render
 // Draws the scene.
-void Game::Render(const DX::StepTimer& timer)
+void Game::Render()
 {
     // Don't try to render anything before the first Update.
     if (m_timer.GetFrameCount() == 0)
@@ -135,7 +135,7 @@ void Game::Render(const DX::StepTimer& timer)
     m_deviceResources->PIXEndEvent();
 	
 	//ƒQ[ƒ€ƒXƒeƒCƒg•`‰æ
-	m_playState->Render(timer);
+	m_playState->Render();
 
     // Show the new frame.
     m_deviceResources->Present();

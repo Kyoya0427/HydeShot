@@ -1,81 +1,88 @@
 //======================================================
-// File Name	 : ArtilleryShell.cpp
-// Summary	 : プレイステイト
-// Date		: 2020/5/12
+// File Name	 : Bullet.cpp
+// Summary	 : 弾
+// Date		: 2020/5/25
 // Author		: Kyoya  Sakamoto
 //======================================================
-#include "ArtilleryShell.h"
+#include "Bullet.h"
 
 #include <Game\Common\GameContext.h>
 #include <Game\Common\DeviceResources.h>
 
 #include <Game\Camera\Camera.h>
 
-
 #include <Game\Collider\SphereCollider.h>
 #include <Game\Collider\CollisionManager.h>
-const float ArtilleryShell::MOVE_SPEED = 0.2f;
+
+//定数の設定
+const float Bullet::MOVE_SPEED = 0.2f;
 
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
 /// <summary>
-/// コンストラク
+/// コンストラクタ
 /// </summary>
-ArtilleryShell::ArtilleryShell(const ObjectTag tag, const Vector3& position, const Quaternion& azimuth)
+/// <param name="tag">オブジェクト名</param>
+/// <param name="position">座標</param>
+/// <param name="azimuth">キャラの向いてる方角</param>
+Bullet::Bullet(const ObjectTag tag, const Vector3& position, const Quaternion& azimuth)
 	: GameObject(tag)
 {
+	//デバイスコンテキストを取得
 	ID3D11DeviceContext* deviceContext = GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext();
-
+	//初期設定
 	m_position = position;
 	m_velocity.z = -MOVE_SPEED;
 	m_velocity = Vector3::Transform(m_velocity, azimuth);
 	m_radius = 0.3f;
 	m_color = Colors::Silver;
-	m_geometricPrimitive = GeometricPrimitive::CreateSphere(deviceContext, m_radius);
-
+	m_sphereModel = GeometricPrimitive::CreateSphere(deviceContext, m_radius);
 	m_collider = std::make_unique<SphereCollider>(this, m_radius);
-	// 衝突判定マネージャーに登録
-	GameContext::Get<CollisionManager>()->Add("Shell", m_collider.get());
+
+
 }
 
 /// <summary>
 /// デストラクタ
 /// </summary>
-ArtilleryShell::~ArtilleryShell()
+Bullet::~Bullet()
 {
 }
 
 /// <summary>
 /// 初期化
 /// </summary>
-/// <param name="timer"></param>
-void ArtilleryShell::Update(const DX::StepTimer & timer)
+/// <param name="timer">タイマー</param>
+void Bullet::Update(const DX::StepTimer& timer)
 {
 	timer;
+	//座標を移動
 	m_position += m_velocity;
+	// 衝突判定マネージャーに登録
 	GameContext::Get<CollisionManager>()->Add("Shell", m_collider.get());
 }
 
 /// <summary>
 /// 描画
 /// </summary>
-/// <param name="timer"></param>
-void ArtilleryShell::Render(const DX::StepTimer & timer)
+/// <param name="timer">タイマー</param>
+void Bullet::Render()
 {
-	timer;
+	//ワールド座標を生成
 	Matrix world = Matrix::Identity;
 	world *= Matrix::CreateTranslation(m_position);
-
-	m_geometricPrimitive->Draw(world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_color);
-
+	//モデルを描画
+	m_sphereModel->Draw(world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_color);
 }
 
 /// <summary>
 /// 当たった後の処理
 /// </summary>
-void ArtilleryShell::HitContact(GameObject* object)
+/// <param name="object">当たったオブジェクト</param>
+void Bullet::HitContact(GameObject* object)
 {
+	object;
 	m_velocity = Vector3::Zero;
 	Destroy(this);
 }

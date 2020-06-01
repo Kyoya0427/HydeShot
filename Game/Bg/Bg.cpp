@@ -67,20 +67,18 @@ void Bg::Initialize()
 /// <summary>
 /// 更新
 /// </summary>
-/// <param name="timer">タイマー</param>
 void Bg::Update(const DX::StepTimer& timer)
 {
 	timer;
+	//回転
 	m_angle += 0.0002f;
 }
 
 /// <summary>
 /// 描画
 /// </summary>
-/// <param name="timer">タイマー</param>
-void Bg::Render(const DX::StepTimer& timer)
+void Bg::Render()
 {
-	timer;
 	//ワールド行列作成
 	Matrix world = Matrix::CreateRotationY(m_angle);
 	world *= Matrix::CreateTranslation(4.5f, -10.0f, 5.5f);
@@ -97,6 +95,8 @@ void Bg::Render(const DX::StepTimer& timer)
 /// <summary>
 /// 当たった後の処理
 /// </summary>
+/// <param name="object">当たったオブジェクト</param>
 void Bg::HitContact(GameObject* object)
 {
+	object;
 }

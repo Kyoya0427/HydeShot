@@ -36,7 +36,7 @@ void GameObjectManager::Update(const DX::StepTimer& timer)
 {
 	DestroyObjects();
 
-
+	
 	if (!m_objectQueue.empty())
 	{
 		AcceptObjects();
@@ -50,7 +50,7 @@ void GameObjectManager::Update(const DX::StepTimer& timer)
 /// •`‰æ
 /// </summary>
 /// <param name="timer"></param>
-void GameObjectManager::Render(const DX::StepTimer& timer)
+void GameObjectManager::Render()
 {
 	std::list<GameObject*> pObjects;
 	GameObjectList::iterator it = m_objects.begin();
@@ -65,7 +65,7 @@ void GameObjectManager::Render(const DX::StepTimer& timer)
 	});
 	for (GameObject* object : pObjects)
 	{
-		object->Render(timer);
+		object->Render();
 	}
 }
 

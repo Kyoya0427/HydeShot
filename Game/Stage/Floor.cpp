@@ -18,28 +18,38 @@
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
+/// <summary>
+/// コンストラクタ
+/// </summary>
 Floor::Floor()
 	: m_models{nullptr}
 {
 }
 
+/// <summary>
+/// 初期化
+/// </summary>
+/// <param name="x">x座標</param>
+/// <param name="y">y座標</param>
 void Floor::Initialize(int x, int y)
 {
 	m_position = DirectX::SimpleMath::Vector3((float)x, 0.0f, (float)y);
 }
 
+/// <summary>
+/// 更新
+/// </summary>
+/// <param name="timer">タイマー</param>
 void Floor::Update(const DX::StepTimer & timer)
 {
 	timer;
 }
 
-void Floor::Render(const DX::StepTimer& timer)
+/// <summary>
+/// 描画
+/// </summary>
+void Floor::Render()
 {
-	timer;
-
-
-
-
 	// ワールド行列の作成
 	DirectX::SimpleMath::Matrix world = DirectX::SimpleMath::Matrix::CreateTranslation(m_position);
 
@@ -62,10 +72,14 @@ void Floor::Render(const DX::StepTimer& timer)
 
 void Floor::HitContact(GameObject* object)
 {
-
+	object;
 }
 
-void Floor::SetModel( DirectX::Model * model)
+/// <summary>
+/// モデルを設定
+/// </summary>
+/// <param name="model">モデル</param>
+void Floor::SetModel(DirectX::Model * model)
 {
 	m_models = model;
 }

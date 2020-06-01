@@ -35,7 +35,7 @@ public:
 	//XV
 	void Update(const DX::StepTimer& timer);
 	//•`‰æ
-	void Render(const DX::StepTimer& timer);
+	void Render();
 	//I—¹
 	void Finalize();
 

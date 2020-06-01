@@ -19,8 +19,9 @@ const float AIController::MOVE_SPEED = 0.01f;
 const float AIController::ROT_SPEED  = 0.1f;
 
 /// <summary>
-/// コンストラク
+/// コンストラクタ
 /// </summary>
+/// <param name="character">コントロールするオブジェクト</param>
 AIController::AIController(Character* character)
 	: CharacterController(character)
 	, m_interval(0.0f)
@@ -44,19 +45,12 @@ AIController::~AIController()
 void AIController::Update(const DX::StepTimer& timer)
 {
 	m_interval += float(timer.GetElapsedSeconds());
-	m_shotInterval += float(timer.GetElapsedSeconds());
 
 	//インターバル
 	if (m_interval >= 2.0f)
 	{
 		m_interval = 0.0f;
 		m_state = static_cast<Behavior>(rand() % static_cast<int>(Behavior::NUM));
-	}
-
-	if (m_shotInterval >= 0.3f)
-	{
-		m_shotInterval = 0.0f;
-		m_character->Shooting();
 	}
 
 	//ステート
@@ -79,6 +73,9 @@ void AIController::Update(const DX::StepTimer& timer)
 		break;
 	case Behavior::TURN_RIGHT:
 		m_character->RightTurn(ROT_SPEED);
+		break;
+	case Behavior::SHOOT:
+		m_character->Shoot();
 		break;
 	}
 
