@@ -8,6 +8,8 @@
 
 #include <list>
 
+#include <Game\GameState\IGameState.h>
+
 #include <Game\Common\StepTimer.h>
 
 class GameWindow;
@@ -23,7 +25,7 @@ class Collision;
 class ArtilleryShell;
 class CollisionManager;
 
-class PlayState 
+class PlayState : public IGameState
 {
 public:
 	PlayState();
@@ -31,13 +33,13 @@ public:
 
 public:
 	//初期化
-	void Initialize();
+	void Initialize() override;
 	//更新
-	void Update(const DX::StepTimer& timer);
+	void Update(const DX::StepTimer& timer) override;
 	//描画
-	void Render();
+	void Render() override;
 	//終了
-	void Finalize();
+	void Finalize() override;
 
 public: 
 	static const int SCREEN_W = 960;
@@ -68,5 +70,8 @@ private:
 	std::unique_ptr<ObjectManager>          m_objectManager;
 	//当たり判定マネージャー
 	std::unique_ptr<CollisionManager>       m_collisionManager;
+
+	DirectX::Keyboard::KeyboardStateTracker          m_keyTracker;
+
 };
 

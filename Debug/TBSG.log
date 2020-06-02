@@ -5,6 +5,9 @@
   Resources\FBX\floorPanel_02.FBX
   Resources\FBX\floorPanel_03.FBX
   Resources\FBX\player.FBX
-  Character.cpp
+  TitleState.cpp
+  ResultState.cpp
+  PlayState.cpp
+  コードを生成中...
   TBSG.vcxproj -> C:\Users\s182106\Documents\Visual Studio 2015\Projects\TBSG\Debug\TBSG.exe
   TBSG.vcxproj -> C:\Users\s182106\Documents\Visual Studio 2015\Projects\TBSG\Debug\TBSG.pdb (Full PDB)

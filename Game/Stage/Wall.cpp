@@ -47,6 +47,28 @@ void Wall::Update(const DX::StepTimer & timer)
 	timer;
 	GameContext().Get<CollisionManager>()->Add("Wall", m_collider.get());
 
+	DirectX::Keyboard::State keyState = DirectX::Keyboard::Get().GetState();
+
+	m_position += m_velocity;
+	m_velocity = Vector3::Zero;
+	if (keyState.IsKeyDown(DirectX::Keyboard::Keys::I))
+	{
+		m_velocity.z = -1.0f;
+	}
+	else if (keyState.IsKeyDown(DirectX::Keyboard::Keys::K))
+	{
+		m_velocity.z = 1.0f;
+	}
+	else if (keyState.IsKeyDown(DirectX::Keyboard::Keys::J))
+	{
+		m_velocity.x = -1.0f;
+	}
+	else if (keyState.IsKeyDown(DirectX::Keyboard::Keys::L))
+	{
+		m_velocity.x = 1.0f;
+	}
+
+	
 }
 
 void Wall::Render()
@@ -79,6 +101,7 @@ void Wall::Render()
 void Wall::HitContact(GameObject* object)
 {
 	object;
+	//Destroy(this);
 }
 
 void Wall::SetModel(DirectX::Model * model)

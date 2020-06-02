@@ -295,6 +295,21 @@
     <ClInclude Include="Game\GameObject\Bullet.h">
       <Filter>Game\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="Game\GameState\GameStateManager.h">
+      <Filter>Game\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameState\IGameState.h">
+      <Filter>Game\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameState\PauseState.h">
+      <Filter>Game\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameState\ResultState.h">
+      <Filter>Game\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameState\TitleState.h">
+      <Filter>Game\GameState</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game\Common\DebugFont.cpp">
@@ -365,6 +380,18 @@
     </ClCompile>
     <ClCompile Include="Game\GameObject\Bullet.cpp">
       <Filter>Game\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameState\GameStateManager.cpp">
+      <Filter>Game\GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameState\PauseState.cpp">
+      <Filter>Game\GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameState\ResultState.cpp">
+      <Filter>Game\GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameState\TitleState.cpp">
+      <Filter>Game\GameState</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

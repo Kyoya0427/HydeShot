@@ -30,7 +30,7 @@
 
 #include <Game\Collider\CollisionManager.h>
 
-
+#include <Game\GameState\GameStateManager.h>
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 using namespace DX;
@@ -39,6 +39,7 @@ using namespace DX;
 /// コンストラクタ
 /// </summary>
 PlayState::PlayState()
+	: IGameState()
 {
 }
 
@@ -90,13 +91,8 @@ void PlayState::Initialize()
 	m_enemy = std::make_unique<Character>(GameObject::Enemy);
 	Vector2 pos = Vector2(8, 8);
 	m_enemy->Initialize(pos);
-//	m_enemy->Initialize(m_stage->GetEnemyPos());
-
 	m_enemy->SetColor(Color(Colors::Blue));
 	m_aiController = std::make_unique<AIController>(m_enemy.get());
-
-
-
 
 	// 情報ウィンドウ
 	m_infoWindow = std::make_unique<InfoWindow>();
@@ -108,9 +104,6 @@ void PlayState::Initialize()
 	m_bg = std::make_unique<Bg>();
 	m_bg->Initialize();
 	
-
-
-
 	// ビューポートの矩形領域の設定（ゲーム画面）
 	m_viewportGame = CD3D11_VIEWPORT(
 		0.0f,
@@ -148,6 +141,15 @@ void PlayState::Update(const DX::StepTimer& timer)
 	m_enemy->Update(timer);
 
 	m_collisionManager->DetectCollision();
+
+	DirectX::Keyboard::State keyState = DirectX::Keyboard::Get().GetState();
+	m_keyTracker.Update(keyState);
+	if (m_keyTracker.IsKeyReleased(DirectX::Keyboard::Z))
+	{
+		using StateID = GameStateManager::GameStateID;
+		GameStateManager* gameStateManager = GameContext().Get<GameStateManager>();
+		gameStateManager->RequestState(StateID::RESULT_STATE);
+	}
 }
 
 /// <summary>

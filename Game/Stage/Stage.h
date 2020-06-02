@@ -25,13 +25,14 @@ public:
 		NONE,			// Ç»Çµ
 		PLAYER,			// ÉvÉåÉCÉÑÅ[
 		ENEMY,		// ìGÇP
+		WALL,
 	};
 	
 	enum Map
 	{
 		NIX,
 		NORMAL,
-		WALL,
+		OUTER_WALL,
 
 		NUM
 	};

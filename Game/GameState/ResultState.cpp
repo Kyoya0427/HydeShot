@@ -1,0 +1,69 @@
+//======================================================
+// File Name	: ResultState.cpp
+// Summary	: リザルトステイト
+// Author		: Kyoya Sakamoto
+//======================================================
+#include "ResultState.h"
+
+#include <Game\GameState\GameStateManager.h>
+
+#include <Game\Common\DebugFont.h>
+#include <Game\Common\GameContext.h>
+
+/// <summary>
+/// コンストラクタ
+/// </summary>
+ResultState::ResultState()
+	:IGameState()
+
+{
+}
+
+/// <summary>
+/// デストラクタ
+/// </summary>
+ResultState::~ResultState()
+{
+}
+
+/// <summary>
+/// イニシャライズ
+/// </summary>
+void ResultState::Initialize()
+{
+	
+}
+
+/// <summary>
+/// デストラクタ
+/// </summary>
+/// <param name="elapsedTime">タイマー</param>
+void ResultState::Update(const DX::StepTimer& timer)
+{
+	timer;
+	DirectX::Keyboard::State keyState = DirectX::Keyboard::Get().GetState();
+	m_keyTracker.Update(keyState);
+	if (m_keyTracker.IsKeyReleased(DirectX::Keyboard::Z))
+	{
+		using StateID = GameStateManager::GameStateID;
+		GameStateManager* gameStateManager = GameContext().Get<GameStateManager>();
+		gameStateManager->RequestState(StateID::TITLE_STATE);
+	}
+}
+
+/// <summary>
+///描画
+/// </summary>
+void ResultState::Render()
+{
+	DebugFont* debugFont = DebugFont::GetInstance();
+	debugFont->print(10, 10, L"ResultState");
+	debugFont->draw();
+}
+
+/// <summary>
+/// ファイナライズ
+/// </summary>
+void ResultState::Finalize()
+{
+}

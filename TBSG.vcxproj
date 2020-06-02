@@ -142,7 +142,12 @@
     <ClInclude Include="Game\GameObject\GameObject.h" />
     <ClInclude Include="Game\GameObject\GameObjectManager.h" />
     <ClInclude Include="Game\GameObject\ObjectManager.h" />
+    <ClInclude Include="Game\GameState\GameStateManager.h" />
+    <ClInclude Include="Game\GameState\IGameState.h" />
+    <ClInclude Include="Game\GameState\PauseState.h" />
     <ClInclude Include="Game\GameState\PlayState.h" />
+    <ClInclude Include="Game\GameState\ResultState.h" />
+    <ClInclude Include="Game\GameState\TitleState.h" />
     <ClInclude Include="Game\Stage\Floor.h" />
     <ClInclude Include="Game\Stage\Stage.h" />
     <ClInclude Include="Game\Stage\StageCSV.h" />
@@ -166,7 +171,11 @@
     <ClCompile Include="Game\GameObject\GameObject.cpp" />
     <ClCompile Include="Game\GameObject\GameObjectManager.cpp" />
     <ClCompile Include="Game\GameObject\ObjectManager.cpp" />
+    <ClCompile Include="Game\GameState\GameStateManager.cpp" />
+    <ClCompile Include="Game\GameState\PauseState.cpp" />
     <ClCompile Include="Game\GameState\PlayState.cpp" />
+    <ClCompile Include="Game\GameState\ResultState.cpp" />
+    <ClCompile Include="Game\GameState\TitleState.cpp" />
     <ClCompile Include="Game\Stage\Floor.cpp" />
     <ClCompile Include="Game\Stage\Stage.cpp" />
     <ClCompile Include="Game\Stage\StageCSV.cpp" />

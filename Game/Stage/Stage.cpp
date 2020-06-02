@@ -37,7 +37,7 @@ void Stage::Initialize()
 	DirectX::EffectFactory fx(GameContext::Get<DX::DeviceResources>()->GetD3DDevice());
 	fx.SetDirectory(L"Resources\\Models");
 	m_floorModels[Map::NORMAL] = DirectX::Model::CreateFromCMO(GameContext::Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Models\\floorPanel_00.cmo", fx);
-	m_floorModels[Map::WALL] = DirectX::Model::CreateFromCMO(GameContext::Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Models\\floorPanel_01.cmo", fx);
+	m_floorModels[Map::OUTER_WALL] = DirectX::Model::CreateFromCMO(GameContext::Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Models\\floorPanel_01.cmo", fx);
 
 	for (int j = 0; j < STAGE_H; j++)
 	{
@@ -46,7 +46,7 @@ void Stage::Initialize()
 			// オブジェクトの種類によりタスク生成する
 			switch (m_stageData.stage[j][i])
 			{
-			case Map::NORMAL:	// プレイヤー
+			case Map::NORMAL:
 			{
 				std::unique_ptr<Floor> floor = std::make_unique<Floor>();
 				m_floor = floor.get();
@@ -55,14 +55,14 @@ void Stage::Initialize()
 				m_floor->Initialize(i, j);
 				m_floor->SetModel(m_floorModels[Map::NORMAL].get());
 				break;
-			case Map::WALL:	// 敵２
+			case Map::OUTER_WALL:	
 			{
 				std::unique_ptr <Wall> wall = std::make_unique<Wall>();
 				m_wall = wall.get();
 				GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(wall));
 			}
 				m_wall->Initialize(i, j);
-				m_wall->SetModel(m_floorModels[Map::WALL].get());
+				m_wall->SetModel(m_floorModels[Map::OUTER_WALL].get());
 				break;
 			}
 		}
