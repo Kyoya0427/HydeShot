@@ -1,12 +1,13 @@
 //======================================================
 // File Name	: Camera.cpp
-// Summary	: カメラ
-// Date		: 2020/5/12
+// Summary		: カメラ
+// Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 #include "Camera.h"
 
 #include <Game\GameState\PlayState.h>
+
 /// <summary>
 /// コンストラクタ
 /// </summary>

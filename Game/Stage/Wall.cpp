@@ -39,13 +39,12 @@ void Wall::Initialize(int x, int y)
 
 	m_collider = std::make_unique<BoxCollider>(this, m_collSize);
 	m_collider->SetSize(m_collSize);
-	GameContext().Get<CollisionManager>()->Add("Wall", m_collider.get());
 }
 
 void Wall::Update(const DX::StepTimer & timer)
 {
 	timer;
-	GameContext().Get<CollisionManager>()->Add("Wall", m_collider.get());
+	GameContext().Get<CollisionManager>()->Add(ObjectTag::Wall, m_collider.get());
 
 	DirectX::Keyboard::State keyState = DirectX::Keyboard::Get().GetState();
 

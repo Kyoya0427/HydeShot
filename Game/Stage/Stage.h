@@ -1,17 +1,18 @@
 //======================================================
 // File Name	: Stage.h
-// Summary	: ステージクラス
-// Date		: 2020/5/12
+// Summary		: ステージクラス
+// Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 #pragma once
 
 #include <vector>
-#include "Floor.h"
-#include "Wall.h"
 
 #include <DirectXTK\Model.h>
 
+#include <Game/Stage/Floor.h>
+#include <Game/Stage/Wall.h>
+#include <Game/Stage/Flag.h>
 
 
 class GameWindow;
@@ -24,7 +25,9 @@ public:
 	{
 		NONE,			// なし
 		PLAYER,			// プレイヤー
-		ENEMY,		// 敵１
+		ENEMY,			// 敵１
+		FLAG_01,
+		FLAG_02,
 		WALL,
 	};
 	
@@ -77,6 +80,7 @@ private:
 	//----- ゲームオブジェクトへのポインタ -----//
 	Floor* m_floor;
 	Wall* m_wall;
+	Flag* m_flag[2];
 
 	DirectX::SimpleMath::Vector2  m_playerPos;
 

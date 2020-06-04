@@ -1,10 +1,11 @@
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.pch
 c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\vc140.pdb
 c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\vc140.idb
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\artilleryshell.obj
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\debugfont.obj
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\pch.obj
 c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\aicontroller.obj
 c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\charactercontroller.obj
 c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\playercontroller.obj
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\bullet.obj
 c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\character.obj
 c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\gameobject.obj
 c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\gameobjectmanager.obj
@@ -27,30 +28,32 @@ c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\boxcollider.ob
 c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\collider.obj
 c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\collisionmanager.obj
 c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\spherecollider.obj
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.pch
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\pch.obj
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\bullet.obj
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\debugfont.obj
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\gamestatemanager.obj
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\resultstate.obj
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\titlestate.obj
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\pausestate.obj
 c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.ilk
 c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.exe
 c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.pdb
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\resources\fbx\bg.fbm\motos_bg.png
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\resources\models\bg.cmo
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\resources\models\player.cmo
 c:\users\s182106\documents\visual studio 2015\projects\tbsg\resources\models\_program files (x86)_microsoft visual studio 14.0_common7_ide_extensions_microsoft_vsgraphics_assets_effects_phong.dgsl.cso
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\resources\models\_users_s182106_documents_visual studio 2015_projects_tbsg_resources_fbx_bg.fbm_motos__bg.png.dds
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\resources\models\floorpanel_01.cmo
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\resources\models\_users_s182106_documents_visual studio 2015_projects_tbsg_resources_fbx_floorpanel__01.fbm_floor01.png.dds
 c:\users\s182106\documents\visual studio 2015\projects\tbsg\resources\models\enemy.cmo
 c:\users\s182106\documents\visual studio 2015\projects\tbsg\resources\models\floorpanel_00.cmo
 c:\users\s182106\documents\visual studio 2015\projects\tbsg\resources\models\_users_s182106_documents_visual studio 2015_projects_tbsg_resources_fbx_floorpanel__00.fbm_floor00.png.dds
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\resources\models\floorpanel_01.cmo
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\resources\models\_users_s182106_documents_visual studio 2015_projects_tbsg_resources_fbx_floorpanel__01.fbm_floor01.png.dds
 c:\users\s182106\documents\visual studio 2015\projects\tbsg\resources\fbx\floorpanel_02.fbm\3.png
 c:\users\s182106\documents\visual studio 2015\projects\tbsg\resources\models\floorpanel_02.cmo
 c:\users\s182106\documents\visual studio 2015\projects\tbsg\resources\models\_users_s182106_documents_visual studio 2015_projects_tbsg_resources_fbx_floorpanel__02.fbm_3.png.dds
 c:\users\s182106\documents\visual studio 2015\projects\tbsg\resources\fbx\floorpanel_03.fbm\3.png
 c:\users\s182106\documents\visual studio 2015\projects\tbsg\resources\models\floorpanel_03.cmo
 c:\users\s182106\documents\visual studio 2015\projects\tbsg\resources\models\_users_s182106_documents_visual studio 2015_projects_tbsg_resources_fbx_floorpanel__03.fbm_3.png.dds
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\resources\models\player.cmo
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.exe.embed.manifest.res
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\resources\fbx\bg.fbm\motos_bg.png
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\resources\models\bg.cmo
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\resources\models\_users_s182106_documents_visual studio 2015_projects_tbsg_resources_fbx_bg.fbm_motos__bg.png.dds
 c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\icon.res
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.exe.embed.manifest.res
 c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.lib
 c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.exp
 c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.exe.embed.manifest
@@ -61,24 +64,32 @@ c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\cl.w
 c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\link.command.1.tlog
 c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\link.read.1.tlog
 c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\link.write.1.tlog
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\meshcontenttask-vsgraphics.34564.read.1.tlog
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\meshcontenttask-vsgraphics.34564.write.1.tlog
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\meshcontenttask-vsgraphics.42000.read.1.tlog
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\meshcontenttask-vsgraphics.42000.write.1.tlog
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\meshcontenttask-vsgraphics.43980.read.1.tlog
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\meshcontenttask-vsgraphics.43980.write.1.tlog
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\meshcontenttask-vsgraphics.52228.read.1.tlog
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\meshcontenttask-vsgraphics.52228.write.1.tlog
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\meshcontenttask-vsgraphics.5268.read.1.tlog
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\meshcontenttask-vsgraphics.5268.write.1.tlog
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\meshcontenttask-vsgraphics.53972.read.1.tlog
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\meshcontenttask-vsgraphics.53972.write.1.tlog
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\meshcontenttask-vsgraphics.55064.read.1.tlog
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\meshcontenttask-vsgraphics.55064.write.1.tlog
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\rc.41448.read.1.tlog
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\rc.41448.write.1.tlog
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\rc.52432.read.1.tlog
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\rc.52432.write.1.tlog
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\meshcontenttask-vsgraphics.11360.read.1.tlog
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\meshcontenttask-vsgraphics.11360.write.1.tlog
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\meshcontenttask-vsgraphics.14100.read.1.tlog
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\meshcontenttask-vsgraphics.14100.write.1.tlog
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\meshcontenttask-vsgraphics.36740.read.1.tlog
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\meshcontenttask-vsgraphics.36740.write.1.tlog
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\meshcontenttask-vsgraphics.37232.read.1.tlog
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\meshcontenttask-vsgraphics.37232.write.1.tlog
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\meshcontenttask-vsgraphics.40076.read.1.tlog
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\meshcontenttask-vsgraphics.40076.write.1.tlog
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\meshcontenttask-vsgraphics.50108.read.1.tlog
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\meshcontenttask-vsgraphics.50108.write.1.tlog
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\meshcontenttask-vsgraphics.read.1.tlog
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\meshcontenttask-vsgraphics.write.1.tlog
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\rc.13540.read.1.tlog
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\rc.13540.write.1.tlog
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\rc.35256.read.1.tlog
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\rc.35256.write.1.tlog
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\rc.37228.read.1.tlog
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\rc.37228.write.1.tlog
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\rc.38660.read.1.tlog
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\rc.38660.write.1.tlog
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\rc.47216.read.1.tlog
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\rc.47216.write.1.tlog
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\rc.53444.read.1.tlog
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\rc.53444.write.1.tlog
 c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\rc.command.1.tlog
 c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\rc.read.1.tlog
 c:\users\s182106\documents\visual studio 2015\projects\tbsg\debug\tbsg.tlog\rc.write.1.tlog

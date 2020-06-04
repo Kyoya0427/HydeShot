@@ -43,16 +43,14 @@ void Character::Initialize(DirectX::SimpleMath::Vector2 & pos)
 {
 	m_x = (int)pos.x;
 	m_y = (int)pos.y;
-	m_position = DirectX::SimpleMath::Vector3((float)m_x, 0.0f, (float)m_y);
-	m_radius = 0.5f;
-
+	m_position = Vector3((float)m_x, 0.0f, (float)m_y);
+	m_radius = 0.4f;
 	ID3D11DeviceContext* deviceContext = GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext();
 	m_model = GeometricPrimitive::CreateCone(deviceContext);
 
 	m_sphereCollider = GeometricPrimitive::CreateSphere(deviceContext,1.0f,8U);
 
 	m_collider = std::make_unique<SphereCollider>(this, m_radius);
-	GameContext::Get<CollisionManager>()->Add("Character", m_collider.get());
 }
 
 /// <summary>
@@ -64,7 +62,7 @@ void Character::Update(const DX::StepTimer & timer)
 	timer;
 	m_previousPos = m_position;
 
-	GameContext::Get<CollisionManager>()->Add("Character", m_collider.get());
+	GameContext::Get<CollisionManager>()->Add(GetTag(), m_collider.get());
 	Quaternion quaternion = Quaternion::CreateFromAxisAngle(Vector3::UnitY, m_rotation.y);
 	m_velocity = Vector3::Transform(m_velocity, quaternion);
 
@@ -173,6 +171,6 @@ void Character::Shoot()
 {
 	Quaternion rot = DirectX::SimpleMath::Quaternion::CreateFromAxisAngle(Vector3::UnitY, m_rotation.y);
 
-	std::unique_ptr<Bullet> shell = std::make_unique<Bullet>(ObjectTag::Shell,m_position, rot);
+	std::unique_ptr<Bullet> shell = std::make_unique<Bullet>(ObjectTag::Bullet,m_position, rot);
 	GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(shell));
 }

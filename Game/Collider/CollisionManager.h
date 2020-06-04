@@ -8,14 +8,15 @@
 
 #include <vector>
 #include <memory>
-#include <DirectXTK\SimpleMath.h>
-#include <vector>
 #include <functional>
 #include <unordered_map>
 
+#include <DirectXTK\SimpleMath.h>
+
 #include "Collider.h"
 
-class GameObject;
+#include <Game/GameObject/GameObject.h>
+
 class SphereCollider;
 class BoxCollider;
 
@@ -23,8 +24,8 @@ class BoxCollider;
 class CollisionManager final
 {
 	using ColliderList       = std::vector<Collider*>;
-	using ColliderGroupList  = std::unordered_map<std::string, ColliderList>;
-	using CollisionGroup     = std::pair<std::string, std::string>;
+	using ColliderGroupList  = std::unordered_map<GameObject::ObjectTag, ColliderList>;
+	using CollisionGroup     = std::pair<GameObject::ObjectTag, GameObject::ObjectTag>;
 	using CollisionGroupList = std::list<CollisionGroup>;
 
 public:
@@ -35,9 +36,9 @@ public:
 
 public:
 	// オブジェクトを追加
-	void Add(const std::string& groupName, Collider* collider);
+	void Add(GameObject::ObjectTag groupName, Collider* collider);
 	// 判定を取るグループを取得
-	void AllowCollision(const std::string& groupName1, const std::string& groupName2);
+	void AllowCollision(GameObject::ObjectTag groupName1, GameObject::ObjectTag groupName2);
 	// 衝突を検出
 	void DetectCollision();
 	void DetectCollision(const ColliderList& colliders);

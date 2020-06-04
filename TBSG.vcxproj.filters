@@ -310,6 +310,9 @@
     <ClInclude Include="Game\GameState\TitleState.h">
       <Filter>Game\GameState</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Stage\Flag.h">
+      <Filter>Game\Stage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game\Common\DebugFont.cpp">
@@ -392,6 +395,9 @@
     </ClCompile>
     <ClCompile Include="Game\GameState\TitleState.cpp">
       <Filter>Game\GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Stage\Flag.cpp">
+      <Filter>Game\Stage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

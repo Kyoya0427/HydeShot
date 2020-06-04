@@ -36,7 +36,8 @@ void CollisionManager::DetectCollision()
 {
 	for (const CollisionGroup& collisionGroup : m_collisionGroups)
 	{
-		if (collisionGroup.second.empty())
+		
+		if (collisionGroup.second == GameObject::ObjectTag::None)
 		{
 			ColliderList& colliders = m_colliderGroups[collisionGroup.first];
 
@@ -100,7 +101,7 @@ void CollisionManager::DetectCollision(const ColliderList& colliders1, const Col
 /// </summary>
 /// <param name="groupName">グループ名</param>
 /// <param name="collider">オブジェクト</param>
-void CollisionManager::Add(const std::string& groupName, Collider* collider)
+void CollisionManager::Add(GameObject::ObjectTag groupName, Collider* collider)
 {
 	m_colliderGroups[groupName].push_back(collider);
 }
@@ -111,11 +112,11 @@ void CollisionManager::Add(const std::string& groupName, Collider* collider)
 /// </summary>
 /// <param name="groupName1">グループ名</param>
 /// <param name="groupName2">グループ名</param>
-void CollisionManager::AllowCollision(const std::string& groupName1, const std::string& groupName2)
+void CollisionManager::AllowCollision(GameObject::ObjectTag groupName1, GameObject::ObjectTag groupName2)
 {
 	if (groupName1 == groupName2)
 	{
-		m_collisionGroups.push_back(std::make_pair(groupName1, ""));
+		m_collisionGroups.push_back(std::make_pair(groupName1, GameObject::ObjectTag::None));
 	}
 	else
 	{

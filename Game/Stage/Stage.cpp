@@ -1,13 +1,14 @@
 //======================================================
 // File Name	: Stage.
-// Summary	: ステージクラス
-// Date		: 2020/5/12
+// Summary		: ステージクラス
+// Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 #include "Stage.h"
 
 #include <fstream>
 #include <sstream>
+#include <string>
 
 #include <Effects.h>
 #include <DirectXTK\CommonStates.h>
@@ -18,6 +19,7 @@
 #include <Game\GameObject\ObjectManager.h>
 #include <Game\GameObject\GameObject.h>
 
+#include <Game/Stage/Flag.h>
 using namespace std;
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
@@ -38,7 +40,7 @@ void Stage::Initialize()
 	fx.SetDirectory(L"Resources\\Models");
 	m_floorModels[Map::NORMAL] = DirectX::Model::CreateFromCMO(GameContext::Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Models\\floorPanel_00.cmo", fx);
 	m_floorModels[Map::OUTER_WALL] = DirectX::Model::CreateFromCMO(GameContext::Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Models\\floorPanel_01.cmo", fx);
-
+	
 	for (int j = 0; j < STAGE_H; j++)
 	{
 		for (int i = 0; i < STAGE_W; i++)
@@ -157,9 +159,31 @@ void Stage::SetStageData()
 				SetPlayerPos(i, j);
 				break;
 
-		
 			case OBJECT_ID::ENEMY:	// 敵２
 				SetEnemyPos(i, j);
+				break;
+			
+			case OBJECT_ID::FLAG_01:
+			{
+				std::unique_ptr<Flag> flag = std::make_unique<Flag>(GameObject::ObjectTag::Flag_01);
+				m_flag[0] = flag.get();
+				GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(flag));
+				Vector2 pos1 = Vector2((float)i, (float)j);
+				std::string collName1 = "Flag_01";
+				m_flag[0]->Initialize(pos1);
+			}
+				break;
+			
+			case OBJECT_ID::FLAG_02:
+			{
+				std::unique_ptr<Flag> flag = std::make_unique<Flag>(GameObject::ObjectTag::Flag_02);
+				m_flag[1] = flag.get();
+				GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(flag));
+
+				Vector2 pos2 = Vector2((float)i, (float)j);
+				std::string collName2 = "Flag_02";
+				m_flag[1]->Initialize(pos2);
+			}
 				break;
 			}
 		}

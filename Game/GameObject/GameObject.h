@@ -19,12 +19,17 @@ class GameObject
 {
 public:
 	//オブジェクトの種類
-	enum ObjectTag
+	enum class ObjectTag
 	{
 		None,
 		Player,
 		Enemy,
-		Shell
+		Bullet,
+		Wall,
+		Flag_01,
+		Flag_02,
+
+		NUM
 	};
 
 public:
@@ -80,7 +85,7 @@ public:
 	void SetDrawPrio(int prio);
 	//非表示にする
 	static void Destroy(GameObject* object);
-
+	
 private:
 	//true有効
 	bool m_isValid;
@@ -88,7 +93,6 @@ private:
 	int m_drawPrio;
 	//タグ
 	ObjectTag m_tag;
-
 	
 protected:
 	//座標
@@ -107,8 +111,7 @@ protected:
 	int m_x, m_y;
 	//半径
 	float  m_radius;
+
+	
+
 };
-
-
-
-

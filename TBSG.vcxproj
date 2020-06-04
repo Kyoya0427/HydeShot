@@ -106,6 +106,7 @@
     <!-- 強制インクルードファイル -->
     <ClCompile>
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
+      <GenerateXMLDocumentationFiles Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</GenerateXMLDocumentationFiles>
     </ClCompile>
     <!-- 3Dモデル -->
     <MeshContentTask>
@@ -148,6 +149,7 @@
     <ClInclude Include="Game\GameState\PlayState.h" />
     <ClInclude Include="Game\GameState\ResultState.h" />
     <ClInclude Include="Game\GameState\TitleState.h" />
+    <ClInclude Include="Game\Stage\Flag.h" />
     <ClInclude Include="Game\Stage\Floor.h" />
     <ClInclude Include="Game\Stage\Stage.h" />
     <ClInclude Include="Game\Stage\StageCSV.h" />
@@ -176,6 +178,7 @@
     <ClCompile Include="Game\GameState\PlayState.cpp" />
     <ClCompile Include="Game\GameState\ResultState.cpp" />
     <ClCompile Include="Game\GameState\TitleState.cpp" />
+    <ClCompile Include="Game\Stage\Flag.cpp" />
     <ClCompile Include="Game\Stage\Floor.cpp" />
     <ClCompile Include="Game\Stage\Stage.cpp" />
     <ClCompile Include="Game\Stage\StageCSV.cpp" />
