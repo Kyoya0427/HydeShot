@@ -109,6 +109,11 @@ float GameObject::GetRadius()
 	return m_radius;
 }
 
+GameObject::ObjectTag GameObject::GetCharaTag()
+{
+	return m_charaTag;
+}
+
 /// <summary>
 /// ƒ^ƒO–¼‚ð“o˜^
 /// </summary>
@@ -162,6 +167,11 @@ void GameObject::SetColor(DirectX::SimpleMath::Color color)
 void GameObject::SetDrawPrio(int prio)
 {
 	m_drawPrio = prio;
+}
+
+void GameObject::SetCharaTag(ObjectTag tag)
+{
+	m_charaTag = tag;
 }
 
 /// <summary>

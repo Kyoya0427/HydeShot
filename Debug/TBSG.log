@@ -5,6 +5,21 @@
   Resources\FBX\floorPanel_02.FBX
   Resources\FBX\floorPanel_03.FBX
   Resources\FBX\player.FBX
-  Flag.cpp
+  TitleState.cpp
+  ResultState.cpp
+  Character.cpp
+  コードを生成中...
+  スキップ中... (関連する変更は検出されませんでした)
+  Main.cpp
+  Letter.cpp
+  Blink.cpp
+  StageCSV.cpp
+  PauseState.cpp
+  GameStateManager.cpp
+  Game.cpp
+  DeviceResources.cpp
+  DebugFont.cpp
+  BinaryFile.cpp
+  Camera.cpp
   TBSG.vcxproj -> C:\Users\s182106\Documents\Visual Studio 2015\Projects\TBSG\Debug\TBSG.exe
   TBSG.vcxproj -> C:\Users\s182106\Documents\Visual Studio 2015\Projects\TBSG\Debug\TBSG.pdb (Full PDB)

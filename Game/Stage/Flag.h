@@ -20,7 +20,7 @@ public:
 	~Flag();
 public:
 	// ‰Šú‰»ŠÖ”
-	void Initialize(DirectX::SimpleMath::Vector2& pos);
+	void Initialize(int x, int y);
 	// XV
 	void Update(const DX::StepTimer& timer) override;
 	// •`‰æ

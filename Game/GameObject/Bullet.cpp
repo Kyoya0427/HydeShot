@@ -26,7 +26,7 @@ using namespace DirectX::SimpleMath;
 /// <param name="tag">オブジェクト名</param>
 /// <param name="position">座標</param>
 /// <param name="azimuth">キャラの向いてる方角</param>
-Bullet::Bullet(const ObjectTag tag, const Vector3& position, const Quaternion& azimuth)
+Bullet::Bullet(const ObjectTag tag, const ObjectTag charaTag,const Vector3& position, const Quaternion& azimuth)
 	: GameObject(tag)
 {
 	//デバイスコンテキストを取得
@@ -35,11 +35,11 @@ Bullet::Bullet(const ObjectTag tag, const Vector3& position, const Quaternion& a
 	m_position = position;
 	m_velocity.z = -MOVE_SPEED;
 	m_velocity = Vector3::Transform(m_velocity, azimuth);
+	m_charaTag = charaTag;
 	m_radius = 0.3f;
 	m_color = Colors::Silver;
 	m_sphereModel = GeometricPrimitive::CreateSphere(deviceContext, m_radius);
 	m_collider = std::make_unique<SphereCollider>(this, m_radius);
-
 
 }
 
@@ -58,7 +58,9 @@ void Bullet::Update(const DX::StepTimer& timer)
 {
 	timer;
 	//座標を移動
+	
 	m_position += m_velocity;
+
 	// 衝突判定マネージャーに登録
 	GameContext::Get<CollisionManager>()->Add(GetTag(), m_collider.get());
 }
@@ -71,7 +73,9 @@ void Bullet::Render()
 {
 	//ワールド座標を生成
 	Matrix world = Matrix::Identity;
-	world *= Matrix::CreateTranslation(m_position);
+	Matrix transMat = Matrix::CreateTranslation(m_position);
+	
+	world = transMat;
 	//モデルを描画
 	m_sphereModel->Draw(world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_color);
 }
@@ -83,6 +87,8 @@ void Bullet::Render()
 void Bullet::HitContact(GameObject* object)
 {
 	object;
-	m_velocity = Vector3::Zero;
-	Destroy(this);
+	if (m_charaTag != object->GetTag())
+	{
+		Destroy(this);
+	}
 }

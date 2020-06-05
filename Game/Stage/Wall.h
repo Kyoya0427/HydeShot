@@ -19,8 +19,9 @@ class Wall : public GameObject
 {
 public:
 	// コンストラクタ
-	Wall();
-
+	Wall(const ObjectTag tag);
+	// デストラクタ
+	~Wall();
 public:
 	// 初期化関数
 	void Initialize(int x, int y);

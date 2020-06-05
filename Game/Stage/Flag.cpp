@@ -40,13 +40,15 @@ Flag::~Flag()
 /// èâä˙âª
 /// </summary>
 /// <param name="pos">èâä˙ç¿ïW</param>
-void Flag::Initialize(DirectX::SimpleMath::Vector2& pos)
+void Flag::Initialize(int x, int y)
 {
-	m_x = (int)pos.x;
-	m_y = (int)pos.y;
-	m_position = Vector3((float)m_x, 0.0f, (float)m_y);
+	m_position = DirectX::SimpleMath::Vector3((float)x, 0.0f, (float)y);
+
 	m_radius = 0.4;
+	if(GetTag() == ObjectTag::Flag_01)
 	m_color = Colors::Red;
+	if(GetTag() == ObjectTag::Flag_02)
+	m_color = Colors::Blue;
 	ID3D11DeviceContext* deviceContext = GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext();
 	m_model = GeometricPrimitive::CreateCube(deviceContext);
 

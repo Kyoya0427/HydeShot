@@ -70,10 +70,12 @@ void PlayState::Initialize()
 	GameContext().Register<CollisionManager>(m_collisionManager.get());
 
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player, GameObject::ObjectTag::Wall);
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy, GameObject::ObjectTag::Wall);
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Bullet, GameObject::ObjectTag::Wall);
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player, GameObject::ObjectTag::Enemy);
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player, GameObject::ObjectTag::Flag_02);
+	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player, GameObject::ObjectTag::Bullet);
+	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy, GameObject::ObjectTag::Wall);
+	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy, GameObject::ObjectTag::Bullet);
+	m_collisionManager->AllowCollision(GameObject::ObjectTag::Bullet, GameObject::ObjectTag::Wall);	
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Flag_01, GameObject::ObjectTag::Enemy);
 	
 
@@ -91,12 +93,18 @@ void PlayState::Initialize()
 	m_player->Initialize(m_stage->GetPlayerPos());
 	m_player->SetColor(Color(Colors::Red));
 	m_playerController = std::make_unique<PlayerController>(m_player.get());
+
+	GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(m_player));
+
 	
 	//エネミー
 	m_enemy = std::make_unique<Character>(GameObject::ObjectTag::Enemy);
 	m_enemy->Initialize(m_stage->GetEnemyPos());
 	m_enemy->SetColor(Color(Colors::Blue));
 	m_aiController = std::make_unique<AIController>(m_enemy.get());
+
+	GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(m_enemy));
+
 
 	// 情報ウィンドウ
 	m_infoWindow = std::make_unique<InfoWindow>();
@@ -141,8 +149,7 @@ void PlayState::Update(const DX::StepTimer& timer)
 	m_playerController->Update(timer);
 	m_aiController->Update(timer);
 
-	m_player->Update(timer);
-	m_enemy->Update(timer);
+
 
 	m_collisionManager->DetectCollision();
 
@@ -178,8 +185,7 @@ void PlayState::Render()
 	m_objectManager->GetGameOM()->Render();
 	m_aiController->Render();
 	m_playerController->Render();
-	m_player->Render();
-	m_enemy->Render();
+	
 
 	
 	spriteBach->End(); // <---スプライトの描画はここでまとめて行われている

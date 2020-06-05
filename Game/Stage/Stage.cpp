@@ -59,7 +59,7 @@ void Stage::Initialize()
 				break;
 			case Map::OUTER_WALL:	
 			{
-				std::unique_ptr <Wall> wall = std::make_unique<Wall>();
+				std::unique_ptr <Wall> wall = std::make_unique<Wall>(GameObject::ObjectTag::Wall);
 				m_wall = wall.get();
 				GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(wall));
 			}
@@ -168,9 +168,8 @@ void Stage::SetStageData()
 				std::unique_ptr<Flag> flag = std::make_unique<Flag>(GameObject::ObjectTag::Flag_01);
 				m_flag[0] = flag.get();
 				GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(flag));
-				Vector2 pos1 = Vector2((float)i, (float)j);
 				std::string collName1 = "Flag_01";
-				m_flag[0]->Initialize(pos1);
+				m_flag[0]->Initialize(i,j);
 			}
 				break;
 			
@@ -179,10 +178,8 @@ void Stage::SetStageData()
 				std::unique_ptr<Flag> flag = std::make_unique<Flag>(GameObject::ObjectTag::Flag_02);
 				m_flag[1] = flag.get();
 				GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(flag));
-
-				Vector2 pos2 = Vector2((float)i, (float)j);
 				std::string collName2 = "Flag_02";
-				m_flag[1]->Initialize(pos2);
+				m_flag[1]->Initialize(i,j);
 			}
 				break;
 			}

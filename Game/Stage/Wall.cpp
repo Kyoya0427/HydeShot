@@ -21,8 +21,13 @@
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
-Wall::Wall()
-	: m_models{nullptr}
+Wall::Wall(const ObjectTag tag)
+	: GameObject(tag)
+	, m_models{nullptr}
+{
+}
+
+Wall::~Wall()
 {
 }
 
@@ -32,7 +37,7 @@ void Wall::Initialize(int x, int y)
 	m_color = Colors::Yellow;
 	
 	m_collSize = Vector3(0.5f, 0.5f, 0.5f);
-//	m_collSize = Vector3(1.0f, 1.0f, 1.0f);
+
 	Vector3 size = Vector3(1.0f, 1.0f, 1.0f);
 	ID3D11DeviceContext* deviceContext = GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext();
 	m_boxCollider = GeometricPrimitive::CreateBox(deviceContext, size);
@@ -45,29 +50,6 @@ void Wall::Update(const DX::StepTimer & timer)
 {
 	timer;
 	GameContext().Get<CollisionManager>()->Add(ObjectTag::Wall, m_collider.get());
-
-	DirectX::Keyboard::State keyState = DirectX::Keyboard::Get().GetState();
-
-	m_position += m_velocity;
-	m_velocity = Vector3::Zero;
-	if (keyState.IsKeyDown(DirectX::Keyboard::Keys::I))
-	{
-		m_velocity.z = -1.0f;
-	}
-	else if (keyState.IsKeyDown(DirectX::Keyboard::Keys::K))
-	{
-		m_velocity.z = 1.0f;
-	}
-	else if (keyState.IsKeyDown(DirectX::Keyboard::Keys::J))
-	{
-		m_velocity.x = -1.0f;
-	}
-	else if (keyState.IsKeyDown(DirectX::Keyboard::Keys::L))
-	{
-		m_velocity.x = 1.0f;
-	}
-
-	
 }
 
 void Wall::Render()
@@ -86,21 +68,17 @@ void Wall::Render()
 		GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext()->OMSetBlendState(GameContext::Get<DirectX::CommonStates>()->Additive(), nullptr, 0xffffffff);
 	});
 
-
 		Matrix transMat = Matrix::CreateTranslation(m_position);
 		Matrix scalemat = Matrix::CreateScale(m_scale);
 
 		Matrix worldSphere = scalemat * transMat;
 
 		m_boxCollider->Draw(worldSphere, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_color, nullptr, true);
-	
-
 }
 
 void Wall::HitContact(GameObject* object)
 {
 	object;
-	//Destroy(this);
 }
 
 void Wall::SetModel(DirectX::Model * model)

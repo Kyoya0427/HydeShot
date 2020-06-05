@@ -18,7 +18,7 @@ class Bullet : public GameObject
 {
 public:
 	//コンストラク
-	Bullet(const ObjectTag tag, const DirectX::SimpleMath::Vector3& position, const DirectX::SimpleMath::Quaternion& azimuth);
+	Bullet(const ObjectTag tag, const ObjectTag charaTag,const DirectX::SimpleMath::Vector3& position, const DirectX::SimpleMath::Quaternion& azimuth);
 	//デストラクタ
 	~Bullet();
 
@@ -39,4 +39,6 @@ private:
 	std::unique_ptr<DirectX::GeometricPrimitive>  m_sphereModel;
 	// コライダー
 	std::unique_ptr<SphereCollider> m_collider;
+
+	
 };

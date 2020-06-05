@@ -1,7 +1,7 @@
 //======================================================
 // File Name	: Character.h
-// Summary	: プレイヤークラス
-// Date		: 2020/5/12
+// Summary		: プレイヤークラス
+// Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 #pragma once
@@ -48,11 +48,18 @@ public:
 	//発砲
 	void Shoot();
 
+public:
+	static const int  MAX_HP;
+
 private:
 	std::unique_ptr<DirectX::GeometricPrimitive> m_model;
 	std::unique_ptr<DirectX::GeometricPrimitive> m_sphereCollider;
 	DirectX::SimpleMath::Vector3                 m_previousPos;
 
 	//当たり判定
-	std::unique_ptr<SphereCollider>  m_collider;
+	std::unique_ptr<SphereCollider>              m_collider;
+	//HP
+	int                                          m_hp;
+
+
 };

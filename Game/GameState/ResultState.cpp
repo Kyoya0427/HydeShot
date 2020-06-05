@@ -59,6 +59,8 @@ void ResultState::Render()
 	DebugFont* debugFont = DebugFont::GetInstance();
 	debugFont->print(10, 10, L"ResultState");
 	debugFont->draw();
+	debugFont->print(100, 100, L"Z Key");
+	debugFont->draw();
 }
 
 /// <summary>

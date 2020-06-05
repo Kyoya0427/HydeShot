@@ -68,6 +68,9 @@ public:
 	const int GetDrawPrio() const;
 	//当たり判定の球の半径
 	float GetRadius();
+	//弾を撃ったオブジェクトのタグを取得
+	ObjectTag GetCharaTag();
+
 public:
 	//タグ名を登録
 	void SetTag(const ObjectTag tag);
@@ -83,6 +86,8 @@ public:
 	void SetColor(DirectX::SimpleMath::Color color);
 	//描画順を登録
 	void SetDrawPrio(int prio);
+	//弾を撃ったオブジェクトのタグを設定
+	void SetCharaTag(ObjectTag tag);
 	//非表示にする
 	static void Destroy(GameObject* object);
 	
@@ -111,7 +116,6 @@ protected:
 	int m_x, m_y;
 	//半径
 	float  m_radius;
-
-	
-
+	//弾を撃ったオブジェクトのタグ
+	ObjectTag           m_charaTag;
 };

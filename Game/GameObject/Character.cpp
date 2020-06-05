@@ -17,8 +17,14 @@
 
 #include <Game\Collider\CollisionManager.h>
 
+#include <Game/Common/DebugFont.h>
+
+#include <Game/GameState/GameStateManager.h>
+
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
+
+const int Character::MAX_HP = 5;
 
 /// <summary>
 /// コンストラク
@@ -45,6 +51,9 @@ void Character::Initialize(DirectX::SimpleMath::Vector2 & pos)
 	m_y = (int)pos.y;
 	m_position = Vector3((float)m_x, 0.0f, (float)m_y);
 	m_radius = 0.4f;
+
+	m_hp = MAX_HP;
+
 	ID3D11DeviceContext* deviceContext = GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext();
 	m_model = GeometricPrimitive::CreateCone(deviceContext);
 
@@ -70,6 +79,7 @@ void Character::Update(const DX::StepTimer & timer)
 	m_velocity = Vector3::Zero;
 
 	
+
 }
 
 /// <summary>
@@ -93,7 +103,6 @@ void Character::Render()
 	Matrix world = rotMat * transMat;
 	m_sphereCollider->Draw(world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_color, nullptr, true);
 
-	
 }
 
 /// <summary>
@@ -105,6 +114,24 @@ void Character::HitContact(GameObject* object)
 	object;
 	m_position = m_previousPos;
 	m_velocity = Vector3::Zero;
+
+	if (object->GetTag() == GameObject::ObjectTag::Bullet)
+	{
+		if (object->GetCharaTag() != GetTag())
+		{
+			m_hp -= 1;
+		}
+	}
+
+	if (m_hp <= 0)
+	{
+		Destroy(this);
+		using StateID = GameStateManager::GameStateID;
+		GameStateManager* gameStateManager = GameContext().Get<GameStateManager>();
+		gameStateManager->RequestState(StateID::RESULT_STATE);
+		
+	}
+
 }
 
 /// <summary>
@@ -170,7 +197,7 @@ void Character::RightTurn(float speed)
 void Character::Shoot()
 {
 	Quaternion rot = DirectX::SimpleMath::Quaternion::CreateFromAxisAngle(Vector3::UnitY, m_rotation.y);
-
-	std::unique_ptr<Bullet> shell = std::make_unique<Bullet>(ObjectTag::Bullet,m_position, rot);
+	std::unique_ptr<Bullet> shell = std::make_unique<Bullet>(ObjectTag::Bullet, GetTag(),m_position, rot);
 	GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(shell));
 }
+                                                           
