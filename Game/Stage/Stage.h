@@ -21,7 +21,7 @@ class Stage
 {
 public:
 	// オブジェクトＩＤ
-	enum OBJECT_ID
+	enum class OBJECT_ID
 	{
 		NONE,			// なし
 		PLAYER,			// プレイヤー
@@ -31,7 +31,7 @@ public:
 		WALL,
 	};
 	
-	enum Map
+	enum class Map
 	{
 		NIX,
 		NORMAL,
@@ -77,7 +77,7 @@ public:
 	DirectX::SimpleMath::Vector2& GetPlayerPos();
 	DirectX::SimpleMath::Vector2& GetEnemyPos();
 private:
-	//----- ゲームオブジェクトへのポインタ -----//
+	
 	Floor* m_floor;
 	Wall* m_wall;
 	Flag* m_flag[2];
@@ -86,11 +86,8 @@ private:
 
 	DirectX::SimpleMath::Vector2  m_enemyPos;
 	
-	//パーツオブジェクトへのポインター
-
-	//----- モデルへのポインタ -----//
 	// 床のモデル
-	std::unique_ptr<DirectX::Model> m_floorModels[Map::NUM];
+	std::unique_ptr<DirectX::Model> m_floorModels[static_cast<int>(Map::NUM)];
 
 public:
 	// ステージデータ

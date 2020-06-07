@@ -1,7 +1,7 @@
 //======================================================
 // File Name	: SphereCollider.h
-// Summary	: 球
-// Date		: 2020/5/12
+// Summary		: 球
+// Date			: 2020/5/12
 // Author		: Kyoya Sakamoto
 //======================================================
 #pragma once
@@ -18,7 +18,6 @@ public:
 
 public:
 	//当たったオブジェクトの種類判別
-
 	bool IsCollided(const Collider*       collider) const override;
 	bool IsCollided(const SphereCollider* collider) const override;
 	bool IsCollided(const BoxCollider*    collider) const override;
@@ -28,6 +27,7 @@ public:
 	float GetRadius() const;
 	//半径を設定
 	void  SetRadius(float radius);
+
 private:
 	//半径
 	float m_radius;

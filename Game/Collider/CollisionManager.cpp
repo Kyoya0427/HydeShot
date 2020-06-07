@@ -1,7 +1,7 @@
 //======================================================
 // File Name	: CollisionManager.cpp
-// Summary	: コライダーマネジャー
-// Date		: 2020/5/12
+// Summary		: コライダーマネジャー
+// Date			: 2020/5/12
 // Author		: Kyoya Sakamoto
 //======================================================
 #include "CollisionManager.h"

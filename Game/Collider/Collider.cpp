@@ -1,12 +1,15 @@
 //======================================================
 // File Name	: Collider.cpp
-// Summary	: 衝突親クラス
-// Date		: 2020/5/12
+// Summary		: 衝突親クラス
+// Date			: 2020/5/12
 // Author		: Kyoya Sakamoto
 //======================================================
 #include "Collider.h"
 
 #include <Game\GameObject\GameObject.h>
+
+using namespace DirectX;
+using namespace DirectX::SimpleMath;
 
 /// <summary>
 /// コンストラクタ
@@ -14,7 +17,7 @@
 /// <param name="owner">登録したオブジェクト</param>
 Collider::Collider(GameObject* owner)
 	: m_owner(owner)
-	, m_offset(DirectX::SimpleMath::Vector3(0.0f, 0.0f, 0.0f))
+	, m_offset(Vector3(0.0f, 0.0f, 0.0f))
 {
 }
 
@@ -56,7 +59,7 @@ void Collider::HitContact(const Collider* object) const
 /// 座標を取得
 /// </summary>
 /// <returns></returns>
-const DirectX::SimpleMath::Vector3 Collider::GetPosition() const
+const Vector3 Collider::GetPosition() const
 {
 	return m_owner->GetPosition() + m_offset;
 }
@@ -65,7 +68,7 @@ const DirectX::SimpleMath::Vector3 Collider::GetPosition() const
 /// 座標を設定
 /// </summary>
 /// <param name="pos"></param>
-void Collider::SetPosition(DirectX::SimpleMath::Vector3 pos)
+void Collider::SetPosition(Vector3& pos)
 {
 	m_owner->SetPosition(pos);
 }
@@ -74,7 +77,7 @@ void Collider::SetPosition(DirectX::SimpleMath::Vector3 pos)
 /// 差引勘定を取得
 /// </summary>
 /// <returns></returns>
-const DirectX::SimpleMath::Vector3 Collider::GetOffset() const
+const Vector3 Collider::GetOffset() const
 {
 	return m_offset;
 }
@@ -83,7 +86,7 @@ const DirectX::SimpleMath::Vector3 Collider::GetOffset() const
 /// 差引勘定を設定
 /// </summary>
 /// <param name="offset"></param>
-void Collider::SetOffset(const DirectX::SimpleMath::Vector3 & offset)
+void Collider::SetOffset(const Vector3 & offset)
 {
 	m_offset = offset;
 }

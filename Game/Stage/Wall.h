@@ -1,7 +1,7 @@
 //======================================================
 // File Name	: Wall.h
-// Summary	: 壁クラス
-// Date		: 2020/5/12
+// Summary		: 壁クラス
+// Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 #pragma once
@@ -46,4 +46,5 @@ private:
 	std::unique_ptr<BoxCollider>  m_collider;
 
 	DirectX::SimpleMath::Vector3  m_collSize;
+
 };

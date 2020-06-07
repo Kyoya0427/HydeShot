@@ -1,7 +1,8 @@
 //======================================================
-// File Name	 : IGameState.h
-// Summary	 : ゲームステイトのインターフェイス
-// Author		 : Kyoya Sakamoto
+// File Name	: IGameState.h
+// Summary		: ゲームステイトのインターフェイス
+// Date			: 2020/5/12
+// Author		: Kyoya Sakamoto
 //======================================================
 #pragma once
 
@@ -24,4 +25,5 @@ public:
 	virtual void Render() = 0;
 	//終了
 	virtual void Finalize() = 0;
+
 };

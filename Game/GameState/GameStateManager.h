@@ -1,6 +1,7 @@
 //======================================================
 // File Name	: GameStateManager.h
-// Summary	: ゲームステイトマネジャー
+// Summary		: ゲームステイトマネジャー
+// Date			: 2020/5/12
 // Author		: Kyoya Sakamoto
 //======================================================
 #pragma once
@@ -9,6 +10,7 @@
 #include <memory>
 #include <deque>
 #include <unordered_map>
+
 #include <Game\Common\StepTimer.h>
 
 class IGameState;
@@ -17,7 +19,7 @@ class GameStateManager
 {
 public:
 	//ステイトID
-	enum GameStateID
+	enum class GameState
 	{
 		NONE_STATE = -1,
 		TITLE_STATE,
@@ -31,8 +33,7 @@ private:
 	using IGameStatePtr         = std::unique_ptr<IGameState>;
 	using IGameStateStack       = std::deque<IGameStatePtr>;
 	using IGameStateFactory     = std::function<IGameStatePtr()>;
-	using IGameStateFactoryList = std::unordered_map<GameStateID, IGameStateFactory>;
-
+	using IGameStateFactoryList = std::unordered_map<GameState, IGameStateFactory>;
 
 public:
 	GameStateManager();
@@ -49,15 +50,11 @@ public:
 
 public:
 	template<typename State>
-	void RegisterState(const GameStateID id);
-	
-	void SetStartState(const GameStateID id);
-
-	void RequestState(const GameStateID id);
-	void PushState(const GameStateID id);
+	void RegisterState(const GameState id);
+	void SetStartState(const GameState id);
+	void RequestState(const GameState id);
+	void PushState(const GameState id);
 	void PopState(int count = 1);
-
-	
 
 private:
 	void ChangeState();
@@ -66,7 +63,8 @@ private:
 	IGameStateFactoryList m_stateFactories;
 	IGameStateStack       m_states;
 	int                   m_popCount;
-	GameStateID           m_nextStateName;
+	GameState             m_nextStateName;
+
 };
 
 
@@ -87,7 +85,7 @@ template<typename State>
 ///  ステイトを登録
 /// </summary>
 /// <param name="id"></param>
- void GameStateManager::RegisterState(const GameStateID id)
+ void GameStateManager::RegisterState(const GameState id)
 {
 	 m_stateFactories.emplace(std::make_pair(id, CrateState<State>));
 }

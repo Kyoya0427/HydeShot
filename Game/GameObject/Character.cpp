@@ -1,13 +1,14 @@
 //======================================================
-// File Name	: Character.h
-// Summary	: プレイヤークラス
-// Date		: 2020/5/12
+// File Name	: Character.cpp
+// Summary		: プレイヤークラス
+// Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 #include "Character.h"
 
 #include <Game\Common\GameContext.h>
 #include <Game\Common\DeviceResources.h>
+#include <Game/Common/DebugFont.h>
 
 #include <Game\Camera\Camera.h>
 
@@ -16,8 +17,6 @@
 #include <Game\GameObject\Bullet.h>
 
 #include <Game\Collider\CollisionManager.h>
-
-#include <Game/Common/DebugFont.h>
 
 #include <Game/GameState/GameStateManager.h>
 
@@ -78,8 +77,6 @@ void Character::Update(const DX::StepTimer & timer)
 	m_position += m_velocity;
 	m_velocity = Vector3::Zero;
 
-	
-
 }
 
 /// <summary>
@@ -87,9 +84,7 @@ void Character::Update(const DX::StepTimer & timer)
 /// </summary>
 void Character::Render()
 {
-	Quaternion rot = DirectX::SimpleMath::Quaternion::CreateFromAxisAngle(DirectX::SimpleMath::Vector3::UnitY, m_rotation.y);
-
-
+	Quaternion rot  = Quaternion::CreateFromAxisAngle(Vector3::UnitY, m_rotation.y);
 	Matrix scalemat = Matrix::CreateScale(m_scale);
 	Matrix r        = Matrix::CreateRotationX(DirectX::XMConvertToRadians(-90.0f));
 	Matrix rotMat   = Matrix::CreateFromQuaternion(rot);
@@ -126,10 +121,9 @@ void Character::HitContact(GameObject* object)
 	if (m_hp <= 0)
 	{
 		Destroy(this);
-		using StateID = GameStateManager::GameStateID;
+		using State = GameStateManager::GameState;
 		GameStateManager* gameStateManager = GameContext().Get<GameStateManager>();
-		gameStateManager->RequestState(StateID::RESULT_STATE);
-		
+		gameStateManager->RequestState(State::RESULT_STATE);
 	}
 
 }
@@ -170,7 +164,6 @@ void Character::Leftward(float speed)
 void Character::Rightward(float speed)
 {
 	m_velocity.x = speed;
-	
 }
 
 /// <summary>

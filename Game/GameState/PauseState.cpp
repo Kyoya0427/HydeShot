@@ -1,16 +1,17 @@
 //======================================================
 // File Name	 : PauseState.cpp
-// Summary	 : ポーズステイト
+// Summary		 : ポーズステイト
+// Date			 : 2020/5/12
 // Author		 : Kyoya Sakamoto
 //======================================================
 #include "PauseState.h"
-
-#include <Game\GameState\GameStateManager.h>
 
 #include <DirectXTK\Keyboard.h>
 
 #include <Game\Common\GameContext.h>
 #include <Game\Common\DebugFont.h>
+
+#include <Game\GameState\GameStateManager.h>
 
 /// <summary>
 /// コンストラクタ
@@ -26,12 +27,14 @@ PauseState::PauseState()
 PauseState::~PauseState()
 {
 }
+
 /// <summary>
 /// 初期化
 /// </summary>
 void PauseState::Initialize()
 {
 }
+
 /// <summary>
 /// 更新
 /// </summary>
@@ -42,9 +45,9 @@ void PauseState::Update(const DX::StepTimer& timer)
 	DirectX::Keyboard::State keyState = DirectX::Keyboard::Get().GetState();
 	if (keyState.IsKeyDown(DirectX::Keyboard::Z))
 	{
-		using StateID = GameStateManager::GameStateID;
+		using State = GameStateManager::GameState;
 		GameStateManager* gameStateManager = GameContext().Get<GameStateManager>();
-		gameStateManager->RequestState(StateID::TITLE_STATE);
+		gameStateManager->RequestState(State::TITLE_STATE);
 	}
 
 	if (keyState.IsKeyDown(DirectX::Keyboard::X))
@@ -53,6 +56,7 @@ void PauseState::Update(const DX::StepTimer& timer)
 		gameStateManager->PopState();
 	}
 }
+
 /// <summary>
 /// 描画
 /// </summary>
@@ -62,6 +66,7 @@ void PauseState::Render()
 	debugFont->print(10, 10, L"PauseState");
 	debugFont->draw();
 }
+
 /// <summary>
 /// 終了
 /// </summary>

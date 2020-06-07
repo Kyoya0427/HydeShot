@@ -1,14 +1,16 @@
 //======================================================
 // File Name	: GameStateManager.cpp
-// Summary	: ゲームステイトマネジャー
+// Summary		: ゲームステイトマネジャー
+// Date			: 2020/5/12
 // Author		: Kyoya Sakamoto
 //======================================================
+#include "GameStateManager.h"
+
 #include <cassert>
 
-#include "GameStateManager.h"
-#include "IGameState.h"
-
 #include <Game\Common\Utilities.h>
+
+#include <Game/GameState/IGameState.h>
 
 /// <summary>
 /// コンストラクタ
@@ -44,7 +46,7 @@ void GameStateManager::Update(const DX::StepTimer& timer)
 		m_popCount = 0;
 	}
 
-	if (m_nextStateName != GameStateID::NONE_STATE)
+	if (m_nextStateName != GameState::NONE_STATE)
 	{
 		ChangeState();
 	}
@@ -52,7 +54,6 @@ void GameStateManager::Update(const DX::StepTimer& timer)
 	assert(m_states.size() > 0 && "There is no active state.");
 	m_states.back()->Update(timer);
 }
-
 
 /// <summary>
 /// 描画
@@ -67,24 +68,20 @@ void GameStateManager::Render()
 	}
 }
 
-
-
 /// <summary>
 /// 始めのステイトの初期設定
 /// </summary>
 /// <param name="id">ステイトID</param>
-void GameStateManager::SetStartState(const GameStateID id)
+void GameStateManager::SetStartState(const GameState id)
 {
 	RequestState(id);
 }
-
-
 
 /// <summary>
 /// 次のステイトの設定
 /// </summary>
 /// <param name="id">ステイトID</param>
-void GameStateManager::RequestState(const GameStateID id)
+void GameStateManager::RequestState(const GameState id)
 {
 	assert(m_stateFactories.count(id) != -1 && "A GameState with this name is not registered.");
 
@@ -92,12 +89,11 @@ void GameStateManager::RequestState(const GameStateID id)
 	m_nextStateName = id;
 }
 
-
 /// <summary>
 /// 既存ステイトにステイトを追加
 /// </summary>
 /// <param name="id">ステイトID</param>
-void GameStateManager::PushState(const GameStateID id)
+void GameStateManager::PushState(const GameState id)
 {
 	m_nextStateName = id;
 }
@@ -109,9 +105,9 @@ void GameStateManager::PushState(const GameStateID id)
 void GameStateManager::PopState(int count)
 {
 	assert(count > 0 && "Count is invalid.");
-	if (m_nextStateName != GameStateID::NONE_STATE)
+	if (m_nextStateName != GameState::NONE_STATE)
 	{
-		m_nextStateName = NONE_STATE;
+		m_nextStateName = GameState::NONE_STATE;
 	}
 	m_popCount = Clamp<int>(m_popCount + count, 0, m_states.size() - 1);
 
@@ -125,6 +121,6 @@ void GameStateManager::ChangeState()
 	m_states.push_back(m_stateFactories[m_nextStateName]());
 	m_states.back()->Initialize();
 
-	m_nextStateName = NONE_STATE;
+	m_nextStateName = GameState::NONE_STATE;
 }
 

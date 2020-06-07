@@ -1,7 +1,7 @@
 //======================================================
-// File Name	: PlayerController.h
-// Summary	: プレイヤークラス
-// Date		: 2020/5/12
+// File Name	: PlayerController.cpp
+// Summary		: プレイヤークラス
+// Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 #include "PlayerController.h"
@@ -39,44 +39,41 @@ PlayerController::~PlayerController()
 void PlayerController::Update(const DX::StepTimer& timer)
 {
 	timer;
-	DirectX::Keyboard::State keyState = DirectX::Keyboard::Get().GetState();
+	Keyboard::State keyState = Keyboard::Get().GetState();
 
 	m_shotInterval += float(timer.GetElapsedSeconds());
 
-	if (keyState.IsKeyDown(DirectX::Keyboard::Keys::W))
+	if (keyState.IsKeyDown(Keyboard::Keys::W))
 	{
 		m_character->Forward(MOVE_SPEED);
 	}
-	else if (keyState.IsKeyDown(DirectX::Keyboard::Keys::S))
+	else if (keyState.IsKeyDown(Keyboard::Keys::S))
 	{
 		m_character->Backward(MOVE_SPEED);
 	}
-	else if (keyState.IsKeyDown(DirectX::Keyboard::Keys::A))
+	else if (keyState.IsKeyDown(Keyboard::Keys::A))
 	{
 		m_character->Leftward(MOVE_SPEED);
 	}
-	else if (keyState.IsKeyDown(DirectX::Keyboard::Keys::D))
+	else if (keyState.IsKeyDown(Keyboard::Keys::D))
 	{
 		m_character->Rightward(MOVE_SPEED);
 	}
 
-
-	if (keyState.IsKeyDown(DirectX::Keyboard::Keys::Left))
+	if (keyState.IsKeyDown(Keyboard::Keys::Left))
 	{
 		m_character->LeftTurn(ROT_SPEED);
 	}
-	else if (keyState.IsKeyDown(DirectX::Keyboard::Keys::Right))
+	else if (keyState.IsKeyDown(Keyboard::Keys::Right))
 	{
 		m_character->RightTurn(ROT_SPEED);
 	}
 
-
-	if (keyState.IsKeyDown(DirectX::Keyboard::Keys::Space) && m_shotInterval >= 0.1)
+	if (keyState.IsKeyDown(Keyboard::Keys::Space) && m_shotInterval >= 0.1)
 	{
 		m_character->Shoot();
 		m_shotInterval = 0.0f;
 	}
-
 
 }
 
@@ -85,7 +82,6 @@ void PlayerController::Update(const DX::StepTimer& timer)
 /// </summary>
 void PlayerController::Render()
 {
-	
 	DebugFont* debugFont = DebugFont::GetInstance();
 	debugFont->print(600, 30, L"%f / 2.0", m_shotInterval);
 	debugFont->draw();

@@ -1,7 +1,7 @@
 //======================================================
 // File Name	: GameObject.h
-// Summary	: ゲームオブジェクト
-// Date		: 2020/5/12
+// Summary		: ゲームオブジェクト
+// Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 #pragma once
@@ -11,9 +11,6 @@
 #include <DirectXTK\SimpleMath.h>
 
 #include <Game\Common\StepTimer.h>
-
-
-
 
 class GameObject
 {

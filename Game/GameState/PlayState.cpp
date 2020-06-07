@@ -1,10 +1,11 @@
 //======================================================
-// File Name	: PlayState.h
-// Summary	: プレイステイト
-// Date		: 2020/5/12
+// File Name	: PlayState.cpp
+// Summary		: プレイステイト
+// Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 #include "PlayState.h"
+
 #include <DirectXTK\Keyboard.h>
 
 #include <Game\Common\DebugFont.h>
@@ -13,24 +14,25 @@
 
 #include <Game\GameObject\ObjectManager.h>
 #include <Game\GameObject\GameObjectManager.h>
+#include <Game\GameObject\Character.h>
+
+#include <Game\GameState\GameStateManager.h>
 
 #include <Game\Camera\Camera.h>
+
+#include <Game\Bg\Bg.h>
 
 #include <Game\Stage\Stage.h>
 #include <Game\Stage\Floor.h>
 
-#include <Game\Bg\Bg.h>
-
 #include <Game\UI\InfoWindow.h>
-
-#include <Game\GameObject\Character.h>
 
 #include <Game\Controller\PlayerController.h>
 #include <Game\Controller\AIController.h>
 
 #include <Game\Collider\CollisionManager.h>
 
-#include <Game\GameState\GameStateManager.h>
+
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 using namespace DX;
@@ -145,11 +147,8 @@ void PlayState::Update(const DX::StepTimer& timer)
 	// ゲーム画面のオブジェクト更新
 	m_objectManager->GetGameOM()->Update(timer);
 
-
 	m_playerController->Update(timer);
 	m_aiController->Update(timer);
-
-
 
 	m_collisionManager->DetectCollision();
 
@@ -157,9 +156,9 @@ void PlayState::Update(const DX::StepTimer& timer)
 	m_keyTracker.Update(keyState);
 	if (m_keyTracker.IsKeyReleased(DirectX::Keyboard::Z))
 	{
-		using StateID = GameStateManager::GameStateID;
+		using State = GameStateManager::GameState;
 		GameStateManager* gameStateManager = GameContext().Get<GameStateManager>();
-		gameStateManager->RequestState(StateID::RESULT_STATE);
+		gameStateManager->RequestState(State::RESULT_STATE);
 	}
 }
 
@@ -185,8 +184,6 @@ void PlayState::Render()
 	m_objectManager->GetGameOM()->Render();
 	m_aiController->Render();
 	m_playerController->Render();
-	
-
 	
 	spriteBach->End(); // <---スプライトの描画はここでまとめて行われている
 

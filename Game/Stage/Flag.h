@@ -1,7 +1,7 @@
 //======================================================
 // File Name	: Flag.h
-// Summary	: Šø
-// Date		: 2020/5/12
+// Summary		: Šø
+// Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 #pragma once
@@ -9,7 +9,6 @@
 #include <Game\GameObject\GameObject.h>
 
 #include <Game\Collider\SphereCollider.h>
-
 
 class Flag : public GameObject
 {

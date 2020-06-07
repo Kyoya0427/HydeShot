@@ -1,9 +1,12 @@
+//======================================================
+// File Name	: CharacterController.cpp
+// Summary		: プレイヤークラス
+// Date			: 2020/5/12
+// Author		: Kyoya  Sakamoto
+//======================================================
 #include "CharacterController.h"
 
 #include <Game\GameObject\Character.h>
-
-using namespace DirectX;
-using namespace DirectX::SimpleMath;
 
 /// <summary>
 /// コンストラク

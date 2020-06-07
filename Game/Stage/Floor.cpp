@@ -1,11 +1,12 @@
 //======================================================
 // File Name	: Floor.cpp
-// Summary	: 床クラス
-// Date		: 2020/5/12
+// Summary		: 床クラス
+// Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 #include "Floor.h"
-#include "Stage.h"
+
+#include <Game/Stage/Stage.h>
 
 #include <DirectXTK\CommonStates.h>
 #include <DirectXTK\GeometricPrimitive.h>
@@ -70,6 +71,10 @@ void Floor::Render()
 
 }
 
+/// <summary>
+/// 当たった後の処理
+/// </summary>
+/// <param name="object"></param>
 void Floor::HitContact(GameObject* object)
 {
 	object;

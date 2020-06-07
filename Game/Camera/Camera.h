@@ -1,7 +1,7 @@
 //======================================================
 // File Name	: Camera.h
-// Summary	: カメラ
-// Date		: 2020/5/12
+// Summary		: カメラ
+// Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 #pragma once
@@ -32,11 +32,11 @@ private:
 
 public:
 	// ビュー行列取得
-	DirectX::SimpleMath::Matrix GetView()       { return m_view; }
+	DirectX::SimpleMath::Matrix GetView();
 	// 視点取得
-	DirectX::SimpleMath::Vector3 Geteye()       { return m_eye; }
+	DirectX::SimpleMath::Vector3 Geteye();
 	// 注視点取得
-	DirectX::SimpleMath::Vector3 GetTarget()    { return m_target; }
+	DirectX::SimpleMath::Vector3 GetTarget();
 	//射影行列取得
-	DirectX::SimpleMath::Matrix GetProjection() { return m_projection; }
+	DirectX::SimpleMath::Matrix GetProjection();
 };

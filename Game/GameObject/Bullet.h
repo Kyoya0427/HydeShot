@@ -1,13 +1,12 @@
 //======================================================
-// File Name	 : Bullet.h
-// Summary	 : 弾
-// Date		: 2020/5/25
+// File Name	: Bullet.cpp
+// Summary		: 弾
+// Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 #pragma once
 
 #include <DirectXTK\GeometricPrimitive.h>
-
 #include <DirectXTK\SimpleMath.h>
 
 #include <Game\GameObject\GameObject.h>
@@ -40,5 +39,4 @@ private:
 	// コライダー
 	std::unique_ptr<SphereCollider> m_collider;
 
-	
 };

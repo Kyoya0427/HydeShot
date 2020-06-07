@@ -1,6 +1,7 @@
 //======================================================
 // File Name	: ResultState.cpp
-// Summary	: リザルトステイト
+// Summary		: リザルトステイト
+// Date			: 2020/5/12
 // Author		: Kyoya Sakamoto
 //======================================================
 #include "ResultState.h"
@@ -45,9 +46,9 @@ void ResultState::Update(const DX::StepTimer& timer)
 	m_keyTracker.Update(keyState);
 	if (m_keyTracker.IsKeyReleased(DirectX::Keyboard::Z))
 	{
-		using StateID = GameStateManager::GameStateID;
+		using State = GameStateManager::GameState;
 		GameStateManager* gameStateManager = GameContext().Get<GameStateManager>();
-		gameStateManager->RequestState(StateID::TITLE_STATE);
+		gameStateManager->RequestState(State::TITLE_STATE);
 	}
 }
 

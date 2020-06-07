@@ -1,20 +1,33 @@
-
+//======================================================
+// File Name	: StageCSV.cpp
+// Summary		: ステージロード
+// Date			: 2020/5/12
+// Author		: Kyoya  Sakamoto
+//======================================================
 
 #include <fstream>
 #include <sstream>
 
 #include "StageCSV.h"
-
-
+/// <summary>
+/// コンストラクタ
+/// </summary>
 StageCSV::StageCSV()
 {
 }
 
-
+/// <summary>
+/// デストラクタ
+/// </summary>
 StageCSV::~StageCSV()
 {
 }
 
+/// <summary>
+/// ステージをロード
+/// </summary>
+/// <param name="fname"></param>
+/// <returns></returns>
 bool StageCSV::LoadStageData(wchar_t * fname)
 {
 	std::wstring str;

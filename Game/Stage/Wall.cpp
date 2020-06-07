@@ -1,11 +1,12 @@
 //======================================================
 // File Name	: Wall.cpp
-// Summary	: 壁クラス
-// Date		: 2020/5/12
+// Summary		: 壁クラス
+// Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 #include "Wall.h"
-#include "Stage.h"
+
+#include <Game/Stage/Stage.h>
 
 #include <DirectXTK\CommonStates.h>
 #include <DirectXTK\GeometricPrimitive.h>
@@ -21,16 +22,28 @@
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
+/// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="tag"></param>
 Wall::Wall(const ObjectTag tag)
 	: GameObject(tag)
 	, m_models{nullptr}
 {
 }
 
+/// <summary>
+/// デストラクタ
+/// </summary>
 Wall::~Wall()
 {
 }
 
+/// <summary>
+/// 初期化
+/// </summary>
+/// <param name="x">x座標</param>
+/// <param name="y">y座標</param>
 void Wall::Initialize(int x, int y)
 {
 	m_position = DirectX::SimpleMath::Vector3((float)x, 0.0f, (float)y);
@@ -46,12 +59,19 @@ void Wall::Initialize(int x, int y)
 	m_collider->SetSize(m_collSize);
 }
 
+/// <summary>
+/// 更新
+/// </summary>
+/// <param name="timer">タイマー</param>
 void Wall::Update(const DX::StepTimer & timer)
 {
 	timer;
 	GameContext().Get<CollisionManager>()->Add(ObjectTag::Wall, m_collider.get());
 }
 
+/// <summary>
+/// 描画
+/// </summary>
 void Wall::Render()
 {
 	// ワールド行列の作成
@@ -76,16 +96,28 @@ void Wall::Render()
 		m_boxCollider->Draw(worldSphere, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_color, nullptr, true);
 }
 
+/// <summary>
+/// 当たった後の処理
+/// </summary>
+/// <param name="object"></param>
 void Wall::HitContact(GameObject* object)
 {
 	object;
 }
 
+/// <summary>
+/// モデルを設定
+/// </summary>
+/// <param name="model"></param>
 void Wall::SetModel(DirectX::Model * model)
 {
 	m_models = model;
 }
 
+/// <summary>
+/// 当たり判定に使うサイズ
+/// </summary>
+/// <returns></returns>
 DirectX::SimpleMath::Vector3 Wall::GetCollSize()
 {
 	return m_collSize;

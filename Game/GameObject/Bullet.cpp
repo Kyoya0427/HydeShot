@@ -1,7 +1,7 @@
 //======================================================
-// File Name	 : Bullet.cpp
-// Summary	 : 弾
-// Date		: 2020/5/25
+// File Name	: Bullet.cpp
+// Summary		: 弾
+// Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 #include "Bullet.h"
@@ -14,11 +14,13 @@
 #include <Game\Collider\SphereCollider.h>
 #include <Game\Collider\CollisionManager.h>
 
-//定数の設定
-const float Bullet::MOVE_SPEED = 0.2f;
-
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
+
+
+const float Bullet::MOVE_SPEED = 0.2f;
+
+
 
 /// <summary>
 /// コンストラクタ
@@ -58,9 +60,7 @@ void Bullet::Update(const DX::StepTimer& timer)
 {
 	timer;
 	//座標を移動
-	
 	m_position += m_velocity;
-
 	// 衝突判定マネージャーに登録
 	GameContext::Get<CollisionManager>()->Add(GetTag(), m_collider.get());
 }

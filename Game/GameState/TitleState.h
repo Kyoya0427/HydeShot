@@ -1,7 +1,8 @@
 //======================================================
-// File Name	 : TitleState.h
-// Summary	 : タイトルステイト
-// Author		 : Kyoya Sakamoto
+// File Name	: TitleState.h
+// Summary		: タイトルステイト
+// Date			: 2020/5/12
+// Author		: Kyoya Sakamoto
 //======================================================
 #pragma once
 
@@ -25,8 +26,6 @@ public:
 	void Render() override;
 	//終了
 	void Finalize() override;
-
-
 
 private:
 	DirectX::Keyboard::KeyboardStateTracker          m_keyTracker;

@@ -1,7 +1,7 @@
 //======================================================
 // File Name	: Flag.h
-// Summary	: Šø
-// Date		: 2020/5/12
+// Summary		: Šø
+// Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 #include "Flag.h"
@@ -83,7 +83,7 @@ void Flag::HitContact(GameObject * object)
 {
 	object;
 	Destroy(this);
-	using StateID = GameStateManager::GameStateID;
+	using State = GameStateManager::GameState;
 	GameStateManager* gameStateManager = GameContext().Get<GameStateManager>();
-	gameStateManager->RequestState(StateID::RESULT_STATE);
+	gameStateManager->RequestState(State::RESULT_STATE);
 }

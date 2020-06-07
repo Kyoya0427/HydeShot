@@ -1,15 +1,17 @@
 //======================================================
 // File Name	: TitleState.cpp
-// Summary	: タイトルステイト
+// Summary		: タイトルステイト
+// Date			: 2020/5/12
 // Author		: Kyoya Sakamoto
 //======================================================
 #include"TitleState.h"
 
 #include <Game\Common\GameContext.h>
+#include <Game\Common\DebugFont.h>
 
 #include <Game\GameState\GameStateManager.h>
 
-#include <Game\Common\DebugFont.h>
+
 /// <summary>
 /// コンストラクタ
 /// </summary>
@@ -43,9 +45,9 @@ void TitleState::Update(const DX::StepTimer& timer)
 	m_keyTracker.Update(keyState);
 	if (m_keyTracker.IsKeyReleased(DirectX::Keyboard::Z))
 	{
-		using StateID = GameStateManager::GameStateID;
+		using State = GameStateManager::GameState;
 		GameStateManager* gameStateManager = GameContext().Get<GameStateManager>();
-		gameStateManager->RequestState(StateID::PLAY_STATE);
+		gameStateManager->RequestState(State::PLAY_STATE);
 	}
 }
 

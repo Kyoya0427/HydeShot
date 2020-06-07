@@ -1,7 +1,7 @@
 //======================================================
 // File Name	: CollisionManager.h
-// Summary	: コライダーマネジャー
-// Date		: 2020/5/12
+// Summary		: コライダーマネジャー
+// Date			: 2020/5/12
 // Author		: Kyoya Sakamoto
 //======================================================
 #pragma once
@@ -13,7 +13,7 @@
 
 #include <DirectXTK\SimpleMath.h>
 
-#include "Collider.h"
+#include <Game/Collider/Collider.h>
 
 #include <Game/GameObject/GameObject.h>
 
@@ -43,7 +43,6 @@ public:
 	void DetectCollision();
 	void DetectCollision(const ColliderList& colliders);
 	void DetectCollision(const ColliderList& colliders1, const ColliderList& colliders2);
-
 
 public:
 	//当たり判定

@@ -1,7 +1,7 @@
 //======================================================
 // File Name	: BoxCollider.cpp
-// Summary	: ” 
-// Date		: 2020/5/12
+// Summary		: ” 
+// Date			: 2020/5/12
 // Author		: Kyoya Sakamoto
 //======================================================
 #include "BoxCollider.h"

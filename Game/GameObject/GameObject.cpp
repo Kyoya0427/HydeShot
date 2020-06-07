@@ -1,11 +1,13 @@
 //======================================================
-// File Name	: GameObject.h
-// Summary	: ゲームオブジェクト
-// Date		: 2020/5/12
+// File Name	: GameObject.cpp
+// Summary		: ゲームオブジェクト
+// Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 #include "GameObject.h"
 
+using namespace DirectX;
+using namespace DirectX::SimpleMath;
 
 /// <summary>
 /// コンストラクタ
@@ -67,12 +69,12 @@ const GameObject::ObjectTag GameObject::GetTag() const
 /// 座標を取得
 /// </summary>
 /// <returns></returns>
-const DirectX::SimpleMath::Vector3& GameObject::GetPosition() const
+const Vector3& GameObject::GetPosition() const
 {
 	return m_position;
 }
 
-const DirectX::SimpleMath::Vector3& GameObject::GetVelocity() const
+const Vector3& GameObject::GetVelocity() const
 {
 	return m_velocity;
 }
@@ -81,7 +83,7 @@ const DirectX::SimpleMath::Vector3& GameObject::GetVelocity() const
 /// 回転量を取得
 /// </summary>
 /// <returns></returns>
-const DirectX::SimpleMath::Vector3& GameObject::GetRotation() const
+const Vector3& GameObject::GetRotation() const
 {
 	return m_rotation;
 }
@@ -90,7 +92,7 @@ const DirectX::SimpleMath::Vector3& GameObject::GetRotation() const
 /// サイズを取得
 /// </summary>
 /// <returns></returns>
-const DirectX::SimpleMath::Vector3& GameObject::GetScale() const
+const Vector3& GameObject::GetScale() const
 {
 	return m_scale;
 }
@@ -104,11 +106,19 @@ const int GameObject::GetDrawPrio() const
 	return m_drawPrio;
 }
 
+/// <summary>
+/// 半径を取得
+/// </summary>
+/// <returns></returns>
 float GameObject::GetRadius()
 {
 	return m_radius;
 }
 
+/// <summary>
+/// 取得してるオブジェクト名
+/// </summary>
+/// <returns></returns>
 GameObject::ObjectTag GameObject::GetCharaTag()
 {
 	return m_charaTag;
@@ -127,12 +137,12 @@ void GameObject::SetTag(const ObjectTag tag)
 /// 座標を登録
 /// </summary>
 /// <param name="position"></param>
-void GameObject::SetPosition(DirectX::SimpleMath::Vector3 position)
+void GameObject::SetPosition(Vector3 position)
 {
 	m_position = position;
 }
 
-void GameObject::SetVelocity(DirectX::SimpleMath::Vector3 velocity)
+void GameObject::SetVelocity(Vector3 velocity)
 {
 	m_velocity = velocity;
 }
@@ -141,7 +151,7 @@ void GameObject::SetVelocity(DirectX::SimpleMath::Vector3 velocity)
 /// 回転量を登録
 /// </summary>
 /// <param name="rotation"></param>
-void GameObject::SetRotation(DirectX::SimpleMath::Vector3 rotation)
+void GameObject::SetRotation(Vector3 rotation)
 {
 	m_rotation = rotation;
 }
@@ -150,12 +160,16 @@ void GameObject::SetRotation(DirectX::SimpleMath::Vector3 rotation)
 /// サイズを登録
 /// </summary>
 /// <param name="scale"></param>
-void GameObject::SetScale(DirectX::SimpleMath::Vector3 & scale)
+void GameObject::SetScale(Vector3 & scale)
 {
 	m_scale = scale;
 }
 
-void GameObject::SetColor(DirectX::SimpleMath::Color color)
+/// <summary>
+/// オブジェクトカラーの登録
+/// </summary>
+/// <param name="color"></param>
+void GameObject::SetColor(Color color)
 {
 	m_color = color;
 }

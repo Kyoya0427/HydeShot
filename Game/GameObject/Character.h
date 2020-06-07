@@ -61,5 +61,4 @@ private:
 	//HP
 	int                                          m_hp;
 
-
 };

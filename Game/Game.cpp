@@ -78,13 +78,13 @@ void Game::Initialize(HWND window, int width, int height)
 	//ステイトマネジャー生成
 	m_gameStateManager = std::make_unique<GameStateManager>();
 	//ゲームステイト登録
-	using StateID = GameStateManager::GameStateID;
-	m_gameStateManager->RegisterState<TitleState>(StateID::TITLE_STATE);
-	m_gameStateManager->RegisterState<PlayState>(StateID::PLAY_STATE);
-	m_gameStateManager->RegisterState<PauseState>(StateID::PAUSE_STATE);
-	m_gameStateManager->RegisterState<ResultState>(StateID::RESULT_STATE);
+	using State = GameStateManager::GameState;
+	m_gameStateManager->RegisterState<TitleState>(State::TITLE_STATE);
+	m_gameStateManager->RegisterState<PlayState>(State::PLAY_STATE);
+	m_gameStateManager->RegisterState<PauseState>(State::PAUSE_STATE);
+	m_gameStateManager->RegisterState<ResultState>(State::RESULT_STATE);
 	//初期ステイト設定
-	m_gameStateManager->SetStartState(StateID::TITLE_STATE);
+	m_gameStateManager->SetStartState(State::TITLE_STATE);
 	//コンテキストに登録
 	GameContext().Register<GameStateManager>(m_gameStateManager);
 	

@@ -1,10 +1,10 @@
 //======================================================
 // File Name	: ResultState.h
-// Summary	: リザルトステイト
+// Summary		: リザルトステイト
+// Date			: 2020/5/12
 // Author		: Kyoya Sakamoto
 //======================================================
 #pragma once
-
 
 #include <DirectXTK\SpriteBatch.h>
 #include <DirectXTK\SimpleMath.h>	
@@ -27,10 +27,9 @@ public:
 	void Render() override;
 	//終了
 	void Finalize() override;
+
 private:
-
 	DirectX::Keyboard::KeyboardStateTracker          m_keyTracker;
-
 
 };
 

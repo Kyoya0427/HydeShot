@@ -1,7 +1,7 @@
 //======================================================
 // File Name	: Bg.cpp
-// Summary	: îwåi
-// Date		: 2020/5/12
+// Summary		: îwåi
+// Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 #include "Bg.h"
@@ -13,7 +13,6 @@
 #include <Game\Common\DeviceResources.h>
 
 #include <Game\Camera\Camera.h>
-
 
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
@@ -60,7 +59,6 @@ void Bg::Initialize()
 			// ÉGÉ~ÉbÉVÉáÉìêFÇîíÇ…ê›íËÇ∑ÇÈ
 			basicEffect->SetEmissiveColor(Vector3(1.0f, 1.0f, 1.0f));
 		}
-
 	});
 }
 

@@ -1,8 +1,8 @@
 //======================================================
 // File Name	 : PlayState.h
-// Summary	 : プレイステイト
-// Date		: 2020/5/12
-// Author		: Kyoya  Sakamoto
+// Summary		 : プレイステイト
+// Date			 : 2020/5/12
+// Author		 : Kyoya  Sakamoto
 //======================================================
 #pragma once
 
@@ -71,7 +71,7 @@ private:
 	//当たり判定マネージャー
 	std::unique_ptr<CollisionManager>       m_collisionManager;
 
-	DirectX::Keyboard::KeyboardStateTracker          m_keyTracker;
+	DirectX::Keyboard::KeyboardStateTracker m_keyTracker;
 
 };
 

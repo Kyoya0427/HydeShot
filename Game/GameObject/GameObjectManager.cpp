@@ -1,14 +1,12 @@
 //======================================================
 // File Name	: GameObjectManager.cpp
-// Summary	: ゲームオブジェクトマネジャー
-// Date		: 2020/5/12
+// Summary		: ゲームオブジェクトマネジャー
+// Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
-
 #include "GameObjectManager.h"
 
-#include "GameObject.h"
-
+#include <Game/GameObject/GameObject.h>
 
 
 /// <summary>
@@ -36,12 +34,10 @@ void GameObjectManager::Update(const DX::StepTimer& timer)
 {
 	DestroyObjects();
 
-	
 	if (!m_objectQueue.empty())
 	{
 		AcceptObjects();
 	}
-
 
 	UpdateObjects(timer);
 }
@@ -78,6 +74,11 @@ void GameObjectManager::Add(GameObjectPtr&& object)
 	m_objectQueue.push_back(std::move(object));
 }
 
+/// <summary>
+/// 指定タグのみを取得
+/// </summary>
+/// <param name="tag">指定タグ</param>
+/// <returns></returns>
 std::vector<GameObject*> GameObjectManager::Find(GameObject::ObjectTag tag)
 {
 	std::vector<GameObject*> result;

@@ -1,7 +1,7 @@
 //======================================================
 // File Name	: AIController.h
-// Summary	: ＡＩコントローラー
-// Date		: 2020/5/12
+// Summary		: ＡＩコントローラー
+// Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 #include "AIController.h"
@@ -9,8 +9,6 @@
 #include <Game\Common\DebugFont.h>
 
 #include <Game\GameObject\Character.h>
-
-
 
 using namespace DirectX;
 using namespace DirectX::SimpleMath;

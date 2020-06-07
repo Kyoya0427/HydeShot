@@ -9,8 +9,8 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-
 #include <Effects.h>
+
 #include <DirectXTK\CommonStates.h>
 #include <Game\Common\GameContext.h>
 #include <Game\Common\DeviceResources.h>
@@ -20,6 +20,7 @@
 #include <Game\GameObject\GameObject.h>
 
 #include <Game/Stage/Flag.h>
+
 using namespace std;
 using namespace DirectX;
 using namespace DirectX::SimpleMath;

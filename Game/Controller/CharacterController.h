@@ -1,7 +1,7 @@
 //======================================================
 // File Name	: CharacterController.h
-// Summary	: プレイヤークラス
-// Date		: 2020/5/12
+// Summary		: プレイヤークラス
+// Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 #pragma once
@@ -17,6 +17,7 @@ public:
 	CharacterController(Character* character);
 	//デストラクタ
 	~CharacterController();
+
 public:
 	//更新
 	virtual void Update(const DX::StepTimer& timer) = 0;
