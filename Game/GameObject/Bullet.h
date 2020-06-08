@@ -27,7 +27,7 @@ public:
 	// 描画
 	void Render() override;
 	//当たった後の処理
-	void HitContact(GameObject* object) override;
+	void OnCollision(GameObject* object) override;
 
 public:
 	//弾のスピード

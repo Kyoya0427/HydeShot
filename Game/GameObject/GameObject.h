@@ -42,7 +42,7 @@ public:
 	//•`‰æ
 	virtual void Render() = 0;
 	//“–‚½‚Á‚½‚ ‚Æ‚Ìˆ—
-	virtual void HitContact(GameObject* object) = 0;
+	virtual void OnCollision(GameObject* object) = 0;
 
 public:
 	// –³Œø

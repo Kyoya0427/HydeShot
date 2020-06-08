@@ -72,7 +72,7 @@ void AIController::Update(const DX::StepTimer& timer)
 	case Behavior::TURN_RIGHT:
 		m_character->RightTurn(ROT_SPEED);
 		break;
-	case Behavior::SHOOT:
+	case Behavior::SHOOT://
 		m_character->Shoot();
 		break;
 	}

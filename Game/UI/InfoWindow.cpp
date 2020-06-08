@@ -41,7 +41,7 @@ void InfoWindow::Render()
 	GameContext::Get<DirectX::SpriteBatch>()->Draw(m_bg01Texture.Get(), DirectX::SimpleMath::Vector2(0.0f, 0.0f));
 }
 
-void InfoWindow::HitContact(GameObject* object)
+void InfoWindow::OnCollision(GameObject* object)
 {
 	object;
 }

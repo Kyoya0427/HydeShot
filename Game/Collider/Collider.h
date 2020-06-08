@@ -28,7 +28,7 @@ public:
 
 public:
 	//“–‚½‚Á‚½Œã‚Ìˆ—
-	void HitContact(const Collider* object) const;
+	void OnCollision(const Collider* object) const;
 
 public:
 	// À•W‚ğæ“¾

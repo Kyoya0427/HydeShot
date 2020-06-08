@@ -28,7 +28,7 @@ public:
 	// 描画関数
 	void Render() override;
 	//当たった後の処理
-	void HitContact(GameObject* object) override;
+	void OnCollision(GameObject* object) override;
 
 private:
 	// ゲームウインドウへのポインタ

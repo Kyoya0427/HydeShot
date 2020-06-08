@@ -250,13 +250,7 @@
     <ClInclude Include="Game\UI\Letter.h">
       <Filter>Game\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Stage\StageCSV.h">
-      <Filter>Game\Stage</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Stage\Stage.h">
-      <Filter>Game\Stage</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Stage\Floor.h">
       <Filter>Game\Stage</Filter>
     </ClInclude>
     <ClInclude Include="Game\Controller\CharacterController.h">
@@ -276,9 +270,6 @@
     </ClInclude>
     <ClInclude Include="Game\GameObject\GameObject.h">
       <Filter>Game\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Stage\Wall.h">
-      <Filter>Game\Stage</Filter>
     </ClInclude>
     <ClInclude Include="Game\Collider\BoxCollider.h">
       <Filter>Game\Collider</Filter>
@@ -310,8 +301,14 @@
     <ClInclude Include="Game\GameState\TitleState.h">
       <Filter>Game\GameState</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Stage\Flag.h">
-      <Filter>Game\Stage</Filter>
+    <ClInclude Include="Game\GameObject\Flag.h">
+      <Filter>Game\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Floor.h">
+      <Filter>Game\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Wall.h">
+      <Filter>Game\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -339,13 +336,7 @@
     <ClCompile Include="Game\UI\Letter.cpp">
       <Filter>Game\UI</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Stage\StageCSV.cpp">
-      <Filter>Game\Stage</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Stage\Stage.cpp">
-      <Filter>Game\Stage</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Stage\Floor.cpp">
       <Filter>Game\Stage</Filter>
     </ClCompile>
     <ClCompile Include="Game\Controller\CharacterController.cpp">
@@ -365,9 +356,6 @@
     </ClCompile>
     <ClCompile Include="Game\GameObject\GameObject.cpp">
       <Filter>Game\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Stage\Wall.cpp">
-      <Filter>Game\Stage</Filter>
     </ClCompile>
     <ClCompile Include="Game\Collider\BoxCollider.cpp">
       <Filter>Game\Collider</Filter>
@@ -396,8 +384,14 @@
     <ClCompile Include="Game\GameState\TitleState.cpp">
       <Filter>Game\GameState</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Stage\Flag.cpp">
-      <Filter>Game\Stage</Filter>
+    <ClCompile Include="Game\GameObject\Flag.cpp">
+      <Filter>Game\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Floor.cpp">
+      <Filter>Game\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Wall.cpp">
+      <Filter>Game\GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

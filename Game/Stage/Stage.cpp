@@ -19,7 +19,7 @@
 #include <Game\GameObject\ObjectManager.h>
 #include <Game\GameObject\GameObject.h>
 
-#include <Game/Stage/Flag.h>
+#include <Game/GameObject/Flag.h>
 
 using namespace std;
 using namespace DirectX;
@@ -144,8 +144,6 @@ bool Stage::LoadStageData(wchar_t * fname)
 
 void Stage::SetStageData()
 {
-
-
 	//----- 各ゲームオブジェクトの生成 -----//
 
 	// ステージ上のオブジェクトを配置する

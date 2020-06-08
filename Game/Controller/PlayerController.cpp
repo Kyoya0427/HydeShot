@@ -13,8 +13,9 @@
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
-const float PlayerController::MOVE_SPEED = 0.1f;
-const float PlayerController::ROT_SPEED  = 0.1f;
+const float PlayerController::MOVE_SPEED    = 0.1f;
+const float PlayerController::ROT_SPEED     = 0.1f;
+const float PlayerController::SHOT_INTERVAL = 0.5f;
 
 /// <summary>
 /// コンストラクタ
@@ -23,6 +24,7 @@ const float PlayerController::ROT_SPEED  = 0.1f;
 PlayerController::PlayerController(Character* character)
 	: CharacterController(character)
 {
+	m_shotInterval = SHOT_INTERVAL;
 }
 
 /// <summary>
@@ -41,8 +43,8 @@ void PlayerController::Update(const DX::StepTimer& timer)
 	timer;
 	Keyboard::State keyState = Keyboard::Get().GetState();
 
-	m_shotInterval += float(timer.GetElapsedSeconds());
-
+	m_shotInterval -= float(timer.GetElapsedSeconds());
+	
 	if (keyState.IsKeyDown(Keyboard::Keys::W))
 	{
 		m_character->Forward(MOVE_SPEED);
@@ -69,10 +71,10 @@ void PlayerController::Update(const DX::StepTimer& timer)
 		m_character->RightTurn(ROT_SPEED);
 	}
 
-	if (keyState.IsKeyDown(Keyboard::Keys::Space) && m_shotInterval >= 0.1)
+	if (keyState.IsKeyDown(Keyboard::Keys::Space) && m_shotInterval < 0.0f)
 	{
 		m_character->Shoot();
-		m_shotInterval = 0.0f;
+		m_shotInterval = SHOT_INTERVAL;
 	}
 
 }

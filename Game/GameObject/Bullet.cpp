@@ -84,7 +84,7 @@ void Bullet::Render()
 /// 当たった後の処理
 /// </summary>
 /// <param name="object">当たったオブジェクト</param>
-void Bullet::HitContact(GameObject* object)
+void Bullet::OnCollision(GameObject* object)
 {
 	object;
 	if (m_charaTag != object->GetTag())

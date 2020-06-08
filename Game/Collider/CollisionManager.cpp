@@ -69,8 +69,8 @@ void CollisionManager::DetectCollision(const ColliderList& colliders)
 		{
 			if (colliders[i]->IsCollided(colliders[j]))
 			{
-				colliders[i]->HitContact(colliders[j]);
-				colliders[j]->HitContact(colliders[i]);
+				colliders[i]->OnCollision(colliders[j]);
+				colliders[j]->OnCollision(colliders[i]);
 			}
 		}
 	}
@@ -89,8 +89,8 @@ void CollisionManager::DetectCollision(const ColliderList& colliders1, const Col
 		{
 			if (collider1->IsCollided(collider2))
 			{
-				collider1->HitContact(collider2);
-				collider2->HitContact(collider1);
+				collider1->OnCollision(collider2);
+				collider2->OnCollision(collider1);
 			}
 		}
 	}

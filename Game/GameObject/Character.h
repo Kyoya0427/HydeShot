@@ -30,7 +30,7 @@ public:
 	// •`‰æ
 	void Render() override;
 	//“–‚½‚Á‚½Œã‚Ìˆ—
-	void HitContact(GameObject* object) override;
+	void OnCollision(GameObject* object) override;
 
 public:
 	//‘Oi

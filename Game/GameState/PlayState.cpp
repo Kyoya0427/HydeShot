@@ -23,7 +23,7 @@
 #include <Game\Bg\Bg.h>
 
 #include <Game\Stage\Stage.h>
-#include <Game\Stage\Floor.h>
+#include <Game\GameObject\Floor.h>
 
 #include <Game\UI\InfoWindow.h>
 
@@ -70,17 +70,16 @@ void PlayState::Initialize()
 	//コライダーマネジャー生成
 	m_collisionManager = std::make_unique<CollisionManager>();
 	GameContext().Register<CollisionManager>(m_collisionManager.get());
-
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player, GameObject::ObjectTag::Wall);
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player, GameObject::ObjectTag::Enemy);
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player, GameObject::ObjectTag::Flag_02);
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player, GameObject::ObjectTag::Bullet);
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy, GameObject::ObjectTag::Wall);
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy, GameObject::ObjectTag::Bullet);
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Bullet, GameObject::ObjectTag::Wall);	
+	//
+	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player,  GameObject::ObjectTag::Wall);
+	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player,  GameObject::ObjectTag::Enemy);
+	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player,  GameObject::ObjectTag::Flag_02);
+	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player,  GameObject::ObjectTag::Bullet);
+	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy,   GameObject::ObjectTag::Wall);
+	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy,   GameObject::ObjectTag::Bullet);
+	m_collisionManager->AllowCollision(GameObject::ObjectTag::Bullet,  GameObject::ObjectTag::Wall);	
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Flag_01, GameObject::ObjectTag::Enemy);
 	
-
 	//ステージを生成
 	m_stage = std::make_unique<Stage>();
 	// ステージデータの読み込み
@@ -93,6 +92,7 @@ void PlayState::Initialize()
 	//プレイヤー
 	m_player = std::make_unique<Character>(GameObject::ObjectTag::Player);
 	m_player->Initialize(m_stage->GetPlayerPos());
+
 	m_player->SetColor(Color(Colors::Red));
 	m_playerController = std::make_unique<PlayerController>(m_player.get());
 

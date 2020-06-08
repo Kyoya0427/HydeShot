@@ -26,5 +26,7 @@ public:
 	static const float  MOVE_SPEED;
 	//回転速度
 	static const float  ROT_SPEED;
+	//ショットインターバル
+	static const float  SHOT_INTERVAL;
 
 };

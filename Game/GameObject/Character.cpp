@@ -104,7 +104,7 @@ void Character::Render()
 /// “–‚½‚Á‚½Œã‚Ìˆ—
 /// </summary>
 /// <param name="object"></param>
-void Character::HitContact(GameObject* object)
+void Character::OnCollision(GameObject* object)
 {
 	object;
 	m_position = m_previousPos;

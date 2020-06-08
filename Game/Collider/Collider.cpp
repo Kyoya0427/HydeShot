@@ -50,9 +50,9 @@ bool Collider::IsCollided(const BoxCollider* collider) const
 ///  “–‚½‚Á‚½Œã‚Ìˆ—
 /// </summary>
 /// <param name="object"></param>
-void Collider::HitContact(const Collider* object) const
+void Collider::OnCollision(const Collider* object) const
 {
-	m_owner->HitContact(object->m_owner);
+	m_owner->OnCollision(object->m_owner);
 }
 
 /// <summary>

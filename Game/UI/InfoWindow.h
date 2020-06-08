@@ -28,7 +28,7 @@ public:
 	void Initialize();
 	 void Update(const DX::StepTimer & timer) override;
 	 void Render() override;
-	 void HitContact(GameObject* object) override;
+	 void OnCollision(GameObject* object) override;
 
 private:
 	//テクスチャーハンドル（背景）

@@ -94,7 +94,7 @@ void Bg::Render()
 /// 当たった後の処理
 /// </summary>
 /// <param name="object">当たったオブジェクト</param>
-void Bg::HitContact(GameObject* object)
+void Bg::OnCollision(GameObject* object)
 {
 	object;
 }

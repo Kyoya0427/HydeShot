@@ -5,10 +5,34 @@
   Resources\FBX\floorPanel_02.FBX
   Resources\FBX\floorPanel_03.FBX
   Resources\FBX\player.FBX
-  Main.cpp
-  PlayState.cpp
-  Game.cpp
-  Camera.cpp
+  Stage.cpp
   コードを生成中...
+  スキップ中... (関連する変更は検出されませんでした)
+  Main.cpp
+  Letter.cpp
+  InfoWindow.cpp
+  Blink.cpp
+  TitleState.cpp
+  ResultState.cpp
+  PauseState.cpp
+  GameStateManager.cpp
+  ObjectManager.cpp
+  GameObjectManager.cpp
+  GameObject.cpp
+  Character.cpp
+  Bullet.cpp
+  Game.cpp
+  PlayerController.cpp
+  CharacterController.cpp
+  AIController.cpp
+  DeviceResources.cpp
+  DebugFont.cpp
+  BinaryFile.cpp
+  SphereCollider.cpp
+  CollisionManager.cpp
+  Collider.cpp
+  BoxCollider.cpp
+  Camera.cpp
+  Bg.cpp
   TBSG.vcxproj -> C:\Users\s182106\Documents\Visual Studio 2015\Projects\TBSG\Debug\TBSG.exe
   TBSG.vcxproj -> C:\Users\s182106\Documents\Visual Studio 2015\Projects\TBSG\Debug\TBSG.pdb (Full PDB)

@@ -10,9 +10,9 @@
 
 #include <DirectXTK\Model.h>
 
-#include <Game/Stage/Floor.h>
-#include <Game/Stage/Wall.h>
-#include <Game/Stage/Flag.h>
+#include <Game/GameObject/Floor.h>
+#include <Game/GameObject/Wall.h>
+#include <Game/GameObject/Flag.h>
 
 
 class GameWindow;
@@ -21,7 +21,7 @@ class Stage
 {
 public:
 	// オブジェクトＩＤ
-	enum class OBJECT_ID
+	enum OBJECT_ID
 	{
 		NONE,			// なし
 		PLAYER,			// プレイヤー
@@ -31,7 +31,7 @@ public:
 		WALL,
 	};
 	
-	enum class Map
+	enum Map
 	{
 		NIX,
 		NORMAL,
@@ -56,10 +56,9 @@ public:
 	// デストラクタ
 	~Stage();
 
+public:
 	// 初期化関数
 	void Initialize();
-
-	
 
 	// 床タスク取得関数
 	int GetFloor(int x, int y);
@@ -78,12 +77,11 @@ public:
 	DirectX::SimpleMath::Vector2& GetEnemyPos();
 private:
 	
-	Floor* m_floor;
-	Wall* m_wall;
-	Flag* m_flag[2];
+	Floor*     m_floor;
+	Wall*      m_wall;
+	Flag*      m_flag[2];
 
 	DirectX::SimpleMath::Vector2  m_playerPos;
-
 	DirectX::SimpleMath::Vector2  m_enemyPos;
 	
 	// 床のモデル
