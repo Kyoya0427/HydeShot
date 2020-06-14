@@ -84,9 +84,13 @@ void PlayerController::Update(const DX::StepTimer& timer)
 /// </summary>
 void PlayerController::Render()
 {
-	DebugFont* debugFont = DebugFont::GetInstance();
-	debugFont->print(600, 30, L"%f / 2.0", m_shotInterval);
+	/*DebugFont* debugFont = DebugFont::GetInstance();
+	debugFont->print(600, 30, L"%f = X", m_character->GetPosition().x);
 	debugFont->draw();
+	debugFont->print(600, 50, L"%f = Y", m_character->GetPosition().y);
+	debugFont->draw();
+	debugFont->print(600, 70, L"%f = Z", m_character->GetPosition().z);
+	debugFont->draw();*/
 }
 
 

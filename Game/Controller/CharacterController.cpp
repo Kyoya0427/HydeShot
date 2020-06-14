@@ -24,3 +24,8 @@ CharacterController::~CharacterController()
 {
 	m_character = nullptr;
 }
+
+Character* CharacterController::GetCharacter()
+{
+	return m_character;
+}

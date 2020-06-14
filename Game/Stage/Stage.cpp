@@ -167,7 +167,6 @@ void Stage::SetStageData()
 				std::unique_ptr<Flag> flag = std::make_unique<Flag>(GameObject::ObjectTag::Flag_01);
 				m_flag[0] = flag.get();
 				GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(flag));
-				std::string collName1 = "Flag_01";
 				m_flag[0]->Initialize(i,j);
 			}
 				break;
@@ -177,7 +176,6 @@ void Stage::SetStageData()
 				std::unique_ptr<Flag> flag = std::make_unique<Flag>(GameObject::ObjectTag::Flag_02);
 				m_flag[1] = flag.get();
 				GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(flag));
-				std::string collName2 = "Flag_02";
 				m_flag[1]->Initialize(i,j);
 			}
 				break;

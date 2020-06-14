@@ -49,6 +49,9 @@ public:
 	void Shoot();
 
 public:
+	int GetHp();
+
+public:
 	static const int  MAX_HP;
 
 private:

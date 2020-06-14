@@ -6,15 +6,20 @@
 //======================================================
 #include "AIController.h"
 
-#include <Game\Common\DebugFont.h>
+#include <Game/Common/DebugFont.h>
+#include <Game/Common/GameContext.h>
+#include <Game/GameObject/Character.h>
 
-#include <Game\GameObject\Character.h>
+#include <Game/Controller/MoveModeSelection.h>
+#include <Game/Controller/PlayerController.h>
 
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
-const float AIController::MOVE_SPEED = 0.01f;
-const float AIController::ROT_SPEED  = 0.1f;
+const float AIController::MOVE_SPEED     = 0.01f;
+const float AIController::ROT_SPEED      = 0.01f;
+const float AIController::SHOT_INTERVAL  = 0.5f;
+const float AIController::STATE_INTERVAL = 1.0f;
 
 /// <summary>
 /// コンストラクタ
@@ -22,11 +27,14 @@ const float AIController::ROT_SPEED  = 0.1f;
 /// <param name="character">コントロールするオブジェクト</param>
 AIController::AIController(Character* character)
 	: CharacterController(character)
-	, m_interval(0.0f)
+	, m_stateInterval(0.0f)
 	, m_state(Behavior::NONE)
-
 {
-	
+	m_shotInterval  = SHOT_INTERVAL;
+	m_stateInterval = STATE_INTERVAL;
+	m_moveModeSelection = std::make_unique<MoveModeSelection>();
+	Vector3 rot = Vector3(0.0f, 3.15f, 0.0f);
+	m_character->SetRotation(rot);
 }
 
 /// <summary>
@@ -42,13 +50,21 @@ AIController::~AIController()
 /// <param name="timer"></param>
 void AIController::Update(const DX::StepTimer& timer)
 {
-	m_interval += float(timer.GetElapsedSeconds());
-
+	m_stateInterval -= float(timer.GetElapsedSeconds());
+	m_shotInterval -= float(timer.GetElapsedSeconds());
 	//インターバル
-	if (m_interval >= 2.0f)
+	if (m_stateInterval < 0.0f)
 	{
-		m_interval = 0.0f;
-		m_state = static_cast<Behavior>(rand() % static_cast<int>(Behavior::NUM));
+		m_stateInterval = STATE_INTERVAL;
+
+		Vector3 playerPos = GameContext::Get<PlayerController>()->GetCharacter()->GetPosition();
+		Vector3 aiPos = m_character->GetPosition();
+
+		float x = aiPos.x - playerPos.x;
+		float z = aiPos.z - playerPos.z;
+
+
+		m_state = m_moveModeSelection->BehaviorSelection(x, z, m_character->GetHp());
 	}
 
 	//ステート
@@ -72,8 +88,10 @@ void AIController::Update(const DX::StepTimer& timer)
 	case Behavior::TURN_RIGHT:
 		m_character->RightTurn(ROT_SPEED);
 		break;
-	case Behavior::SHOOT://
+	case Behavior::SHOOT:
+		if(m_shotInterval < 0.0f)
 		m_character->Shoot();
+		m_shotInterval = SHOT_INTERVAL;
 		break;
 	}
 
@@ -85,7 +103,7 @@ void AIController::Update(const DX::StepTimer& timer)
 void AIController::Render()
 {
 	DebugFont* debugFont = DebugFont::GetInstance();
-	debugFont->print(10, 30, L"%f / 2.0", m_interval);
+	debugFont->print(10, 30, L"%f / 2.0", m_stateInterval);
 	debugFont->draw();
 
 	switch (m_state)
@@ -115,4 +133,19 @@ void AIController::Render()
 		debugFont->draw();		break;
 	}
 
+	
+
+	Vector3 playerPos = GameContext::Get<PlayerController>()->GetCharacter()->GetPosition();
+	Vector3 aiPos = m_character->GetPosition();
+	
+	float x = aiPos.x - playerPos.x;
+	float z = aiPos.z - playerPos.z;
+	debugFont->print(600, 90, L"%f = X", x);
+	debugFont->draw();
+	debugFont->print(600, 120, L"%f = Z", z);
+	debugFont->draw();
+	debugFont->print(600, 150, L"%d = HP", m_character->GetHp());
+	debugFont->draw();
+
+	m_moveModeSelection->Render();
 }

@@ -193,4 +193,9 @@ void Character::Shoot()
 	std::unique_ptr<Bullet> shell = std::make_unique<Bullet>(ObjectTag::Bullet, GetTag(),m_position, rot);
 	GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(shell));
 }
+
+int Character::GetHp()
+{
+	return m_hp;
+}
                                                            

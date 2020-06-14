@@ -8,19 +8,21 @@
 
 #include <Game\Controller\CharacterController.h>
 
+class MoveModeSelection;
+
 class AIController : public  CharacterController
 {
 public:
 	enum  class Behavior
 	{
 		NONE,
-		MOVE_FORWARD,	
-		MOVE_BACKWARD,
-		MOVE_LEFTWARD,
-		MOVE_RIGHTWARD,		
-		TURN_LEFT,
-		TURN_RIGHT,
-		SHOOT,
+		MOVE_FORWARD,	//1
+		MOVE_BACKWARD,//2
+		MOVE_LEFTWARD,//3
+		MOVE_RIGHTWARD,	//4	
+		TURN_LEFT,//5
+		TURN_RIGHT,//6
+		SHOOT,//7
 
 		NUM
 	};
@@ -42,10 +44,15 @@ public:
 	static const float  MOVE_SPEED;
 	//回転速度
 	static const float  ROT_SPEED;
+	//ショットインターバル
+	static const float  SHOT_INTERVAL;
+	static const float  STATE_INTERVAL;
 
 private:
+	std::unique_ptr<MoveModeSelection>   m_moveModeSelection;
+
 	//ステイト変更インターバル
-	float m_interval;
+	float m_stateInterval;
 	//ステイト
 	Behavior m_state;
 };

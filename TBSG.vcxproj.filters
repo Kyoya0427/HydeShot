@@ -76,6 +76,9 @@
     <Filter Include="Game\Collider">
       <UniqueIdentifier>{a3616636-1c23-454e-be22-6ddecad3c7e7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="AI">
+      <UniqueIdentifier>{a4701fb1-e930-445d-aa4c-69f3503de88a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <!-- アプリケーションマニフェスト -->
@@ -310,6 +313,12 @@
     <ClInclude Include="Game\GameObject\Wall.h">
       <Filter>Game\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Controller\MoveModeSelection.h">
+      <Filter>Game\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\AI\NeuralNetwork.h">
+      <Filter>AI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game\Common\DebugFont.cpp">
@@ -392,6 +401,12 @@
     </ClCompile>
     <ClCompile Include="Game\GameObject\Wall.cpp">
       <Filter>Game\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Controller\MoveModeSelection.cpp">
+      <Filter>Game\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\AI\NeuralNetwork.cpp">
+      <Filter>AI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

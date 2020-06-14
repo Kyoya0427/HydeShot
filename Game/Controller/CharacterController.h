@@ -21,6 +21,9 @@ public:
 public:
 	//XV
 	virtual void Update(const DX::StepTimer& timer) = 0;
+	Character* GetCharacter();
+public:
+	
 
 protected:
 	Character*     m_character;

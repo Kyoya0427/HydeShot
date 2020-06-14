@@ -73,37 +73,39 @@ void PlayState::Initialize()
 	//
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player,  GameObject::ObjectTag::Wall);
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player,  GameObject::ObjectTag::Enemy);
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player,  GameObject::ObjectTag::Flag_02);
+//	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player,  GameObject::ObjectTag::Flag_02);
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player,  GameObject::ObjectTag::Bullet);
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy,   GameObject::ObjectTag::Wall);
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy,   GameObject::ObjectTag::Bullet);
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Bullet,  GameObject::ObjectTag::Wall);	
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Flag_01, GameObject::ObjectTag::Enemy);
+//	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy,   GameObject::ObjectTag::Flag_01);
 	
 	//ステージを生成
 	m_stage = std::make_unique<Stage>();
 	// ステージデータの読み込み
-	m_stage->LoadStageData(L"Resources\\StageData\\Stage01.csv");
+	m_stage->LoadStageData(L"Resources\\CSV\\Stage01.csv");
 	// ステージデータの設定
 	m_stage->SetStageData();
 	m_stage->Initialize();
 	GameContext::Register<Stage>(m_stage.get());
 	
-	//プレイヤー
+	//プレイヤー初期化
 	m_player = std::make_unique<Character>(GameObject::ObjectTag::Player);
 	m_player->Initialize(m_stage->GetPlayerPos());
-
 	m_player->SetColor(Color(Colors::Red));
+
 	m_playerController = std::make_unique<PlayerController>(m_player.get());
+	GameContext::Register<PlayerController>(m_playerController.get());
 
 	GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(m_player));
 
 	
-	//エネミー
+	//エネミー初期化
 	m_enemy = std::make_unique<Character>(GameObject::ObjectTag::Enemy);
 	m_enemy->Initialize(m_stage->GetEnemyPos());
 	m_enemy->SetColor(Color(Colors::Blue));
 	m_aiController = std::make_unique<AIController>(m_enemy.get());
+	GameContext::Register<AIController>(m_aiController.get());
 
 	GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(m_enemy));
 
