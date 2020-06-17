@@ -73,12 +73,12 @@ void PlayState::Initialize()
 	//
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player,  GameObject::ObjectTag::Wall);
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player,  GameObject::ObjectTag::Enemy);
-//	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player,  GameObject::ObjectTag::Flag_02);
+	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player,  GameObject::ObjectTag::Flag_02);
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player,  GameObject::ObjectTag::Bullet);
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy,   GameObject::ObjectTag::Wall);
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy,   GameObject::ObjectTag::Bullet);
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Bullet,  GameObject::ObjectTag::Wall);	
-//	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy,   GameObject::ObjectTag::Flag_01);
+	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy,   GameObject::ObjectTag::Flag_01);
 	
 	//ステージを生成
 	m_stage = std::make_unique<Stage>();

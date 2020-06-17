@@ -45,7 +45,7 @@ AIController::~AIController()
 }
 
 /// <summary>
-///　更新
+///　更新	
 /// </summary>
 /// <param name="timer"></param>
 void AIController::Update(const DX::StepTimer& timer)
