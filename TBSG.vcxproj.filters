@@ -319,6 +319,12 @@
     <ClInclude Include="Game\AI\NeuralNetwork.h">
       <Filter>AI</Filter>
     </ClInclude>
+    <ClInclude Include="Game\GameObject\Sight.h">
+      <Filter>Game\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Collider\RayCollider.h">
+      <Filter>Game\Collider</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game\Common\DebugFont.cpp">
@@ -408,6 +414,12 @@
     <ClCompile Include="Game\AI\NeuralNetwork.cpp">
       <Filter>AI</Filter>
     </ClCompile>
+    <ClCompile Include="Game\GameObject\Sight.cpp">
+      <Filter>Game\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Collider\RayCollider.cpp">
+      <Filter>Game\Collider</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Resources\FBX\bg.FBX">
@@ -417,18 +429,6 @@
       <Filter>Resources\FBX</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Resources\FBX\floorPanel_01.FBX">
-      <Filter>Resources\FBX</Filter>
-    </MeshContentTask>
-    <MeshContentTask Include="Resources\FBX\player.FBX">
-      <Filter>Resources\FBX</Filter>
-    </MeshContentTask>
-    <MeshContentTask Include="Resources\FBX\enemy.FBX">
-      <Filter>Resources\FBX</Filter>
-    </MeshContentTask>
-    <MeshContentTask Include="Resources\FBX\floorPanel_02.FBX">
-      <Filter>Resources\FBX</Filter>
-    </MeshContentTask>
-    <MeshContentTask Include="Resources\FBX\floorPanel_03.FBX">
       <Filter>Resources\FBX</Filter>
     </MeshContentTask>
   </ItemGroup>

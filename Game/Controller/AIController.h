@@ -29,7 +29,7 @@ public:
 
 public:
 	//コンストラク
-	AIController(Character* character);
+	AIController(Character* character, Character* enemy);
 	//デストラクタ
 	~AIController();
 
@@ -47,6 +47,7 @@ public:
 	//ショットインターバル
 	static const float  SHOT_INTERVAL;
 	static const float  STATE_INTERVAL;
+	static const int    MODE_COUNT = 7;
 
 private:
 	std::unique_ptr<MoveModeSelection>   m_moveModeSelection;
@@ -55,4 +56,7 @@ private:
 	float m_stateInterval;
 	//ステイト
 	Behavior m_state;
+	Character* m_enemy;
+
+	int m_randMobeCount;
 };

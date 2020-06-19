@@ -11,6 +11,7 @@
 class GameObject;
 class SphereCollider;
 class BoxCollider;
+class RayCollider;
 
 class Collider
 {
@@ -25,6 +26,7 @@ public:
 	virtual bool IsCollided(const Collider*       collider) const = 0;
 	virtual bool IsCollided(const SphereCollider* collider) const;
 	virtual bool IsCollided(const BoxCollider*    collider) const;
+	virtual bool IsCollided(const RayCollider*    collider) const;
 
 public:
 	//“–‚½‚Á‚½Œã‚Ìˆ—

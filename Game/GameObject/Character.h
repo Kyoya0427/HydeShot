@@ -6,13 +6,16 @@
 //======================================================
 #pragma once
 
-#include <DirectXTK\GeometricPrimitive.h>
+#include <DirectXTK/GeometricPrimitive.h>
 
-#include <Game\GameObject\GameObject.h>
+#include <Game/GameObject/GameObject.h>
 
-#include <Game\Common\StepTimer.h>
 
-#include <Game\Collider\SphereCollider.h>
+#include <Game/Common/StepTimer.h>
+
+#include <Game/Collider/SphereCollider.h>
+
+class Sight;
 
 class Character : public GameObject
 {
@@ -55,13 +58,18 @@ public:
 	static const int  MAX_HP;
 
 private:
+
 	std::unique_ptr<DirectX::GeometricPrimitive> m_model;
 	std::unique_ptr<DirectX::GeometricPrimitive> m_sphereCollider;
+	std::unique_ptr<Sight>                       m_sight;
+
 	DirectX::SimpleMath::Vector3                 m_previousPos;
 
 	//“–‚½‚è”»’è
 	std::unique_ptr<SphereCollider>              m_collider;
+	
 	//HP
 	int                                          m_hp;
 
+	
 };

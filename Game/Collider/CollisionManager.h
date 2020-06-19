@@ -11,7 +11,7 @@
 #include <functional>
 #include <unordered_map>
 
-#include <DirectXTK\SimpleMath.h>
+#include <DirectXTK/SimpleMath.h>
 
 #include <Game/Collider/Collider.h>
 
@@ -47,11 +47,21 @@ public:
 public:
 	//当たり判定
 	static bool IsCollided(const SphereCollider* collider1, const SphereCollider* collider2);
-	static bool IsCollided(const BoxCollider*    collider1, const BoxCollider*    collider2);
 	static bool IsCollided(const SphereCollider* collider1, const BoxCollider*    collider2);
+	static bool IsCollided(const SphereCollider* collider1, const RayCollider*    collider2);
+	static bool IsCollided(const BoxCollider*    collider1, const BoxCollider*    collider2);
 	static bool IsCollided(const BoxCollider*    collider1, const SphereCollider* collider2);
+	static bool IsCollided(const BoxCollider*    collider1, const RayCollider*    collider2);
+	static bool IsCollided(const RayCollider*    collider1, const RayCollider*    collider2);
+	static bool IsCollided(const RayCollider*    collider1, const SphereCollider* collider2);
+	static bool IsCollided(const RayCollider*    collider1, const BoxCollider*    collider2);
+
+
 	//平方計算
 	static float SquareCalculation(const SphereCollider*    collider1, const BoxCollider*    collider2);
+	static float ClosestPtSegmentSegment(DirectX::SimpleMath::Vector3 p1, DirectX::SimpleMath::Vector3 q1,
+		DirectX::SimpleMath::Vector3 p2, DirectX::SimpleMath::Vector3 q2, float& s, float& t,
+		DirectX::SimpleMath::Vector3& c1, DirectX::SimpleMath::Vector3& c2);
 
 private:
 	//オブジェクトをグループ名事に記録

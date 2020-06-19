@@ -51,6 +51,11 @@ bool BoxCollider::IsCollided(const BoxCollider* collider) const
 	return CollisionManager::IsCollided(this, collider);
 }
 
+bool BoxCollider::IsCollided(const RayCollider* collider) const
+{
+	return CollisionManager::IsCollided(this, collider);
+}
+
 /// <summary>
 /// ƒTƒCƒY‚ğİ’è
 /// </summary>

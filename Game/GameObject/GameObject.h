@@ -20,11 +20,15 @@ public:
 	{
 		None,
 		Player,
-		Enemy,
+		Enemy1,
+		Enemy2,
 		Bullet,
 		Wall,
 		Flag_01,
 		Flag_02,
+		Sight01,
+		Sight02,
+
 
 		NUM
 	};
@@ -61,6 +65,8 @@ public:
 	const DirectX::SimpleMath::Vector3& GetRotation() const;
 	//サイズを取得
 	const DirectX::SimpleMath::Vector3& GetScale() const;
+	//色を登録
+	DirectX::SimpleMath::Color GetColor();
 	//描画順を取得
 	const int GetDrawPrio() const;
 	//当たり判定の球の半径
@@ -93,8 +99,7 @@ private:
 	bool m_isValid;
 	// 描画順序管理用(小さいほど手前に描画される）
 	int m_drawPrio;
-	//タグ
-	ObjectTag m_tag;
+	
 	
 protected:
 	//座標
@@ -113,6 +118,8 @@ protected:
 	int m_x, m_y;
 	//半径
 	float  m_radius;
-	//弾を撃ったオブジェクトのタグ
+	//オブジェクトタグ名
+	ObjectTag m_tag;
+	//弾を撃ったオブジェクトのタグ名
 	ObjectTag           m_charaTag;
 };

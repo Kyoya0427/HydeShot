@@ -47,6 +47,19 @@ bool Collider::IsCollided(const BoxCollider* collider) const
 }
 
 /// <summary>
+/// 衝突した
+/// </summary>
+/// <param name="collider">オブジェクト</param>
+/// <returns></returns>
+bool Collider::IsCollided(const RayCollider* collider) const
+{
+	assert(false && "This collision detection is not implemented.");
+	collider;
+
+	return false;
+}
+
+/// <summary>
 ///  当たった後の処理
 /// </summary>
 /// <param name="object"></param>

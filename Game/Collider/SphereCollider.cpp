@@ -68,3 +68,8 @@ bool SphereCollider::IsCollided(const BoxCollider* collider) const
 {
 	return CollisionManager::IsCollided(this, collider);
 }
+
+bool SphereCollider::IsCollided(const RayCollider* collider) const
+{
+	return CollisionManager::IsCollided(this, collider);
+}

@@ -131,6 +131,7 @@
     <ClInclude Include="Game\Collider\BoxCollider.h" />
     <ClInclude Include="Game\Collider\Collider.h" />
     <ClInclude Include="Game\Collider\CollisionManager.h" />
+    <ClInclude Include="Game\Collider\RayCollider.h" />
     <ClInclude Include="Game\Collider\SphereCollider.h" />
     <ClInclude Include="Game\Common\DebugFont.h" />
     <ClInclude Include="Game\Common\GameContext.h" />
@@ -147,6 +148,7 @@
     <ClInclude Include="Game\GameObject\GameObject.h" />
     <ClInclude Include="Game\GameObject\GameObjectManager.h" />
     <ClInclude Include="Game\GameObject\ObjectManager.h" />
+    <ClInclude Include="Game\GameObject\Sight.h" />
     <ClInclude Include="Game\GameObject\Wall.h" />
     <ClInclude Include="Game\GameState\GameStateManager.h" />
     <ClInclude Include="Game\GameState\IGameState.h" />
@@ -165,6 +167,7 @@
     <ClCompile Include="Game\Collider\BoxCollider.cpp" />
     <ClCompile Include="Game\Collider\Collider.cpp" />
     <ClCompile Include="Game\Collider\CollisionManager.cpp" />
+    <ClCompile Include="Game\Collider\RayCollider.cpp" />
     <ClCompile Include="Game\Collider\SphereCollider.cpp" />
     <ClCompile Include="Game\Common\DebugFont.cpp" />
     <ClCompile Include="Game\Controller\AIController.cpp" />
@@ -178,6 +181,7 @@
     <ClCompile Include="Game\GameObject\GameObject.cpp" />
     <ClCompile Include="Game\GameObject\GameObjectManager.cpp" />
     <ClCompile Include="Game\GameObject\ObjectManager.cpp" />
+    <ClCompile Include="Game\GameObject\Sight.cpp" />
     <ClCompile Include="Game\GameObject\Wall.cpp" />
     <ClCompile Include="Game\GameState\GameStateManager.cpp" />
     <ClCompile Include="Game\GameState\PauseState.cpp" />
@@ -207,12 +211,8 @@
     <ClInclude Include="Game\Common\StepTimer.h" />
     <!-- アセット -->
     <MeshContentTask Include="Resources\FBX\bg.FBX" />
-    <MeshContentTask Include="Resources\FBX\enemy.FBX" />
     <MeshContentTask Include="Resources\FBX\floorPanel_00.FBX" />
     <MeshContentTask Include="Resources\FBX\floorPanel_01.FBX" />
-    <MeshContentTask Include="Resources\FBX\floorPanel_02.FBX" />
-    <MeshContentTask Include="Resources\FBX\floorPanel_03.FBX" />
-    <MeshContentTask Include="Resources\FBX\player.FBX" />
     <None Include="3rdParty\PicoJSON\PicoJSON.props" />
     <!-- [3rdParty]フォルダ -->
     <!-- DirectXTK -->

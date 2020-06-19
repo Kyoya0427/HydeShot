@@ -19,19 +19,21 @@ using namespace DirectX::SimpleMath;
 const float AIController::MOVE_SPEED     = 0.01f;
 const float AIController::ROT_SPEED      = 0.01f;
 const float AIController::SHOT_INTERVAL  = 0.5f;
-const float AIController::STATE_INTERVAL = 1.0f;
+const float AIController::STATE_INTERVAL = 0.5f;
 
 /// <summary>
 /// コンストラクタ
 /// </summary>
 /// <param name="character">コントロールするオブジェクト</param>
-AIController::AIController(Character* character)
+AIController::AIController(Character* character, Character* enemy)
 	: CharacterController(character)
 	, m_stateInterval(0.0f)
-	, m_state(Behavior::NONE)
+	, m_randMobeCount()
 {
+	m_enemy = enemy;
 	m_shotInterval  = SHOT_INTERVAL;
 	m_stateInterval = STATE_INTERVAL;
+	m_state = static_cast<Behavior>(rand() % static_cast<int>(Behavior::NUM));
 	m_moveModeSelection = std::make_unique<MoveModeSelection>();
 	Vector3 rot = Vector3(0.0f, 3.15f, 0.0f);
 	m_character->SetRotation(rot);
@@ -57,16 +59,30 @@ void AIController::Update(const DX::StepTimer& timer)
 	{
 		m_stateInterval = STATE_INTERVAL;
 
-		Vector3 playerPos = GameContext::Get<PlayerController>()->GetCharacter()->GetPosition();
+		Vector3 enemy = m_enemy->GetPosition();
 		Vector3 aiPos = m_character->GetPosition();
+		float x = aiPos.x - enemy.x;
+		float z = aiPos.z - enemy.z;
+		
+		m_randMobeCount++;
+		if (m_randMobeCount >= MODE_COUNT)
+		{
+			m_state = static_cast<Behavior>(rand() % static_cast<int>(Behavior::NUM));
+			m_randMobeCount = 0;
+		}
+		else
+		{
+			m_state = m_moveModeSelection->BehaviorSelection(x, z, m_character->GetHp());
+		}
 
-		float x = aiPos.x - playerPos.x;
-		float z = aiPos.z - playerPos.z;
-
-
-		m_state = m_moveModeSelection->BehaviorSelection(x, z, m_character->GetHp());
 	}
 
+	Keyboard::State keyState = Keyboard::Get().GetState();
+
+	if (keyState.IsKeyDown(Keyboard::Keys::W))
+	{
+		m_character->Forward(MOVE_SPEED);
+	}
 	//ステート
 	switch (m_state)
 	{
@@ -105,7 +121,8 @@ void AIController::Render()
 	DebugFont* debugFont = DebugFont::GetInstance();
 	debugFont->print(10, 30, L"%f / 2.0", m_stateInterval);
 	debugFont->draw();
-
+	debugFont->print(10, 50, L"%d", m_randMobeCount);
+	debugFont->draw();
 	switch (m_state)
 	{
 	case Behavior::NONE:
@@ -133,19 +150,4 @@ void AIController::Render()
 		debugFont->draw();		break;
 	}
 
-	
-
-	Vector3 playerPos = GameContext::Get<PlayerController>()->GetCharacter()->GetPosition();
-	Vector3 aiPos = m_character->GetPosition();
-	
-	float x = aiPos.x - playerPos.x;
-	float z = aiPos.z - playerPos.z;
-	debugFont->print(600, 90, L"%f = X", x);
-	debugFont->draw();
-	debugFont->print(600, 120, L"%f = Z", z);
-	debugFont->draw();
-	debugFont->print(600, 150, L"%d = HP", m_character->GetHp());
-	debugFont->draw();
-
-	m_moveModeSelection->Render();
 }

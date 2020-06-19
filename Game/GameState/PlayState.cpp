@@ -70,15 +70,18 @@ void PlayState::Initialize()
 	//コライダーマネジャー生成
 	m_collisionManager = std::make_unique<CollisionManager>();
 	GameContext().Register<CollisionManager>(m_collisionManager.get());
-	//
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player,  GameObject::ObjectTag::Wall);
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player,  GameObject::ObjectTag::Enemy);
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player,  GameObject::ObjectTag::Flag_02);
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player,  GameObject::ObjectTag::Bullet);
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy,   GameObject::ObjectTag::Wall);
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy,   GameObject::ObjectTag::Bullet);
+	
+	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1,  GameObject::ObjectTag::Wall);
+	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1,  GameObject::ObjectTag::Enemy2);
+	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1,  GameObject::ObjectTag::Flag_02);
+	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1,  GameObject::ObjectTag::Bullet);
+	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1,  GameObject::ObjectTag::Sight02);
+	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2,  GameObject::ObjectTag::Wall);
+	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2,  GameObject::ObjectTag::Bullet);
+	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2,  GameObject::ObjectTag::Flag_01);
+	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2,  GameObject::ObjectTag::Sight01);
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Bullet,  GameObject::ObjectTag::Wall);	
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy,   GameObject::ObjectTag::Flag_01);
+	
 	
 	//ステージを生成
 	m_stage = std::make_unique<Stage>();
@@ -89,27 +92,25 @@ void PlayState::Initialize()
 	m_stage->Initialize();
 	GameContext::Register<Stage>(m_stage.get());
 	
-	//プレイヤー初期化
-	m_player = std::make_unique<Character>(GameObject::ObjectTag::Player);
-	m_player->Initialize(m_stage->GetPlayerPos());
-	m_player->SetColor(Color(Colors::Red));
-
-	m_playerController = std::make_unique<PlayerController>(m_player.get());
-	GameContext::Register<PlayerController>(m_playerController.get());
-
-	GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(m_player));
-
+	
 	
 	//エネミー初期化
-	m_enemy = std::make_unique<Character>(GameObject::ObjectTag::Enemy);
-	m_enemy->Initialize(m_stage->GetEnemyPos());
-	m_enemy->SetColor(Color(Colors::Blue));
-	m_aiController = std::make_unique<AIController>(m_enemy.get());
-	GameContext::Register<AIController>(m_aiController.get());
+	m_enemy[0] = std::make_unique<Character>(GameObject::ObjectTag::Enemy1);
+	m_enemy[0]->Initialize(m_stage->GetEnemyPos());
+	m_enemy[0]->SetColor(Color(Colors::Blue));
+	
 
-	GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(m_enemy));
+	//エネミー初期化
+	m_enemy[1] = std::make_unique<Character>(GameObject::ObjectTag::Enemy2);
+	m_enemy[1]->Initialize(m_stage->GetPlayerPos());
+	m_enemy[1]->SetColor(Color(Colors::Red));
 
+	m_aiController[0] = std::make_unique<AIController>(m_enemy[0].get(), m_enemy[1].get());
+	m_aiController[1] = std::make_unique<AIController>(m_enemy[1].get(), m_enemy[0].get());
 
+	GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(m_enemy[1]));
+	GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(m_enemy[0]));
+	
 	// 情報ウィンドウ
 	m_infoWindow = std::make_unique<InfoWindow>();
 	m_infoWindow->Initialize();
@@ -149,8 +150,8 @@ void PlayState::Update(const DX::StepTimer& timer)
 	// ゲーム画面のオブジェクト更新
 	m_objectManager->GetGameOM()->Update(timer);
 
-	m_playerController->Update(timer);
-	m_aiController->Update(timer);
+	m_aiController[0]->Update(timer);
+	m_aiController[1]->Update(timer);
 
 	m_collisionManager->DetectCollision();
 
@@ -184,8 +185,7 @@ void PlayState::Render()
 	m_bg->Render();
 	// ゲーム画面のオブジェクト描画
 	m_objectManager->GetGameOM()->Render();
-	m_aiController->Render();
-	m_playerController->Render();
+	m_aiController[0]->Render();
 	
 	spriteBach->End(); // <---スプライトの描画はここでまとめて行われている
 

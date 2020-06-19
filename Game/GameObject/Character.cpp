@@ -6,18 +6,19 @@
 //======================================================
 #include "Character.h"
 
-#include <Game\Common\GameContext.h>
-#include <Game\Common\DeviceResources.h>
+#include <Game/Common\GameContext.h>
+#include <Game/Common\DeviceResources.h>
 #include <Game/Common/DebugFont.h>
-
-#include <Game\Camera\Camera.h>
-
-#include <Game\GameObject\GameObjectManager.h>
-#include <Game\GameObject\ObjectManager.h>
-#include <Game\GameObject\Bullet.h>
-
-#include <Game\Collider\CollisionManager.h>
-
+			  
+#include <Game/Camera\Camera.h>
+			  
+#include <Game/GameObject\GameObjectManager.h>
+#include <Game/GameObject\ObjectManager.h>
+#include <Game/GameObject\Bullet.h>
+#include <Game/GameObject/Sight.h>
+			  
+#include <Game/Collider\CollisionManager.h>
+			  
 #include <Game/GameState/GameStateManager.h>
 
 using namespace DirectX;
@@ -54,11 +55,14 @@ void Character::Initialize(DirectX::SimpleMath::Vector2 & pos)
 	m_hp = MAX_HP;
 
 	ID3D11DeviceContext* deviceContext = GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext();
+
 	m_model = GeometricPrimitive::CreateCone(deviceContext);
 
 	m_sphereCollider = GeometricPrimitive::CreateSphere(deviceContext,1.0f,8U);
-
 	m_collider = std::make_unique<SphereCollider>(this, m_radius);
+
+	if(GetTag() == ObjectTag::Enemy1)
+	m_sight = std::make_unique<Sight>(this);
 }
 
 /// <summary>
@@ -69,14 +73,16 @@ void Character::Update(const DX::StepTimer & timer)
 {
 	timer;
 	m_previousPos = m_position;
-
+	
 	GameContext::Get<CollisionManager>()->Add(GetTag(), m_collider.get());
 	Quaternion quaternion = Quaternion::CreateFromAxisAngle(Vector3::UnitY, m_rotation.y);
 	m_velocity = Vector3::Transform(m_velocity, quaternion);
 
 	m_position += m_velocity;
-	m_velocity = Vector3::Zero;
+	if (GetTag() == ObjectTag::Enemy1)
+	m_sight->Update(timer);
 
+//	m_velocity = Vector3::Zero;
 }
 
 /// <summary>
@@ -96,8 +102,12 @@ void Character::Render()
 	m_model->Draw(m_world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_color);
 
 	Matrix world = rotMat * transMat;
+
 	m_sphereCollider->Draw(world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_color, nullptr, true);
 
+
+	if (GetTag() == ObjectTag::Enemy1)
+	m_sight->Render();
 }
 
 /// <summary>

@@ -97,6 +97,13 @@ const Vector3& GameObject::GetScale() const
 	return m_scale;
 }
 
+DirectX::SimpleMath::Color GameObject::GetColor()
+{
+	return m_color;
+}
+
+
+
 /// <summary>
 /// •`‰æ‡‚ğæ“¾
 /// </summary>

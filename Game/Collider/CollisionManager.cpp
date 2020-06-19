@@ -8,8 +8,9 @@
 
 #include <Game\Common\Utilities.h>
 
-#include <Game\Collider\BoxCollider.h>
-#include <Game\Collider\SphereCollider.h>
+#include <Game/Collider/BoxCollider.h>
+#include <Game/Collider/SphereCollider.h>
+#include <Game/Collider/RayCollider.h>
 
 #include <Game\GameObject\GameObject.h>
 
@@ -166,6 +167,20 @@ bool CollisionManager::IsCollided(const SphereCollider* collider1, const BoxColl
 	return sq < collider1->GetRadius() * collider1->GetRadius();
 }
 
+bool CollisionManager::IsCollided(const SphereCollider* collider1, const RayCollider* collider2)
+{
+	float s, t;
+	DirectX::SimpleMath::Vector3 c1, c2;
+	// カプセルの中心の線分間の距離の平方を計算
+	DirectX::SimpleMath::Vector3 sphereTop = collider1->GetPosition();
+	DirectX::SimpleMath::Vector3 sphereBot = collider1->GetPosition();
+	sphereTop.y += collider1->GetRadius();
+	sphereBot.y -= collider1->GetRadius();
+	float dist2 = ClosestPtSegmentSegment(collider2->GetPosA(), collider2->GetPosB(), sphereTop, sphereBot, s, t, c1, c2);
+	float radius = collider1->GetRadius();
+	return dist2 < radius;
+}
+
 /// <summary>
 /// 箱と球の当たり判定
 /// </summary>
@@ -175,6 +190,35 @@ bool CollisionManager::IsCollided(const SphereCollider* collider1, const BoxColl
 bool CollisionManager::IsCollided(const BoxCollider* collider1, const SphereCollider* collider2)
 {
 	return IsCollided(collider2, collider1);
+}
+
+bool CollisionManager::IsCollided(const RayCollider* collider1, const SphereCollider* collider2)
+{
+	float s, t;
+	DirectX::SimpleMath::Vector3 c1, c2;
+	// カプセルの中心の線分間の距離の平方を計算
+	DirectX::SimpleMath::Vector3 sphereTop = collider2->GetPosition();
+	DirectX::SimpleMath::Vector3 sphereBot = collider2->GetPosition();
+	sphereTop.y += collider2->GetRadius();
+	sphereBot.y -= collider2->GetRadius();
+	float dist2 = ClosestPtSegmentSegment(collider1->GetPosA(), collider1->GetPosB(), sphereTop, sphereBot, s, t, c1, c2);
+	float radius = collider2->GetRadius();
+	return dist2 < radius;
+}
+
+bool CollisionManager::IsCollided(const RayCollider* collider1, const BoxCollider* collider2)
+{
+	return false;
+}
+
+bool CollisionManager::IsCollided(const BoxCollider* collider1, const RayCollider* collider2)
+{
+	return false;
+}
+
+bool CollisionManager::IsCollided(const RayCollider* collider1, const RayCollider* collider2)
+{
+	return false;
 }
 
 /// <summary>
@@ -197,6 +241,67 @@ float CollisionManager::SquareCalculation(const SphereCollider* collider1, const
 		if (v > max[i]) sq += (v - max[i]) * (v - max[i]);
 	}
 	return sq;
+}
+
+float CollisionManager::ClosestPtSegmentSegment(DirectX::SimpleMath::Vector3 p1, DirectX::SimpleMath::Vector3 q1, DirectX::SimpleMath::Vector3 p2, DirectX::SimpleMath::Vector3 q2, float& s, float& t, DirectX::SimpleMath::Vector3& c1, DirectX::SimpleMath::Vector3& c2)
+{
+	DirectX::SimpleMath::Vector3 d1 = q1 - p1;
+	DirectX::SimpleMath::Vector3 d2 = q2 - p2;
+	DirectX::SimpleMath::Vector3 r = p1 - p2;
+	float a = d1.Dot(d1); float e = d2.Dot(d2); float f = d2.Dot(r);
+	if (a <= FLT_EPSILON && e <= FLT_EPSILON)
+	{
+		s = t = 0.0f;
+		c1 = p1;
+		c2 = p2;
+		return (c1 - c2).Dot(c1 - c2);
+	}
+	if (a <= FLT_EPSILON)
+	{
+		s = 0.0f;
+		t = f / e;
+		t = Clamp(t, 0.0f, 1.0f);
+	}
+	else
+	{
+		float c = d1.Dot(r);
+		if (e <= FLT_EPSILON)
+		{
+			t = 0.0f;
+			s = Clamp(-c / a, 0.0f, 1.0f);
+		}
+		else
+		{
+			float b = d1.Dot(d2);
+			float denom = a * e - b * b;
+			if (denom != 0.0f)
+			{
+				s = Clamp((b * f - c * e) / denom, 0.0f, 1.0f);
+			}
+			else
+			{
+				s = 0.0f;
+			}
+			float tnom = (b * s + f);
+			if (tnom < 0.0f)
+			{
+				t = 0.0f;
+				s = Clamp(-c / a, 0.0f, 1.0f);
+			}
+			else if (tnom > e)
+			{
+				t = 1.0f;
+				s = Clamp((b - c) / a, 0.0f, 1.0f);
+			}
+			else
+			{
+				t = tnom / e;
+			}
+		}
+	}
+	c1 = p1 + d1 * s;
+	c2 = p2 + d2 * t;
+	return (c1 - c2).Dot(c1 - c2);
 }
 
 
