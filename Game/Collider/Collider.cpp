@@ -95,6 +95,11 @@ const Vector3 Collider::GetOffset() const
 	return m_offset;
 }
 
+GameObject* Collider::GetGameObject() const
+{
+	return m_owner;
+}
+
 /// <summary>
 /// ·ˆøŠ¨’è‚ğİ’è
 /// </summary>

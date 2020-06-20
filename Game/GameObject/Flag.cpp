@@ -70,9 +70,9 @@ void Flag::Update(const DX::StepTimer & timer)
 /// </summary>
 void Flag::Render()
 {
-	Matrix world = Matrix::CreateTranslation(m_position);
+	m_world = Matrix::CreateTranslation(m_position);
 
-	m_model->Draw(world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_color);
+	m_model->Draw(m_world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_color);
 }
 
 /// <summary>

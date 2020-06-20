@@ -37,7 +37,7 @@ public:
 	const DirectX::SimpleMath::Vector3 GetPosition() const;
 	 //·ˆøŠ¨’è‚ğæ“¾
 	const DirectX::SimpleMath::Vector3 GetOffset() const;
-
+	GameObject* GetGameObject() const;
 public:
 	//À•W‚ğİ’è
 	void SetPosition(DirectX::SimpleMath::Vector3& pos);

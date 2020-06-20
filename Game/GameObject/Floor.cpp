@@ -52,14 +52,14 @@ void Floor::Update(const DX::StepTimer & timer)
 void Floor::Render()
 {
 	// ワールド行列の作成
-	DirectX::SimpleMath::Matrix world = DirectX::SimpleMath::Matrix::CreateTranslation(m_position);
+	m_world = DirectX::SimpleMath::Matrix::CreateTranslation(m_position);
 
 	// ダメージが入った瞬間からモデル切り替えする
 
 	// モデルの描画
 	m_models->Draw(GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext()
 		, *GameContext::Get<DirectX::CommonStates>()
-		, world
+		, m_world
 		, GameContext::Get<Camera>()->GetView()
 		, GameContext::Get<Camera>()->GetProjection(), false, [&]()
 	{

@@ -72,12 +72,11 @@ void Bullet::Update(const DX::StepTimer& timer)
 void Bullet::Render()
 {
 	//ワールド座標を生成
-	Matrix world = Matrix::Identity;
 	Matrix transMat = Matrix::CreateTranslation(m_position);
 	
-	world = transMat;
+	m_world = transMat;
 	//モデルを描画
-	m_sphereModel->Draw(world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_color);
+	m_sphereModel->Draw(m_world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_color);
 }
 
 /// <summary>

@@ -208,12 +208,60 @@ bool CollisionManager::IsCollided(const RayCollider* collider1, const SphereColl
 
 bool CollisionManager::IsCollided(const RayCollider* collider1, const BoxCollider* collider2)
 {
+	collider1;
+	collider2;
+	
 	return false;
 }
 
 bool CollisionManager::IsCollided(const BoxCollider* collider1, const RayCollider* collider2)
 {
-	return false;
+	DirectX::SimpleMath::Vector3 posA = collider2->GetPosA();
+	DirectX::SimpleMath::Vector3 posB = collider2->GetPosB();
+	posB.Normalize();
+	// 直線を境界ボックスの空間へ移動
+	DirectX::SimpleMath::Matrix invMat = collider2->GetGameObject()->GetWorld().Invert();
+	DirectX::SimpleMath::Vector3 p_l, dir_l;
+	p_l = DirectX::SimpleMath::Vector3::Transform(posA, invMat);
+	invMat._41 = 0.0f;
+	invMat._42 = 0.0f;
+	invMat._43 = 0.0f;
+	dir_l = DirectX::SimpleMath::Vector3::Transform(posB, invMat);
+	// 交差判定
+	float p[3], d[3], min[3], max[3];
+	memcpy(p, &p_l, sizeof(DirectX::SimpleMath::Vector3));
+	memcpy(d, &dir_l, sizeof(DirectX::SimpleMath::Vector3));
+	min[0] = collider1->GetPosition().x - collider1->GetSize().x ;
+	min[1] = collider1->GetPosition().y - collider1->GetSize().y ;
+	min[2] = collider1->GetPosition().z - collider1->GetSize().z ;
+	max[0] = collider1->GetPosition().x + collider1->GetSize().x ;
+	max[1] = collider1->GetPosition().y + collider1->GetSize().y ;
+	max[2] = collider1->GetPosition().z + collider1->GetSize().z ;
+	float tmp_t = -FLT_MAX;
+	float t_max = FLT_MAX;
+	for (int i = 0; i < 3; ++i) {
+		if (abs(d[i]) < FLT_EPSILON) {
+			if (p[i] < min[i] || p[i] > max[i])
+				return false; // 交差していない
+		}
+		else {
+			// スラブとの距離を算出
+			// t1が近スラブ、t2が遠スラブとの距離
+			float odd = 1.0f / d[i];
+			float t1 = (min[i] - p[i]) * odd;
+			float t2 = (max[i] - p[i]) * odd;
+			if (t1 > t2) {
+				float tmp = t1; t1 = t2; t2 = tmp;
+			}
+			if (t1 > tmp_t) tmp_t = t1;
+			if (t2 < t_max) t_max = t2;
+			// スラブ交差チェック
+			if (tmp_t >= t_max)
+				return false;
+		}
+	}
+
+	return true;
 }
 
 bool CollisionManager::IsCollided(const RayCollider* collider1, const RayCollider* collider2)

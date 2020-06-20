@@ -16,10 +16,10 @@
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
-const float AIController::MOVE_SPEED     = 0.01f;
+const float AIController::MOVE_SPEED     = 0.1f;
 const float AIController::ROT_SPEED      = 0.01f;
 const float AIController::SHOT_INTERVAL  = 0.5f;
-const float AIController::STATE_INTERVAL = 0.5f;
+const float AIController::STATE_INTERVAL = 1.0f;
 
 /// <summary>
 /// コンストラクタ
@@ -77,12 +77,7 @@ void AIController::Update(const DX::StepTimer& timer)
 
 	}
 
-	Keyboard::State keyState = Keyboard::Get().GetState();
-
-	if (keyState.IsKeyDown(Keyboard::Keys::W))
-	{
-		m_character->Forward(MOVE_SPEED);
-	}
+	
 	//ステート
 	switch (m_state)
 	{

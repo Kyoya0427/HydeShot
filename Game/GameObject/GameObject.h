@@ -65,6 +65,8 @@ public:
 	const DirectX::SimpleMath::Vector3& GetRotation() const;
 	//ƒTƒCƒY‚ğæ“¾
 	const DirectX::SimpleMath::Vector3& GetScale() const;
+	
+	DirectX::SimpleMath::Matrix GetWorld();
 	//F‚ğ“o˜^
 	DirectX::SimpleMath::Color GetColor();
 	//•`‰æ‡‚ğæ“¾

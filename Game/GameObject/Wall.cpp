@@ -91,9 +91,9 @@ void Wall::Render()
 		Matrix transMat = Matrix::CreateTranslation(m_position);
 		Matrix scalemat = Matrix::CreateScale(m_scale);
 
-		Matrix worldSphere = scalemat * transMat;
+		m_world = scalemat * transMat;
 
-		m_boxCollider->Draw(worldSphere, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_color, nullptr, true);
+		m_boxCollider->Draw(m_world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_color, nullptr, true);
 }
 
 /// <summary>

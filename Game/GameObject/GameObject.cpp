@@ -97,6 +97,11 @@ const Vector3& GameObject::GetScale() const
 	return m_scale;
 }
 
+DirectX::SimpleMath::Matrix GameObject::GetWorld()
+{
+	return m_world;
+}
+
 DirectX::SimpleMath::Color GameObject::GetColor()
 {
 	return m_color;

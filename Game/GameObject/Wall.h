@@ -32,7 +32,7 @@ public:
 
 	void OnCollision(GameObject* object) override;
 	// ƒ‚ƒfƒ‹İ’èŠÖ”
-	void SetModel( DirectX::Model* model);
+	void SetModel(DirectX::Model* model);
 
 	DirectX::SimpleMath::Vector3 GetCollSize();
 

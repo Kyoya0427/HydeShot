@@ -32,6 +32,7 @@ const int Character::MAX_HP = 5;
 Character::Character(const ObjectTag tag)
 	: GameObject(tag)
 {
+	
 }
 
 /// <summary>
@@ -61,7 +62,7 @@ void Character::Initialize(DirectX::SimpleMath::Vector2 & pos)
 	m_sphereCollider = GeometricPrimitive::CreateSphere(deviceContext,1.0f,8U);
 	m_collider = std::make_unique<SphereCollider>(this, m_radius);
 
-	if(GetTag() == ObjectTag::Enemy1)
+	
 	m_sight = std::make_unique<Sight>(this);
 }
 
@@ -73,16 +74,15 @@ void Character::Update(const DX::StepTimer & timer)
 {
 	timer;
 	m_previousPos = m_position;
-	
 	GameContext::Get<CollisionManager>()->Add(GetTag(), m_collider.get());
 	Quaternion quaternion = Quaternion::CreateFromAxisAngle(Vector3::UnitY, m_rotation.y);
 	m_velocity = Vector3::Transform(m_velocity, quaternion);
 
-	m_position += m_velocity;
-	if (GetTag() == ObjectTag::Enemy1)
-	m_sight->Update(timer);
 
-//	m_velocity = Vector3::Zero;
+	m_position += m_velocity;
+	m_velocity = Vector3::Zero;
+
+	m_sight->Update(timer);
 }
 
 /// <summary>
@@ -90,26 +90,41 @@ void Character::Update(const DX::StepTimer & timer)
 /// </summary>
 void Character::Render()
 {
-	Quaternion rot  = Quaternion::CreateFromAxisAngle(Vector3::UnitY, m_rotation.y);
+	m_world = Matrix::Identity;
+	Quaternion rot = Quaternion::CreateFromAxisAngle(Vector3::UnitY, m_rotation.y);
 	Matrix scalemat = Matrix::CreateScale(m_scale);
-	Matrix r        = Matrix::CreateRotationX(DirectX::XMConvertToRadians(-90.0f));
-	Matrix rotMat   = Matrix::CreateFromQuaternion(rot);
+	Matrix r = Matrix::CreateRotationX(DirectX::XMConvertToRadians(-90.0f));
+	Matrix rotMat = Matrix::CreateFromQuaternion(rot);
 	Matrix transMat = Matrix::CreateTranslation(m_position);
 	// ÉèÅ[ÉãÉhçsóÒÇçÏê¨
 
-	m_world = scalemat * r * rotMat * transMat;
+	Matrix w = scalemat * r * rotMat * transMat;
 
-	m_model->Draw(m_world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_color);
+	m_model->Draw(w, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_color);
 
 	Matrix world = rotMat * transMat;
 
 	m_sphereCollider->Draw(world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_color, nullptr, true);
 
-
-	if (GetTag() == ObjectTag::Enemy1)
 	m_sight->Render();
-}
+	if (GetTag() == ObjectTag::Enemy1)
+	{
+		DebugFont* debugFont = DebugFont::GetInstance();
+		debugFont->print(800, 30, L"X = %f ", m_velocity.x);
+		debugFont->draw();			  
+		debugFont->print(800, 60, L"Y = %f ", m_velocity.y);
+		debugFont->draw();			  
+		debugFont->print(800, 90, L"Z = %f ", m_velocity.z);
+		debugFont->draw();
+		debugFont->print(800, 120, L"X = %f ", m_position.x);
+		debugFont->draw();			  
+		debugFont->print(800, 150, L"Y = %f ", m_position.y);
+		debugFont->draw();			  
+		debugFont->print(800, 180, L"Z = %f ", m_position.z);
+		debugFont->draw();
+	}
 
+}
 /// <summary>
 /// ìñÇΩÇ¡ÇΩå„ÇÃèàóù
 /// </summary>
@@ -117,8 +132,12 @@ void Character::Render()
 void Character::OnCollision(GameObject* object)
 {
 	object;
-	m_position = m_previousPos;
-	m_velocity = Vector3::Zero;
+	if (object->GetTag() == GameObject::ObjectTag::Wall)
+	{
+		m_position = m_previousPos;
+		m_velocity = Vector3::Zero;
+	
+	}
 
 	if (object->GetTag() == GameObject::ObjectTag::Bullet)
 	{
