@@ -1,7 +1,7 @@
 ﻿  Resources\FBX\bg.FBX
   Resources\FBX\floorPanel_00.FBX
   Resources\FBX\floorPanel_01.FBX
-  AIController.cpp
-     ライブラリ C:\Users\s182106\Documents\Visual Studio 2015\Projects\TBSG\Debug\TBSG.lib とオブジェクト C:\Users\s182106\Documents\Visual Studio 2015\Projects\TBSG\Debug\TBSG.exp を作成中
+  Sight.cpp
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\game\gameobject\sight.cpp(75): warning C4390: ';': 制御が空の文が見つかりました。意図した記述でしょうか?
   TBSG.vcxproj -> C:\Users\s182106\Documents\Visual Studio 2015\Projects\TBSG\Debug\TBSG.exe
   TBSG.vcxproj -> C:\Users\s182106\Documents\Visual Studio 2015\Projects\TBSG\Debug\TBSG.pdb (Full PDB)

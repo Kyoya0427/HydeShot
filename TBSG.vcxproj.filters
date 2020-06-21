@@ -76,7 +76,7 @@
     <Filter Include="Game\Collider">
       <UniqueIdentifier>{a3616636-1c23-454e-be22-6ddecad3c7e7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="AI">
+    <Filter Include="Game\AI">
       <UniqueIdentifier>{a4701fb1-e930-445d-aa4c-69f3503de88a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -317,7 +317,7 @@
       <Filter>Game\Controller</Filter>
     </ClInclude>
     <ClInclude Include="Game\AI\NeuralNetwork.h">
-      <Filter>AI</Filter>
+      <Filter>Game\AI</Filter>
     </ClInclude>
     <ClInclude Include="Game\GameObject\Sight.h">
       <Filter>Game\GameObject</Filter>
@@ -412,7 +412,7 @@
       <Filter>Game\Controller</Filter>
     </ClCompile>
     <ClCompile Include="Game\AI\NeuralNetwork.cpp">
-      <Filter>AI</Filter>
+      <Filter>Game\AI</Filter>
     </ClCompile>
     <ClCompile Include="Game\GameObject\Sight.cpp">
       <Filter>Game\GameObject</Filter>

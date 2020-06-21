@@ -23,6 +23,21 @@ class BoxCollider;
 
 class CollisionManager final
 {
+public:
+	struct RaycastHit
+	{
+		RaycastHit() :distNear(), distFar(), posNear(), posFar(), normNear(), normFar() {
+		}
+
+		float distNear;
+		float distFar;
+		DirectX::SimpleMath::Vector3 posNear;
+		DirectX::SimpleMath::Vector3 posFar;
+		DirectX::SimpleMath::Vector3 normNear;
+		DirectX::SimpleMath::Vector3 normFar;
+	};
+
+public:
 	using ColliderList       = std::vector<Collider*>;
 	using ColliderGroupList  = std::unordered_map<GameObject::ObjectTag, ColliderList>;
 	using CollisionGroup     = std::pair<GameObject::ObjectTag, GameObject::ObjectTag>;
@@ -62,6 +77,8 @@ public:
 	static float ClosestPtSegmentSegment(DirectX::SimpleMath::Vector3 p1, DirectX::SimpleMath::Vector3 q1,
 		DirectX::SimpleMath::Vector3 p2, DirectX::SimpleMath::Vector3 q2, float& s, float& t,
 		DirectX::SimpleMath::Vector3& c1, DirectX::SimpleMath::Vector3& c2);
+
+	static bool HitCheck_Line2AABB(const BoxCollider* collider1, const RayCollider* collider2, RaycastHit* hit = nullptr);
 
 private:
 	//オブジェクトをグループ名事に記録

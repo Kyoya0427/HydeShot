@@ -24,6 +24,8 @@ using namespace DirectX::SimpleMath;
 
 Sight::Sight(Character* chara)
 	: m_chara(chara)
+	, m_posA()
+	, m_posB()
 {
 	if (m_chara->GetTag() == ObjectTag::Enemy1)
 		m_tag = ObjectTag::Sight01;
@@ -35,9 +37,10 @@ Sight::Sight(Character* chara)
 	ID3D11DeviceContext* deviceContext = GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext();
 	m_sightCollider = GeometricPrimitive::CreateBox(deviceContext, m_size);
 	m_collider      = std::make_unique<RayCollider>(this);
-	m_contact = false;
 
-	m_posA = m_chara->GetPosition();
+	m_enemyContact = false;
+	m_wallContact  = false;
+	
 }
 
 
@@ -50,11 +53,15 @@ Sight::~Sight()
 void Sight::Update(const DX::StepTimer& timer)
 {
 	timer;
-	m_contact = false;
+
+	m_enemyContact = false;
+	m_wallContact = false;
 	
 	Quaternion quaternion = Quaternion::CreateFromAxisAngle(Vector3::UnitY, m_chara->GetRotation().y);
 	m_velocity = Vector3::Transform(Vector3(0.0f, 0.0f, -7.0f), quaternion);
 	m_position = m_chara->GetPosition();
+
+	m_posA = m_chara->GetPosition();
 	m_posB = m_position + m_velocity;
 
 
@@ -83,10 +90,10 @@ void Sight::Render()
 	m_world  = offset *rotMat * transMat;
 
 	m_sightCollider->Draw(m_world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_chara->GetColor(), nullptr, true);
-	if (GetTag() == ObjectTag::Sight01)
+	if (GetTag() == ObjectTag::Sight02)
 	{
 		
-		/*if (m_contact == true) 
+		if (m_wallContact == true)
 		{
 			debugFont->print(500, 30, L" true");
 			debugFont->draw();
@@ -95,19 +102,26 @@ void Sight::Render()
 		{
 			debugFont->print(500, 30, L"false");
 			debugFont->draw();
-		}*/
+		}
 
+		if (m_enemyContact == true)
+		{
+			debugFont->print(500, 50, L" true");
+			debugFont->draw();
+		}
+		else
+		{
+			debugFont->print(500, 50, L"false");
+			debugFont->draw();
+		}
+		
 	}
 }
 
 void Sight::OnCollision(GameObject* object)
 {
-	if(object->GetTag() == ObjectTag::Enemy1 && GetTag() == ObjectTag::Sight02)
-	m_contact = true;
-	if(object->GetTag() == ObjectTag::Enemy2 && GetTag() == ObjectTag::Sight01)
-	m_contact = true;
-	/*if(object->GetTag() == ObjectTag::Wall && GetTag() == ObjectTag::Sight02)
-	m_contact = true;
-	if(object->GetTag() == ObjectTag::Wall && GetTag() == ObjectTag::Sight01)
-	m_contact = true;*/
+	if (object->GetTag() == ObjectTag::Wall)
+		m_wallContact = true;
+	else if (object->GetTag() != m_chara->GetTag())
+		m_enemyContact = true;
 }

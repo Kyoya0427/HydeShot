@@ -15,6 +15,12 @@
 #include <Game\GameState\PauseState.h>
 #include <Game\GameState\ResultState.h>
 
+#if _DEBUG
+#define _CRTDBG_MAP_ALLOC
+#include <crtdbg.h>
+#define new new(_NORMAL_BLOCK,__FILE__,__LINE__)
+#endif
+
 extern void ExitGame();
 
 using namespace DirectX;

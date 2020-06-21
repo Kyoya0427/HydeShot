@@ -14,6 +14,8 @@
 
 #include <Game\GameObject\GameObject.h>
 
+using namespace DirectX;
+using namespace DirectX::SimpleMath;
 /// <summary>
 /// コンストラクタ
 /// </summary>
@@ -150,9 +152,7 @@ bool CollisionManager::IsCollided(const SphereCollider* collider1, const SphereC
 /// <returns></returns>
 bool CollisionManager::IsCollided(const BoxCollider* collider1, const BoxCollider* collider2)
 {
-	collider1;
-	collider2;
-	return false;
+	return IsCollided(collider2, collider1);
 }
 
 /// <summary>
@@ -216,57 +216,15 @@ bool CollisionManager::IsCollided(const RayCollider* collider1, const BoxCollide
 
 bool CollisionManager::IsCollided(const BoxCollider* collider1, const RayCollider* collider2)
 {
-	DirectX::SimpleMath::Vector3 posA = collider2->GetPosA();
-	DirectX::SimpleMath::Vector3 posB = collider2->GetPosB();
-	posB.Normalize();
-	// 直線を境界ボックスの空間へ移動
-	DirectX::SimpleMath::Matrix invMat = collider2->GetGameObject()->GetWorld().Invert();
-	DirectX::SimpleMath::Vector3 p_l, dir_l;
-	p_l = DirectX::SimpleMath::Vector3::Transform(posA, invMat);
-	invMat._41 = 0.0f;
-	invMat._42 = 0.0f;
-	invMat._43 = 0.0f;
-	dir_l = DirectX::SimpleMath::Vector3::Transform(posB, invMat);
-	// 交差判定
-	float p[3], d[3], min[3], max[3];
-	memcpy(p, &p_l, sizeof(DirectX::SimpleMath::Vector3));
-	memcpy(d, &dir_l, sizeof(DirectX::SimpleMath::Vector3));
-	min[0] = collider1->GetPosition().x - collider1->GetSize().x ;
-	min[1] = collider1->GetPosition().y - collider1->GetSize().y ;
-	min[2] = collider1->GetPosition().z - collider1->GetSize().z ;
-	max[0] = collider1->GetPosition().x + collider1->GetSize().x ;
-	max[1] = collider1->GetPosition().y + collider1->GetSize().y ;
-	max[2] = collider1->GetPosition().z + collider1->GetSize().z ;
-	float tmp_t = -FLT_MAX;
-	float t_max = FLT_MAX;
-	for (int i = 0; i < 3; ++i) {
-		if (abs(d[i]) < FLT_EPSILON) {
-			if (p[i] < min[i] || p[i] > max[i])
-				return false; // 交差していない
-		}
-		else {
-			// スラブとの距離を算出
-			// t1が近スラブ、t2が遠スラブとの距離
-			float odd = 1.0f / d[i];
-			float t1 = (min[i] - p[i]) * odd;
-			float t2 = (max[i] - p[i]) * odd;
-			if (t1 > t2) {
-				float tmp = t1; t1 = t2; t2 = tmp;
-			}
-			if (t1 > tmp_t) tmp_t = t1;
-			if (t2 < t_max) t_max = t2;
-			// スラブ交差チェック
-			if (tmp_t >= t_max)
-				return false;
-		}
-	}
-
-	return true;
+	RaycastHit hit;
+	bool b = HitCheck_Line2AABB(collider1, collider2, &hit);
+	float dist = Vector3::Distance(collider2->GetPosA(), collider2->GetPosB());
+	return b && 0 < hit.distFar && 0 < (dist - hit.distNear);
 }
 
 bool CollisionManager::IsCollided(const RayCollider* collider1, const RayCollider* collider2)
 {
-	return false;
+	return IsCollided(collider2, collider1);
 }
 
 /// <summary>
@@ -350,6 +308,65 @@ float CollisionManager::ClosestPtSegmentSegment(DirectX::SimpleMath::Vector3 p1,
 	c1 = p1 + d1 * s;
 	c2 = p2 + d2 * t;
 	return (c1 - c2).Dot(c1 - c2);
+}
+
+bool CollisionManager::HitCheck_Line2AABB(const BoxCollider* collider1, const RayCollider* collider2, RaycastHit* hit)
+{
+	Vector3 p_l = collider2->GetPosA();
+	Vector3 dir_l = collider2->GetPosB() - collider2->GetPosA();
+
+	// 方向ベクトル正規化
+	dir_l.Normalize();
+
+	// 交差判定
+	union
+	{
+		float f[3];
+		XMFLOAT3 v;
+	} p, d, min, max, tmp_t_norm, t_max_norm;
+
+	p.v = p_l;
+	d.v = dir_l;
+	min.v = collider1->GetPosition() - collider1->GetSize();
+	max.v = collider1->GetPosition() + collider1->GetSize();
+
+	float tmp_t = -FLT_MAX;
+	float t_max = FLT_MAX;
+	for (int i = 0; i < 3; ++i)
+	{
+		if (abs(d.f[i]) < FLT_EPSILON)
+		{
+			if (p.f[i] < min.f[i] || p.f[i] > max.f[i])
+				return false; // 交差していない
+		}
+		else
+		{
+			// スラブとの距離を算出
+			// t1が近スラブ、t2が遠スラブとの距離
+			float odd = 1.0f / d.f[i];
+			float t1 = (min.f[i] - p.f[i]) * odd;
+			float t2 = (max.f[i] - p.f[i]) * odd;
+			if (t1 > t2)
+				std::swap(t1, t2);
+			if (t1 > tmp_t) { tmp_t = t1; tmp_t_norm.v = Vector3::Zero; tmp_t_norm.f[i] = d.f[i] > 0 ? -1.0f : 1.0f; }
+			if (t2 < t_max) { t_max = t2; t_max_norm.v = Vector3::Zero; t_max_norm.f[i] = d.f[i] < 0 ? -1.0f : 1.0f; }
+			// スラブ交差チェック
+			if (tmp_t >= t_max)
+				return false;
+		}
+	}
+
+	if (hit)
+	{
+		hit->distNear = tmp_t;
+		hit->distFar = t_max;
+		hit->posNear = p_l + tmp_t * dir_l;
+		hit->posFar = p_l + t_max * dir_l;
+		hit->normNear = tmp_t_norm.v;
+		hit->normFar = t_max_norm.v;
+	}
+	// 交差している
+	return true;
 }
 
 
