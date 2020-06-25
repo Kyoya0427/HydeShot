@@ -20,6 +20,9 @@ public:
 	//“–‚½‚Á‚½Œã‚Ìˆ—
 	void OnCollision(GameObject* object) override;
 
+public:
+	bool GetWallContact();
+	bool GetEnemyContact();
 private:
 	std::unique_ptr<DirectX::GeometricPrimitive> m_sightCollider;
 	std::unique_ptr<DirectX::PrimitiveBatch<DirectX::VertexPositionColor>>  m_lineCollider;

@@ -107,23 +107,6 @@ void Character::Render()
 	m_sphereCollider->Draw(world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_color, nullptr, true);
 
 	m_sight->Render();
-	if (GetTag() == ObjectTag::Enemy1)
-	{
-		DebugFont* debugFont = DebugFont::GetInstance();
-		debugFont->print(800, 30, L"X = %f ", m_velocity.x);
-		debugFont->draw();			  
-		debugFont->print(800, 60, L"Y = %f ", m_velocity.y);
-		debugFont->draw();			  
-		debugFont->print(800, 90, L"Z = %f ", m_velocity.z);
-		debugFont->draw();
-		debugFont->print(800, 120, L"X = %f ", m_position.x);
-		debugFont->draw();			  
-		debugFont->print(800, 150, L"Y = %f ", m_position.y);
-		debugFont->draw();			  
-		debugFont->print(800, 180, L"Z = %f ", m_position.z);
-		debugFont->draw();
-	}
-
 }
 /// <summary>
 /// “–‚½‚Á‚½Œã‚Ìˆ—

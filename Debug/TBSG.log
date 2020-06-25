@@ -1,7 +1,8 @@
 ﻿  Resources\FBX\bg.FBX
   Resources\FBX\floorPanel_00.FBX
   Resources\FBX\floorPanel_01.FBX
-  Sight.cpp
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\game\gameobject\sight.cpp(75): warning C4390: ';': 制御が空の文が見つかりました。意図した記述でしょうか?
+  NeuralNetwork.cpp
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\game\ai\neuralnetwork.cpp(392): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.14393.0\ucrt\stdio.h(207): note: 'fopen' の宣言を確認してください
   TBSG.vcxproj -> C:\Users\s182106\Documents\Visual Studio 2015\Projects\TBSG\Debug\TBSG.exe
   TBSG.vcxproj -> C:\Users\s182106\Documents\Visual Studio 2015\Projects\TBSG\Debug\TBSG.pdb (Full PDB)

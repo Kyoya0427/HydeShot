@@ -72,7 +72,7 @@ void Sight::Update(const DX::StepTimer& timer)
 	{	
 		GameContext().Get<CollisionManager>()->Add(ObjectTag::Sight01, m_collider.get());
 	}
-	if (m_chara->GetTag() == ObjectTag::Enemy2);
+	if (m_chara->GetTag() == ObjectTag::Enemy2)
 	{
 		GameContext().Get<CollisionManager>()->Add(ObjectTag::Sight02, m_collider.get());
 	}
@@ -80,8 +80,6 @@ void Sight::Update(const DX::StepTimer& timer)
 
 void Sight::Render()
 {
-	DebugFont* debugFont = DebugFont::GetInstance();
-
 	Quaternion rot    = Quaternion::CreateFromAxisAngle(Vector3::UnitY, m_chara->GetRotation().y);
 	Matrix rotMat     = Matrix::CreateFromQuaternion(rot);
 	Matrix transMat   = Matrix::CreateTranslation(m_position);
@@ -90,32 +88,6 @@ void Sight::Render()
 	m_world  = offset *rotMat * transMat;
 
 	m_sightCollider->Draw(m_world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_chara->GetColor(), nullptr, true);
-	if (GetTag() == ObjectTag::Sight02)
-	{
-		
-		if (m_wallContact == true)
-		{
-			debugFont->print(500, 30, L" true");
-			debugFont->draw();
-		}
-		else
-		{
-			debugFont->print(500, 30, L"false");
-			debugFont->draw();
-		}
-
-		if (m_enemyContact == true)
-		{
-			debugFont->print(500, 50, L" true");
-			debugFont->draw();
-		}
-		else
-		{
-			debugFont->print(500, 50, L"false");
-			debugFont->draw();
-		}
-		
-	}
 }
 
 void Sight::OnCollision(GameObject* object)
@@ -124,4 +96,14 @@ void Sight::OnCollision(GameObject* object)
 		m_wallContact = true;
 	else if (object->GetTag() != m_chara->GetTag())
 		m_enemyContact = true;
+}
+
+bool Sight::GetWallContact()
+{
+	return m_wallContact;
+}
+
+bool Sight::GetEnemyContact()
+{
+	return m_enemyContact;
 }

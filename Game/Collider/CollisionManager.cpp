@@ -152,7 +152,10 @@ bool CollisionManager::IsCollided(const SphereCollider* collider1, const SphereC
 /// <returns></returns>
 bool CollisionManager::IsCollided(const BoxCollider* collider1, const BoxCollider* collider2)
 {
-	return IsCollided(collider2, collider1);
+	collider1;
+	collider2;
+
+	return false;
 }
 
 /// <summary>
@@ -224,7 +227,10 @@ bool CollisionManager::IsCollided(const BoxCollider* collider1, const RayCollide
 
 bool CollisionManager::IsCollided(const RayCollider* collider1, const RayCollider* collider2)
 {
-	return IsCollided(collider2, collider1);
+	collider1;
+	collider2;
+
+	return false;
 }
 
 /// <summary>

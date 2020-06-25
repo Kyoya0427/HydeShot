@@ -94,13 +94,7 @@ void Wall::Render()
 		m_world = transMat;
 
 		m_boxCollider->Draw(m_world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_color, nullptr, true);
-	DebugFont* debugFont = DebugFont::GetInstance();
-	debugFont->print(600, 30, L"%f = X", m_position.x);
-	debugFont->draw();
-	debugFont->print(600, 50, L"%f = Y", m_position.y);
-	debugFont->draw();
-	debugFont->print(600, 70, L"%f = Z", m_position.z);
-	debugFont->draw();
+
 }
 
 /// <summary>
