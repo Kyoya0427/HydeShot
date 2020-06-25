@@ -6,20 +6,6 @@
 //======================================================
 #pragma once
 
-
-	//入力と隠れ層するノードの重み
-	//	std::vector<std::vector<double>>	m_weights;
-	//	//重みの調整
-	//	std::vector<std::vector<double>>	m_weightChanges;
-	//	//計算結果の値
-	//	std::vector<double>		m_neuronValues;
-	//	//ターゲット値を格納
-	//	std::vector<double>		m_desiredValues;
-	//	//エラー
-	//	std::vector<double>		m_errors;
-	//	//バイアスの重み
-	//	std::vector<double>		m_biasWeights;
-
 class NeuralNetworkLayer
 {
 public:
