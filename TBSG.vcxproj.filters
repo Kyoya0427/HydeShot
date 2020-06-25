@@ -325,6 +325,9 @@
     <ClInclude Include="Game\Collider\RayCollider.h">
       <Filter>Game\Collider</Filter>
     </ClInclude>
+    <ClInclude Include="Game\AI\RuleBased.h">
+      <Filter>Game\AI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game\Common\DebugFont.cpp">
@@ -419,6 +422,9 @@
     </ClCompile>
     <ClCompile Include="Game\Collider\RayCollider.cpp">
       <Filter>Game\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\AI\RuleBased.cpp">
+      <Filter>Game\AI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

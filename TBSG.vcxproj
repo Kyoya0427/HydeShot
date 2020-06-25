@@ -126,6 +126,7 @@
     <ClInclude Include="3rdParty\PicoJSON\Include\PicoJSON\picojson.h" />
     <ClInclude Include="3rdParty\PicoJSON\PicoJSONHeaderList.h" />
     <ClInclude Include="Game\AI\NeuralNetwork.h" />
+    <ClInclude Include="Game\AI\RuleBased.h" />
     <ClInclude Include="Game\Bg\Bg.h" />
     <ClInclude Include="Game\Camera\Camera.h" />
     <ClInclude Include="Game\Collider\BoxCollider.h" />
@@ -162,6 +163,7 @@
     <ClInclude Include="Game\UI\Letter.h" />
     <ClInclude Include="pch.h" />
     <ClCompile Include="Game\AI\NeuralNetwork.cpp" />
+    <ClCompile Include="Game\AI\RuleBased.cpp" />
     <ClCompile Include="Game\Bg\Bg.cpp" />
     <ClCompile Include="Game\Camera\Camera.cpp" />
     <ClCompile Include="Game\Collider\BoxCollider.cpp" />
