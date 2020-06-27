@@ -72,16 +72,24 @@ void PlayState::Initialize()
 	GameContext().Register<CollisionManager>(m_collisionManager.get());
 	
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1,  GameObject::ObjectTag::Wall);
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1,  GameObject::ObjectTag::Enemy2);
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1,  GameObject::ObjectTag::Flag_01);
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1,  GameObject::ObjectTag::Bullet);
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1,  GameObject::ObjectTag::Sight02);
 
 
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2,  GameObject::ObjectTag::Wall);
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2,  GameObject::ObjectTag::Bullet);
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2,  GameObject::ObjectTag::Flag_02);
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2,  GameObject::ObjectTag::Sight01);
+//	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2,  GameObject::ObjectTag::Wall);
+//	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2,  GameObject::ObjectTag::Bullet);
+//	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2,  GameObject::ObjectTag::Flag_02);
+//	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2,  GameObject::ObjectTag::Sight01);
+
+	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player,  GameObject::ObjectTag::Wall);
+	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player,  GameObject::ObjectTag::Bullet);
+	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player,  GameObject::ObjectTag::Flag_02);
+	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player,  GameObject::ObjectTag::Sight01);
+
+
+	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1, GameObject::ObjectTag::Enemy2);
+//	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1,  GameObject::ObjectTag::Player);
 
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Bullet,  GameObject::ObjectTag::Wall);	
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Sight01, GameObject::ObjectTag::Wall);	
@@ -106,15 +114,22 @@ void PlayState::Initialize()
 	
 
 	//エネミー初期化
-	m_enemy[1] = std::make_unique<Character>(GameObject::ObjectTag::Enemy2);
-	m_enemy[1]->Initialize(m_stage->GetPlayerPos());
-	m_enemy[1]->SetColor(Color(Colors::Red));
+//	m_enemy[1] = std::make_unique<Character>(GameObject::ObjectTag::Enemy2);
+//	m_enemy[1]->Initialize(m_stage->GetPlayerPos());
+//	m_enemy[1]->SetColor(Color(Colors::Red));
 
-	m_aiController[0] = std::make_unique<AIController>(m_enemy[0].get(), m_enemy[1].get());
-	m_aiController[1] = std::make_unique<AIController>(m_enemy[1].get(), m_enemy[0].get());
+	m_player = std::make_unique<Character>(GameObject::ObjectTag::Player);
+	m_player->Initialize(m_stage->GetPlayerPos());
+	m_player->SetColor(Color(Colors::Red));
 
-	GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(m_enemy[1]));
+	m_aiController[0] = std::make_unique<AIController>(m_enemy[0].get(), m_player.get());
+//	m_aiController[0] = std::make_unique<AIController>(m_enemy[0].get(), m_enemy[1].get());
+//	m_aiController[1] = std::make_unique<AIController>(m_enemy[1].get(), m_enemy[0].get());
+	m_playerControll = std::make_unique<PlayerController>(m_player.get());
+
+	GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(m_player));
 	GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(m_enemy[0]));
+//	GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(m_enemy[1]));
 	
 	// 情報ウィンドウ
 	m_infoWindow = std::make_unique<InfoWindow>();
@@ -153,12 +168,19 @@ void PlayState::Update(const DX::StepTimer& timer)
 	m_bg->Update(timer);
 	m_infoWindow->Update(timer);
 	// ゲーム画面のオブジェクト更新
+
 	m_objectManager->GetGameOM()->Update(timer);
 
-	m_aiController[0]->Update(timer);
-	m_aiController[1]->Update(timer);
-
 	m_collisionManager->DetectCollision();
+
+	m_aiController[0]->Update(timer);
+//	m_aiController[1]->Update(timer);
+	m_playerControll->Update(timer);
+
+	
+
+
+
 
 	DirectX::Keyboard::State keyState = DirectX::Keyboard::Get().GetState();
 	m_keyTracker.Update(keyState);

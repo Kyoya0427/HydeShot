@@ -140,7 +140,7 @@
     <ClInclude Include="Game\Common\Utilities.h" />
     <ClInclude Include="Game\Controller\AIController.h" />
     <ClInclude Include="Game\Controller\CharacterController.h" />
-    <ClInclude Include="Game\Controller\MoveModeSelection.h" />
+    <ClInclude Include="Game\Controller\NeuralNetworkManager.h" />
     <ClInclude Include="Game\Controller\PlayerController.h" />
     <ClInclude Include="Game\GameObject\Bullet.h" />
     <ClInclude Include="Game\GameObject\Character.h" />
@@ -174,7 +174,7 @@
     <ClCompile Include="Game\Common\DebugFont.cpp" />
     <ClCompile Include="Game\Controller\AIController.cpp" />
     <ClCompile Include="Game\Controller\CharacterController.cpp" />
-    <ClCompile Include="Game\Controller\MoveModeSelection.cpp" />
+    <ClCompile Include="Game\Controller\NeuralNetworkManager.cpp" />
     <ClCompile Include="Game\Controller\PlayerController.cpp" />
     <ClCompile Include="Game\GameObject\Bullet.cpp" />
     <ClCompile Include="Game\GameObject\Character.cpp" />

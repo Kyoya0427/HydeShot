@@ -36,9 +36,9 @@ void NeuralNetworkLayer::Initialize(int NumNodes, NeuralNetworkLayer* parent, Ne
 {
 	NumNodes;
 	// Allocate memory
-	m_neuronValues = std::vector<double>(m_numNodes);
-	m_desiredValues = std::vector<double>(m_numNodes);
-	m_errors = std::vector<double>(m_numNodes);
+	m_neuronValues.resize(m_numNodes, 0.0);
+	m_desiredValues.resize(m_numNodes, 0.0);
+	m_errors.resize(m_numNodes, 0.0);
 	
 
 	if (parent != NULL) {
@@ -47,11 +47,21 @@ void NeuralNetworkLayer::Initialize(int NumNodes, NeuralNetworkLayer* parent, Ne
 
 	if (child != NULL) {
 		m_childLayer = child;
-		
-		m_weights = std::vector<std::vector<double>>(m_numNodes, std::vector<double>(m_numChildNodes, 0));
-		m_weightChanges = std::vector<std::vector<double>>(m_numNodes, std::vector<double>(m_numChildNodes, 0));
-		m_biasWeights = std::vector<double>(m_numChildNodes);
-		m_biasValues = std::vector<double>(m_numChildNodes);	
+	
+		m_weights.resize(m_numNodes);
+		for (auto& weight : m_weights)
+		{
+			weight.resize(m_numChildNodes, 0.0);
+		}
+
+		m_weightChanges.resize(m_numNodes);
+		for (auto& changeWeight : m_weightChanges)
+		{
+			changeWeight.resize(m_numChildNodes, 0.0);
+		}
+
+		m_biasWeights.resize(m_numChildNodes);
+		m_biasValues.resize(m_numChildNodes);	
 	}
 
 	// Make sure everything contains zeros
@@ -81,7 +91,6 @@ void NeuralNetworkLayer::Initialize(int NumNodes, NeuralNetworkLayer* parent, Ne
 /// </summary>
 void NeuralNetworkLayer::CleanUp()
 {
-	
 	std::vector<double>().swap(m_neuronValues);
 	std::vector<double>().swap(m_desiredValues);
 	std::vector<double>().swap(m_errors);

@@ -53,7 +53,10 @@ public:
 
 public:
 	int GetHp();
-
+	bool GetWallContact();
+	void SetWallContact(bool contact);
+	bool GetEnemyContact();
+	void SetEnemyContact(bool contact);
 public:
 	static const int  MAX_HP;
 
@@ -68,6 +71,8 @@ private:
 	//“–‚½‚è”»’è
 	std::unique_ptr<SphereCollider>              m_collider;
 	
+	bool                                         m_wallContact;
+	bool                                         m_enemyContact;
 	//HP
 	int                                          m_hp;
 };

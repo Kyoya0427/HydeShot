@@ -38,8 +38,8 @@ Sight::Sight(Character* chara)
 	m_sightCollider = GeometricPrimitive::CreateBox(deviceContext, m_size);
 	m_collider      = std::make_unique<RayCollider>(this);
 
-	m_enemyContact = false;
-	m_wallContact  = false;
+	m_chara->SetEnemyContact(false);
+	m_chara->SetWallContact(false);
 	
 }
 
@@ -54,8 +54,8 @@ void Sight::Update(const DX::StepTimer& timer)
 {
 	timer;
 
-	m_enemyContact = false;
-	m_wallContact = false;
+	m_chara->SetEnemyContact(false);
+	m_chara->SetWallContact(false);
 	
 	Quaternion quaternion = Quaternion::CreateFromAxisAngle(Vector3::UnitY, m_chara->GetRotation().y);
 	m_velocity = Vector3::Transform(Vector3(0.0f, 0.0f, -7.0f), quaternion);
@@ -93,17 +93,9 @@ void Sight::Render()
 void Sight::OnCollision(GameObject* object)
 {
 	if (object->GetTag() == ObjectTag::Wall)
-		m_wallContact = true;
+		m_chara->SetWallContact(true);
 	else if (object->GetTag() != m_chara->GetTag())
-		m_enemyContact = true;
+		m_chara->SetEnemyContact(true);
 }
 
-bool Sight::GetWallContact()
-{
-	return m_wallContact;
-}
 
-bool Sight::GetEnemyContact()
-{
-	return m_enemyContact;
-}

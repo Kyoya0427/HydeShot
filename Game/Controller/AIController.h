@@ -8,7 +8,8 @@
 
 #include <Game\Controller\CharacterController.h>
 
-class MoveModeSelection;
+class NeuralNetworkManager;
+class RuleBased;
 
 class AIController : public  CharacterController
 {
@@ -17,12 +18,12 @@ public:
 	{
 		NONE,
 		MOVE_FORWARD,	//1
-		MOVE_BACKWARD,//2
-		MOVE_LEFTWARD,//3
+		MOVE_BACKWARD,	//2
+		MOVE_LEFTWARD,	//3
 		MOVE_RIGHTWARD,	//4	
-		TURN_LEFT,//5
-		TURN_RIGHT,//6
-		SHOOT,//7
+		TURN_LEFT,		//5
+		TURN_RIGHT,		//6
+		SHOOT,			//7
 
 		NUM
 	};
@@ -50,12 +51,15 @@ public:
 	static const int    MODE_COUNT = 7;
 
 private:
-	std::unique_ptr<MoveModeSelection>   m_moveModeSelection;
+	std::unique_ptr<NeuralNetworkManager>   m_neuralNetworkManager;
+	std::unique_ptr<RuleBased>				m_ruleBased;
 
 	//ステイト変更インターバル
 	float m_stateInterval;
 	//ステイト
-	Behavior m_state;
+	Behavior  m_state;
+	
+
 	Character* m_enemy;
 
 	int m_randMobeCount;

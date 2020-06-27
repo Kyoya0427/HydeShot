@@ -60,8 +60,12 @@ private:
 	std::unique_ptr<Stage>					m_stage;
 	//エネミー
 	std::unique_ptr<Character>              m_enemy[2];
+	//プレイヤー
+	std::unique_ptr<Character>              m_player;
 	//エネミーコントローラー
 	std::unique_ptr<AIController>           m_aiController[2];
+	//プレイヤーコントローラー
+	std::unique_ptr<PlayerController>       m_playerControll;
 	// ゲームオブジェクトマネージャー
 	std::unique_ptr<ObjectManager>          m_objectManager;
 	//当たり判定マネージャー

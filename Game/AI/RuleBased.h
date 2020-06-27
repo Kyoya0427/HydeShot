@@ -17,8 +17,6 @@ public:
 	~RuleBased();
 
 public:
-	AIController::Behavior BehaviorSelection(Character* character);
-	 
-
+	AIController::Behavior BehaviorSelection(Character* character, Character* enemys);
 };
 

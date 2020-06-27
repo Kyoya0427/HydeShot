@@ -34,7 +34,6 @@ private:
 	DirectX::SimpleMath::Vector3                 m_posB;
 
 	Character*                                   m_chara;
-	bool                                         m_wallContact;
-	bool                                         m_enemyContact;
+	
 };
 

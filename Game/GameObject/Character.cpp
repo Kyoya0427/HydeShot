@@ -210,4 +210,24 @@ int Character::GetHp()
 {
 	return m_hp;
 }
+
+bool Character::GetWallContact()
+{
+	return m_wallContact;
+}
+
+void Character::SetWallContact(bool contact)
+{
+	m_wallContact = contact;
+}
+
+bool Character::GetEnemyContact()
+{
+	return m_enemyContact;
+}
+
+void Character::SetEnemyContact(bool contact)
+{
+	m_enemyContact = contact;
+}
                                                            
