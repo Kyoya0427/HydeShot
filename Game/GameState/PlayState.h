@@ -44,6 +44,7 @@ public:
 public: 
 	static const int SCREEN_W = 960;
 	static const int SCREEN_H = 720;
+	static bool								m_isDebug;
 
 private:
 	// ゲーム画面のビューポート
@@ -70,7 +71,7 @@ private:
 	std::unique_ptr<ObjectManager>          m_objectManager;
 	//当たり判定マネージャー
 	std::unique_ptr<CollisionManager>       m_collisionManager;
-
+	//キートラッカー
 	DirectX::Keyboard::KeyboardStateTracker m_keyTracker;
 
 };

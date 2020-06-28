@@ -37,6 +37,8 @@ using namespace DirectX;
 using namespace DirectX::SimpleMath;
 using namespace DX;
 
+bool  PlayState::m_isDebug = false;
+
 /// <summary>
 /// コンストラクタ
 /// </summary>
@@ -71,6 +73,8 @@ void PlayState::Initialize()
 	m_collisionManager = std::make_unique<CollisionManager>();
 	GameContext().Register<CollisionManager>(m_collisionManager.get());
 	
+	m_isDebug = false;
+
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1,  GameObject::ObjectTag::Wall);
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1,  GameObject::ObjectTag::Flag_01);
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1,  GameObject::ObjectTag::Bullet);
@@ -189,6 +193,11 @@ void PlayState::Update(const DX::StepTimer& timer)
 		using State = GameStateManager::GameState;
 		GameStateManager* gameStateManager = GameContext().Get<GameStateManager>();
 		gameStateManager->RequestState(State::RESULT_STATE);
+	}
+
+	if (m_keyTracker.IsKeyReleased(DirectX::Keyboard::X))
+	{
+		m_isDebug = m_isDebug  == true ? false : true;
 	}
 }
 

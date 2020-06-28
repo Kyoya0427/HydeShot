@@ -19,6 +19,8 @@
 
 #include <Game/Collider/CollisionManager.h>
 
+#include <Game/GameState/PlayState.h>
+
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
@@ -87,6 +89,7 @@ void Sight::Render()
 
 	m_world  = offset *rotMat * transMat;
 
+	if (PlayState::m_isDebug)
 	m_sightCollider->Draw(m_world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_chara->GetColor(), nullptr, true);
 }
 

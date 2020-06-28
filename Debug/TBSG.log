@@ -1,6 +1,9 @@
 ﻿  Resources\FBX\bg.FBX
   Resources\FBX\floorPanel_00.FBX
   Resources\FBX\floorPanel_01.FBX
-  RuleBased.cpp
+  AIController.cpp
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\game\controller\aicontroller.cpp(74): warning C4189: 'z': ローカル変数が初期化されましたが、参照されていません
+c:\users\s182106\documents\visual studio 2015\projects\tbsg\game\controller\aicontroller.cpp(73): warning C4189: 'x': ローカル変数が初期化されましたが、参照されていません
+     ライブラリ C:\Users\s182106\Documents\Visual Studio 2015\Projects\TBSG\Debug\TBSG.lib とオブジェクト C:\Users\s182106\Documents\Visual Studio 2015\Projects\TBSG\Debug\TBSG.exp を作成中
   TBSG.vcxproj -> C:\Users\s182106\Documents\Visual Studio 2015\Projects\TBSG\Debug\TBSG.exe
   TBSG.vcxproj -> C:\Users\s182106\Documents\Visual Studio 2015\Projects\TBSG\Debug\TBSG.pdb (Full PDB)

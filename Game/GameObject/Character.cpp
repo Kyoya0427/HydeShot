@@ -20,6 +20,7 @@
 #include <Game/Collider\CollisionManager.h>
 			  
 #include <Game/GameState/GameStateManager.h>
+#include <Game/GameState/PlayState.h>
 
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
@@ -82,6 +83,8 @@ void Character::Update(const DX::StepTimer & timer)
 	m_position += m_velocity;
 	m_velocity = Vector3::Zero;
 
+
+
 	m_sight->Update(timer);
 }
 
@@ -104,6 +107,7 @@ void Character::Render()
 
 	Matrix world = rotMat * transMat;
 
+	if(PlayState::m_isDebug)
 	m_sphereCollider->Draw(world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_color, nullptr, true);
 
 	m_sight->Render();

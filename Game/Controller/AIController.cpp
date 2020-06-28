@@ -15,12 +15,14 @@
 #include <Game/Controller/PlayerController.h>
 #include <Game/AI/RuleBased.h>
 
+#include <Game/GameState/PlayState.h>
+
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
 const float AIController::MOVE_SPEED     = 0.03f;
 const float AIController::ROT_SPEED      = 0.01f;
-const float AIController::SHOT_INTERVAL  = 0.3f;
+const float AIController::SHOT_INTERVAL  = 0.5f;
 const float AIController::STATE_INTERVAL = 0.5f;
 
 /// <summary>
@@ -159,44 +161,49 @@ void AIController::Update(const DX::StepTimer& timer)
 /// </summary>
 void AIController::Render()
 {
-	DebugFont* debugFont = DebugFont::GetInstance();
-	debugFont->print(10, 30, L"%f / 0.1", m_shotInterval);
-	debugFont->draw();
-	debugFont->print(10, 50, L"%d", m_randMobeCount);
-	debugFont->draw();
 
-	Vector3 enemy = m_enemy->GetPosition();
-	Vector3 aiPos = m_character->GetPosition();
-	float x = aiPos.x - enemy.x;
-	float z = aiPos.z - enemy.z;  
-
-	debugFont->print(700, 30, L"X = %f", x);
-	debugFont->draw();
-	debugFont->print(700, 50, L"Z = %f", z);
-	debugFont->draw();
-
-
-	if (m_character->GetEnemyContact() == true)
+	if (PlayState::m_isDebug)
 	{
-		debugFont->print(500, 10, L"true");
+		DebugFont* debugFont = DebugFont::GetInstance();
+		debugFont->print(10, 30, L"%f / 0.1", m_shotInterval);
+		debugFont->draw();
+		debugFont->print(10, 50, L"%d", m_randMobeCount);
+		debugFont->draw();
+
+		Vector3 enemy = m_enemy->GetPosition();
+		Vector3 aiPos = m_character->GetPosition();
+		float x = aiPos.x - enemy.x;
+		float z = aiPos.z - enemy.z;
+
+		debugFont->print(700, 30, L"X = %f", x);
+		debugFont->draw();
+		debugFont->print(700, 50, L"Z = %f", z);
+		debugFont->draw();
+
+
+		if (m_character->GetEnemyContact() == true)
+		{
+			debugFont->print(500, 10, L"true");
+			debugFont->draw();
+		}
+		else
+		{
+			debugFont->print(500, 10, L"false");
+			debugFont->draw();
+		}
+		wchar_t* state[]
+		{
+			L"NONE",
+			L"FORWARD",
+			L"BACKWARD",
+			L"LEFTWARD",
+			L"RIGHTWARD",
+			L"LEFT_TURN",
+			L"RIGHT_TURN",
+			L"SHOT"
+		};
+		debugFont->print(10, 10, state[static_cast<int>(m_state)]);
 		debugFont->draw();
 	}
-	else
-	{
-		debugFont->print(500, 10, L"false");
-		debugFont->draw();
-	}
-	wchar_t* state[]
-	{
-		L"NONE",
-		L"FORWARD",
-		L"BACKWARD",
-		L"LEFTWARD",
-		L"RIGHTWARD",
-		L"LEFT_TURN",
-		L"RIGHT_TURN",
-		L"SHOT"
-	};
-	debugFont->print(10, 10, state[static_cast<int>(m_state)]);
-	debugFont->draw();
+
 }

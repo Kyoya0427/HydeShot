@@ -20,6 +20,8 @@
 #include <Game\Collider\CollisionManager.h>
 #include <Game\Collider\BoxCollider.h>
 
+#include <Game/GameState/PlayState.h>
+
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
@@ -93,6 +95,7 @@ void Wall::Render()
 
 		m_world = transMat;
 
+		if (PlayState::m_isDebug)
 		m_boxCollider->Draw(m_world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_color, nullptr, true);
 
 }
