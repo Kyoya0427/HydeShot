@@ -8,9 +8,9 @@
 
 #include <string>
 
-#include <DirectXTK\SimpleMath.h>
+#include <DirectXTK/SimpleMath.h>
 
-#include <Game\Common\StepTimer.h>
+#include <Game/Common/StepTimer.h>
 
 class GameObject
 {
@@ -36,7 +36,6 @@ public:
 public:
 	//コンストラクタ
 	GameObject(const ObjectTag tag = ObjectTag::None);
-
 	//デストラクタ
 	virtual ~GameObject();
 
@@ -65,9 +64,9 @@ public:
 	const DirectX::SimpleMath::Vector3& GetRotation() const;
 	//サイズを取得
 	const DirectX::SimpleMath::Vector3& GetScale() const;
-	
+	//ワールド座標を取得
 	DirectX::SimpleMath::Matrix GetWorld();
-	//色を登録
+	//色を取得
 	DirectX::SimpleMath::Color GetColor();
 	//描画順を取得
 	const int GetDrawPrio() const;
@@ -102,7 +101,6 @@ private:
 	// 描画順序管理用(小さいほど手前に描画される）
 	int m_drawPrio;
 	
-	
 protected:
 	//座標
 	DirectX::SimpleMath::Vector3    m_position;
@@ -117,11 +115,12 @@ protected:
 	//オブジェクトカラー
 	DirectX::SimpleMath::Color      m_color;
 	//ステージ上の位置
-	int m_x, m_y;
+	int                             m_x, m_y;
 	//半径
-	float  m_radius;
+	float                           m_radius;
 	//オブジェクトタグ名
-	ObjectTag m_tag;
+	ObjectTag                       m_tag;
 	//弾を撃ったオブジェクトのタグ名
-	ObjectTag           m_charaTag;
+	ObjectTag                       m_charaTag;
+
 };

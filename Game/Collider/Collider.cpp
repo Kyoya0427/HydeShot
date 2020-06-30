@@ -1,12 +1,12 @@
 //======================================================
 // File Name	: Collider.cpp
-// Summary		: 衝突親クラス
+// Summary		: コライダー親クラス
 // Date			: 2020/5/12
 // Author		: Kyoya Sakamoto
 //======================================================
 #include "Collider.h"
 
-#include <Game\GameObject\GameObject.h>
+#include <Game/GameObject/GameObject.h>
 
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
@@ -95,6 +95,10 @@ const Vector3 Collider::GetOffset() const
 	return m_offset;
 }
 
+/// <summary>
+/// オブジェクトを取得
+/// </summary>
+/// <returns></returns>
 GameObject* Collider::GetGameObject() const
 {
 	return m_owner;

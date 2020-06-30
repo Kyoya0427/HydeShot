@@ -1,14 +1,14 @@
 //======================================================
 // File Name	: PlayerController.cpp
-// Summary		: プレイヤークラス
+// Summary		: プレイヤーコントローラー
 // Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 #include "PlayerController.h"
 
-#include <Game\GameObject\Character.h>
+#include <Game/GameObject/Character.h>
 
-#include <Game\Common\DebugFont.h>
+#include <Game/Common/DebugFont.h>
 
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
@@ -79,18 +79,5 @@ void PlayerController::Update(const DX::StepTimer& timer)
 
 }
 
-/// <summary>
-/// デバック
-/// </summary>
-void PlayerController::Render()
-{
-	/*DebugFont* debugFont = DebugFont::GetInstance();
-	debugFont->print(600, 30, L"%f = X", m_character->GetPosition().x);
-	debugFont->draw();
-	debugFont->print(600, 50, L"%f = Y", m_character->GetPosition().y);
-	debugFont->draw();
-	debugFont->print(600, 70, L"%f = Z", m_character->GetPosition().z);
-	debugFont->draw();*/
-}
 
 

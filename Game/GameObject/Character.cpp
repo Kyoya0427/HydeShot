@@ -6,18 +6,18 @@
 //======================================================
 #include "Character.h"
 
-#include <Game/Common\GameContext.h>
-#include <Game/Common\DeviceResources.h>
+#include <Game/Common/GameContext.h>
+#include <Game/Common/DeviceResources.h>
 #include <Game/Common/DebugFont.h>
 			  
-#include <Game/Camera\Camera.h>
+#include <Game/Camera/Camera.h>
 			  
-#include <Game/GameObject\GameObjectManager.h>
-#include <Game/GameObject\ObjectManager.h>
-#include <Game/GameObject\Bullet.h>
+#include <Game/GameObject/GameObjectManager.h>
+#include <Game/GameObject/ObjectManager.h>
+#include <Game/GameObject/Bullet.h>
 #include <Game/GameObject/Sight.h>
 			  
-#include <Game/Collider\CollisionManager.h>
+#include <Game/Collider/CollisionManager.h>
 			  
 #include <Game/GameState/GameStateManager.h>
 #include <Game/GameState/PlayState.h>
@@ -210,26 +210,46 @@ void Character::Shoot()
 	GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(shell));
 }
 
+/// <summary>
+/// hp‚ğæ“¾
+/// </summary>
+/// <returns></returns>
 int Character::GetHp()
 {
 	return m_hp;
 }
 
+/// <summary>
+/// •Ç‚ÉÚG‚µ‚Ä‚é‚©
+/// </summary>
+/// <returns></returns>
 bool Character::GetWallContact()
 {
 	return m_wallContact;
 }
 
+/// <summary>
+/// İ’è
+/// </summary>
+/// <param name="contact"></param>
 void Character::SetWallContact(bool contact)
 {
 	m_wallContact = contact;
 }
 
+/// <summary>
+/// “G‚ÉÚG‚µ‚Ä‚¢‚é‚©
+/// </summary>
+/// <returns></returns>
 bool Character::GetEnemyContact()
 {
 	return m_enemyContact;
 }
 
+/// <summary>
+/// İ’è
+/// </summary>
+/// <param name="contact"></param>
 void Character::SetEnemyContact(bool contact)
 {
 	m_enemyContact = contact;

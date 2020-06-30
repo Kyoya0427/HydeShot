@@ -1,5 +1,5 @@
 //======================================================
-// File Name	: AIController.h
+// File Name	: AIController.cpp
 // Summary		: ＡＩコントローラー
 // Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
@@ -37,15 +37,16 @@ AIController::AIController(Character* character, Character* enemy)
 	m_enemy = enemy;
 	m_shotInterval  = SHOT_INTERVAL;
 	m_stateInterval = STATE_INTERVAL;
-//	m_state = static_cast<Behavior>(rand() % static_cast<int>(Behavior::NUM));
 	m_state = Behavior::NONE;
-	
+
+//	m_state = static_cast<Behavior>(rand() % static_cast<int>(Behavior::NUM));
 //	m_neuralNetworkManager = std::make_unique<NeuralNetworkManager>();
 
 	m_ruleBased = std::make_unique<RuleBased>();
 
 	Vector3 rot = Vector3(0.0f, 3.15f, 0.0f);
 	m_character->SetRotation(rot);
+
 }
 
 /// <summary>
@@ -61,18 +62,13 @@ AIController::~AIController()
 /// <param name="timer"></param>
 void AIController::Update(const DX::StepTimer& timer)
 {
+	//カウントダウン
 	m_stateInterval -= float(timer.GetElapsedSeconds());
 	m_shotInterval  -= float(timer.GetElapsedSeconds());
 	//インターバル
 	if (m_stateInterval < 0.0f)
 	{
 		m_stateInterval = STATE_INTERVAL;
-
-		Vector3 enemy = m_enemy->GetPosition();
-		Vector3 aiPos = m_character->GetPosition();
-		float x = aiPos.x - enemy.x;
-		float z = aiPos.z - enemy.z;
-
 		m_state = m_ruleBased->BehaviorSelection(m_character, m_enemy);
 		
 		m_randMobeCount++;
@@ -89,41 +85,6 @@ void AIController::Update(const DX::StepTimer& timer)
 
 	}
 
-	Keyboard::State keyState = Keyboard::Get().GetState();
-
-	if (keyState.IsKeyDown(Keyboard::Keys::W))
-	{
-		m_character->Forward(MOVE_SPEED);
-	}
-	/*
-	else if (keyState.IsKeyDown(Keyboard::Keys::S))
-	{
-		m_character->Backward(MOVE_SPEED);
-	}
-	else if (keyState.IsKeyDown(Keyboard::Keys::A))
-	{
-		m_character->Leftward(MOVE_SPEED);
-	}
-	else if (keyState.IsKeyDown(Keyboard::Keys::D))
-	{
-		m_character->Rightward(MOVE_SPEED);
-	}
-
-	if (keyState.IsKeyDown(Keyboard::Keys::Left))
-	{
-		m_character->LeftTurn(ROT_SPEED);
-	}
-	else if (keyState.IsKeyDown(Keyboard::Keys::Right))
-	{
-		m_character->RightTurn(ROT_SPEED);
-	}
-
-	if (keyState.IsKeyDown(Keyboard::Keys::Space) && m_shotInterval < 0.0f)
-	{
-		m_character->Shoot();
-		m_shotInterval = SHOT_INTERVAL;
-	}*/
-	
 	//ステート
 	switch (m_state)
 	{
@@ -189,6 +150,16 @@ void AIController::Render()
 		else
 		{
 			debugFont->print(500, 10, L"false");
+			debugFont->draw();
+		}
+		if (m_character->GetWallContact() == true)
+		{
+			debugFont->print(500, 30, L"true");
+			debugFont->draw();
+		}
+		else
+		{
+			debugFont->print(500, 30, L"false");
 			debugFont->draw();
 		}
 		wchar_t* state[]

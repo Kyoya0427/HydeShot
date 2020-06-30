@@ -1,12 +1,12 @@
 //======================================================
 // File Name	: PlayerController.h
-// Summary		: プレイヤークラス
+// Summary		: プレイヤーコントローラー
 // Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 #pragma once
 
-#include <Game\Controller\CharacterController.h>
+#include <Game/Controller/CharacterController.h>
 
 class PlayerController : public  CharacterController
 {
@@ -19,7 +19,6 @@ public:
 public:
 	//更新
 	void Update(const DX::StepTimer& timer) override;
-	void Render();
 
 public:
 	//移動速度

@@ -1,19 +1,19 @@
 //======================================================
-// File Name	: Flag.h
+// File Name	: Flag.cpp
 // Summary		: Šø
 // Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 #include "Flag.h"
 
-#include <Game\GameObject\GameObject.h>
-
-#include <Game\Common\GameContext.h>
-#include <Game\Common\DeviceResources.h>
-
-#include <Game\Camera\Camera.h>
-
-#include <Game\Collider\CollisionManager.h>
+#include <Game/GameObject/GameObject.h>
+			  
+#include <Game/Common/GameContext.h>
+#include <Game/Common/DeviceResources.h>
+			  
+#include <Game/Camera/Camera.h>
+			  
+#include <Game/Collider/CollisionManager.h>
 
 #include <Game/GameState/GameStateManager.h>
 

@@ -1,17 +1,17 @@
 //======================================================
-// File Name	: Bullet.cpp
+// File Name	: Bullet.h
 // Summary		: ’e
 // Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 #pragma once
 
-#include <DirectXTK\GeometricPrimitive.h>
-#include <DirectXTK\SimpleMath.h>
+#include <DirectXTK/GeometricPrimitive.h>
+#include <DirectXTK/SimpleMath.h>
 
-#include <Game\GameObject\GameObject.h>
+#include <Game/GameObject/GameObject.h>
 
-#include <Game\Collider\SphereCollider.h>
+#include <Game/Collider/SphereCollider.h>
 
 class Bullet : public GameObject
 {

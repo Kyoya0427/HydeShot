@@ -6,19 +6,15 @@
 //======================================================
 #pragma once
 
-#include <DirectXTK\Model.h>
-#include <DirectXTK\GeometricPrimitive.h>
+#include <DirectXTK/Model.h>
+#include <DirectXTK/GeometricPrimitive.h>
 
-#include <Game\GameObject\GameObject.h>
+#include <Game/GameObject/GameObject.h>
 
 class Stage;
 
 class Floor : public GameObject
 {	
-private:
-	// モデルデータへのポインタ
-	DirectX::Model* m_models;
-
 public:
 	// コンストラクタ
 	Floor();
@@ -32,8 +28,11 @@ public:
 	void Render() override;
 	//当たった後の処理
 	void OnCollision(GameObject* object) override;
-
 	// モデル設定関数
 	void SetModel(DirectX::Model* model);
+
+private:
+	// モデルデータへのポインタ
+	DirectX::Model* m_models;
 
 };

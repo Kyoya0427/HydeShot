@@ -10,11 +10,11 @@
 #include <memory>
 #include <vector>
 
-#include <DirectXTK\SimpleMath.h>
+#include <DirectXTK/SimpleMath.h>
 
-#include <Game\Common\StepTimer.h>
+#include <Game/Common/StepTimer.h>
 
-#include <Game\GameObject\GameObject.h>
+#include <Game/GameObject/GameObject.h>
 
 
 class GameObjectManager final

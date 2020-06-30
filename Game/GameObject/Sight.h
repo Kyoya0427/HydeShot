@@ -1,5 +1,12 @@
+//======================================================
+// File Name	: Sight.h
+// Summary		: 照準
+// Date			: 2020/5/12
+// Author		: Kyoya  Sakamoto
+//======================================================
 #pragma once
 #include <DirectXTK/PrimitiveBatch.h>
+
 #include <Game/GameObject/GameObject.h>
 
 #include <Game/Collider/RayCollider.h>
@@ -9,7 +16,9 @@ class Character;
 class Sight : public GameObject
 {
 public:
+	//コンストラクタ
 	Sight(Character* chara);
+	//デストラクタ
 	~Sight();
 
 public:
@@ -20,19 +29,18 @@ public:
 	//当たった後の処理
 	void OnCollision(GameObject* object) override;
 
-public:
-	bool GetWallContact();
-	bool GetEnemyContact();
 private:
+	//当たり判定モデル
 	std::unique_ptr<DirectX::GeometricPrimitive> m_sightCollider;
-	std::unique_ptr<DirectX::PrimitiveBatch<DirectX::VertexPositionColor>>  m_lineCollider;
-	std::unique_ptr<DirectX::BasicEffect> m_basicEffect;
 	//当たり判定
 	std::unique_ptr<RayCollider>				 m_collider;
+	//サイズ
 	DirectX::SimpleMath::Vector3                 m_size;
+	//始点
 	DirectX::SimpleMath::Vector3                 m_posA;
+	//終点
 	DirectX::SimpleMath::Vector3                 m_posB;
-
+	//所持してるキャラ
 	Character*                                   m_chara;
 	
 };

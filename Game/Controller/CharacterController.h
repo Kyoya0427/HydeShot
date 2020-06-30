@@ -1,12 +1,12 @@
 //======================================================
 // File Name	: CharacterController.h
-// Summary		: プレイヤークラス
+// Summary		: キャラクターコントローラー
 // Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 #pragma once
 
-#include <Game\GameObject\GameObject.h>
+#include <Game/GameObject/GameObject.h>
 
 class Character;
 
@@ -21,11 +21,11 @@ public:
 public:
 	//更新
 	virtual void Update(const DX::StepTimer& timer) = 0;
+	//キャラを取得
 	Character* GetCharacter();
-public:
-	
 
 protected:
+	//
 	Character*     m_character;
 	//ステイト変更インターバル
 	float m_shotInterval;

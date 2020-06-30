@@ -1,18 +1,23 @@
 //======================================================
-// File Name	: NeuralNetworkManager.h
-// Summary		: モード選択
+// File Name	: NeuralNetworkManager.cpp
+// Summary		: ニューラルネットワークでモード選択
 // Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 #include "NeuralNetworkManager.h"
 
-
 #include <fstream>
 #include <sstream>
 #include <string>
 
-#include <Game/AI/NeuralNetwork.h>
 #include <Game/Common/DebugFont.h>
+
+#include <Game/AI/NeuralNetwork.h>
+
+#include <Game/GameObject/Character.h>
+
+using namespace DirectX;
+using namespace DirectX::SimpleMath;
 
 /// <summary>
 /// コンストラクタ
@@ -31,6 +36,10 @@ NeuralNetworkManager::~NeuralNetworkManager()
 {
 }
 
+/// <summary>
+/// データを取得
+/// </summary>
+/// <param name="fname">ファイルネーム</param>
 void NeuralNetworkManager::InitializeTraining(wchar_t* fname)
 {
 	std::wstring str;
@@ -54,6 +63,9 @@ void NeuralNetworkManager::InitializeTraining(wchar_t* fname)
 	}
 }
 
+/// <summary>
+/// ニューラルネットワークの初期化
+/// </summary>
 void NeuralNetworkManager::InitializeNeuralNetwork()
 {
 	// ニューラルネットワークを初期化する(入力層:3、隠れ層:60、出力層:1)
@@ -91,28 +103,26 @@ void NeuralNetworkManager::InitializeNeuralNetwork()
 		}
 		error = error / MAX_DATA_H;
 	}
-
-	m_error = error;
-
-	
 }
 
-AIController::Behavior NeuralNetworkManager::BehaviorSelection(float x, float z, int hp)
+/// <summary>
+/// 行動パターンを選択
+/// </summary>
+/// <param name="character">キャラ</param>
+/// <param name="enemys">敵</param>
+/// <returns>行動パターン</returns>
+AIController::Behavior NeuralNetworkManager::BehaviorSelection(Character* character, Character* enemys)
 {
+	Vector3 chara = character->GetPosition();
+	Vector3 enemy = enemys->GetPosition();
+	float x = chara.x - enemy.x;
+	float z = chara.z - enemy.z;
+
 	m_neuralNetwork->SetInput(0, x /13);
 	m_neuralNetwork->SetInput(1, z /13);
-	m_neuralNetwork->SetInput(2, hp / 5);
-
+	m_neuralNetwork->SetInput(2, character->GetHp() / 5);
 	m_neuralNetwork->FeedForward();
-
 
 	return static_cast<AIController::Behavior>(static_cast<int>(m_neuralNetwork->GetOutput(0) * 7));
 }
 
-void NeuralNetworkManager::Render()
-{
-
-	DebugFont* debugFont = DebugFont::GetInstance();
-	debugFont->print(10, 120, L"%f  = error", static_cast<float>(m_error * 100));
-	debugFont->draw();
-}

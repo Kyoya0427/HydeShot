@@ -6,7 +6,7 @@
 //======================================================
 #pragma once
 
-#include <Game\Controller\CharacterController.h>
+#include <Game/Controller/CharacterController.h>
 
 class NeuralNetworkManager;
 class RuleBased;
@@ -51,16 +51,16 @@ public:
 	static const int    MODE_COUNT = 7;
 
 private:
+	//ニューラルネットワーク
 	std::unique_ptr<NeuralNetworkManager>   m_neuralNetworkManager;
+	//ルールベース
 	std::unique_ptr<RuleBased>				m_ruleBased;
-
 	//ステイト変更インターバル
-	float m_stateInterval;
+	float                                   m_stateInterval;
 	//ステイト
-	Behavior  m_state;
-	
-
-	Character* m_enemy;
-
-	int m_randMobeCount;
+	Behavior                                m_state;
+	//敵キャラ
+	Character*                              m_enemy;
+	//ランダムモードに移行するためのカウント
+	int                                     m_randMobeCount;
 };

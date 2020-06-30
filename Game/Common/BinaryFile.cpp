@@ -1,7 +1,7 @@
 ﻿//======================================================
-// File Name	: BinaryFile.h
-// Summary	: ファイルロード
-// Date		: 2020/5/12
+// File Name	: BinaryFile.cpp
+// Summary		: ファイルロード
+// Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 #include "BinaryFile.h"
@@ -9,15 +9,13 @@
 #include <fstream>
 #include <cassert>
 
-
 /// <summary>
 /// コンストラクタ
 /// </summary>
 BinaryFile::BinaryFile()
 	: m_size()
 	, m_data()
-{
-	
+{	
 }
 
 /// <summary>
@@ -29,7 +27,6 @@ BinaryFile::BinaryFile(BinaryFile && in)
 	m_data = std::move(in.m_data);
 	m_size = in.m_size;
 }
-
 
 /// <summary>
 /// ファイルロード

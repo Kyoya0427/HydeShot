@@ -11,7 +11,7 @@
 #include <deque>
 #include <unordered_map>
 
-#include <Game\Common\StepTimer.h>
+#include <Game/Common/StepTimer.h>
 
 class IGameState;
 
@@ -36,19 +36,24 @@ private:
 	using IGameStateFactoryList = std::unordered_map<GameState, IGameStateFactory>;
 
 public:
+	//コンストラクタ
 	GameStateManager();
+	//デストラクタ
 	~GameStateManager();
 
 private:
+	//ステイトを作成
 	template<typename State>
 	static IGameStatePtr CrateState();
 
 public:
-	
+	//更新
 	void Update(const DX::StepTimer& timer);
+	//描画
 	void Render();
 
 public:
+
 	template<typename State>
 	void RegisterState(const GameState id);
 	void SetStartState(const GameState id);

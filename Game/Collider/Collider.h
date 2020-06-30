@@ -1,12 +1,12 @@
 //======================================================
 // File Name	: Collider.h
-// Summary		: 衝突親クラス
+// Summary		: コライダー親クラス
 // Date			: 2020/5/12
 // Author		: Kyoya Sakamoto
 //======================================================
 #pragma once
 
-#include <DirectXTK\SimpleMath.h>
+#include <DirectXTK/SimpleMath.h>
 
 class GameObject;
 class SphereCollider;
@@ -37,7 +37,9 @@ public:
 	const DirectX::SimpleMath::Vector3 GetPosition() const;
 	 //差引勘定を取得
 	const DirectX::SimpleMath::Vector3 GetOffset() const;
+	//オブジェクトを取得
 	GameObject* GetGameObject() const;
+
 public:
 	//座標を設定
 	void SetPosition(DirectX::SimpleMath::Vector3& pos);

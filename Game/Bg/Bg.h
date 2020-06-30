@@ -6,9 +6,9 @@
 //======================================================
 #pragma once
 
-#include <DirectXTK\Model.h>
+#include <DirectXTK/Model.h>
 
-#include <Game\GameObject\GameObject.h>
+#include <Game/GameObject/GameObject.h>
 
 class GameWindow;
 
@@ -37,4 +37,5 @@ private:
 	std::unique_ptr<DirectX::Model> m_model;
 	// ‰ñ“]Šp
 	float m_angle;
+
 };

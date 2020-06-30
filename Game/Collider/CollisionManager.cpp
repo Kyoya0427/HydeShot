@@ -6,13 +6,13 @@
 //======================================================
 #include "CollisionManager.h"
 
-#include <Game\Common\Utilities.h>
+#include <Game/Common/Utilities.h>
 
 #include <Game/Collider/BoxCollider.h>
 #include <Game/Collider/SphereCollider.h>
 #include <Game/Collider/RayCollider.h>
 
-#include <Game\GameObject\GameObject.h>
+#include <Game/GameObject/GameObject.h>
 
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
@@ -127,7 +127,6 @@ void CollisionManager::AllowCollision(GameObject::ObjectTag groupName1, GameObje
 	}
 }
 
-
 /// <summary>
 /// 球と球の当たり判定
 /// </summary>
@@ -137,25 +136,25 @@ void CollisionManager::AllowCollision(GameObject::ObjectTag groupName1, GameObje
 bool CollisionManager::IsCollided(const SphereCollider* collider1, const SphereCollider* collider2)
 {
 	// 中心間の距離の平方を計算
-	DirectX::SimpleMath::Vector3 d = collider1->GetPosition() - collider2->GetPosition();
-	float dist2 = d.Dot(d);
+	Vector3 d       = collider1->GetPosition() - collider2->GetPosition();
+	float dist2     = d.Dot(d);
 	// 平方した距離が平方した半径の合計よりも小さい場合に球は交差している
 	float radiusSum = collider1->GetRadius() + collider2->GetRadius();
-	return dist2 <= radiusSum * radiusSum;
+	return dist2   <= radiusSum * radiusSum;
 }
 
 /// <summary>
-/// 箱と箱の当たり判定
+/// 箱とレイの当たり判定
 /// </summary>
 /// <param name="collider1">オブジェクト１</param>
 /// <param name="collider2">オブジェクト２</param>
 /// <returns></returns>
-bool CollisionManager::IsCollided(const BoxCollider* collider1, const BoxCollider* collider2)
+bool CollisionManager::IsCollided(const BoxCollider* collider1, const RayCollider* collider2)
 {
-	collider1;
-	collider2;
-
-	return false;
+	RaycastHit hit;
+	bool b     = LineToAABB(collider1, collider2, &hit);
+	float dist = Vector3::Distance(collider2->GetPosA(), collider2->GetPosB());
+	return b && 0 < hit.distFar && 0 < (dist - hit.distNear);
 }
 
 /// <summary>
@@ -170,17 +169,23 @@ bool CollisionManager::IsCollided(const SphereCollider* collider1, const BoxColl
 	return sq < collider1->GetRadius() * collider1->GetRadius();
 }
 
+/// <summary>
+/// 球とレイの当たり判定
+/// </summary>
+/// <param name="collider1"></param>
+/// <param name="collider2"></param>
+/// <returns></returns>
 bool CollisionManager::IsCollided(const SphereCollider* collider1, const RayCollider* collider2)
 {
 	float s, t;
-	DirectX::SimpleMath::Vector3 c1, c2;
-	// カプセルの中心の線分間の距離の平方を計算
-	DirectX::SimpleMath::Vector3 sphereTop = collider1->GetPosition();
-	DirectX::SimpleMath::Vector3 sphereBot = collider1->GetPosition();
-	sphereTop.y += collider1->GetRadius();
-	sphereBot.y -= collider1->GetRadius();
-	float dist2 = ClosestPtSegmentSegment(collider2->GetPosA(), collider2->GetPosB(), sphereTop, sphereBot, s, t, c1, c2);
-	float radius = collider1->GetRadius();
+	Vector3 c1, c2;
+	//カプセルの中心の線分間の距離の平方を計算
+	Vector3 sphereTop = collider1->GetPosition();
+	Vector3 sphereBot = collider1->GetPosition();
+	sphereTop.y      += collider1->GetRadius();
+	sphereBot.y      -= collider1->GetRadius();
+	float dist2       = ClosestPointSegment(collider2->GetPosA(), collider2->GetPosB(), sphereTop, sphereBot, s, t, c1, c2);
+	float radius      = collider1->GetRadius();
 	return dist2 < radius;
 }
 
@@ -195,34 +200,26 @@ bool CollisionManager::IsCollided(const BoxCollider* collider1, const SphereColl
 	return IsCollided(collider2, collider1);
 }
 
+/// <summary>
+/// 球とレイの当たり判定
+/// </summary>
+/// <param name="collider1"></param>
+/// <param name="collider2"></param>
+/// <returns></returns>
 bool CollisionManager::IsCollided(const RayCollider* collider1, const SphereCollider* collider2)
 {
-	float s, t;
-	DirectX::SimpleMath::Vector3 c1, c2;
-	// カプセルの中心の線分間の距離の平方を計算
-	DirectX::SimpleMath::Vector3 sphereTop = collider2->GetPosition();
-	DirectX::SimpleMath::Vector3 sphereBot = collider2->GetPosition();
-	sphereTop.y += collider2->GetRadius();
-	sphereBot.y -= collider2->GetRadius();
-	float dist2 = ClosestPtSegmentSegment(collider1->GetPosA(), collider1->GetPosB(), sphereTop, sphereBot, s, t, c1, c2);
-	float radius = collider2->GetRadius();
-	return dist2 < radius;
+	return IsCollided(collider2, collider1);
 }
 
+/// <summary>
+/// 箱とレイの当たり判定
+/// </summary>
+/// <param name="collider1">オブジェクト１</param>
+/// <param name="collider2">オブジェクト２</param>
+/// <returns></returns>
 bool CollisionManager::IsCollided(const RayCollider* collider1, const BoxCollider* collider2)
 {
-	collider1;
-	collider2;
-	
-	return false;
-}
-
-bool CollisionManager::IsCollided(const BoxCollider* collider1, const RayCollider* collider2)
-{
-	RaycastHit hit;
-	bool b = HitCheck_Line2AABB(collider1, collider2, &hit);
-	float dist = Vector3::Distance(collider2->GetPosA(), collider2->GetPosB());
-	return b && 0 < hit.distFar && 0 < (dist - hit.distNear);
+	return IsCollided(collider2, collider1);
 }
 
 bool CollisionManager::IsCollided(const RayCollider* collider1, const RayCollider* collider2)
@@ -233,7 +230,15 @@ bool CollisionManager::IsCollided(const RayCollider* collider1, const RayCollide
 	return false;
 }
 
-/// <summary>
+bool CollisionManager::IsCollided(const BoxCollider* collider1, const BoxCollider* collider2)
+{
+	collider1;
+	collider2;
+
+	return false;
+}
+
+/// /// <summary>
 /// 平方計算
 /// </summary>
 /// <param name="collider1">オブジェクト１</param>
@@ -242,8 +247,8 @@ bool CollisionManager::IsCollided(const RayCollider* collider1, const RayCollide
 float CollisionManager::SquareCalculation(const SphereCollider* collider1, const BoxCollider* collider2)
 {
 	float point[3] = { collider1->GetPosition().x, collider1->GetPosition().y, collider1->GetPosition().z };
-	float min[3] = { collider2->GetPosition().x - collider2->GetSize().x,  collider2->GetPosition().y - collider2->GetSize().y,  collider2->GetPosition().z - collider2->GetSize().z, };
-	float max[3] = { collider2->GetPosition().x + collider2->GetSize().x,  collider2->GetPosition().y + collider2->GetSize().y,  collider2->GetPosition().z + collider2->GetSize().z, };
+	float min[3]   = { collider2->GetPosition().x - collider2->GetSize().x,  collider2->GetPosition().y - collider2->GetSize().y,  collider2->GetPosition().z - collider2->GetSize().z, };
+	float max[3]   = { collider2->GetPosition().x + collider2->GetSize().x,  collider2->GetPosition().y + collider2->GetSize().y,  collider2->GetPosition().z + collider2->GetSize().z, };
 
 	float sq = 0.0f;
 	for (int i = 0; i < 3; i++)
@@ -255,15 +260,28 @@ float CollisionManager::SquareCalculation(const SphereCollider* collider1, const
 	return sq;
 }
 
-float CollisionManager::ClosestPtSegmentSegment(DirectX::SimpleMath::Vector3 p1, DirectX::SimpleMath::Vector3 q1, DirectX::SimpleMath::Vector3 p2, DirectX::SimpleMath::Vector3 q2, float& s, float& t, DirectX::SimpleMath::Vector3& c1, DirectX::SimpleMath::Vector3& c2)
+/// <summary>
+/// ２つの線分の最短距離の平方を返す関数
+/// </summary>
+/// <param name="p1">線分１の始点</param>
+/// <param name="q1">線分１の終点</param>
+/// <param name="p2">線分２の始点</param>
+/// <param name="q2">線分２の終点</param>
+/// <param name="s">線分１上の最短位置を表す係数</param>
+/// <param name="t">線分２上の最短位置を表す係数</param>
+/// <param name="c1">線分１上の最短距離の位置</param>
+/// <param name="c2">線分２上の最短距離の位置</param>
+/// <returns>２つの線分の最短距離の平方</returns>
+float CollisionManager::ClosestPointSegment(Vector3 p1, Vector3 q1, Vector3 p2, Vector3 q2, float& s, float& t, Vector3& c1, Vector3& c2)
 {
-	DirectX::SimpleMath::Vector3 d1 = q1 - p1;
-	DirectX::SimpleMath::Vector3 d2 = q2 - p2;
-	DirectX::SimpleMath::Vector3 r = p1 - p2;
+	Vector3 d1 = q1 - p1;
+	Vector3 d2 = q2 - p2;
+	Vector3 r = p1 - p2;
+
 	float a = d1.Dot(d1); float e = d2.Dot(d2); float f = d2.Dot(r);
 	if (a <= FLT_EPSILON && e <= FLT_EPSILON)
 	{
-		s = t = 0.0f;
+		s  = t = 0.0f;
 		c1 = p1;
 		c2 = p2;
 		return (c1 - c2).Dot(c1 - c2);
@@ -316,9 +334,16 @@ float CollisionManager::ClosestPtSegmentSegment(DirectX::SimpleMath::Vector3 p1,
 	return (c1 - c2).Dot(c1 - c2);
 }
 
-bool CollisionManager::HitCheck_Line2AABB(const BoxCollider* collider1, const RayCollider* collider2, RaycastHit* hit)
+/// <summary>
+/// 線と箱の当たり判定
+/// </summary>
+/// <param name="collider1">ボックスオブジェクト</param>
+/// <param name="collider2">線オブジェクト</param>
+/// <param name="hit">法線</param>
+/// <returns>交差判定</returns>
+bool CollisionManager::LineToAABB(const BoxCollider* collider1, const RayCollider* collider2, RaycastHit* hit)
 {
-	Vector3 p_l = collider2->GetPosA();
+	Vector3 p_l   = collider2->GetPosA();
 	Vector3 dir_l = collider2->GetPosB() - collider2->GetPosA();
 
 	// 方向ベクトル正規化
@@ -331,8 +356,8 @@ bool CollisionManager::HitCheck_Line2AABB(const BoxCollider* collider1, const Ra
 		XMFLOAT3 v;
 	} p, d, min, max, tmp_t_norm, t_max_norm;
 
-	p.v = p_l;
-	d.v = dir_l;
+	p.v   = p_l;
+	d.v   = dir_l;
 	min.v = collider1->GetPosition() - collider1->GetSize();
 	max.v = collider1->GetPosition() + collider1->GetSize();
 
@@ -350,8 +375,8 @@ bool CollisionManager::HitCheck_Line2AABB(const BoxCollider* collider1, const Ra
 			// スラブとの距離を算出
 			// t1が近スラブ、t2が遠スラブとの距離
 			float odd = 1.0f / d.f[i];
-			float t1 = (min.f[i] - p.f[i]) * odd;
-			float t2 = (max.f[i] - p.f[i]) * odd;
+			float t1  = (min.f[i] - p.f[i]) * odd;
+			float t2  = (max.f[i] - p.f[i]) * odd;
 			if (t1 > t2)
 				std::swap(t1, t2);
 			if (t1 > tmp_t) { tmp_t = t1; tmp_t_norm.v = Vector3::Zero; tmp_t_norm.f[i] = d.f[i] > 0 ? -1.0f : 1.0f; }
@@ -365,11 +390,11 @@ bool CollisionManager::HitCheck_Line2AABB(const BoxCollider* collider1, const Ra
 	if (hit)
 	{
 		hit->distNear = tmp_t;
-		hit->distFar = t_max;
-		hit->posNear = p_l + tmp_t * dir_l;
-		hit->posFar = p_l + t_max * dir_l;
+		hit->distFar  = t_max;
+		hit->posNear  = p_l + tmp_t * dir_l;
+		hit->posFar   = p_l + t_max * dir_l;
 		hit->normNear = tmp_t_norm.v;
-		hit->normFar = t_max_norm.v;
+		hit->normFar  = t_max_norm.v;
 	}
 	// 交差している
 	return true;

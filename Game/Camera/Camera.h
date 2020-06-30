@@ -6,7 +6,7 @@
 //======================================================
 #pragma once
 
-#include <DirectXTK\SimpleMath.h>
+#include <DirectXTK/SimpleMath.h>
 
 class Camera
 {
@@ -20,6 +20,16 @@ public:
 	//初期化
 	void Initialize();
 
+public:
+	// ビュー行列取得
+	DirectX::SimpleMath::Matrix GetView();
+	// 視点取得
+	DirectX::SimpleMath::Vector3 Geteye();
+	// 注視点取得
+	DirectX::SimpleMath::Vector3 GetTarget();
+	//射影行列取得
+	DirectX::SimpleMath::Matrix GetProjection();
+
 private:
 	// ビュー行列
 	DirectX::SimpleMath::Matrix  m_view;
@@ -30,13 +40,4 @@ private:
 	//射影行列
 	DirectX::SimpleMath::Matrix  m_projection;
 
-public:
-	// ビュー行列取得
-	DirectX::SimpleMath::Matrix GetView();
-	// 視点取得
-	DirectX::SimpleMath::Vector3 Geteye();
-	// 注視点取得
-	DirectX::SimpleMath::Vector3 GetTarget();
-	//射影行列取得
-	DirectX::SimpleMath::Matrix GetProjection();
 };

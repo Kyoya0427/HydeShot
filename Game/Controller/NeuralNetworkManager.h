@@ -1,6 +1,6 @@
 //======================================================
 // File Name	: NeuralNetworkManager.h
-// Summary		: モード選択
+// Summary		: ニューラルネットワークでモード選択
 // Date			: 2020/6/9
 // Author		: Kyoya  Sakamoto
 //======================================================
@@ -11,11 +11,14 @@
 #include <Game/Controller/AIController.h>
 
 class NeuralNetwork;
+class Character;
 
 class NeuralNetworkManager
 {
 public:
+	//コンストラクタ
 	NeuralNetworkManager();
+	//デストラクタ
 	~NeuralNetworkManager();
 
 public:
@@ -23,14 +26,17 @@ public:
 	static const int MAX_DATA_W = 4; 
 
 public:
+	//データを取得
 	void InitializeTraining(wchar_t* fname);
+	//ニューラルネットワークの初期化
 	void InitializeNeuralNetwork();
-	AIController::Behavior BehaviorSelection(float x, float y, int hp);
-	void Render();
-public: 
+	//行動パターンを選択
+	AIController::Behavior BehaviorSelection(Character* character, Character* enemys);
 
+public: 
+	//データを格納
 	std::vector<std::vector<double>> m_training;
-	double                           m_error;
+	//ニューラルネットワーク
 	std::unique_ptr<NeuralNetwork>   m_neuralNetwork;
 };
 

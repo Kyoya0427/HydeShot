@@ -1,7 +1,7 @@
 //======================================================
-// File Name	: RuleBased.h
-// Summary		: ニューラルネットワーク
-// Date			: 2020/6/12
+// File Name	: RuleBased.cpp
+// Summary		: ルールベース
+// Date			: 2020/6/27
 // Author		: Kyoya  Sakamoto
 //======================================================
 #include "RuleBased.h"
@@ -35,19 +35,21 @@ RuleBased::~RuleBased()
 /// <returns>選択された行動</returns>
 AIController::Behavior RuleBased::BehaviorSelection(Character* character, Character* enemys)
 {
+	//相対座標計算
 	Vector3 chara = character->GetPosition();
 	Vector3 enemy = enemys->GetPosition();
 	float x = chara.x - enemy.x;
 	float z = chara.z - enemy.z;
 
-	if (character->GetEnemyContact() == true)
+
+	if (character->GetEnemyContact())
 		return AIController::Behavior::SHOOT;
+
 	if (z <= -7.0f)
 		return AIController::Behavior::MOVE_FORWARD;
+	
 	if (z >= -3.0f && z <= 0.0f)
 		return AIController::Behavior::MOVE_BACKWARD;
-
-
 
 	if (x > 0.0f)
 		return AIController::Behavior::MOVE_RIGHTWARD;

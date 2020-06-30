@@ -5,10 +5,11 @@
 // Author		: Kyoya  Sakamoto
 //======================================================
 #pragma once
-#include <DirectXTK\GeometricPrimitive.h>
-#include <Game\GameObject\GameObject.h>
+#include <DirectXTK/GeometricPrimitive.h>
 
-#include <Game\Collider\SphereCollider.h>
+#include <Game/GameObject/GameObject.h>
+
+#include <Game/Collider/SphereCollider.h>
 
 class Flag : public GameObject
 {
@@ -28,7 +29,9 @@ public:
 	void OnCollision(GameObject* object) override;
 
 private:
+	//ƒ‚ƒfƒ‹
 	std::unique_ptr<DirectX::GeometricPrimitive> m_model;
+	//“–‚½‚è”»’èƒ‚ƒfƒ‹
 	std::unique_ptr<DirectX::GeometricPrimitive> m_sphereCollider;
 	//“–‚½‚è”»’è
 	std::unique_ptr<SphereCollider>				 m_collider;

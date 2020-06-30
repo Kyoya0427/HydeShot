@@ -1,18 +1,16 @@
 //======================================================
 // File Name	: Sight.cpp
-// Summary		: プレイヤークラス
+// Summary		: 照準
 // Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 #include "Sight.h"
 
-
-
-#include <Game\Common\GameContext.h>
-#include <Game\Common\DeviceResources.h>
+#include <Game/Common/GameContext.h>
+#include <Game/Common/DeviceResources.h>
 #include <Game/Common/DebugFont.h>
 
-#include <Game\Camera\Camera.h>
+#include <Game/Camera/Camera.h>
 
 #include <Game/GameObject/GameObject.h>
 #include <Game/GameObject/Character.h>
@@ -24,6 +22,10 @@
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
+/// <summary>
+/// コンストラクタ
+/// </summary>
+/// <param name="chara">所持してるキャラ</param>
 Sight::Sight(Character* chara)
 	: m_chara(chara)
 	, m_posA()
@@ -45,13 +47,17 @@ Sight::Sight(Character* chara)
 	
 }
 
-
+/// <summary>
+/// デストラクタ
+/// </summary>
 Sight::~Sight()
 {
 }
 
-
-
+/// <summary>
+/// 更新
+/// </summary>
+/// <param name="timer">タイマー</param>
 void Sight::Update(const DX::StepTimer& timer)
 {
 	timer;
@@ -80,6 +86,9 @@ void Sight::Update(const DX::StepTimer& timer)
 	}
 }
 
+/// <summary>
+/// 描画
+/// </summary>
 void Sight::Render()
 {
 	Quaternion rot    = Quaternion::CreateFromAxisAngle(Vector3::UnitY, m_chara->GetRotation().y);
@@ -93,6 +102,10 @@ void Sight::Render()
 	m_sightCollider->Draw(m_world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_chara->GetColor(), nullptr, true);
 }
 
+/// <summary>
+/// 当たった後の処理
+/// </summary>
+/// <param name="object"></param>
 void Sight::OnCollision(GameObject* object)
 {
 	if (object->GetTag() == ObjectTag::Wall)

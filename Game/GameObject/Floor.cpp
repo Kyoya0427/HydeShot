@@ -8,13 +8,13 @@
 
 #include <Game/Stage/Stage.h>
 
-#include <DirectXTK\CommonStates.h>
-#include <DirectXTK\GeometricPrimitive.h>
+#include <DirectXTK/CommonStates.h>
+#include <DirectXTK/GeometricPrimitive.h>
 
-#include <Game\Common\GameContext.h>
-#include <Game\Common\DeviceResources.h>
+#include <Game/Common/GameContext.h>
+#include <Game/Common/DeviceResources.h>
 
-#include <Game\Camera\Camera.h>
+#include <Game/Camera/Camera.h>
 
 using namespace DirectX;
 using namespace DirectX::SimpleMath;

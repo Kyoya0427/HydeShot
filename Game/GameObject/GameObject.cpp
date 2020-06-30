@@ -74,6 +74,10 @@ const Vector3& GameObject::GetPosition() const
 	return m_position;
 }
 
+/// <summary>
+/// ベロシティーを取得
+/// </summary>
+/// <returns></returns>
 const Vector3& GameObject::GetVelocity() const
 {
 	return m_velocity;
@@ -97,12 +101,20 @@ const Vector3& GameObject::GetScale() const
 	return m_scale;
 }
 
-DirectX::SimpleMath::Matrix GameObject::GetWorld()
+/// <summary>
+/// ワールド座標を取得
+/// </summary>
+/// <returns></returns>
+Matrix GameObject::GetWorld()
 {
 	return m_world;
 }
 
-DirectX::SimpleMath::Color GameObject::GetColor()
+/// <summary>
+/// カラーを取得
+/// </summary>
+/// <returns></returns>
+Color GameObject::GetColor()
 {
 	return m_color;
 }

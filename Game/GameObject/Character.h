@@ -10,7 +10,6 @@
 
 #include <Game/GameObject/GameObject.h>
 
-
 #include <Game/Common/StepTimer.h>
 
 #include <Game/Collider/SphereCollider.h>
@@ -52,26 +51,34 @@ public:
 	void Shoot();
 
 public:
-	int GetHp();
+	//hp‚ğæ“¾
+	int  GetHp();
+	//•Ç‚ÉÚG‚µ‚Ä‚é‚©
 	bool GetWallContact();
+	//İ’è
 	void SetWallContact(bool contact);
+	//“G‚ÉÚG‚µ‚Ä‚¢‚é‚©
 	bool GetEnemyContact();
+	//İ’è
 	void SetEnemyContact(bool contact);
 public:
+	//Å‘åHP
 	static const int  MAX_HP;
 
 private:
-
+	//ƒ‚ƒfƒ‹
 	std::unique_ptr<DirectX::GeometricPrimitive> m_model;
+	//“–‚½‚è”»’èƒ‚ƒfƒ‹
 	std::unique_ptr<DirectX::GeometricPrimitive> m_sphereCollider;
+	//Ë’ö
 	std::unique_ptr<Sight>                       m_sight;
-
+	//‚PƒtƒŒ[ƒ€‘O‚ÌÀ•W
 	DirectX::SimpleMath::Vector3                 m_previousPos;
-
 	//“–‚½‚è”»’è
 	std::unique_ptr<SphereCollider>              m_collider;
-	
+	//•Ç‚ÉÚG‚µ‚Ä‚é‚©
 	bool                                         m_wallContact;
+	//“G‚ÉÚG‚µ‚Ä‚¢‚é‚©
 	bool                                         m_enemyContact;
 	//HP
 	int                                          m_hp;

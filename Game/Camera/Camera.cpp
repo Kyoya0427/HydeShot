@@ -6,7 +6,7 @@
 //======================================================
 #include "Camera.h"
 
-#include <Game\GameState\PlayState.h>
+#include <Game/GameState/PlayState.h>
 
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
@@ -45,9 +45,9 @@ void Camera::Initialize()
 		0.1f,
 		200.0f);
 	//カメラupを作成
-	Vector3 up = Vector3(0.0f, 1.0f, 0.0f);
+	Vector3 up   = Vector3(0.0f, 1.0f, 0.0f);
 	// ビュー行列
-	m_view     = Matrix::CreateLookAt(m_eye, m_target, up);
+	m_view       = Matrix::CreateLookAt(m_eye, m_target, up);
 }
 
 /// <summary>

@@ -8,7 +8,7 @@
 
 #include <cassert>
 
-#include <Game\Common\Utilities.h>
+#include <Game/Common/Utilities.h>
 
 #include <Game/GameState/IGameState.h>
 

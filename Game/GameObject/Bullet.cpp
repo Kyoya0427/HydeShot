@@ -6,21 +6,18 @@
 //======================================================
 #include "Bullet.h"
 
-#include <Game\Common\GameContext.h>
-#include <Game\Common\DeviceResources.h>
-
-#include <Game\Camera\Camera.h>
-
-#include <Game\Collider\SphereCollider.h>
-#include <Game\Collider\CollisionManager.h>
+#include <Game/Common/GameContext.h>
+#include <Game/Common/DeviceResources.h>
+			  
+#include <Game/Camera/Camera.h>
+			  
+#include <Game/Collider/SphereCollider.h>
+#include <Game/Collider/CollisionManager.h>
 
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
-
 const float Bullet::MOVE_SPEED = 0.2f;
-
-
 
 /// <summary>
 /// コンストラクタ

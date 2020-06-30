@@ -24,14 +24,16 @@ public:
 	bool IsCollided(const RayCollider*    collider) const override;
 
 public:
+	//始点と終点を取得
 	DirectX::SimpleMath::Vector3 GetPosA() const;
 	DirectX::SimpleMath::Vector3 GetPosB() const;
 	//サイズの取得と設定
 	void SetPosA(DirectX::SimpleMath::Vector3 posA);
 	void SetPosB(DirectX::SimpleMath::Vector3 posB);
 
-
 private:
+	//始点
 	DirectX::SimpleMath::Vector3 m_posA;
+	//終点
 	DirectX::SimpleMath::Vector3 m_posB;
 };

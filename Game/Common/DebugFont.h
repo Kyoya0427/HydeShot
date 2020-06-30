@@ -1,7 +1,7 @@
 //======================================================
 // File Name	: DebugFont.h
-// Summary	: カメラ
-// Date		: 2020/5/12
+// Summary		: デバックフォント
+// Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 #pragma once
@@ -20,11 +20,13 @@ class DebugFont
 public:
 	// 文字列最大数サイズ
 	static const size_t STRING_SIZE_MAX = 256;
+
 public:
 	//コンストラクタ
 	DebugFont();
 	//デストラクタ
 	~DebugFont();
+
 public:
 	// 生成
 	void create(ID3D11Device1* device, ID3D11DeviceContext1* context);
@@ -112,7 +114,8 @@ private:
 #endif
 private:
 	std::unique_ptr<DirectX::SpriteBatch> m_spriteBatch;
-	std::unique_ptr<DirectX::SpriteFont> m_spriteFont;
-	wchar_t* m_string;
-	DirectX::SimpleMath::Vector2 m_pos;
+	std::unique_ptr<DirectX::SpriteFont>  m_spriteFont;
+	wchar_t*                              m_string;
+	DirectX::SimpleMath::Vector2          m_pos;
+
 };

@@ -1,7 +1,7 @@
 ﻿//======================================================
 // File Name	: BinaryFile.h
-// Summary	: ファイルロード
-// Date		: 2020/5/12
+// Summary		: ファイルロード
+// Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 #pragma once
@@ -21,8 +21,9 @@ public:
 	static BinaryFile LoadFile(const wchar_t* fileName);
 
 public:
-	// アクセッサ
+	//データを取得
 	char* GetData() { return m_data.get(); }
+	//サイズを取得
 	unsigned int GetSize() { return m_size; }
 
 protected:

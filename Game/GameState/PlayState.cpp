@@ -197,7 +197,7 @@ void PlayState::Update(const DX::StepTimer& timer)
 
 	if (m_keyTracker.IsKeyReleased(DirectX::Keyboard::X))
 	{
-		m_isDebug = m_isDebug  == true ? false : true;
+		m_isDebug = !m_isDebug;
 	}
 }
 

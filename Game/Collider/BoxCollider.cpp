@@ -6,9 +6,9 @@
 //======================================================
 #include "BoxCollider.h"
 
-#include <Game\Collider\CollisionManager.h>
+#include <Game/Collider/CollisionManager.h>
 
-#include <Game\GameObject\GameObject.h>
+#include <Game/GameObject/GameObject.h>
 
 /// <summary>
 /// コンストラクタ
@@ -51,6 +51,11 @@ bool BoxCollider::IsCollided(const BoxCollider* collider) const
 	return CollisionManager::IsCollided(this, collider);
 }
 
+/// <summary>
+///  衝突した
+/// </summary>
+/// <param name="collider">オブジェクト</param>
+/// <returns></returns>
 bool BoxCollider::IsCollided(const RayCollider* collider) const
 {
 	return CollisionManager::IsCollided(this, collider);

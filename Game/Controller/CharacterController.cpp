@@ -1,12 +1,12 @@
 //======================================================
 // File Name	: CharacterController.cpp
-// Summary		: プレイヤークラス
+// Summary		: キャラクターコントローラー
 // Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 #include "CharacterController.h"
 
-#include <Game\GameObject\Character.h>
+#include <Game/GameObject/Character.h>
 
 /// <summary>
 /// コンストラク
@@ -25,6 +25,10 @@ CharacterController::~CharacterController()
 	m_character = nullptr;
 }
 
+/// <summary>
+/// キャラを取得
+/// </summary>
+/// <returns></returns>
 Character* CharacterController::GetCharacter()
 {
 	return m_character;

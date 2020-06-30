@@ -20,7 +20,6 @@
 class SphereCollider;
 class BoxCollider;
 
-
 class CollisionManager final
 {
 public:
@@ -28,7 +27,6 @@ public:
 	{
 		RaycastHit() :distNear(), distFar(), posNear(), posFar(), normNear(), normFar() {
 		}
-
 		float distNear;
 		float distFar;
 		DirectX::SimpleMath::Vector3 posNear;
@@ -71,14 +69,14 @@ public:
 	static bool IsCollided(const RayCollider*    collider1, const SphereCollider* collider2);
 	static bool IsCollided(const RayCollider*    collider1, const BoxCollider*    collider2);
 
-
 	//平方計算
 	static float SquareCalculation(const SphereCollider*    collider1, const BoxCollider*    collider2);
-	static float ClosestPtSegmentSegment(DirectX::SimpleMath::Vector3 p1, DirectX::SimpleMath::Vector3 q1,
+	//最も近いポイントセグメント
+	static float ClosestPointSegment(DirectX::SimpleMath::Vector3 p1, DirectX::SimpleMath::Vector3 q1,
 		DirectX::SimpleMath::Vector3 p2, DirectX::SimpleMath::Vector3 q2, float& s, float& t,
 		DirectX::SimpleMath::Vector3& c1, DirectX::SimpleMath::Vector3& c2);
 
-	static bool HitCheck_Line2AABB(const BoxCollider* collider1, const RayCollider* collider2, RaycastHit* hit = nullptr);
+	static bool LineToAABB(const BoxCollider* collider1, const RayCollider* collider2, RaycastHit* hit = nullptr);
 
 private:
 	//オブジェクトをグループ名事に記録

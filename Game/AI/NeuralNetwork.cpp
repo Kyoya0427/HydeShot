@@ -1,5 +1,5 @@
 //======================================================
-// File Name	: NeuralNetwork.cpp
+// File Name	: NeuralNetworkLayer.cpp
 // Summary		: ニューラルネットワーク
 // Date			: 2020/6/12
 // Author		: Kyoya  Sakamoto
@@ -389,7 +389,8 @@ void NeuralNetwork::DumpData(char* filename)
 {
 	FILE* f;
 
-	f = fopen(filename, "w");
+	errno_t error;
+	error = fopen_s(&f,filename, "w");
 
 	fprintf(f, "--------------------------------------------------------\n");
 	fprintf(f, "Input Layer\n");
