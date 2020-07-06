@@ -11,7 +11,7 @@
 
 #include <Game/GameObject/Character.h>
 
-#include <Game/Controller/NeuralNetworkManager.h>
+#include <Game/AI/NeuralNetworkManager.h>
 #include <Game/Controller/PlayerController.h>
 #include <Game/AI/RuleBased.h>
 
@@ -79,7 +79,7 @@ void AIController::Update(const DX::StepTimer& timer)
 		}
 		else
 		{
-		//	m_state = m_neuralNetworkManager->BehaviorSelection(m_character,m_enemy);
+			//m_state = m_neuralNetworkManager->BehaviorSelection(m_character,m_enemy);
 		}
 
 	}

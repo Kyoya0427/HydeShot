@@ -325,8 +325,8 @@
     <ClInclude Include="Game\AI\RuleBased.h">
       <Filter>Game\AI</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Controller\NeuralNetworkManager.h">
-      <Filter>Game\Controller</Filter>
+    <ClInclude Include="Game\AI\NeuralNetworkManager.h">
+      <Filter>Game\AI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -423,8 +423,8 @@
     <ClCompile Include="Game\AI\RuleBased.cpp">
       <Filter>Game\AI</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Controller\NeuralNetworkManager.cpp">
-      <Filter>Game\Controller</Filter>
+    <ClCompile Include="Game\AI\NeuralNetworkManager.cpp">
+      <Filter>Game\AI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

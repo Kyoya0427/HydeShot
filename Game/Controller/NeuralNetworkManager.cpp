@@ -25,7 +25,7 @@ using namespace DirectX::SimpleMath;
 NeuralNetworkManager::NeuralNetworkManager()
 {
 	m_neuralNetwork = std::make_unique<NeuralNetwork>();
-	InitializeTraining(L"Resources\\CSV\\TrainingSet.csv");
+	InitializeTraining(L"Resources\\CSV\\TrainingSetcsv");
 	InitializeNeuralNetwork();
 }
 
