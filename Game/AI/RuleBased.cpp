@@ -41,14 +41,17 @@ AIController::Behavior RuleBased::BehaviorSelection(Character* character, Charac
 	float x = chara.x - enemy.x;
 	float z = chara.z - enemy.z;
 
+	if(character->GetWallContact())
+		return static_cast<AIController::Behavior>(rand() % static_cast<int>(AIController::Behavior::SHOOT));
 
-	if (character->GetEnemyContact())
-		return AIController::Behavior::SHOOT;
 
-	if (z <= -7.0f)
+	if (!character->GetWallSightContact())
+		if (character->GetEnemySightContact())
+			return AIController::Behavior::SHOOT;
+
+	if (z <= -6.0f)
 		return AIController::Behavior::MOVE_FORWARD;
-	
-	if (z >= -3.0f && z <= 0.0f)
+	if (z >= -4.0f && z <= 0.0f)
 		return AIController::Behavior::MOVE_BACKWARD;
 
 	if (x > 0.0f)

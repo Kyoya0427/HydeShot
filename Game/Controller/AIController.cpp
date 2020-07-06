@@ -79,8 +79,7 @@ void AIController::Update(const DX::StepTimer& timer)
 		}
 		else
 		{
-	
-//			m_state = m_neuralNetworkManager->BehaviorSelection(x, z, m_character->GetHp());
+		//	m_state = m_neuralNetworkManager->BehaviorSelection(m_character,m_enemy);
 		}
 
 	}
@@ -142,7 +141,7 @@ void AIController::Render()
 		debugFont->draw();
 
 
-		if (m_character->GetEnemyContact() == true)
+		if (m_character->GetEnemySightContact() == true)
 		{
 			debugFont->print(500, 10, L"true");
 			debugFont->draw();

@@ -1,6 +1,6 @@
 //======================================================
 // File Name	: Character.cpp
-// Summary		: プレイヤークラス
+// Summary		: キャラクター
 // Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
@@ -55,6 +55,7 @@ void Character::Initialize(DirectX::SimpleMath::Vector2 & pos)
 	m_radius = 0.4f;
 
 	m_hp = MAX_HP;
+	m_wallContact = false;
 
 	ID3D11DeviceContext* deviceContext = GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext();
 
@@ -74,6 +75,7 @@ void Character::Initialize(DirectX::SimpleMath::Vector2 & pos)
 void Character::Update(const DX::StepTimer & timer)
 {
 	timer;
+	m_wallContact = false;
 	m_previousPos = m_position;
 	GameContext::Get<CollisionManager>()->Add(GetTag(), m_collider.get());
 	Quaternion quaternion = Quaternion::CreateFromAxisAngle(Vector3::UnitY, m_rotation.y);
@@ -123,7 +125,7 @@ void Character::OnCollision(GameObject* object)
 	{
 		m_position = m_previousPos;
 		m_velocity = Vector3::Zero;
-	
+		m_wallContact = true;
 	}
 
 	if (object->GetTag() == GameObject::ObjectTag::Bullet)
@@ -223,6 +225,11 @@ int Character::GetHp()
 /// 壁に接触してるか
 /// </summary>
 /// <returns></returns>
+bool Character::GetWallSightContact()
+{
+	return m_wallSightContact;
+}
+
 bool Character::GetWallContact()
 {
 	return m_wallContact;
@@ -232,26 +239,26 @@ bool Character::GetWallContact()
 /// 設定
 /// </summary>
 /// <param name="contact"></param>
-void Character::SetWallContact(bool contact)
+void Character::SetWallSightContact(bool contact)
 {
-	m_wallContact = contact;
+	m_wallSightContact = contact;
 }
 
 /// <summary>
 /// 敵に接触しているか
 /// </summary>
 /// <returns></returns>
-bool Character::GetEnemyContact()
+bool Character::GetEnemySightContact()
 {
-	return m_enemyContact;
+	return m_enemySightContact;
 }
 
 /// <summary>
 /// 設定
 /// </summary>
 /// <param name="contact"></param>
-void Character::SetEnemyContact(bool contact)
+void Character::SetEnemySightContact(bool contact)
 {
-	m_enemyContact = contact;
+	m_enemySightContact = contact;
 }
                                                            

@@ -1,6 +1,6 @@
 //======================================================
 // File Name	: Character.h
-// Summary		: プレイヤークラス
+// Summary		: キャラクター
 // Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
@@ -53,14 +53,16 @@ public:
 public:
 	//hpを取得
 	int  GetHp();
+	//壁にセンサーが接触してるか
+	bool GetWallSightContact();
 	//壁に接触してるか
 	bool GetWallContact();
-	//設定
-	void SetWallContact(bool contact);
-	//敵に接触しているか
-	bool GetEnemyContact();
-	//設定
-	void SetEnemyContact(bool contact);
+	//壁にセンサーが接触してるか設定
+	void SetWallSightContact(bool contact);
+	//敵にセンサーが接触しているか
+	bool GetEnemySightContact();
+	//敵にセンサーが接触しているか設定
+	void SetEnemySightContact(bool contact);
 public:
 	//最大HP
 	static const int  MAX_HP;
@@ -76,10 +78,12 @@ private:
 	DirectX::SimpleMath::Vector3                 m_previousPos;
 	//当たり判定
 	std::unique_ptr<SphereCollider>              m_collider;
+	//壁にセンサーが接触してるか
+	bool                                         m_wallSightContact;
 	//壁に接触してるか
-	bool                                         m_wallContact;
-	//敵に接触しているか
-	bool                                         m_enemyContact;
+	bool										 m_wallContact;
+	//敵にセンサーが接触しているか
+	bool                                         m_enemySightContact;
 	//HP
 	int                                          m_hp;
 };

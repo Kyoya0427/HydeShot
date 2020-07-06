@@ -8,6 +8,10 @@
 
 class NeuralNetworkLayer
 {
+	using DataType = double;
+	using DataArray = std::unique_ptr<DataType[]>;
+	using DataArray2d = std::unique_ptr<DataArray[]>;
+
 public:
 	//入力層ノード数
 	int			                      m_numNodes;
@@ -16,31 +20,31 @@ public:
 	//出力層ノード数
 	int			                      m_numParentNodes;
 	//入力と隠れ層するノードの重み
-	std::vector<std::vector<double>>  m_weights;
+	DataArray2d  m_weights;
 	//重みの調整
-	std::vector<std::vector<double>>  m_weightChanges;
+	DataArray2d  m_weightChanges;
 	//計算結果の値
-	std::vector<double>               m_neuronValues;
+	DataArray               m_neuronValues;
 	//ターゲット値を格納
-	std::vector<double>               m_desiredValues;
+	DataArray               m_desiredValues;
 	//エラー
-	std::vector<double>               m_errors;
+	DataArray               m_errors;
 	//バイアスの重み
-	std::vector<double>               m_biasWeights;
+	DataArray               m_biasWeights;
 	//バイアス値
-	std::vector<double>               m_biasValues;
+	DataArray               m_biasValues;
 	//重みの調整を計算する学習率を保持
-	double		                      m_learningRate;
+	DataType		                      m_learningRate;
 	//線形活性化関数使用（デフォfalse）
 	bool		                      m_linearOutput;
 	//モーメンタム使用（デフォfalse）
 	bool		                      m_useMomentum;
 	//前述モーメンタム因数を保持（モーメント使用時のみ使用）
-	double		                      m_momentumFactor;
+	DataType		                      m_momentumFactor;
 	//親層を格納(入力層の場合NULL)
-	NeuralNetworkLayer*               m_parentLayer;
+	NeuralNetworkLayer* m_parentLayer;
 	//子層を格納(出力層の場合NULL)
-	NeuralNetworkLayer*               m_childLayer;
+	NeuralNetworkLayer* m_childLayer;
 
 public:
 	//コンストラクタ
@@ -92,10 +96,9 @@ public:
 	void SetLearningRate(double rate);
 	//線形活性化関数を使うか設定
 	void SetLinearOutput(bool useLinear);
-
+	//モーメントを設定
 	void SetMomentum(bool useMomentum, double factor);
 	//データを出力
 	void DumpData(char* filename);
-
 
 };

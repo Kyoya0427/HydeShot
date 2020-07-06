@@ -19,10 +19,10 @@
 /// </summary>
 NeuralNetworkLayer::NeuralNetworkLayer()
 {
-	m_parentLayer = NULL;
-	m_childLayer = NULL;
-	m_linearOutput = false;
-	m_useMomentum = false;
+	m_parentLayer    = nullptr;
+	m_childLayer     = nullptr;
+	m_linearOutput   = false;
+	m_useMomentum    = false;
 	m_momentumFactor = 0.9;
 }
 
@@ -36,50 +36,59 @@ void NeuralNetworkLayer::Initialize(int NumNodes, NeuralNetworkLayer* parent, Ne
 {
 	NumNodes;
 	// Allocate memory
-	m_neuronValues.resize(m_numNodes, 0.0);
-	m_desiredValues.resize(m_numNodes, 0.0);
-	m_errors.resize(m_numNodes, 0.0);
-	
+	m_neuronValues = std::make_unique<DataType[]>(m_numNodes);
+	m_desiredValues = std::make_unique<DataType[]>(m_numNodes);
+	m_errors = std::make_unique<DataType[]>(m_numNodes);
 
-	if (parent != NULL) {
+
+	if (parent != NULL)
+	{
 		m_parentLayer = parent;
 	}
 
-	if (child != NULL) {
+	if (child != NULL)
+	{
 		m_childLayer = child;
-	
-		m_weights.resize(m_numNodes);
-		for (auto& weight : m_weights)
+
+		m_weights = std::make_unique<DataArray[]>(m_numNodes);
+
+		for (int i = 0; i < m_numNodes; i++)
 		{
-			weight.resize(m_numChildNodes, 0.0);
+			m_weights[i] = std::make_unique<DataType[]>(m_numChildNodes);
 		}
 
-		m_weightChanges.resize(m_numNodes);
-		for (auto& changeWeight : m_weightChanges)
+		m_weightChanges = std::make_unique<DataArray[]>(m_numNodes);
+
+		for (int i = 0; i < m_numNodes; i++)
 		{
-			changeWeight.resize(m_numChildNodes, 0.0);
+			m_weightChanges[i] = std::make_unique<DataType[]>(m_numChildNodes);
 		}
 
-		m_biasWeights.resize(m_numChildNodes);
-		m_biasValues.resize(m_numChildNodes);	
+		m_biasWeights = std::make_unique<DataType[]>(m_numChildNodes);
+		m_biasValues = std::make_unique<DataType[]>(m_numChildNodes);
 	}
 
 	// Make sure everything contains zeros
-	for (int i = 0; i < m_numNodes; i++) {
+	for (int i = 0; i < m_numNodes; i++)
+	{
 		m_neuronValues[i] = 0;
 		m_desiredValues[i] = 0;
 		m_errors[i] = 0;
 
-		if (m_childLayer != NULL) {
-			for (int j = 0; j < m_numChildNodes; j++) {
+		if (m_childLayer != NULL)
+		{
+			for (int j = 0; j < m_numChildNodes; j++)
+			{
 				m_weights[i][j] = 0;
 				m_weightChanges[i][j] = 0;
 			}
 		}
 	}
 
-	if (m_childLayer != NULL) {
-		for (int j = 0; j < m_numChildNodes; j++) {
+	if (m_childLayer != NULL)
+	{
+		for (int j = 0; j < m_numChildNodes; j++)
+		{
 			m_biasValues[j] = -1;
 			m_biasWeights[j] = 0;
 		}
@@ -91,19 +100,22 @@ void NeuralNetworkLayer::Initialize(int NumNodes, NeuralNetworkLayer* parent, Ne
 /// </summary>
 void NeuralNetworkLayer::CleanUp()
 {
-	std::vector<double>().swap(m_neuronValues);
-	std::vector<double>().swap(m_desiredValues);
-	std::vector<double>().swap(m_errors);
+	m_neuronValues.release();
+	m_desiredValues.release();
+	m_errors.release();
 
-	if (m_weights.empty() == true) {
-		std::vector<std::vector<double>>().swap(m_weights);
-		std::vector<std::vector<double>>().swap(m_weightChanges);
+	if (!m_weights.get()) {
+		for (int i = 0; i < m_numNodes; i++)
+		{
+			m_weights[i].release();
+			m_weightChanges[i].release();
+		}
+		m_weights.release();
+		m_weightChanges.release();
 	}
 
-	if (m_biasValues.empty() == true)
-		std::vector<double>().swap(m_biasValues);
-	if (m_biasWeights.empty() == true)
-		std::vector<double>().swap(m_biasWeights);
+	m_biasValues.release();
+	m_biasWeights.release();
 }
 
 /// <summary>
@@ -115,27 +127,33 @@ void NeuralNetworkLayer::RandomizeWeights()
 	int	max = 200;
 	int	number;
 
-	srand((unsigned)time(NULL));
+	srand((unsigned)time(nullptr));
 
-	for (int i = 0; i < m_numNodes; i++) {
-		for (int j = 0; j < m_numChildNodes; j++) {
+	for (int i = 0; i < m_numNodes; i++)
+	{
+		for (int j = 0; j < m_numChildNodes; j++)
+		{
 			number = (((abs(rand()) % (max - min + 1)) + min));
 			if (number > max)
 				number = max;
 			if (number < min)
 				number = min;
+
 			m_weights[i][j] = number / 100.0f - 1;
 		}
 	}
 
-	for (int j = 0; j < m_numChildNodes; j++) {
+	for (int j = 0; j < m_numChildNodes; j++)
+	{
 		number = (((abs(rand()) % (max - min + 1)) + min));
 		if (number > max)
 			number = max;
 		if (number < min)
 			number = min;
+
 		m_biasWeights[j] = number / 100.0f - 1;
 	}
+
 }
 
 /// <summary>
@@ -143,27 +161,46 @@ void NeuralNetworkLayer::RandomizeWeights()
 /// </summary>
 void NeuralNetworkLayer::CalculateErrors()
 {
-	double	sum = 0.0;
+	DataType* neuronValues = &m_neuronValues[0];
+	DataType* desiredValues = &m_desiredValues[0];
+	DataType* errors = &m_errors[0];
+
+	DataType	sum = 0.0;
+
 	// èoóÕëw(output layer)
-	if (m_childLayer == NULL) {
-		for (int i = 0; i < m_numNodes; i++) {
-			m_errors[i] = (m_desiredValues[i] - m_neuronValues[i]) * m_neuronValues[i] * (1.0f - m_desiredValues[i]);
-		}
-	} // ì¸óÕëw(input layer)
-	else if (m_parentLayer == NULL) {
-		for (int i = 0; i < m_numNodes; i++) {
-			m_errors[i] = 0.0f;
-		}
-	} // âBÇÍëw(hidden layer)
-	else {
-		for (int i = 0; i < m_numNodes; i++) {
-			sum = 0;
-			for (int j = 0; j < m_numChildNodes; j++) {
-				sum += m_childLayer->m_errors[j] * m_weights[i][j];
-			}
-			m_errors[i] = sum * m_neuronValues[i] * (1.0f - m_neuronValues[i]);
+	if (m_childLayer == NULL)
+	{
+		for (int i = 0; i < m_numNodes; i++)
+		{
+			errors[i] = (desiredValues[i] - neuronValues[i]) * neuronValues[i] * (1.0f - desiredValues[i]);
 		}
 	}
+	// ì¸óÕëw(input layer)
+	else if (m_parentLayer == NULL)
+	{
+		for (int i = 0; i < m_numNodes; i++)
+		{
+			errors[i] = 0.0f;
+		}
+	}
+	// âBÇÍëw(hidden layer)
+	else {
+		DataType* weights = nullptr;
+		DataType* childLayerErrors = &(m_childLayer->m_errors[0]);
+
+		for (int i = 0; i < m_numNodes; i++)
+		{
+			sum = 0;
+			weights = &m_weights[i][0];
+			for (int j = 0; j < m_numChildNodes; j++)
+			{
+				sum += childLayerErrors[j] * weights[j];
+			}
+
+			m_errors[i] = sum * neuronValues[i] * (1.0f - neuronValues[i]);
+		}
+	}
+
 }
 
 /// <summary>
@@ -171,18 +208,35 @@ void NeuralNetworkLayer::CalculateErrors()
 /// </summary>
 void NeuralNetworkLayer::AdjustWeights()
 {
-	double	dw = 0.0;
-	if (m_childLayer != NULL) {
-		for (int i = 0; i < m_numNodes; i++) {
-			for (int j = 0; j < m_numChildNodes; j++) {
-				dw = m_learningRate * m_childLayer->m_errors[j] * m_neuronValues[i];
-				m_weights[i][j] += dw + m_momentumFactor * m_weightChanges[i][j];
-				m_weightChanges[i][j] = dw;
+	DataType* weights;
+	DataType* weightChanges;
+	DataType* neuronValues = &m_neuronValues[0];
+	DataType* desiredValues = &m_desiredValues[0];
+	DataType* errors = &m_errors[0];
+	DataType* biasWeights = &m_biasWeights[0];
+	DataType* biasValues = &m_biasValues[0];
+
+	DataType	dw = 0.0;
+	if (m_childLayer != NULL) 
+	{
+		for (int i = 0; i < m_numNodes; i++) 
+		{
+			weights = &m_weights[i][0];
+			weightChanges = &m_weightChanges[i][0];
+
+			for (int j = 0; j < m_numChildNodes; j++) 
+			{
+				dw = m_learningRate * m_childLayer->m_errors[j] * neuronValues[i];
+				weights[j] += dw + m_momentumFactor * weightChanges[j];
+				weightChanges[j] = dw;
 			}
 		}
-		
-		for (int j = 0; j < m_numChildNodes; j++) {
-			m_biasWeights[j] += m_learningRate * m_childLayer->m_errors[j] * m_biasValues[j];
+
+		DataType* childLayerErrors = &(m_childLayer->m_errors[0]);
+
+		for (int j = 0; j < m_numChildNodes; j++) 
+		{
+			biasWeights[j] += m_learningRate * childLayerErrors[j] * biasValues[j];
 		}
 	}
 }
@@ -192,13 +246,18 @@ void NeuralNetworkLayer::AdjustWeights()
 /// </summary>
 void NeuralNetworkLayer::CalculateNeuronValues()
 {
-	double	x;
-	if (m_parentLayer != NULL) {
-		for (int j = 0; j < m_numNodes; j++) {
+	DataType	x;
+	if (m_parentLayer != NULL) 
+	{
+		for (int j = 0; j < m_numNodes; j++)
+		{
 			x = 0;
-			for (int i = 0; i < m_numParentNodes; i++) {
+
+			for (int i = 0; i < m_numParentNodes; i++)
+			{
 				x += m_parentLayer->m_neuronValues[i] * m_parentLayer->m_weights[i][j];
 			}
+
 			x += m_parentLayer->m_biasValues[j] * m_parentLayer->m_biasWeights[j];
 
 			if ((m_childLayer == NULL) && m_linearOutput)
@@ -226,7 +285,7 @@ void NeuralNetwork::Initialize(int nNodesInput, int nNodesHidden, int nNodesOutp
 	m_inputLayer.m_numNodes = nNodesInput;
 	m_inputLayer.m_numChildNodes = nNodesHidden;
 	m_inputLayer.m_numParentNodes = 0;
-	m_inputLayer.Initialize(nNodesInput, NULL, &m_hiddenLayer);
+	m_inputLayer.Initialize(nNodesInput, nullptr, &m_hiddenLayer);
 	m_inputLayer.RandomizeWeights();
 
 	m_hiddenLayer.m_numNodes = nNodesHidden;
@@ -238,7 +297,7 @@ void NeuralNetwork::Initialize(int nNodesInput, int nNodesHidden, int nNodesOutp
 	m_outputLayer.m_numNodes = nNodesOutput;
 	m_outputLayer.m_numChildNodes = 0;
 	m_outputLayer.m_numParentNodes = nNodesHidden;
-	m_outputLayer.Initialize(nNodesOutput, &m_hiddenLayer, NULL);
+	m_outputLayer.Initialize(nNodesOutput, &m_hiddenLayer, nullptr);
 }
 
 /// <summary>
@@ -258,7 +317,8 @@ void NeuralNetwork::CleanUp()
 /// <param name="value">ì¸óÕÇ∑ÇÈíl</param>
 void NeuralNetwork::SetInput(int i, double value)
 {
-	if ((i >= 0) && (i < m_inputLayer.m_numNodes)) {
+	if ((i >= 0) && (i < m_inputLayer.m_numNodes)) 
+	{
 		m_inputLayer.m_neuronValues[i] = value;
 	}
 }
@@ -270,9 +330,11 @@ void NeuralNetwork::SetInput(int i, double value)
 /// <returns></returns>
 double	NeuralNetwork::GetOutput(int i)
 {
-	if ((i >= 0) && (i < m_outputLayer.m_numNodes)) {
+	if ((i >= 0) && (i < m_outputLayer.m_numNodes)) 
+	{
 		return m_outputLayer.m_neuronValues[i];
 	}
+
 	return (double)INT_MAX; // to indicate an error
 }
 
@@ -283,7 +345,8 @@ double	NeuralNetwork::GetOutput(int i)
 /// <param name="value"></param>
 void NeuralNetwork::SetDesiredOutput(int i, double value)
 {
-	if ((i >= 0) && (i < m_outputLayer.m_numNodes)) {
+	if ((i >= 0) && (i < m_outputLayer.m_numNodes))
+	{
 		m_outputLayer.m_desiredValues[i] = value;
 	}
 }
@@ -319,8 +382,10 @@ int	NeuralNetwork::GetMaxOutputID()
 	double maxval = m_outputLayer.m_neuronValues[0];
 	int id = 0;
 
-	for (int i = 1; i < m_outputLayer.m_numNodes; i++) {
-		if (m_outputLayer.m_neuronValues[i] > maxval) {
+	for (int i = 1; i < m_outputLayer.m_numNodes; i++) 
+	{
+		if (m_outputLayer.m_neuronValues[i] > maxval) 
+		{
 			maxval = m_outputLayer.m_neuronValues[i];
 			id = i;
 		}
@@ -336,9 +401,11 @@ double NeuralNetwork::CalculateError()
 {
 	double	error = 0.0;
 
-	for (int i = 0; i < m_outputLayer.m_numNodes; i++) {
+	for (int i = 0; i < m_outputLayer.m_numNodes; i++)
+	{
 		error += pow(m_outputLayer.m_neuronValues[i] - m_outputLayer.m_desiredValues[i], 2);
 	}
+
 	error = error / m_outputLayer.m_numNodes;
 	return error;
 }

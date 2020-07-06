@@ -42,8 +42,8 @@ Sight::Sight(Character* chara)
 	m_sightCollider = GeometricPrimitive::CreateBox(deviceContext, m_size);
 	m_collider      = std::make_unique<RayCollider>(this);
 
-	m_chara->SetEnemyContact(false);
-	m_chara->SetWallContact(false);
+	m_chara->SetEnemySightContact(false);
+	m_chara->SetWallSightContact(false);
 	
 }
 
@@ -62,8 +62,8 @@ void Sight::Update(const DX::StepTimer& timer)
 {
 	timer;
 
-	m_chara->SetEnemyContact(false);
-	m_chara->SetWallContact(false);
+	m_chara->SetEnemySightContact(false);
+	m_chara->SetWallSightContact(false);
 	
 	Quaternion quaternion = Quaternion::CreateFromAxisAngle(Vector3::UnitY, m_chara->GetRotation().y);
 	m_velocity = Vector3::Transform(Vector3(0.0f, 0.0f, -7.0f), quaternion);
@@ -109,9 +109,30 @@ void Sight::Render()
 void Sight::OnCollision(GameObject* object)
 {
 	if (object->GetTag() == ObjectTag::Wall)
-		m_chara->SetWallContact(true);
+	{
+		m_chara->SetWallSightContact(true);
+
+		float x = m_chara->GetPosition().x - object->GetPosition().x;
+		float z = m_chara->GetPosition().z - object->GetPosition().z;
+		Vector3 wallRelativePos = Vector3(x, 0.0f, z);
+
+		if (m_chara->GetEnemySightContact())
+		{
+			if(m_enemyRelativePos.z > wallRelativePos.z)
+				m_chara->SetWallSightContact(false);
+
+		}
+	}
 	else if (object->GetTag() != m_chara->GetTag())
-		m_chara->SetEnemyContact(true);
+	{
+		m_chara->SetEnemySightContact(true);
+
+		float x = m_chara->GetPosition().x - object->GetPosition().x;
+		float z = m_chara->GetPosition().z - object->GetPosition().z;
+
+		m_enemyRelativePos = Vector3(x, 0.0f, z);
+	}
+
 }
 
 

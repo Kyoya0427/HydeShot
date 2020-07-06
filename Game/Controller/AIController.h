@@ -21,9 +21,9 @@ public:
 		MOVE_BACKWARD,	//2
 		MOVE_LEFTWARD,	//3
 		MOVE_RIGHTWARD,	//4	
-		TURN_LEFT,		//5
-		TURN_RIGHT,		//6
-		SHOOT,			//7
+		SHOOT,			//5
+		TURN_LEFT,		//6
+		TURN_RIGHT,		//7
 
 		NUM
 	};

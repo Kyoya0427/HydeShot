@@ -14,7 +14,7 @@ using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
 const float PlayerController::MOVE_SPEED    = 0.05f;
-const float PlayerController::ROT_SPEED     = 0.01f;
+const float PlayerController::ROT_SPEED     = 0.05f;
 const float PlayerController::SHOT_INTERVAL = 0.3f;
 
 /// <summary>

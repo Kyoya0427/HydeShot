@@ -72,14 +72,11 @@ void Game::Initialize(HWND window, int width, int height)
 	//キーボードトラッカー作成
 	m_keyTracker = std::make_unique<DirectX::Keyboard::KeyboardStateTracker>();
 	GameContext().Register<DirectX::Keyboard::KeyboardStateTracker>(m_keyTracker);
-	// コモンステート作成
-	m_state = std::make_unique<CommonStates>(m_deviceResources->GetD3DDevice());
-	GameContext::Register<DirectX::CommonStates>(m_state);
+
 	// スプライトバッチの作成
 	m_spriteBatch = std::make_unique<SpriteBatch>(m_deviceResources->GetD3DDeviceContext());
 	GameContext::Register<SpriteBatch>(m_spriteBatch);
 	
-	DX::DeviceResources* deviceResources = GameContext::Get<DX::DeviceResources>();
 
 	//ステイトマネジャー生成
 	m_gameStateManager = std::make_unique<GameStateManager>();
@@ -96,7 +93,7 @@ void Game::Initialize(HWND window, int width, int height)
 	
 
 	DebugFont* debugFont = DebugFont::GetInstance();
-	debugFont->create(deviceResources->GetD3DDevice(), deviceResources->GetD3DDeviceContext());
+	debugFont->create(m_deviceResources->GetD3DDevice(), m_deviceResources->GetD3DDeviceContext());
 
     // TODO: Change the timer settings if you want something other than the default variable timestep mode.
     // e.g. for 60 FPS fixed timestep update logic, call:
