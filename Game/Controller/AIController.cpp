@@ -40,7 +40,7 @@ AIController::AIController(Character* character, Character* enemy)
 	m_state = Behavior::NONE;
 
 //	m_state = static_cast<Behavior>(rand() % static_cast<int>(Behavior::NUM));
-//	m_neuralNetworkManager = std::make_unique<NeuralNetworkManager>();
+	m_neuralNetworkManager = std::make_unique<NeuralNetworkManager>();
 
 	m_ruleBased = std::make_unique<RuleBased>();
 

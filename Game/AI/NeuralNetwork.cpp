@@ -14,10 +14,11 @@
 #include <stdio.h>
 
 
+
 /// <summary>
 /// コンストラクタ
 /// </summary>
-NeuralNetworkLayer::NeuralNetworkLayer()
+NeuralNetwork::NeuralNetworkLayer::NeuralNetworkLayer()
 {
 	m_parentLayer    = nullptr;
 	m_childLayer     = nullptr;
@@ -32,7 +33,7 @@ NeuralNetworkLayer::NeuralNetworkLayer()
 /// <param name="NumNodes">入力層</param>
 /// <param name="parent">隠れ層</param>
 /// <param name="child">出力層</param>
-void NeuralNetworkLayer::Initialize(int NumNodes, NeuralNetworkLayer* parent, NeuralNetworkLayer* child)
+void NeuralNetwork::NeuralNetworkLayer::Initialize(int NumNodes, NeuralNetwork::NeuralNetworkLayer* parent, NeuralNetwork::NeuralNetworkLayer* child)
 {
 	NumNodes;
 	// Allocate memory
@@ -98,7 +99,7 @@ void NeuralNetworkLayer::Initialize(int NumNodes, NeuralNetworkLayer* parent, Ne
 /// <summary>
 /// メモリー解放
 /// </summary>
-void NeuralNetworkLayer::CleanUp()
+void NeuralNetwork::NeuralNetworkLayer::CleanUp()
 {
 	m_neuronValues.release();
 	m_desiredValues.release();
@@ -121,7 +122,7 @@ void NeuralNetworkLayer::CleanUp()
 /// <summary>
 /// 学習を開始するときだけ呼ぶ
 /// </summary>
-void NeuralNetworkLayer::RandomizeWeights()
+void NeuralNetwork::NeuralNetworkLayer::RandomizeWeights()
 {
 	int	min = 0;
 	int	max = 200;
@@ -159,7 +160,7 @@ void NeuralNetworkLayer::RandomizeWeights()
 /// <summary>
 /// エラー方程式をそれぞれに代入
 /// </summary>
-void NeuralNetworkLayer::CalculateErrors()
+void NeuralNetwork::NeuralNetworkLayer::CalculateErrors()
 {
 	DataType* neuronValues = &m_neuronValues[0];
 	DataType* desiredValues = &m_desiredValues[0];
@@ -206,7 +207,7 @@ void NeuralNetworkLayer::CalculateErrors()
 /// <summary>
 /// 重みを調整
 /// </summary>
-void NeuralNetworkLayer::AdjustWeights()
+void NeuralNetwork::NeuralNetworkLayer::AdjustWeights()
 {
 	DataType* weights;
 	DataType* weightChanges;
@@ -215,8 +216,10 @@ void NeuralNetworkLayer::AdjustWeights()
 	DataType* errors = &m_errors[0];
 	DataType* biasWeights = &m_biasWeights[0];
 	DataType* biasValues = &m_biasValues[0];
-
 	DataType	dw = 0.0;
+
+	errors;
+	desiredValues;
 
 	if (m_childLayer != NULL) 
 	{
@@ -245,7 +248,7 @@ void NeuralNetworkLayer::AdjustWeights()
 /// <summary>
 /// 全ての重みの計算
 /// </summary>
-void NeuralNetworkLayer::CalculateNeuronValues()
+void NeuralNetwork::NeuralNetworkLayer::CalculateNeuronValues()
 {
 	DataType	x;
 	if (m_parentLayer != NULL) 

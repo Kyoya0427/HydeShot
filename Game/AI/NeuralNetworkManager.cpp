@@ -118,6 +118,7 @@ AIController::Behavior NeuralNetworkManager::BehaviorSelection(Character* charac
 	float x = chara.x - enemy.x;
 	float z = chara.z - enemy.z;
 
+	
 	m_neuralNetwork->SetInput(0, x /13);
 	m_neuralNetwork->SetInput(1, z /13);
 	m_neuralNetwork->SetInput(2, character->GetHp() / 5);

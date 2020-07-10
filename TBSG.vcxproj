@@ -125,6 +125,7 @@
     <!-- プリコンパイル済みヘッダ -->
     <ClInclude Include="3rdParty\PicoJSON\Include\PicoJSON\picojson.h" />
     <ClInclude Include="3rdParty\PicoJSON\PicoJSONHeaderList.h" />
+    <ClInclude Include="Game\AI\Ai.h" />
     <ClInclude Include="Game\AI\NeuralNetwork.h" />
     <ClInclude Include="Game\AI\NeuralNetworkManager.h" />
     <ClInclude Include="Game\AI\RuleBased.h" />

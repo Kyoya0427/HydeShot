@@ -8,18 +8,17 @@
 
 #include <vector>
 
-#include <Game/Controller/AIController.h>
+#include <Game/AI/Ai.h>
 
 class NeuralNetwork;
-class Character;
 
-class NeuralNetworkManager
+class NeuralNetworkManager : public Ai
 {
 public:
 	//コンストラクタ
 	NeuralNetworkManager();
 	//デストラクタ
-	~NeuralNetworkManager();
+	virtual ~NeuralNetworkManager();
 
 public:
 	static const int MAX_DATA_H = 3920; 
@@ -32,7 +31,7 @@ public:
 	//ニューラルネットワークの初期化
 	void InitializeNeuralNetwork();
 	//行動パターンを選択
-	AIController::Behavior BehaviorSelection(Character* character, Character* enemys);
+	AIController::Behavior BehaviorSelection(Character* character, Character* enemys) override;
 
 public: 
 	//データを格納
