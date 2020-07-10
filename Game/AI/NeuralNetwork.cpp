@@ -217,6 +217,7 @@ void NeuralNetworkLayer::AdjustWeights()
 	DataType* biasValues = &m_biasValues[0];
 
 	DataType	dw = 0.0;
+
 	if (m_childLayer != NULL) 
 	{
 		for (int i = 0; i < m_numNodes; i++) 
