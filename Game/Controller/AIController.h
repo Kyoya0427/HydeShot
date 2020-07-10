@@ -8,8 +8,9 @@
 
 #include <Game/Controller/CharacterController.h>
 
-class NeuralNetworkManager;
 class RuleBased;
+class NeuralNetworkManager;
+class Ai;
 
 class AIController : public  CharacterController
 {
@@ -29,6 +30,16 @@ public:
 	};
 
 public:
+	enum class AiType
+	{
+		RULEBASED,
+		NEURALNETWORK,
+	
+		NUM
+	};
+
+
+public:
 	//コンストラク
 	AIController(Character* character, Character* enemy);
 	//デストラクタ
@@ -41,6 +52,10 @@ public:
 	void Render();
 
 public:
+	void ChangeRuleBased();
+	void ChangeNeuralNetwork();
+
+public:
 	//移動速度
 	static const float  MOVE_SPEED;
 	//回転速度
@@ -51,10 +66,12 @@ public:
 	static const int    MODE_COUNT = 7;
 
 private:
-	//ニューラルネットワーク
-	std::unique_ptr<NeuralNetworkManager>   m_neuralNetworkManager;
-	//ルールベース
-	std::unique_ptr<RuleBased>				m_ruleBased;
+	//Aiマネージャー
+	Ai*				                        m_aiManager;
+	std::unique_ptr<RuleBased>              m_ruleBased;
+	std::unique_ptr<NeuralNetworkManager>          m_neuralNetwork;
+
+
 	//ステイト変更インターバル
 	float                                   m_stateInterval;
 	//ステイト

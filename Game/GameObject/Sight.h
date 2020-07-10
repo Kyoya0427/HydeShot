@@ -41,7 +41,7 @@ private:
 	//終点
 	DirectX::SimpleMath::Vector3                 m_posB;
 	//敵との相対座標
-	DirectX::SimpleMath::Vector3                 m_enemyRelativePos;
+	float						                 m_enemyToDistance;
 	//所持してるキャラ
 	Character*                                   m_chara;
 	

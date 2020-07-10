@@ -6,20 +6,18 @@
 //======================================================
 #pragma once
 
-#include <Game/Controller/AIController.h>
+#include <Game/AI/Ai.h>
 
-class Character;
-
-class RuleBased
+class RuleBased : public Ai
 {
 public:
 	//コンストラクタ
 	RuleBased();
 	//デストラクタ
-	~RuleBased();
+	virtual ~RuleBased();
 
 public:
 	//行動パターンを選択する
-	AIController::Behavior BehaviorSelection(Character* character, Character* enemys);
+	AIController::Behavior BehaviorSelection(Character* character, Character* enemys) override;
 };
 

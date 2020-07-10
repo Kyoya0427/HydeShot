@@ -12,8 +12,9 @@
 #include <Game/GameObject/Character.h>
 
 #include <Game/AI/NeuralNetworkManager.h>
-#include <Game/Controller/PlayerController.h>
 #include <Game/AI/RuleBased.h>
+
+#include <Game/Controller/PlayerController.h>
 
 #include <Game/GameState/PlayState.h>
 
@@ -40,9 +41,12 @@ AIController::AIController(Character* character, Character* enemy)
 	m_state = Behavior::NONE;
 
 //	m_state = static_cast<Behavior>(rand() % static_cast<int>(Behavior::NUM));
-	m_neuralNetworkManager = std::make_unique<NeuralNetworkManager>();
-
+	
 	m_ruleBased = std::make_unique<RuleBased>();
+	m_neuralNetwork = std::make_unique<NeuralNetworkManager>();
+	m_neuralNetwork->InitializeNeuralNetwork();
+
+	ChangeRuleBased();
 
 	Vector3 rot = Vector3(0.0f, 3.15f, 0.0f);
 	m_character->SetRotation(rot);
@@ -69,19 +73,7 @@ void AIController::Update(const DX::StepTimer& timer)
 	if (m_stateInterval < 0.0f)
 	{
 		m_stateInterval = STATE_INTERVAL;
-		m_state = m_ruleBased->BehaviorSelection(m_character, m_enemy);
-		
-		m_randMobeCount++;
-		if (m_randMobeCount >= MODE_COUNT)
-		{
-//			m_state = static_cast<Behavior>(rand() % static_cast<int>(Behavior::NUM));
-			m_randMobeCount = 0;
-		}
-		else
-		{
-			//m_state = m_neuralNetworkManager->BehaviorSelection(m_character,m_enemy);
-		}
-
+		m_state = m_aiManager->BehaviorSelection(m_character, m_enemy);
 	}
 
 	//ステート
@@ -176,4 +168,14 @@ void AIController::Render()
 		debugFont->draw();
 	}
 
+}
+
+void AIController::ChangeRuleBased()
+{
+	m_aiManager = static_cast<RuleBased*>(m_ruleBased.get());
+}
+
+void AIController::ChangeNeuralNetwork()
+{
+	m_aiManager = static_cast<NeuralNetworkManager*>(m_neuralNetwork.get());
 }

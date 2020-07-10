@@ -114,11 +114,11 @@ void Sight::OnCollision(GameObject* object)
 
 		float x = m_chara->GetPosition().x - object->GetPosition().x;
 		float z = m_chara->GetPosition().z - object->GetPosition().z;
-		Vector3 wallRelativePos = Vector3(x, 0.0f, z);
+		float wallToDistance = Vector3::Distance(m_chara->GetPosition(), object->GetPosition());
 
 		if (m_chara->GetEnemySightContact())
 		{
-			if(m_enemyRelativePos.z > wallRelativePos.z)
+			if(m_enemyToDistance < wallToDistance)
 				m_chara->SetWallSightContact(false);
 
 		}
@@ -127,10 +127,7 @@ void Sight::OnCollision(GameObject* object)
 	{
 		m_chara->SetEnemySightContact(true);
 
-		float x = m_chara->GetPosition().x - object->GetPosition().x;
-		float z = m_chara->GetPosition().z - object->GetPosition().z;
-
-		m_enemyRelativePos = Vector3(x, 0.0f, z);
+		m_enemyToDistance = Vector3::Distance(m_chara->GetPosition(), object->GetPosition());
 	}
 
 }
