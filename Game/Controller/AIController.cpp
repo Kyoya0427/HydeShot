@@ -39,14 +39,14 @@ AIController::AIController(Character* character, Character* enemy)
 	m_shotInterval  = SHOT_INTERVAL;
 	m_stateInterval = STATE_INTERVAL;
 	m_state = Behavior::NONE;
-
-//	m_state = static_cast<Behavior>(rand() % static_cast<int>(Behavior::NUM));
 	
-	m_ruleBased = std::make_unique<RuleBased>();
-	m_neuralNetwork = std::make_unique<NeuralNetworkManager>();
-	m_neuralNetwork->InitializeNeuralNetwork();
+	std::unique_ptr<RuleBased> ruleBased = std::make_unique<RuleBased>();
+//	std::unique_ptr<NeuralNetworkManager> neuralNetworkManager = std::make_unique<NeuralNetworkManager>();
+//	neuralNetworkManager->InitializeNeuralNetwork();
 
-	ChangeRuleBased();
+	
+	m_aiManager.emplace(std::make_pair(AiType::RULEBASED, std::move(ruleBased)));
+//	m_aiManager.emplace(std::make_pair(AiType::NEURALNETWORK, std::move(neuralNetworkManager)));
 
 	Vector3 rot = Vector3(0.0f, 3.15f, 0.0f);
 	m_character->SetRotation(rot);
@@ -73,7 +73,7 @@ void AIController::Update(const DX::StepTimer& timer)
 	if (m_stateInterval < 0.0f)
 	{
 		m_stateInterval = STATE_INTERVAL;
-		m_state = m_aiManager->BehaviorSelection(m_character, m_enemy);
+		m_state = m_aiManager[AiType::RULEBASED]->BehaviorSelection(m_character, m_enemy);
 	}
 
 	//ステート
@@ -170,12 +170,4 @@ void AIController::Render()
 
 }
 
-void AIController::ChangeRuleBased()
-{
-	m_aiManager = static_cast<RuleBased*>(m_ruleBased.get());
-}
 
-void AIController::ChangeNeuralNetwork()
-{
-	m_aiManager = static_cast<NeuralNetworkManager*>(m_neuralNetwork.get());
-}

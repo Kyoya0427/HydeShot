@@ -18,7 +18,7 @@
 /// <summary>
 /// コンストラクタ
 /// </summary>
-NeuralNetwork::NeuralNetworkLayer::NeuralNetworkLayer()
+NeuralNetworkLayer::NeuralNetworkLayer()
 {
 	m_parentLayer    = nullptr;
 	m_childLayer     = nullptr;
@@ -33,7 +33,7 @@ NeuralNetwork::NeuralNetworkLayer::NeuralNetworkLayer()
 /// <param name="NumNodes">入力層</param>
 /// <param name="parent">隠れ層</param>
 /// <param name="child">出力層</param>
-void NeuralNetwork::NeuralNetworkLayer::Initialize(int NumNodes, NeuralNetwork::NeuralNetworkLayer* parent, NeuralNetwork::NeuralNetworkLayer* child)
+void NeuralNetworkLayer::Initialize(int NumNodes, NeuralNetworkLayer* parent, NeuralNetworkLayer* child)
 {
 	NumNodes;
 	// Allocate memory
@@ -99,7 +99,7 @@ void NeuralNetwork::NeuralNetworkLayer::Initialize(int NumNodes, NeuralNetwork::
 /// <summary>
 /// メモリー解放
 /// </summary>
-void NeuralNetwork::NeuralNetworkLayer::CleanUp()
+void NeuralNetworkLayer::CleanUp()
 {
 	m_neuronValues.release();
 	m_desiredValues.release();
@@ -122,7 +122,7 @@ void NeuralNetwork::NeuralNetworkLayer::CleanUp()
 /// <summary>
 /// 学習を開始するときだけ呼ぶ
 /// </summary>
-void NeuralNetwork::NeuralNetworkLayer::RandomizeWeights()
+void NeuralNetworkLayer::RandomizeWeights()
 {
 	int	min = 0;
 	int	max = 200;
@@ -160,7 +160,7 @@ void NeuralNetwork::NeuralNetworkLayer::RandomizeWeights()
 /// <summary>
 /// エラー方程式をそれぞれに代入
 /// </summary>
-void NeuralNetwork::NeuralNetworkLayer::CalculateErrors()
+void NeuralNetworkLayer::CalculateErrors()
 {
 	DataType* neuronValues = &m_neuronValues[0];
 	DataType* desiredValues = &m_desiredValues[0];
@@ -207,7 +207,7 @@ void NeuralNetwork::NeuralNetworkLayer::CalculateErrors()
 /// <summary>
 /// 重みを調整
 /// </summary>
-void NeuralNetwork::NeuralNetworkLayer::AdjustWeights()
+void NeuralNetworkLayer::AdjustWeights()
 {
 	DataType* weights;
 	DataType* weightChanges;
@@ -248,7 +248,7 @@ void NeuralNetwork::NeuralNetworkLayer::AdjustWeights()
 /// <summary>
 /// 全ての重みの計算
 /// </summary>
-void NeuralNetwork::NeuralNetworkLayer::CalculateNeuronValues()
+void NeuralNetworkLayer::CalculateNeuronValues()
 {
 	DataType	x;
 	if (m_parentLayer != NULL) 

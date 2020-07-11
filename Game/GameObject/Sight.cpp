@@ -112,8 +112,6 @@ void Sight::OnCollision(GameObject* object)
 	{
 		m_chara->SetWallSightContact(true);
 
-		float x = m_chara->GetPosition().x - object->GetPosition().x;
-		float z = m_chara->GetPosition().z - object->GetPosition().z;
 		float wallToDistance = Vector3::Distance(m_chara->GetPosition(), object->GetPosition());
 
 		if (m_chara->GetEnemySightContact())

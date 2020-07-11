@@ -18,6 +18,6 @@ public:
 
 public:
 	//行動パターンを選択する
-	AIController::Behavior BehaviorSelection(Character* character, Character* enemys) override;
+	AIController::Behavior BehaviorSelection(Character* character, Character* enemy) override;
 };
 

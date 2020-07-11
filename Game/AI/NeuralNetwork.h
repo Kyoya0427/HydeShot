@@ -5,68 +5,68 @@
 // Author		: Kyoya  Sakamoto
 //======================================================
 #pragma once
+class NeuralNetworkLayer
+{
+	using DataType = double;
+	using DataArray = std::unique_ptr<DataType[]>;
+	using DataArray2d = std::unique_ptr<DataArray[]>;
+
+public:
+	//入力層ノード数
+	int			                      m_numNodes;
+	//隠れ層ノード数
+	int			                      m_numChildNodes;
+	//出力層ノード数
+	int			                      m_numParentNodes;
+	//入力と隠れ層するノードの重み
+	DataArray2d  m_weights;
+	//重みの調整
+	DataArray2d  m_weightChanges;
+	//計算結果の値
+	DataArray               m_neuronValues;
+	//ターゲット値を格納
+	DataArray               m_desiredValues;
+	//エラー
+	DataArray               m_errors;
+	//バイアスの重み
+	DataArray               m_biasWeights;
+	//バイアス値
+	DataArray               m_biasValues;
+	//重みの調整を計算する学習率を保持
+	DataType		                      m_learningRate;
+	//線形活性化関数使用（デフォfalse）
+	bool		                      m_linearOutput;
+	//モーメンタム使用（デフォfalse）
+	bool		                      m_useMomentum;
+	//前述モーメンタム因数を保持（モーメント使用時のみ使用）
+	DataType		                      m_momentumFactor;
+	//親層を格納(入力層の場合NULL)
+	NeuralNetworkLayer* m_parentLayer;
+	//子層を格納(出力層の場合NULL)
+	NeuralNetworkLayer* m_childLayer;
+
+public:
+	//コンストラクタ
+	NeuralNetworkLayer();
+	//初期化
+	void Initialize(int NumNodes, NeuralNetworkLayer* parent, NeuralNetworkLayer* child);
+	//メモリー解放
+	void CleanUp();
+	// 学習を開始するときだけ呼ぶ
+	void RandomizeWeights();
+	// エラー方程式をそれぞれに代入
+	void CalculateErrors();
+	// 重みを調整
+	void AdjustWeights();
+	// 全ての重みの計算
+	void CalculateNeuronValues();
+
+};
 
 class NeuralNetwork
 {
 private:
-	class NeuralNetworkLayer
-	{
-		using DataType = double;
-		using DataArray = std::unique_ptr<DataType[]>;
-		using DataArray2d = std::unique_ptr<DataArray[]>;
-
-	public:
-		//入力層ノード数
-		int			                      m_numNodes;
-		//隠れ層ノード数
-		int			                      m_numChildNodes;
-		//出力層ノード数
-		int			                      m_numParentNodes;
-		//入力と隠れ層するノードの重み
-		DataArray2d  m_weights;
-		//重みの調整
-		DataArray2d  m_weightChanges;
-		//計算結果の値
-		DataArray               m_neuronValues;
-		//ターゲット値を格納
-		DataArray               m_desiredValues;
-		//エラー
-		DataArray               m_errors;
-		//バイアスの重み
-		DataArray               m_biasWeights;
-		//バイアス値
-		DataArray               m_biasValues;
-		//重みの調整を計算する学習率を保持
-		DataType		                      m_learningRate;
-		//線形活性化関数使用（デフォfalse）
-		bool		                      m_linearOutput;
-		//モーメンタム使用（デフォfalse）
-		bool		                      m_useMomentum;
-		//前述モーメンタム因数を保持（モーメント使用時のみ使用）
-		DataType		                      m_momentumFactor;
-		//親層を格納(入力層の場合NULL)
-		NeuralNetworkLayer* m_parentLayer;
-		//子層を格納(出力層の場合NULL)
-		NeuralNetworkLayer* m_childLayer;
-
-	public:
-		//コンストラクタ
-		NeuralNetworkLayer();
-		//初期化
-		void Initialize(int NumNodes, NeuralNetworkLayer* parent, NeuralNetworkLayer* child);
-		//メモリー解放
-		void CleanUp();
-		// 学習を開始するときだけ呼ぶ
-		void RandomizeWeights();
-		// エラー方程式をそれぞれに代入
-		void CalculateErrors();
-		// 重みを調整
-		void AdjustWeights();
-		// 全ての重みの計算
-		void CalculateNeuronValues();
-
-	};
-
+	
 public:
 	//入力層
 	NeuralNetworkLayer	m_inputLayer;

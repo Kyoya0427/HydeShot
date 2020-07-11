@@ -6,6 +6,8 @@
 //======================================================
 #pragma once
 
+#include <map>
+
 #include <Game/Controller/CharacterController.h>
 
 class RuleBased;
@@ -38,6 +40,8 @@ public:
 		NUM
 	};
 
+public:
+
 
 public:
 	//コンストラク
@@ -52,8 +56,7 @@ public:
 	void Render();
 
 public:
-	void ChangeRuleBased();
-	void ChangeNeuralNetwork();
+	using AiGroupList	  = std::map<AiType, std::unique_ptr<Ai>>;
 
 public:
 	//移動速度
@@ -67,11 +70,7 @@ public:
 
 private:
 	//Aiマネージャー
-	Ai*				                        m_aiManager;
-	std::unique_ptr<RuleBased>              m_ruleBased;
-	std::unique_ptr<NeuralNetworkManager>          m_neuralNetwork;
-
-
+	AiGroupList                             m_aiManager;
 	//ステイト変更インターバル
 	float                                   m_stateInterval;
 	//ステイト
