@@ -72,8 +72,11 @@ public:
 	const int GetDrawPrio() const;
 	//当たり判定の球の半径
 	float GetRadius();
+	//Y軸デグリそ取得
+	float GetDegreeY();
 	//弾を撃ったオブジェクトのタグを取得
 	ObjectTag GetCharaTag();
+
 
 public:
 	//タグ名を登録

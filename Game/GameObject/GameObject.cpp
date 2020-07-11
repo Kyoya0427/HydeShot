@@ -139,6 +139,19 @@ float GameObject::GetRadius()
 	return m_radius;
 }
 
+float GameObject::GetDegreeY()
+{
+	float degre = XMConvertToDegrees(m_rotation.y); 
+	if (degre > 360.0f)
+		m_rotation.y = 0.0f;
+	if (degre < -360.0f)
+		m_rotation.y = 0.0f;
+
+	if (m_rotation.y < 0.0f)
+		degre = 360.f + degre;
+	return degre;
+}
+
 /// <summary>
 /// 取得してるオブジェクト名
 /// </summary>

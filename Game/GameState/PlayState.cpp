@@ -222,7 +222,7 @@ void PlayState::Render()
 	// ゲーム画面のオブジェクト描画
 	m_objectManager->GetGameOM()->Render();
 	m_aiController[0]->Render();
-	
+	m_playerControll->Render();
 	spriteBach->End(); // <---スプライトの描画はここでまとめて行われている
 
 

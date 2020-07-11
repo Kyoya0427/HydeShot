@@ -77,6 +77,7 @@ void Character::Update(const DX::StepTimer & timer)
 	timer;
 	m_wallContact = false;
 	m_previousPos = m_position;
+
 	GameContext::Get<CollisionManager>()->Add(GetTag(), m_collider.get());
 	Quaternion quaternion = Quaternion::CreateFromAxisAngle(Vector3::UnitY, m_rotation.y);
 	m_velocity = Vector3::Transform(m_velocity, quaternion);

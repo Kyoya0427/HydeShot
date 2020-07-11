@@ -10,11 +10,12 @@
 
 #include <Game/Common/DebugFont.h>
 
+#include <Game/GameState/PlayState.h>
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
 const float PlayerController::MOVE_SPEED    = 0.05f;
-const float PlayerController::ROT_SPEED     = 0.05f;
+const float PlayerController::ROT_SPEED     = 0.02f;
 const float PlayerController::SHOT_INTERVAL = 0.3f;
 
 /// <summary>
@@ -77,6 +78,17 @@ void PlayerController::Update(const DX::StepTimer& timer)
 		m_shotInterval = SHOT_INTERVAL;
 	}
 
+}
+
+void PlayerController::Render()
+{
+	if (PlayState::m_isDebug)
+	{
+		DebugFont* debugFont = DebugFont::GetInstance();
+
+//		debugFont->print(700, 50, L"rot = %f",XMConvertToDegrees(m_character->GetRotation().y));
+//		debugFont->draw();
+	}
 }
 
 

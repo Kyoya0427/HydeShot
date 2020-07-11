@@ -19,7 +19,7 @@ public:
 public:
 	//XV
 	void Update(const DX::StepTimer& timer) override;
-
+	void Render();
 public:
 	//ˆÚ“®‘¬“x
 	static const float  MOVE_SPEED;

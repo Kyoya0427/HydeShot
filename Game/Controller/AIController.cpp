@@ -73,9 +73,26 @@ void AIController::Update(const DX::StepTimer& timer)
 	if (m_stateInterval < 0.0f)
 	{
 		m_stateInterval = STATE_INTERVAL;
-		m_state = m_aiManager[AiType::RULEBASED]->BehaviorSelection(m_character, m_enemy);
+//		m_state = m_aiManager[AiType::RULEBASED]->BehaviorSelection(m_character, m_enemy);
 	}
+	Keyboard::State keyState = Keyboard::Get().GetState();
 
+	if (keyState.IsKeyDown(Keyboard::Keys::I))
+	{
+		m_character->Forward(MOVE_SPEED);
+	}
+	else if (keyState.IsKeyDown(Keyboard::Keys::K))
+	{
+		m_character->Backward(MOVE_SPEED);
+	}
+	else if (keyState.IsKeyDown(Keyboard::Keys::J))
+	{
+		m_character->Leftward(MOVE_SPEED);
+	}
+	else if (keyState.IsKeyDown(Keyboard::Keys::L))
+	{
+		m_character->Rightward(MOVE_SPEED);
+	}
 	//ステート
 	switch (m_state)
 	{
@@ -122,37 +139,15 @@ void AIController::Render()
 		debugFont->print(10, 50, L"%d", m_randMobeCount);
 		debugFont->draw();
 
-		Vector3 enemy = m_enemy->GetPosition();
-		Vector3 aiPos = m_character->GetPosition();
-		float x = aiPos.x - enemy.x;
-		float z = aiPos.z - enemy.z;
-
-		debugFont->print(700, 30, L"X = %f", x);
+		float dis = Vector3::Distance(m_enemy->GetPosition(), m_character->GetPosition());
+		debugFont->print(700, 30, L"rot = %f", m_character->GetRotation().y);
 		debugFont->draw();
-		debugFont->print(700, 50, L"Z = %f", z);
+		
+
+		debugFont->print(700, 50, L"rot = %f", m_enemy->GetDegreeY());
 		debugFont->draw();
 
-
-		if (m_character->GetEnemySightContact() == true)
-		{
-			debugFont->print(500, 10, L"true");
-			debugFont->draw();
-		}
-		else
-		{
-			debugFont->print(500, 10, L"false");
-			debugFont->draw();
-		}
-		if (m_character->GetWallContact() == true)
-		{
-			debugFont->print(500, 30, L"true");
-			debugFont->draw();
-		}
-		else
-		{
-			debugFont->print(500, 30, L"false");
-			debugFont->draw();
-		}
+		
 		wchar_t* state[]
 		{
 			L"NONE",

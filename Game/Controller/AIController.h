@@ -63,9 +63,13 @@ public:
 	static const float  MOVE_SPEED;
 	//回転速度
 	static const float  ROT_SPEED;
+	//最大距離
+	static const float MAX_DISTANCE;
 	//ショットインターバル
 	static const float  SHOT_INTERVAL;
+	//ステートインターバル
 	static const float  STATE_INTERVAL;
+
 	static const int    MODE_COUNT = 7;
 
 private:
