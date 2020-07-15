@@ -33,6 +33,6 @@ public:
 
 private:
 	// モデルデータへのポインタ
-	DirectX::Model* m_models;
+	DirectX::Model* m_model;
 
 };

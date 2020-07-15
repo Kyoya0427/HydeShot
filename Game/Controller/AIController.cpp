@@ -9,6 +9,7 @@
 #include <Game/Common/DebugFont.h>
 #include <Game/Common/GameContext.h>
 
+#include <Game/GameObject/GameObject.h>
 #include <Game/GameObject/Character.h>
 
 #include <Game/AI/NeuralNetworkManager.h>
@@ -24,7 +25,7 @@ using namespace DirectX::SimpleMath;
 const float AIController::MOVE_SPEED     = 0.03f;
 const float AIController::ROT_SPEED      = 0.01f;
 const float AIController::SHOT_INTERVAL  = 0.5f;
-const float AIController::STATE_INTERVAL = 0.5f;
+const float AIController::STATE_INTERVAL = 1.0f;
 
 /// <summary>
 /// コンストラクタ
@@ -32,8 +33,12 @@ const float AIController::STATE_INTERVAL = 0.5f;
 /// <param name="character">コントロールするオブジェクト</param>
 AIController::AIController(Character* character, Character* enemy)
 	: CharacterController(character)
-	, m_stateInterval(0.0f)
+	, m_aiManager()
+	, m_enemy()
+	, m_state()
+	, m_stateInterval()
 	, m_randMobeCount()
+
 {
 	m_enemy = enemy;
 	m_shotInterval  = SHOT_INTERVAL;
@@ -41,16 +46,17 @@ AIController::AIController(Character* character, Character* enemy)
 	m_state = Behavior::NONE;
 	
 	std::unique_ptr<RuleBased> ruleBased = std::make_unique<RuleBased>();
-//	std::unique_ptr<NeuralNetworkManager> neuralNetworkManager = std::make_unique<NeuralNetworkManager>();
-//	neuralNetworkManager->InitializeNeuralNetwork();
+	std::unique_ptr<NeuralNetworkManager> neuralNetworkManager = std::make_unique<NeuralNetworkManager>();
+	neuralNetworkManager->InitializeNeuralNetwork();
 
 	
 	m_aiManager.emplace(std::make_pair(AiType::RULEBASED, std::move(ruleBased)));
-//	m_aiManager.emplace(std::make_pair(AiType::NEURALNETWORK, std::move(neuralNetworkManager)));
+	m_aiManager.emplace(std::make_pair(AiType::NEURALNETWORK, std::move(neuralNetworkManager)));
 
-	Vector3 rot = Vector3(0.0f, 3.15f, 0.0f);
-	m_character->SetRotation(rot);
-
+	if (m_character->GetTag() == GameObject::ObjectTag::Enemy1)
+		m_character->SetRotation(Vector3(0.0f, 3.15f, 0.0f));
+	if (m_character->GetTag() == GameObject::ObjectTag::Enemy2)
+		m_character->SetRotation(Vector3(0.0f, 0.0f, 0.0f));
 }
 
 /// <summary>
@@ -73,7 +79,7 @@ void AIController::Update(const DX::StepTimer& timer)
 	if (m_stateInterval < 0.0f)
 	{
 		m_stateInterval = STATE_INTERVAL;
-//		m_state = m_aiManager[AiType::RULEBASED]->BehaviorSelection(m_character, m_enemy);
+		m_state = m_aiManager[AiType::NEURALNETWORK]->BehaviorSelection(m_character, m_enemy);
 	}
 	Keyboard::State keyState = Keyboard::Get().GetState();
 
@@ -139,15 +145,13 @@ void AIController::Render()
 		debugFont->print(10, 50, L"%d", m_randMobeCount);
 		debugFont->draw();
 
-		float dis = Vector3::Distance(m_enemy->GetPosition(), m_character->GetPosition());
-		debugFont->print(700, 30, L"rot = %f", m_character->GetRotation().y);
+		debugFont->print(700, 30, L"posX = %f", m_enemy->GetPosition().x);
 		debugFont->draw();
-		
-
-		debugFont->print(700, 50, L"rot = %f", m_enemy->GetDegreeY());
+		debugFont->print(700, 60, L"posY = %f", m_enemy->GetPosition().y);
+		debugFont->draw();
+		debugFont->print(700, 90, L"posZ = %f", m_enemy->GetPosition().z);
 		debugFont->draw();
 
-		
 		wchar_t* state[]
 		{
 			L"NONE",
@@ -161,6 +165,8 @@ void AIController::Render()
 		};
 		debugFont->print(10, 10, state[static_cast<int>(m_state)]);
 		debugFont->draw();
+
+//		m_aiManager[AiType::NEURALNETWORK]->Render();
 	}
 
 }

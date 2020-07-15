@@ -18,11 +18,6 @@
 #include <Game\GameState\PauseState.h>
 #include <Game\GameState\ResultState.h>
 
-#if _DEBUG
-#define _CRTDBG_MAP_ALLOC
-#include <crtdbg.h>
-#define new new(_NORMAL_BLOCK,__FILE__,__LINE__)
-#endif
 
 extern void ExitGame();
 
@@ -52,6 +47,8 @@ Game::~Game()
 // Initialize the Direct3D resources required to run.
 void Game::Initialize(HWND window, int width, int height)
 {
+   
+
 	width; height;
 
     m_deviceResources->SetWindow(window, WINDOW_WIDTH, WINDOW_HEIGHT);

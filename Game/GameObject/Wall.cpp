@@ -31,7 +31,7 @@ using namespace DirectX::SimpleMath;
 /// <param name="tag"></param>
 Wall::Wall(const ObjectTag tag)
 	: GameObject(tag)
-	, m_models{nullptr}
+	, m_model{nullptr}
 {
 }
 
@@ -49,7 +49,8 @@ Wall::~Wall()
 /// <param name="y">y座標</param>
 void Wall::Initialize(int x, int y)
 {
-	m_position = DirectX::SimpleMath::Vector3((float)x, 0.0f, (float)y);
+	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\floor01.png.png", NULL, m_texture.ReleaseAndGetAddressOf());
+	m_position = Vector3((float)x, 0.0f, (float)y);
 	m_color = Colors::Yellow;
 	
 	m_collSize = Vector3(0.5f, 0.5f, 0.5f);
@@ -77,11 +78,13 @@ void Wall::Update(const DX::StepTimer & timer)
 /// </summary>
 void Wall::Render()
 {
+
 	// ワールド行列の作成
-	DirectX::SimpleMath::Matrix world = DirectX::SimpleMath::Matrix::CreateTranslation(m_position);
+	Matrix world  = Matrix::CreateScale(Vector3(1.0f,10.0f,1.0f));
+	world *= Matrix::CreateTranslation(m_position);
 
 	// モデルの描画
-	m_models->Draw(GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext()
+	m_model->Draw(GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext()
 		, *GameContext::Get<DirectX::CommonStates>()
 		, world
 		, GameContext::Get<Camera>()->GetView()
@@ -96,7 +99,7 @@ void Wall::Render()
 		m_world = transMat;
 
 		if (PlayState::m_isDebug)
-		m_boxCollider->Draw(m_world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_color, nullptr, true);
+		m_boxCollider->Draw(m_world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_color, m_texture.Get(), true);
 
 }
 
@@ -113,16 +116,16 @@ void Wall::OnCollision(GameObject* object)
 /// モデルを設定
 /// </summary>
 /// <param name="model"></param>
-void Wall::SetModel(DirectX::Model * model)
+void Wall::SetModel(Model * model)
 {
-	m_models = model;
+	m_model = model;
 }
 
 /// <summary>
 /// 当たり判定に使うサイズ
 /// </summary>
 /// <returns></returns>
-DirectX::SimpleMath::Vector3 Wall::GetCollSize()
+Vector3 Wall::GetCollSize()
 {
 	return m_collSize;
 }

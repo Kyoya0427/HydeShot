@@ -17,7 +17,7 @@ using namespace DirectX::SimpleMath;
 /// <param name="owner">登録したオブジェクト</param>
 Collider::Collider(GameObject* owner)
 	: m_owner(owner)
-	, m_offset(Vector3(0.0f, 0.0f, 0.0f))
+	, m_offset()
 {
 }
 

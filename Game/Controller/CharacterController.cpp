@@ -13,7 +13,7 @@
 /// </summary>
 CharacterController::CharacterController(Character* character)
 	: m_character(character)
-	, m_shotInterval(0.0f)
+	, m_shotInterval()
 {
 }
 

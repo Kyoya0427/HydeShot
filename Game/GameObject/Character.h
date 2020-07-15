@@ -74,10 +74,10 @@ private:
 	std::unique_ptr<DirectX::GeometricPrimitive> m_sphereCollider;
 	//射程
 	std::unique_ptr<Sight>                       m_sight;
-	//１フレーム前の座標
-	DirectX::SimpleMath::Vector3                 m_previousPos;
 	//当たり判定
 	std::unique_ptr<SphereCollider>              m_collider;
+	//１フレーム前の座標
+	DirectX::SimpleMath::Vector3                 m_previousPos;
 	//壁にセンサーが接触してるか
 	bool                                         m_wallSightContact;
 	//壁に接触してるか

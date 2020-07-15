@@ -27,6 +27,8 @@ const float Bullet::MOVE_SPEED = 0.2f;
 /// <param name="azimuth">キャラの向いてる方角</param>
 Bullet::Bullet(const ObjectTag tag, const ObjectTag charaTag,const Vector3& position, const Quaternion& azimuth)
 	: GameObject(tag)
+	, m_sphereModel()
+	, m_collider()
 {
 	//デバイスコンテキストを取得
 	ID3D11DeviceContext* deviceContext = GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext();

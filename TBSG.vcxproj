@@ -251,8 +251,15 @@
     <!-- アイコン -->
     <Image Include="Resources\Icon\Icon.ico" />
     <ResourceCompile Include="Resources\Icon\Icon.rc" />
+    <None Include="Resources\CSV\Stage01.csv" />
+    <None Include="Resources\CSV\Stage02.csv" />
+    <None Include="Resources\CSV\test.csv" />
+    <None Include="Resources\CSV\test2.csv" />
+    <None Include="Resources\CSV\TrainingSet.csv" />
     <!-- フォント -->
     <None Include="Resources\Fonts\SegoeUI_18.spritefont" />
+    <Image Include="Resources\Textures\bg01.png" />
+    <Image Include="Resources\Textures\floor01.png" />
     <!-- テクスチャ -->
     <Image Include="Resources\Textures\TridentLogo.png" />
   </ItemGroup>

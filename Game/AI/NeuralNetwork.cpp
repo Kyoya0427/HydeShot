@@ -18,7 +18,7 @@
 /// <summary>
 /// コンストラクタ
 /// </summary>
-NeuralNetworkLayer::NeuralNetworkLayer()
+NeuralNetwork::NeuralNetworkLayer::NeuralNetworkLayer()
 {
 	m_parentLayer    = nullptr;
 	m_childLayer     = nullptr;
@@ -33,7 +33,7 @@ NeuralNetworkLayer::NeuralNetworkLayer()
 /// <param name="NumNodes">入力層</param>
 /// <param name="parent">隠れ層</param>
 /// <param name="child">出力層</param>
-void NeuralNetworkLayer::Initialize(int NumNodes, NeuralNetworkLayer* parent, NeuralNetworkLayer* child)
+void NeuralNetwork::NeuralNetworkLayer::Initialize(int NumNodes, NeuralNetwork::NeuralNetworkLayer* parent, NeuralNetwork::NeuralNetworkLayer* child)
 {
 	NumNodes;
 	// Allocate memory
@@ -99,7 +99,7 @@ void NeuralNetworkLayer::Initialize(int NumNodes, NeuralNetworkLayer* parent, Ne
 /// <summary>
 /// メモリー解放
 /// </summary>
-void NeuralNetworkLayer::CleanUp()
+void NeuralNetwork::NeuralNetworkLayer::CleanUp()
 {
 	m_neuronValues.release();
 	m_desiredValues.release();
@@ -122,7 +122,7 @@ void NeuralNetworkLayer::CleanUp()
 /// <summary>
 /// 学習を開始するときだけ呼ぶ
 /// </summary>
-void NeuralNetworkLayer::RandomizeWeights()
+void NeuralNetwork::NeuralNetworkLayer::RandomizeWeights()
 {
 	int	min = 0;
 	int	max = 200;
@@ -160,7 +160,7 @@ void NeuralNetworkLayer::RandomizeWeights()
 /// <summary>
 /// エラー方程式をそれぞれに代入
 /// </summary>
-void NeuralNetworkLayer::CalculateErrors()
+void NeuralNetwork::NeuralNetworkLayer::CalculateErrors()
 {
 	DataType* neuronValues = &m_neuronValues[0];
 	DataType* desiredValues = &m_desiredValues[0];
@@ -207,7 +207,7 @@ void NeuralNetworkLayer::CalculateErrors()
 /// <summary>
 /// 重みを調整
 /// </summary>
-void NeuralNetworkLayer::AdjustWeights()
+void NeuralNetwork::NeuralNetworkLayer::AdjustWeights()
 {
 	DataType* weights;
 	DataType* weightChanges;
@@ -248,7 +248,7 @@ void NeuralNetworkLayer::AdjustWeights()
 /// <summary>
 /// 全ての重みの計算
 /// </summary>
-void NeuralNetworkLayer::CalculateNeuronValues()
+void NeuralNetwork::NeuralNetworkLayer::CalculateNeuronValues()
 {
 	DataType	x;
 	if (m_parentLayer != NULL) 
@@ -286,6 +286,7 @@ void NeuralNetworkLayer::CalculateNeuronValues()
 /// <param name="child">出力層</param>
 void NeuralNetwork::Initialize(int nNodesInput, int nNodesHidden, int nNodesOutput)
 {
+	
 	m_inputLayer.m_numNodes = nNodesInput;
 	m_inputLayer.m_numChildNodes = nNodesHidden;
 	m_inputLayer.m_numParentNodes = 0;
@@ -319,7 +320,7 @@ void NeuralNetwork::CleanUp()
 /// </summary>
 /// <param name="i">指数</param>
 /// <param name="value">入力する値</param>
-void NeuralNetwork::SetInput(int i, double value)
+void NeuralNetwork::SetInput(int i, float value)
 {
 	if ((i >= 0) && (i < m_inputLayer.m_numNodes)) 
 	{
@@ -332,14 +333,14 @@ void NeuralNetwork::SetInput(int i, double value)
 /// </summary>
 /// <param name="i">指数</param>
 /// <returns></returns>
-double	NeuralNetwork::GetOutput(int i)
+float	NeuralNetwork::GetOutput(int i)
 {
 	if ((i >= 0) && (i < m_outputLayer.m_numNodes)) 
 	{
 		return m_outputLayer.m_neuronValues[i];
 	}
 
-	return (double)INT_MAX; // to indicate an error
+	return (float)INT_MAX; // to indicate an error
 }
 
 /// <summary>
@@ -347,7 +348,7 @@ double	NeuralNetwork::GetOutput(int i)
 /// </summary>
 /// <param name="i"></param>
 /// <param name="value"></param>
-void NeuralNetwork::SetDesiredOutput(int i, double value)
+void NeuralNetwork::SetDesiredOutput(int i, float value)
 {
 	if ((i >= 0) && (i < m_outputLayer.m_numNodes))
 	{
@@ -383,7 +384,7 @@ void NeuralNetwork::BackPropagate()
 /// <returns>もっとも高い値を返す</returns>
 int	NeuralNetwork::GetMaxOutputID()
 {
-	double maxval = m_outputLayer.m_neuronValues[0];
+	float maxval = m_outputLayer.m_neuronValues[0];
 	int id = 0;
 
 	for (int i = 1; i < m_outputLayer.m_numNodes; i++) 
@@ -401,9 +402,9 @@ int	NeuralNetwork::GetMaxOutputID()
 /// 出力値と望ましい値の集合に関係するエラー
 /// </summary>
 /// <returns><エラーを返す/returns>
-double NeuralNetwork::CalculateError()
+float NeuralNetwork::CalculateError()
 {
-	double	error = 0.0;
+	float	error = 0.0;
 
 	for (int i = 0; i < m_outputLayer.m_numNodes; i++)
 	{
@@ -418,7 +419,7 @@ double NeuralNetwork::CalculateError()
 /// 学習率を設定
 /// </summary>
 /// <param name="rate">学習率</param>
-void NeuralNetwork::SetLearningRate(double rate)
+void NeuralNetwork::SetLearningRate(float rate)
 {
 	m_inputLayer.m_learningRate = rate;
 	m_hiddenLayer.m_learningRate = rate;
@@ -441,7 +442,7 @@ void NeuralNetwork::SetLinearOutput(bool useLinear)
 /// </summary>
 /// <param name="m_useMomentum"></param>
 /// <param name="factor"></param>
-void NeuralNetwork::SetMomentum(bool m_useMomentum, double factor)
+void NeuralNetwork::SetMomentum(bool m_useMomentum, float factor)
 {
 	m_inputLayer.m_useMomentum = m_useMomentum;
 	m_hiddenLayer.m_useMomentum = m_useMomentum;

@@ -14,6 +14,18 @@ class NeuralNetwork;
 
 class NeuralNetworkManager : public Ai
 {
+private:
+	struct OutputData
+	{
+		float inputDis;
+		float inputDegree;
+		float inputHp;
+		float inputShot;
+		float outputDis;
+		float outputDegree;
+		float outputShot;
+	};
+
 public:
 	//コンストラクタ
 	NeuralNetworkManager();
@@ -21,10 +33,8 @@ public:
 	virtual ~NeuralNetworkManager();
 
 public:
-	static const int MAX_DATA_H = 3920; 
-	static const int MAX_DATA_W = 4; 
-//	static const int MAX_DATA_H = 301;
-//	static const int MAX_DATA_W = 7;
+	static const int MAX_DATA_H = 301;
+	static const int MAX_DATA_W = 7;
 public:
 	//データを取得
 	void InitializeTraining(wchar_t* fname);
@@ -32,11 +42,19 @@ public:
 	void InitializeNeuralNetwork();
 	//行動パターンを選択
 	AIController::Behavior BehaviorSelection(Character* character, Character* enemys) override;
+	void Render();
+
+public:
+	void OutputDataFile(char* fname);
 
 public: 
 	//データを格納
-	std::vector<std::vector<double>> m_training;
+	std::vector<std::vector<float>> m_training;
 	//ニューラルネットワーク
 	std::unique_ptr<NeuralNetwork>   m_neuralNetwork;
+
+	float m_error;
+
+	std::vector<OutputData>        m_outputData;
 };
 

@@ -27,9 +27,14 @@ using namespace DirectX::SimpleMath;
 /// </summary>
 /// <param name="chara">Š‚µ‚Ä‚éƒLƒƒƒ‰</param>
 Sight::Sight(Character* chara)
-	: m_chara(chara)
+	: GameObject()
+	, m_sightCollider()
+	, m_size()
+	, m_chara(chara)
 	, m_posA()
 	, m_posB()
+	, m_enemyToDistance()
+
 {
 	if (m_chara->GetTag() == ObjectTag::Enemy1)
 		m_tag = ObjectTag::Sight01;

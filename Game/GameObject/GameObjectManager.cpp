@@ -15,7 +15,7 @@
 GameObjectManager::GameObjectManager()
 	: m_objects()
 	, m_objectQueue()
-	,m_drawPrio(0)
+	, m_drawPrio()
 {
 }
 
@@ -56,8 +56,9 @@ void GameObjectManager::Render()
 		pObjects.push_back((*it).get());
 		++it;
 	}
-	pObjects.sort([](const GameObject* a, const GameObject* b) {
-		return a->GetDrawPrio() > b->GetDrawPrio();
+	pObjects.sort([](const GameObject* a, const GameObject* b) 
+	{
+			return a->GetDrawPrio() > b->GetDrawPrio();
 	});
 	for (GameObject* object : pObjects)
 	{

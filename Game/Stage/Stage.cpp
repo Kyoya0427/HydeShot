@@ -58,6 +58,7 @@ void Stage::Initialize()
 				m_floor->Initialize(i, j);
 				m_floor->SetModel(m_floorModels[Map::NORMAL].get());
 				break;
+
 			case Map::OUTER_WALL:	
 			{
 				std::unique_ptr <Wall> wall = std::make_unique<Wall>(GameObject::ObjectTag::Wall);

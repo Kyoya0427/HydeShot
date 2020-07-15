@@ -15,11 +15,18 @@ using namespace DirectX::SimpleMath;
 /// <param name="tag">タグ名</param>
 GameObject::GameObject(const ObjectTag tag)
 	: m_tag(tag)
-	, m_position(0.0f, 0.0f, 0.0f)
-	, m_velocity(0.0f, 0.0f, 0.0f)
-	, m_rotation(0.0f, 0.0f, 0.0f)
-	, m_color(0.0f, 0.0f, 0.0f,0.0f)
-	, m_scale(1.0f, 1.0f, 1.0f)
+	, m_isValid(true)
+	, m_drawPrio()
+	, m_position()
+	, m_velocity()
+	, m_rotation()
+	, m_scale(1.0f,1.0f,1.0f)
+	, m_world()
+	, m_color()
+	, m_x() , m_y()
+	, m_radius()
+	, m_charaTag()
+	
 {
 }
 
@@ -139,6 +146,10 @@ float GameObject::GetRadius()
 	return m_radius;
 }
 
+/// <summary>
+/// デグリでY軸を返す(0～360)
+/// </summary>
+/// <returns></returns>
 float GameObject::GetDegreeY()
 {
 	float degre = XMConvertToDegrees(m_rotation.y); 

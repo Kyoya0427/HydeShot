@@ -79,6 +79,9 @@
     <Filter Include="Game\AI">
       <UniqueIdentifier>{a4701fb1-e930-445d-aa4c-69f3503de88a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resources\CSV">
+      <UniqueIdentifier>{f91f60ae-8bb9-4c60-be99-1f9c0ff61cd8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <!-- アプリケーションマニフェスト -->
@@ -211,6 +214,21 @@
   <ItemGroup>
     <None Include="3rdParty\PicoJSON\PicoJSON.props">
       <Filter>3rdParty\PicoJSON</Filter>
+    </None>
+    <None Include="Resources\CSV\Stage01.csv">
+      <Filter>Resources\CSV</Filter>
+    </None>
+    <None Include="Resources\CSV\Stage02.csv">
+      <Filter>Resources\CSV</Filter>
+    </None>
+    <None Include="Resources\CSV\test.csv">
+      <Filter>Resources\CSV</Filter>
+    </None>
+    <None Include="Resources\CSV\test2.csv">
+      <Filter>Resources\CSV</Filter>
+    </None>
+    <None Include="Resources\CSV\TrainingSet.csv">
+      <Filter>Resources\CSV</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -440,5 +458,13 @@
     <MeshContentTask Include="Resources\FBX\floorPanel_01.FBX">
       <Filter>Resources\FBX</Filter>
     </MeshContentTask>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\Textures\bg01.png">
+      <Filter>Resources\Textures</Filter>
+    </Image>
+    <Image Include="Resources\Textures\floor01.png">
+      <Filter>Resources\Textures</Filter>
+    </Image>
   </ItemGroup>
 </Project>

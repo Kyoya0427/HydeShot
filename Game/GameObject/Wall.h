@@ -38,8 +38,10 @@ public:
 	DirectX::SimpleMath::Vector3 GetCollSize();
 
 private:
+	//テクスチャーハンドル
+	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_texture;
 	// モデルデータへのポインタ
-	DirectX::Model* m_models;
+	DirectX::Model* m_model;
 	//当たり判定オブジェクト
 	std::unique_ptr<DirectX::GeometricPrimitive> m_boxCollider;
 	//当たり判定

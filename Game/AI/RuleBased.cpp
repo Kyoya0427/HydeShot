@@ -63,4 +63,8 @@ AIController::Behavior RuleBased::BehaviorSelection(Character* character, Charac
     return AIController::Behavior::NONE;
 }
 
+void RuleBased::Render()
+{
+}
+
 

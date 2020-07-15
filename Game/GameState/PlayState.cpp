@@ -92,8 +92,8 @@ void PlayState::Initialize()
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player,  GameObject::ObjectTag::Sight01);
 
 
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1, GameObject::ObjectTag::Enemy2);
-//	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1,  GameObject::ObjectTag::Player);
+//	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1, GameObject::ObjectTag::Enemy2);
+	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1,  GameObject::ObjectTag::Player);
 
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Bullet,  GameObject::ObjectTag::Wall);	
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Sight01, GameObject::ObjectTag::Wall);	
@@ -109,14 +109,11 @@ void PlayState::Initialize()
 	m_stage->Initialize();
 	GameContext::Register<Stage>(m_stage.get());
 	
-	
-	
 	//エネミー初期化
 	m_enemy[0] = std::make_unique<Character>(GameObject::ObjectTag::Enemy1);
 	m_enemy[0]->Initialize(m_stage->GetEnemyPos());
 	m_enemy[0]->SetColor(Color(Colors::Blue));
 	
-
 	//エネミー初期化
 //	m_enemy[1] = std::make_unique<Character>(GameObject::ObjectTag::Enemy2);
 //	m_enemy[1]->Initialize(m_stage->GetPlayerPos());
@@ -182,10 +179,6 @@ void PlayState::Update(const DX::StepTimer& timer)
 	m_playerControll->Update(timer);
 
 	
-
-
-
-
 	DirectX::Keyboard::State keyState = DirectX::Keyboard::Get().GetState();
 	m_keyTracker.Update(keyState);
 	if (m_keyTracker.IsKeyReleased(DirectX::Keyboard::Z))
@@ -219,7 +212,6 @@ void PlayState::Render()
 	SimpleMath::Matrix viewMat, projMat;
 	// ゲーム画面のオブジェクト描画
 	m_bg->Render();
-	// ゲーム画面のオブジェクト描画
 	m_objectManager->GetGameOM()->Render();
 	m_aiController[0]->Render();
 	m_playerControll->Render();

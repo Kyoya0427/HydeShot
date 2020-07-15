@@ -105,6 +105,8 @@ private:
 	int m_drawPrio;
 	
 protected:
+	//オブジェクトタグ名
+	ObjectTag                       m_tag;
 	//座標
 	DirectX::SimpleMath::Vector3    m_position;
 	//ベロシティー
@@ -121,8 +123,7 @@ protected:
 	int                             m_x, m_y;
 	//半径
 	float                           m_radius;
-	//オブジェクトタグ名
-	ObjectTag                       m_tag;
+
 	//弾を撃ったオブジェクトのタグ名
 	ObjectTag                       m_charaTag;
 

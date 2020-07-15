@@ -23,7 +23,8 @@ using namespace DirectX::SimpleMath;
 /// コンストラクタ
 /// </summary>
 Floor::Floor()
-	: m_models{nullptr}
+	: GameObject()
+	, m_model()
 {
 }
 
@@ -57,7 +58,7 @@ void Floor::Render()
 	// ダメージが入った瞬間からモデル切り替えする
 
 	// モデルの描画
-	m_models->Draw(GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext()
+	m_model->Draw(GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext()
 		, *GameContext::Get<DirectX::CommonStates>()
 		, m_world
 		, GameContext::Get<Camera>()->GetView()
@@ -86,7 +87,7 @@ void Floor::OnCollision(GameObject* object)
 /// <param name="model">モデル</param>
 void Floor::SetModel(DirectX::Model * model)
 {
-	m_models = model;
+	m_model = model;
 }
 
 

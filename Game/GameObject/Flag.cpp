@@ -26,6 +26,9 @@ using namespace DirectX::SimpleMath;
 /// <param name="tag"></param>
 Flag::Flag(const ObjectTag tag)
 	: GameObject(tag)
+	, m_model()
+	, m_sphereCollider()
+	, m_collider()
 {
 }
 

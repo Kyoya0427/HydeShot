@@ -32,6 +32,15 @@ const int Character::MAX_HP = 5;
 /// </summary>
 Character::Character(const ObjectTag tag)
 	: GameObject(tag)
+	, m_model()
+	, m_sphereCollider()
+	, m_sight()
+	, m_collider()
+	, m_previousPos()
+	, m_wallSightContact(false)
+	, m_wallContact(false)
+	, m_enemySightContact(false)
+	, m_hp()
 {
 	
 }
@@ -53,7 +62,7 @@ void Character::Initialize(DirectX::SimpleMath::Vector2 & pos)
 	m_y = (int)pos.y;
 	m_position = Vector3((float)m_x, 0.0f, (float)m_y);
 	m_radius = 0.4f;
-
+	
 	m_hp = MAX_HP;
 	m_wallContact = false;
 
@@ -64,7 +73,6 @@ void Character::Initialize(DirectX::SimpleMath::Vector2 & pos)
 	m_sphereCollider = GeometricPrimitive::CreateSphere(deviceContext,1.0f,8U);
 	m_collider = std::make_unique<SphereCollider>(this, m_radius);
 
-	
 	m_sight = std::make_unique<Sight>(this);
 }
 
@@ -96,7 +104,6 @@ void Character::Update(const DX::StepTimer & timer)
 /// </summary>
 void Character::Render()
 {
-	m_world = Matrix::Identity;
 	Quaternion rot = Quaternion::CreateFromAxisAngle(Vector3::UnitY, m_rotation.y);
 	Matrix scalemat = Matrix::CreateScale(m_scale);
 	Matrix r = Matrix::CreateRotationX(DirectX::XMConvertToRadians(-90.0f));
@@ -104,9 +111,9 @@ void Character::Render()
 	Matrix transMat = Matrix::CreateTranslation(m_position);
 	// ƒ[ƒ‹ƒhs—ñ‚ðì¬
 
-	Matrix w = scalemat * r * rotMat * transMat;
+	m_world = scalemat * r * rotMat * transMat;
 
-	m_model->Draw(w, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_color);
+	m_model->Draw(m_world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_color);
 
 	Matrix world = rotMat * transMat;
 

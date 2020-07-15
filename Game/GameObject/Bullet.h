@@ -37,6 +37,6 @@ private:
 	//弾のモデル
 	std::unique_ptr<DirectX::GeometricPrimitive>  m_sphereModel;
 	// コライダー
-	std::unique_ptr<SphereCollider> m_collider;
+	std::unique_ptr<SphereCollider>               m_collider;
 
 };

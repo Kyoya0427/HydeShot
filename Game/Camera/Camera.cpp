@@ -15,9 +15,9 @@ using namespace DirectX::SimpleMath;
 /// コンストラクタ
 /// </summary>
 Camera::Camera()
-	: m_eye(0.0f, 0.0f, 0.0f)
+	: m_eye()
 	, m_projection()
-	, m_target(0.0f, 0.0f, 0.0f)
+	, m_target()
 	, m_view()
 {
 }

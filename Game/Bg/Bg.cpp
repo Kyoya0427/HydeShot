@@ -21,7 +21,7 @@ using namespace DirectX::SimpleMath;
 /// コンストラクタ
 /// </summary>
 Bg::Bg()
-	: m_angle(0.0f)
+	: m_angle()
 {
 }
 

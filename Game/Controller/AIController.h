@@ -75,12 +75,12 @@ public:
 private:
 	//Aiマネージャー
 	AiGroupList                             m_aiManager;
-	//ステイト変更インターバル
-	float                                   m_stateInterval;
-	//ステイト
-	Behavior                                m_state;
 	//敵キャラ
 	Character*                              m_enemy;
+	//ステイト
+	Behavior                                m_state;
+	//ステイト変更インターバル
+	float                                   m_stateInterval;
 	//ランダムモードに移行するためのカウント
 	int                                     m_randMobeCount;
 };
