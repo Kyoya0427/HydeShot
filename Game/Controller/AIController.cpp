@@ -152,6 +152,8 @@ void AIController::Render()
 		debugFont->print(700, 90, L"posZ = %f", m_enemy->GetPosition().z);
 		debugFont->draw();
 
+		debugFont->print(700, 120, L"rot = %f", m_enemy->GetRadiansY());
+		debugFont->draw();
 		wchar_t* state[]
 		{
 			L"NONE",
@@ -166,7 +168,7 @@ void AIController::Render()
 		debugFont->print(10, 10, state[static_cast<int>(m_state)]);
 		debugFont->draw();
 
-//		m_aiManager[AiType::NEURALNETWORK]->Render();
+		m_aiManager[AiType::NEURALNETWORK]->Render();
 	}
 
 }

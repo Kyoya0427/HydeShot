@@ -18,11 +18,13 @@ private:
 	struct OutputData
 	{
 		float inputDis;
-		float inputDegree;
+		float inputLeft;
+		float inputRight;
 		float inputHp;
 		float inputShot;
 		float outputDis;
-		float outputDegree;
+		float outputLeft;
+		float outputRight;
 		float outputShot;
 	};
 
@@ -33,16 +35,21 @@ public:
 	virtual ~NeuralNetworkManager();
 
 public:
-	static const int MAX_DATA_H = 301;
-	static const int MAX_DATA_W = 7;
+	static const int MAX_DATA_H = 180;
+	static const int MAX_DATA_W = 9;
+
 public:
 	//データを取得
 	void InitializeTraining(wchar_t* fname);
 	//ニューラルネットワークの初期化
 	void InitializeNeuralNetwork();
 	//行動パターンを選択
-	AIController::Behavior BehaviorSelection(Character* character, Character* enemys) override;
+	AIController::Behavior BehaviorSelection(Character* character, Character* enemy) override;
 	void Render();
+
+	void SearchDirection(Character* character, Character* enemy);
+
+	DirectX::SimpleMath::Vector3 Rotate(float angle, DirectX::SimpleMath::Vector3 u);
 
 public:
 	void OutputDataFile(char* fname);
@@ -56,5 +63,9 @@ public:
 	float m_error;
 
 	std::vector<OutputData>        m_outputData;
+
+	bool                          m_isDirectLeft;
+	bool                          m_isDirectRight;
+	DirectX::SimpleMath::Vector3 p;
 };
 

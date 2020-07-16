@@ -73,7 +73,7 @@ public:
 	//当たり判定の球の半径
 	float GetRadius();
 	//Y軸デグリそ取得
-	float GetDegreeY();
+	float GetRadiansY();
 	//弾を撃ったオブジェクトのタグを取得
 	ObjectTag GetCharaTag();
 

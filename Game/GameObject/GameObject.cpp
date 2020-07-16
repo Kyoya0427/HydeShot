@@ -150,17 +150,17 @@ float GameObject::GetRadius()
 /// ƒfƒOƒŠ‚ÅY²‚ğ•Ô‚·(0`360)
 /// </summary>
 /// <returns></returns>
-float GameObject::GetDegreeY()
+float GameObject::GetRadiansY()
 {
-	float degre = XMConvertToDegrees(m_rotation.y); 
-	if (degre > 360.0f)
+	float radians = XMConvertToRadians(XMConvertToDegrees(m_rotation.y)); 
+	if (radians > XM_PI *2)
 		m_rotation.y = 0.0f;
-	if (degre < -360.0f)
+	if (radians < -XM_PI * 2)
 		m_rotation.y = 0.0f;
 
 	if (m_rotation.y < 0.0f)
-		degre = 360.f + degre;
-	return degre;
+		radians = XM_PI * 2 + radians;
+	return radians;
 }
 
 /// <summary>

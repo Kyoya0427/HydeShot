@@ -41,7 +41,12 @@ public:
 	};
 
 public:
-
+	enum class SearchDirection
+	{
+		FRONT,
+		LEFT,
+		RIGHT
+	};
 
 public:
 	//コンストラク

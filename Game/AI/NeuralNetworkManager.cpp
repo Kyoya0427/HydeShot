@@ -23,9 +23,11 @@ using namespace DirectX::SimpleMath;
 /// コンストラクタ
 /// </summary>
 NeuralNetworkManager::NeuralNetworkManager()
+	: m_isDirectLeft()
+	, m_isDirectRight()
 {
 	m_neuralNetwork = std::make_unique<NeuralNetwork>();
-	InitializeTraining(L"Resources\\CSV\\test.csv");
+	InitializeTraining(L"Resources\\CSV\\test3.csv");
 	InitializeNeuralNetwork();
 	m_error = 0.0f;
 }
@@ -71,7 +73,7 @@ void NeuralNetworkManager::InitializeTraining(wchar_t* fname)
 void NeuralNetworkManager::InitializeNeuralNetwork()
 {
 	// ニューラルネットワークを初期化する(入力層:3、隠れ層:60、出力層:1)
-	m_neuralNetwork->Initialize(4, 20, 3);
+	m_neuralNetwork->Initialize(5, 20, 4);
 
 	// 学習率を設定する
 	// Setup learning rate
@@ -97,14 +99,18 @@ void NeuralNetworkManager::InitializeNeuralNetwork()
 			//HP
 			m_neuralNetwork->SetInput(2, m_training[i][2]);			
 			//壁
-			m_neuralNetwork->SetInput(3, m_training[i][3]);			
+			m_neuralNetwork->SetInput(3, m_training[i][3]);		
+
+			m_neuralNetwork->SetInput(4, m_training[i][4]);			
 			
 			//距離
-			m_neuralNetwork->SetDesiredOutput(0, m_training[i][4]);
+			m_neuralNetwork->SetDesiredOutput(0, m_training[i][5]);
 			//角度
-			m_neuralNetwork->SetDesiredOutput(1, m_training[i][5]);
+			m_neuralNetwork->SetDesiredOutput(1, m_training[i][6]);
 			//発砲
-			m_neuralNetwork->SetDesiredOutput(2, m_training[i][6]);
+			m_neuralNetwork->SetDesiredOutput(2, m_training[i][7]);
+
+			m_neuralNetwork->SetDesiredOutput(3, m_training[i][8]);
 
 			//// 前方伝播する(Feed forward)
 			m_neuralNetwork->FeedForward();
@@ -124,49 +130,43 @@ void NeuralNetworkManager::InitializeNeuralNetwork()
 /// <param name="character">キャラ</param>
 /// <param name="enemys">敵</param>
 /// <returns>行動パターン</returns>
-AIController::Behavior NeuralNetworkManager::BehaviorSelection(Character* character, Character* enemys)
+AIController::Behavior NeuralNetworkManager::BehaviorSelection(Character* character, Character* enemy)
 {
-	float distance = Vector3::Distance(character->GetPosition(), enemys->GetPosition());
+	float distance = Vector3::Distance(character->GetPosition(), enemy->GetPosition());
 	OutputData data;
-	////距離
-	//m_neuralNetwork->SetInput(0, 0);
-	////角度
-	//m_neuralNetwork->SetInput(1,0);
-	////HP
-	//m_neuralNetwork->SetInput(2, 1);
-	////壁判定
-	//m_neuralNetwork->SetInput(3, 1);
-
+	
 	//距離
 	m_neuralNetwork->SetInput(0, distance / 18.0f);
-	//角度
-	m_neuralNetwork->SetInput(1,enemys->GetDegreeY() / 360.0f);
+	SearchDirection(character, enemy);
+	m_neuralNetwork->SetInput(1, m_isDirectLeft);
+	m_neuralNetwork->SetInput(2, m_isDirectRight);
 	//HP
 	m_neuralNetwork->SetInput(2, character->GetHp() / 5);
 	//敵を撃てるか判定
 	m_neuralNetwork->SetInput(3, character->GetEnemySightContact());
 
 	data.inputDis    = distance / 18.0f;
-	data.inputDegree = enemys->GetDegreeY() / 360.0f;
+	data.inputLeft   = m_isDirectLeft;
+	data.inputRight  = m_isDirectRight;
 	data.inputHp     = character->GetHp() / 5;
 	data.inputShot   = character->GetEnemySightContact();
 
 	m_neuralNetwork->FeedForward();
 
 	float dis  = m_neuralNetwork->GetOutput(0) * 18.0f;
-	float rot  = m_neuralNetwork->GetOutput(1) * 360;
 	float shot = m_neuralNetwork->GetOutput(2);
 
-	data.outputDis    = dis;
-	data.outputDegree = rot;
-	data.outputShot   = shot;
+	data.outputDis    = m_neuralNetwork->GetOutput(0);
+	data.outputLeft   = m_neuralNetwork->GetOutput(1);
+	data.outputRight  = m_neuralNetwork->GetOutput(2);
+	data.outputShot   = m_neuralNetwork->GetOutput(3);
 
 	m_outputData.push_back(data);
 
-	if(dis >= 10.0f)
+	/*if(dis >= 10.0f)
 		return	AIController::Behavior::MOVE_FORWARD;
 	if (dis <= 6.0f)
-		return AIController::Behavior::MOVE_BACKWARD;
+		return AIController::Behavior::MOVE_BACKWARD;*/
 
 	return AIController::Behavior::NONE;
 }
@@ -183,6 +183,62 @@ void NeuralNetworkManager::Render()
 
 	debugFont->print(10, 190, L"error = %f", m_error * 100.0f);
 	debugFont->draw();
+
+	
+
+	debugFont->print(10, 220, L"error = %f", p.x);
+	debugFont->draw();
+
+	if (m_isDirectLeft) 
+	{
+		debugFont->print(10, 250, L"left = true");
+		debugFont->draw();
+	}
+	else
+	{
+		debugFont->print(10, 250, L"left = false");
+		debugFont->draw();
+	}
+
+	if (m_isDirectRight)
+	{
+		debugFont->print(10, 280, L"right = true");
+		debugFont->draw();
+	}
+	else
+	{
+		debugFont->print(10, 280, L"right = false");
+		debugFont->draw();
+	}
+}
+
+void NeuralNetworkManager::SearchDirection(Character* character, Character* enemy)
+{
+	Vector3 u;
+	m_isDirectLeft = false;
+	m_isDirectRight = false;
+
+	u = Rotate(-enemy->GetRadiansY(), (character->GetPosition() - enemy->GetPosition()));
+	p = u;
+//	u.Normalize();
+	
+	if (u.x < -0.4f)
+		m_isDirectLeft = true;
+	else if (u.x > 0.4f)
+		m_isDirectRight = true;
+
+
+
+}
+
+Vector3 NeuralNetworkManager::Rotate(float angle, Vector3 u)
+{
+	float	x, y;
+
+	x = u.x * cos(-angle) + u.y * sin(-angle);
+	y = -u.x * sin(-angle) + u.y * cos(-angle);
+
+	return Vector3(x, 0, y);
 }
 
 void NeuralNetworkManager::OutputDataFile(char* fname)
@@ -192,16 +248,16 @@ void NeuralNetworkManager::OutputDataFile(char* fname)
 	errno_t error;
 	error = fopen_s(&f, fname, "w");
 
-	fprintf(f, "--------------------------------------------------------\n");
-	fprintf(f, "A = D, B = R, C = H, D = W, E = D, F = R, G = S \n");
-	fprintf(f, "--------------------------------------------------------\n");
+	fprintf(f, "--------------------------------------------------------------------------------------\n");
+	fprintf(f, "A = D, B = L, C = R, D = H, E = W, F = D, G = L, H = R, I = S \n");
+	fprintf(f, "--------------------------------------------------------------------------------------\n");
 	fprintf(f, "\n");
 	
 	for (auto& output : m_outputData)
 	{
-		fprintf(f, "%2f, %2f, %2f, %2f, %2f, %2f, %2f,\n",output.inputDis,
-			output.inputDegree,output.inputHp,output.inputShot,
-			output.outputDis,output.outputDegree,output.outputShot );
+		fprintf(f, "%2f, %2f, %2f, %2f, %2f, %2f, %2f, %2f, %2f,\n",output.inputDis,
+			output.inputLeft, output.inputRight,output.inputHp,output.inputShot,
+			output.outputDis,output.outputLeft, output.outputRight,output.outputShot);
 	}
 	fclose(f);
 }
