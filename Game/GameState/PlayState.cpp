@@ -80,25 +80,21 @@ void PlayState::Initialize()
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1,  GameObject::ObjectTag::Bullet);
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1,  GameObject::ObjectTag::Sight02);
 
-
-//	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2,  GameObject::ObjectTag::Wall);
-//	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2,  GameObject::ObjectTag::Bullet);
-//	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2,  GameObject::ObjectTag::Flag_02);
-//	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2,  GameObject::ObjectTag::Sight01);
+	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2,  GameObject::ObjectTag::Wall);
+	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2,  GameObject::ObjectTag::Bullet);
+	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2,  GameObject::ObjectTag::Flag_02);
+	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2,  GameObject::ObjectTag::Sight01);
+	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2, GameObject::ObjectTag::Enemy1);
 
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player,  GameObject::ObjectTag::Wall);
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player,  GameObject::ObjectTag::Bullet);
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player,  GameObject::ObjectTag::Flag_02);
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player,  GameObject::ObjectTag::Sight01);
-
-
-//	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1, GameObject::ObjectTag::Enemy2);
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1,  GameObject::ObjectTag::Player);
+	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player,  GameObject::ObjectTag::Enemy1);
 
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Bullet,  GameObject::ObjectTag::Wall);	
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Sight01, GameObject::ObjectTag::Wall);	
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Sight02, GameObject::ObjectTag::Wall);	
-	
 	
 	//ステージを生成
 	m_stage = std::make_unique<Stage>();
@@ -115,9 +111,9 @@ void PlayState::Initialize()
 	m_enemy[0]->SetColor(Color(Colors::Blue));
 	
 	//エネミー初期化
-//	m_enemy[1] = std::make_unique<Character>(GameObject::ObjectTag::Enemy2);
-//	m_enemy[1]->Initialize(m_stage->GetPlayerPos());
-//	m_enemy[1]->SetColor(Color(Colors::Red));
+	m_enemy[1] = std::make_unique<Character>(GameObject::ObjectTag::Enemy2);
+	m_enemy[1]->Initialize(m_stage->GetPlayerPos());
+	m_enemy[1]->SetColor(Color(Colors::Red));
 
 	m_player = std::make_unique<Character>(GameObject::ObjectTag::Player);
 	m_player->Initialize(m_stage->GetPlayerPos());
@@ -130,7 +126,7 @@ void PlayState::Initialize()
 
 	GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(m_player));
 	GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(m_enemy[0]));
-//	GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(m_enemy[1]));
+	GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(m_enemy[1]));
 	
 	// 情報ウィンドウ
 	m_infoWindow = std::make_unique<InfoWindow>();

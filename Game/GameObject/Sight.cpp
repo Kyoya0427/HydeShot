@@ -41,7 +41,7 @@ Sight::Sight(Character* chara)
 	if (m_chara->GetTag() == ObjectTag::Enemy2)
 		m_tag = ObjectTag::Sight02;
 
-	m_size = Vector3(0.3f, 0.1f, 7.0f);
+	m_size = Vector3(0.3f, 0.1f, 9.0f);
 
 	ID3D11DeviceContext* deviceContext = GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext();
 	m_sightCollider = GeometricPrimitive::CreateBox(deviceContext, m_size);
@@ -71,7 +71,7 @@ void Sight::Update(const DX::StepTimer& timer)
 	m_chara->SetWallSightContact(false);
 	
 	Quaternion quaternion = Quaternion::CreateFromAxisAngle(Vector3::UnitY, m_chara->GetRotation().y);
-	m_velocity = Vector3::Transform(Vector3(0.0f, 0.0f, -7.0f), quaternion);
+	m_velocity = Vector3::Transform(Vector3(0.0f, 0.0f, -9.0f), quaternion);
 	m_position = m_chara->GetPosition();
 
 	m_posA = m_chara->GetPosition();
@@ -99,7 +99,7 @@ void Sight::Render()
 	Quaternion rot    = Quaternion::CreateFromAxisAngle(Vector3::UnitY, m_chara->GetRotation().y);
 	Matrix rotMat     = Matrix::CreateFromQuaternion(rot);
 	Matrix transMat   = Matrix::CreateTranslation(m_position);
-	Matrix offset     = Matrix::CreateTranslation(Vector3(0.0f,0.0f,-3.5f));
+	Matrix offset     = Matrix::CreateTranslation(Vector3(0.0f,0.0f,-4.5f));
 
 	m_world  = offset *rotMat * transMat;
 

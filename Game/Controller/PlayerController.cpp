@@ -77,19 +77,21 @@ void PlayerController::Update(const DX::StepTimer& timer)
 		m_character->Shoot();
 		m_shotInterval = SHOT_INTERVAL;
 	}
-
+	
 }
 
 void PlayerController::Render()
 {
 	if (PlayState::m_isDebug)
 	{
-//		DebugFont* debugFont = DebugFont::GetInstance();
+		DebugFont* debugFont = DebugFont::GetInstance();
 
-//		debugFont->print(700, 50, L"rot = %f",XMConvertToDegrees(m_character->GetRotation().y));
-//		debugFont->draw();
+
+		
 	}
 }
+
+
 
 
 

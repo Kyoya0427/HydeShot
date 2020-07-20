@@ -25,7 +25,7 @@ using namespace DirectX::SimpleMath;
 const float AIController::MOVE_SPEED     = 0.03f;
 const float AIController::ROT_SPEED      = 0.01f;
 const float AIController::SHOT_INTERVAL  = 0.5f;
-const float AIController::STATE_INTERVAL = 1.0f;
+const float AIController::STATE_INTERVAL = 0.05f;
 
 /// <summary>
 /// コンストラクタ
@@ -37,8 +37,6 @@ AIController::AIController(Character* character, Character* enemy)
 	, m_enemy()
 	, m_state()
 	, m_stateInterval()
-	, m_randMobeCount()
-
 {
 	m_enemy = enemy;
 	m_shotInterval  = SHOT_INTERVAL;
@@ -78,8 +76,13 @@ void AIController::Update(const DX::StepTimer& timer)
 	//インターバル
 	if (m_stateInterval < 0.0f)
 	{
-		m_stateInterval = STATE_INTERVAL;
+		if (m_character->GetTag() == GameObject::ObjectTag::Enemy1)
 		m_state = m_aiManager[AiType::NEURALNETWORK]->BehaviorSelection(m_character, m_enemy);
+		if (m_character->GetTag() == GameObject::ObjectTag::Enemy2)
+			m_state = m_aiManager[AiType::RULEBASED]->BehaviorSelection(m_character, m_enemy);
+	
+		m_stateInterval = STATE_INTERVAL;
+
 	}
 	Keyboard::State keyState = Keyboard::Get().GetState();
 
@@ -99,6 +102,17 @@ void AIController::Update(const DX::StepTimer& timer)
 	{
 		m_character->Rightward(MOVE_SPEED);
 	}
+
+
+	if (keyState.IsKeyDown(Keyboard::Keys::O))
+	{
+		m_character->LeftTurn(ROT_SPEED);
+	}
+	else if (keyState.IsKeyDown(Keyboard::Keys::P))
+	{
+		m_character->RightTurn(ROT_SPEED);
+	}
+
 	//ステート
 	switch (m_state)
 	{
@@ -140,10 +154,9 @@ void AIController::Render()
 	if (PlayState::m_isDebug)
 	{
 		DebugFont* debugFont = DebugFont::GetInstance();
-		debugFont->print(10, 30, L"%f / 0.1", m_shotInterval);
+		debugFont->print(10, 30, L"%f / 0.1", m_stateInterval);
 		debugFont->draw();
-		debugFont->print(10, 50, L"%d", m_randMobeCount);
-		debugFont->draw();
+	
 
 		debugFont->print(700, 30, L"posX = %f", m_enemy->GetPosition().x);
 		debugFont->draw();
@@ -152,8 +165,7 @@ void AIController::Render()
 		debugFont->print(700, 90, L"posZ = %f", m_enemy->GetPosition().z);
 		debugFont->draw();
 
-		debugFont->print(700, 120, L"rot = %f", m_enemy->GetRadiansY());
-		debugFont->draw();
+
 		wchar_t* state[]
 		{
 			L"NONE",

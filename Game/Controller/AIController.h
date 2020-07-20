@@ -86,6 +86,5 @@ private:
 	Behavior                                m_state;
 	//ステイト変更インターバル
 	float                                   m_stateInterval;
-	//ランダムモードに移行するためのカウント
-	int                                     m_randMobeCount;
+	
 };

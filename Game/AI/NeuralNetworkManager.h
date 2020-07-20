@@ -21,11 +21,12 @@ private:
 		float inputLeft;
 		float inputRight;
 		float inputHp;
-		float inputShot;
+		float inputShoot;
 		float outputDis;
 		float outputLeft;
 		float outputRight;
-		float outputShot;
+		float outputShoot;
+		char* outputChoiceMode;
 	};
 
 public:
@@ -61,11 +62,11 @@ public:
 	std::unique_ptr<NeuralNetwork>   m_neuralNetwork;
 
 	float m_error;
-
+	Character* m_character;
 	std::vector<OutputData>        m_outputData;
 
 	bool                          m_isDirectLeft;
 	bool                          m_isDirectRight;
-	DirectX::SimpleMath::Vector3 p;
+	float                         m_p;
 };
 

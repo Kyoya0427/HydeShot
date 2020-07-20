@@ -153,13 +153,13 @@ float GameObject::GetRadius()
 float GameObject::GetRadiansY()
 {
 	float radians = XMConvertToRadians(XMConvertToDegrees(m_rotation.y)); 
-	if (radians > XM_PI *2)
+	if (radians > XM_2PI)
 		m_rotation.y = 0.0f;
-	if (radians < -XM_PI * 2)
+	if (radians < -XM_2PI)
 		m_rotation.y = 0.0f;
 
 	if (m_rotation.y < 0.0f)
-		radians = XM_PI * 2 + radians;
+		radians = XM_2PI + radians;
 	return radians;
 }
 
