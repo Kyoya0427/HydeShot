@@ -30,6 +30,7 @@ void WallAvoid::Initialize(Character* chara)
 /// <param name="timer">タイマー</param>
 void WallAvoid::Update(const DX::StepTimer& timer)
 {
+	m_chara->Shoot();
 }
 
 /// <summary>
