@@ -27,7 +27,7 @@ NeuralNetworkManager::NeuralNetworkManager()
 	, m_isDirectRight()
 {
 	m_neuralNetwork = std::make_unique<NeuralNetwork>();
-	InitializeTraining(L"Resources\\CSV\\test3.csv");
+	InitializeTraining(L"Resources\\CSV\\test4.csv");
 	InitializeNeuralNetwork();
 	m_error = 0.0f;
 }
@@ -73,7 +73,7 @@ void NeuralNetworkManager::InitializeTraining(wchar_t* fname)
 void NeuralNetworkManager::InitializeNeuralNetwork()
 {
 	// ニューラルネットワークを初期化する(入力層:5、隠れ層:40、出力層:4)
-	m_neuralNetwork->Initialize(5, 20, 4);
+	m_neuralNetwork->Initialize(6, 20, 6);
 
 	// 学習率を設定する
 	// Setup learning rate
@@ -92,25 +92,33 @@ void NeuralNetworkManager::InitializeNeuralNetwork()
 		count++;
 		for (int i = 0; i < MAX_DATA_H; i++)
 		{
+			//入力値
 			//距離
 			m_neuralNetwork->SetInput(0, m_training[i][0]);			
 			//左判定
 			m_neuralNetwork->SetInput(1, m_training[i][1]);			
 			//右判定
 			m_neuralNetwork->SetInput(2, m_training[i][2]);			
-			//HP
-			m_neuralNetwork->SetInput(3, m_training[i][3]);		
 			//壁
+			m_neuralNetwork->SetInput(3, m_training[i][3]);		
+			//打つ
 			m_neuralNetwork->SetInput(4, m_training[i][4]);			
-			
+			//HP
+			m_neuralNetwork->SetInput(5, m_training[i][5]);
+
+			//出力値
 			//距離
-			m_neuralNetwork->SetDesiredOutput(0, m_training[i][5]);
+			m_neuralNetwork->SetDesiredOutput(0, m_training[i][6]);
 			//左判定
-			m_neuralNetwork->SetDesiredOutput(1, m_training[i][6]);
+			m_neuralNetwork->SetDesiredOutput(1, m_training[i][7]);
 			//右判定
-			m_neuralNetwork->SetDesiredOutput(2, m_training[i][7]);
-			//発砲
-			m_neuralNetwork->SetDesiredOutput(3, m_training[i][8]);
+			m_neuralNetwork->SetDesiredOutput(2, m_training[i][8]);
+			//左移動
+			m_neuralNetwork->SetDesiredOutput(3, m_training[i][9]);
+			//右移動
+			m_neuralNetwork->SetDesiredOutput(4, m_training[i][10]);
+			//打つ
+			m_neuralNetwork->SetDesiredOutput(5, m_training[i][11]);
 
 			//// 前方伝播する(Feed forward)
 			m_neuralNetwork->FeedForward();
@@ -145,10 +153,12 @@ AIController::Behavior NeuralNetworkManager::BehaviorSelection(Character* charac
 	m_neuralNetwork->SetInput(1, static_cast<float>(m_isDirectLeft));
 	//右判定
 	m_neuralNetwork->SetInput(2, static_cast<float>(m_isDirectRight));
+	//目の前に壁がある
+	m_neuralNetwork->SetInput(3, static_cast<float>(character->GetWallSightContact()));
 	//敵を撃てるか判定
-	m_neuralNetwork->SetInput(3, static_cast<float>(character->GetEnemySightContact()));
+	m_neuralNetwork->SetInput(4, static_cast<float>(character->GetEnemySightContact()));
 	//HP
-	m_neuralNetwork->SetInput(4, static_cast<float>(character->GetHp() / 5));
+	m_neuralNetwork->SetInput(5, static_cast<float>(character->GetHp() / 5));
 
 
 	//計算開始
@@ -160,19 +170,24 @@ AIController::Behavior NeuralNetworkManager::BehaviorSelection(Character* charac
 	data.inputDis      = distance / 18.0f;
 	data.inputLeft     = static_cast<float>(m_isDirectLeft);
 	data.inputRight    = static_cast<float>(m_isDirectRight);
-	data.inputHp       = static_cast<float>(character->GetHp() / 5);
+	data.inputWall     = static_cast<float>(character->GetWallSightContact());
 	data.inputShoot    = static_cast<float>(character->GetEnemySightContact());
+	data.inputHp       = static_cast<float>(character->GetHp() / 5);
 
-	data.outputDis     = m_neuralNetwork->GetOutput(0);
-	data.outputLeft    = m_neuralNetwork->GetOutput(1);
-	data.outputRight   = m_neuralNetwork->GetOutput(2);
-	data.outputShoot   = m_neuralNetwork->GetOutput(3);
+	data.outputDis       = m_neuralNetwork->GetOutput(0);
+	data.outputLeft      = m_neuralNetwork->GetOutput(1);
+	data.outputRight     = m_neuralNetwork->GetOutput(2);
+	data.outputMoveLeft  = m_neuralNetwork->GetOutput(3);
+	data.outputMoveRight = m_neuralNetwork->GetOutput(4);
+	data.outputShoot     = m_neuralNetwork->GetOutput(5);
 
 	
 	float dis   = m_neuralNetwork->GetOutput(0);
 	float left  = m_neuralNetwork->GetOutput(1);
 	float right = m_neuralNetwork->GetOutput(2);
-	float shot  = m_neuralNetwork->GetOutput(3);
+	float MoveL = m_neuralNetwork->GetOutput(3);
+	float MoveR = m_neuralNetwork->GetOutput(4);
+	float shot  = m_neuralNetwork->GetOutput(5);
 
 	if (shot >= 0.6f)
 	{
@@ -192,13 +207,25 @@ AIController::Behavior NeuralNetworkManager::BehaviorSelection(Character* charac
 		m_outputData.push_back(data);
 		return AIController::Behavior::TURN_RIGHT;
 	}
+	else if (MoveL >= 0.5f)
+	{
+		data.outputChoiceMode = "MoveL";
+		m_outputData.push_back(data);
+		return AIController::Behavior::MOVE_LEFTWARD;
+	}
+	else if (MoveR >= 0.5f)
+	{
+		data.outputChoiceMode = "MoveR";
+		m_outputData.push_back(data);
+		return AIController::Behavior::MOVE_RIGHTWARD;
+	}
 	else if (dis >= 0.5f)
 	{
 		data.outputChoiceMode = "forward";
 		m_outputData.push_back(data);
 		return AIController::Behavior::MOVE_FORWARD;
 	}
-	else if (dis < 0.5f)
+	else if (dis >= 0.1f)
 	{
 		data.outputChoiceMode = "backward";
 		m_outputData.push_back(data);
@@ -216,10 +243,9 @@ void NeuralNetworkManager::Render()
 	debugFont->print(10, 190, L"error = %f%", m_error * 100);
 	debugFont->draw();
 
-	debugFont->print(700, 220, L"dis = %f", m_p);
-	debugFont->draw();
 	debugFont->print(700, 250, L"dis = %f", m_p / 18.0f);
 	debugFont->draw();
+
 	if (m_isDirectLeft) 
 	{
 		debugFont->print(700, 280, L"left = true");
@@ -305,16 +331,17 @@ void NeuralNetworkManager::OutputDataFile(char* fname)
 	errno_t error;
 	error = fopen_s(&f, fname, "w");
 
-	fprintf(f, "--------------------------------------------------------------------------------------\n");
-	fprintf(f, "IN Distance, Left, Right, Shoot, Hp,  OUT Distance, Left, Right, Shoot ,ChoiceMode \n");
-	fprintf(f, "--------------------------------------------------------------------------------------\n");
+	fprintf(f, "-------------------------------------------------------------------------------------------------------\n");
+	fprintf(f, "IN Distance, Left, Right, Wall, Shoot, Hp,  OUT Distance, Left, Right, MoveL, MoveR, Shoot ,ChoiceMode \n");
+	fprintf(f, "-------------------------------------------------------------------------------------------------------\n");
 	fprintf(f, "\n");
 	
 	for (auto& output : m_outputData)
 	{
-		fprintf(f, "%2f, %2f, %2f, %2f, %2f, %2f, %2f, %2f, %2f, %s, %f%\n",output.inputDis,
-			output.inputLeft, output.inputRight, output.inputShoot, output.inputHp,
-			output.outputDis,output.outputLeft, output.outputRight,output.outputShoot,output.outputChoiceMode,m_error*100);
+		fprintf(f, "%2f, %2f, %2f, %2f, %2f, %2f, %2f, %2f, %2f, %2f, %2f, %2f, %s, %f%\n"
+			,output.inputDis, output.inputLeft, output.inputRight, output.inputWall,output.inputShoot, output.inputHp
+			,output.outputDis, output.outputLeft, output.outputRight, output.outputMoveLeft, output.outputMoveRight, output.outputShoot
+			,output.outputChoiceMode, m_error*100);
 	}
 	fclose(f);
 }

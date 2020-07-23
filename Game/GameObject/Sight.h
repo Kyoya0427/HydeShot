@@ -37,7 +37,7 @@ private:
 	//サイズ
 	DirectX::SimpleMath::Vector3                 m_size;
 	//所持してるキャラ
-	Character* m_chara;
+	Character*									 m_chara;
 	//始点
 	DirectX::SimpleMath::Vector3                 m_posA;
 	//終点

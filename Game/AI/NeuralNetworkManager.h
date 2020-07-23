@@ -20,11 +20,14 @@ private:
 		float inputDis;
 		float inputLeft;
 		float inputRight;
-		float inputHp;
+		float inputWall;
 		float inputShoot;
+		float inputHp;
 		float outputDis;
 		float outputLeft;
 		float outputRight;
+		float outputMoveLeft;
+		float outputMoveRight;
 		float outputShoot;
 		char* outputChoiceMode;
 	};
@@ -36,8 +39,8 @@ public:
 	virtual ~NeuralNetworkManager();
 
 public:
-	static const int MAX_DATA_H = 180;
-	static const int MAX_DATA_W = 9;
+	static const int MAX_DATA_H = 270;
+	static const int MAX_DATA_W = 12;
 
 public:
 	//ƒf[ƒ^‚ğæ“¾

@@ -111,9 +111,9 @@ void PlayState::Initialize()
 	m_enemy[0]->SetColor(Color(Colors::Blue));
 	
 	//エネミー初期化
-	m_enemy[1] = std::make_unique<Character>(GameObject::ObjectTag::Enemy2);
-	m_enemy[1]->Initialize(m_stage->GetPlayerPos());
-	m_enemy[1]->SetColor(Color(Colors::Red));
+//	m_enemy[1] = std::make_unique<Character>(GameObject::ObjectTag::Enemy2);
+//	m_enemy[1]->Initialize(m_stage->GetPlayerPos());
+//	m_enemy[1]->SetColor(Color(Colors::Red));
 
 	m_player = std::make_unique<Character>(GameObject::ObjectTag::Player);
 	m_player->Initialize(m_stage->GetPlayerPos());
@@ -126,7 +126,7 @@ void PlayState::Initialize()
 
 	GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(m_player));
 	GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(m_enemy[0]));
-	GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(m_enemy[1]));
+//	GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(m_enemy[1]));
 	
 	// 情報ウィンドウ
 	m_infoWindow = std::make_unique<InfoWindow>();

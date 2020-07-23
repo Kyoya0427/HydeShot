@@ -1,39 +1,5 @@
 ﻿  Resources\FBX\bg.FBX
   Resources\FBX\floorPanel_00.FBX
   Resources\FBX\floorPanel_01.FBX
-  スキップ中... (関連する変更は検出されませんでした)
-  Main.cpp
-  Letter.cpp
-  InfoWindow.cpp
-  Blink.cpp
-  Stage.cpp
-  TitleState.cpp
-  ResultState.cpp
-  PauseState.cpp
-  GameStateManager.cpp
-  Wall.cpp
-  ObjectManager.cpp
-  GameObjectManager.cpp
-  GameObject.cpp
-  Floor.cpp
-  Flag.cpp
-  Character.cpp
-  Bullet.cpp
-  Game.cpp
-  PlayerController.cpp
-  CharacterController.cpp
-  DeviceResources.cpp
-  DebugFont.cpp
-  BinaryFile.cpp
-  SphereCollider.cpp
-  RayCollider.cpp
-  CollisionManager.cpp
-  Collider.cpp
-  BoxCollider.cpp
-  Camera.cpp
-  Bg.cpp
-  RuleBased.cpp
-  NeuralNetworkManager.cpp
-  NeuralNetwork.cpp
   TBSG.vcxproj -> C:\Users\s182106\Documents\Visual Studio 2015\Projects\TBSG\Debug\TBSG.exe
   TBSG.vcxproj -> C:\Users\s182106\Documents\Visual Studio 2015\Projects\TBSG\Debug\TBSG.pdb (Full PDB)
