@@ -74,17 +74,17 @@ void PlayerController::Update(const DX::StepTimer& timer)
 
 	if (keyState.IsKeyDown(Keyboard::Keys::Space) && m_shotInterval < 0.0f)
 	{
-		m_character->Shoot();
+	
 		m_shotInterval = SHOT_INTERVAL;
 	}
-	
+
 }
 
 void PlayerController::Render()
 {
 	if (PlayState::m_isDebug)
 	{
-		DebugFont* debugFont = DebugFont::GetInstance();
+		m_charaState->Render();
 
 
 		
