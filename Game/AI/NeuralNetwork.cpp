@@ -48,7 +48,7 @@ NeuralNetworkLayer::NeuralNetworkLayer()
 /// <param name="child">èoóÕëw</param>
 void NeuralNetworkLayer::Initialize(int NumNodes, NeuralNetworkLayer* parent, NeuralNetworkLayer* child)
 {
-
+	NumNodes;
 	// Allocate memory
 	m_neuronValues  = (float*)malloc(sizeof(float) * m_numNodes);
 	m_desiredValues = (float*)malloc(sizeof(float) * m_numNodes);
@@ -443,8 +443,9 @@ void NeuralNetwork::SetMomentum(bool useMomentum, float factor)
 void NeuralNetwork::DumpData(char* filename)
 {
 	FILE* f;
-
-	f = fopen(filename, "w");
+	
+	errno_t error;
+	error = fopen_s(&f,filename, "w");
 
 	fprintf(f, "--------------------------------------------------------\n");
 	fprintf(f, "Input Layer\n");

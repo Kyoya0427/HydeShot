@@ -19,6 +19,11 @@
 
 #include <Game/GameState/PlayState.h>
 
+#include <Game/CharaState/CharaState.h>
+#include <Game/CharaState/Attack.h>
+#include <Game/CharaState/WallAvoid.h>
+#include <Game/CharaState/Search.h>
+
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
@@ -41,13 +46,22 @@ AIController::AIController(Character* character, Character* enemy)
 	m_enemy = enemy;
 	m_shotInterval  = SHOT_INTERVAL;
 	m_stateInterval = STATE_INTERVAL;
-	m_state = Behavior::NONE;
+	m_state = State::NONE;
 	
+	m_search    = std::make_unique<Search>();
+	m_attack    = std::make_unique<Attack>();
+	m_wallAvoid = std::make_unique<WallAvoid>();
+
+	m_search->Initialize(m_character, this);
+	m_attack->Initialize(m_character, this);
+	m_wallAvoid->Initialize(m_character, this);
+
+	ChangeSearchState();
+
 	std::unique_ptr<RuleBased> ruleBased = std::make_unique<RuleBased>();
 	std::unique_ptr<NeuralNetworkManager> neuralNetworkManager = std::make_unique<NeuralNetworkManager>();
 	neuralNetworkManager->InitializeNeuralNetwork();
 
-	
 	m_aiManager.emplace(std::make_pair(AiType::RULEBASED, std::move(ruleBased)));
 	m_aiManager.emplace(std::make_pair(AiType::NEURALNETWORK, std::move(neuralNetworkManager)));
 
@@ -86,7 +100,7 @@ void AIController::Update(const DX::StepTimer& timer)
 	}
 	Keyboard::State keyState = Keyboard::Get().GetState();
 
-	if (keyState.IsKeyDown(Keyboard::Keys::I))
+	/*if (keyState.IsKeyDown(Keyboard::Keys::I))
 	{
 		m_character->Forward(MOVE_SPEED);
 	}
@@ -111,38 +125,21 @@ void AIController::Update(const DX::StepTimer& timer)
 	else if (keyState.IsKeyDown(Keyboard::Keys::P))
 	{
 		m_character->RightTurn(ROT_SPEED);
-	}
+	}*/
 
-	//ステート
-	switch (m_state)
+	if (keyState.IsKeyDown(Keyboard::Keys::F1))
 	{
-	case Behavior::MOVE_FORWARD:
-		m_character->Forward(MOVE_SPEED);
-		break;
-	case Behavior::MOVE_BACKWARD:
-		m_character->Backward(MOVE_SPEED);
-		break;
-	case Behavior::MOVE_LEFTWARD:
-		m_character->Leftward(MOVE_SPEED);
-		break;
-	case Behavior::MOVE_RIGHTWARD:
-		m_character->Rightward(MOVE_SPEED);
-		break;
-	case Behavior::TURN_LEFT:
-		m_character->LeftTurn(ROT_SPEED);
-		break;
-	case Behavior::TURN_RIGHT:
-		m_character->RightTurn(ROT_SPEED);
-		break;
-	case Behavior::SHOOT:
-		if (m_shotInterval < 0.0f)
-		{
-			m_character->Shoot();
-			m_shotInterval = SHOT_INTERVAL;
-		}
-		break;
+		ChangeAttackState();
 	}
-
+	if (keyState.IsKeyDown(Keyboard::Keys::F2))
+	{
+		ChangeSearchState();
+	}
+	if (keyState.IsKeyDown(Keyboard::Keys::F3))
+	{
+		ChangeWallAvoidState();
+	}
+	
 }
 
 /// <summary>
@@ -166,23 +163,35 @@ void AIController::Render()
 		debugFont->draw();
 
 
-		wchar_t* state[]
-		{
-			L"NONE",
-			L"FORWARD",
-			L"BACKWARD",
-			L"LEFTWARD",
-			L"RIGHTWARD",
-			L"LEFT_TURN",
-			L"RIGHT_TURN",
-			L"SHOT"
-		};
-		debugFont->print(10, 10, state[static_cast<int>(m_state)]);
-		debugFont->draw();
 
 		m_aiManager[AiType::NEURALNETWORK]->Render();
+		m_charaState->Render();
 	}
 
 }
 
 
+/// <summary>
+/// 攻撃にステイトを変更
+/// </summary>
+void AIController::ChangeAttackState()
+{
+	
+	m_charaState = static_cast<CharaState*>(m_attack.get());
+}
+
+/// <summary>
+/// サーチにステイトを変更
+/// </summary>
+void AIController::ChangeSearchState()
+{
+	m_charaState = static_cast<CharaState*>(m_search.get());
+}
+
+/// <summary>
+/// 壁回避にステイトを変更
+/// </summary>
+void AIController::ChangeWallAvoidState()
+{
+	m_charaState = static_cast<CharaState*>(m_wallAvoid.get());
+}

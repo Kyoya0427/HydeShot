@@ -26,8 +26,7 @@ private:
 		float outputDis;
 		float outputLeft;
 		float outputRight;
-		float outputMoveLeft;
-		float outputMoveRight;
+		float outputWall;
 		float outputShoot;
 		char* outputChoiceMode;
 	};
@@ -40,7 +39,7 @@ public:
 
 public:
 	static const int MAX_DATA_H = 270;
-	static const int MAX_DATA_W = 12;
+	static const int MAX_DATA_W = 11;
 
 public:
 	//データを取得
@@ -48,7 +47,8 @@ public:
 	//ニューラルネットワークの初期化
 	void InitializeNeuralNetwork();
 	//行動パターンを選択
-	AIController::Behavior BehaviorSelection(Character* character, Character* enemy) override;
+	AIController::State BehaviorSelection(Character* character, Character* enemy) override;
+
 	void Render();
 
 	void SearchDirection(Character* character, Character* enemy);

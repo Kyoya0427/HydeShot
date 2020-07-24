@@ -19,7 +19,7 @@ Attack::Attack()
 /// ‰Šú‰»
 /// </summary>
 /// <param name="chara"></param>
-void Attack::Initialize(Character* chara)
+void Attack::Initialize(Character* chara, CharacterController* controller)
 {
 	m_chara = chara;
 }

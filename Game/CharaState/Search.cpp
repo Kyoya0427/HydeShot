@@ -19,7 +19,7 @@ Search::Search()
 /// ‰Šú‰»
 /// </summary>
 /// <param name="chara"></param>
-void Search::Initialize(Character* chara)
+void Search::Initialize(Character* chara, CharacterController* controller)
 {
 	m_chara = chara;
 }

@@ -11,6 +11,7 @@
 #include <Game/Common/StepTimer.h>
 
 class Character;
+class CharacterController;
 
 class CharaState
 {
@@ -20,7 +21,7 @@ public:
 
 public:
 	//‰Šú‰»
-	virtual void Initialize(Character* chara) = 0;
+	virtual void Initialize(Character* chara, CharacterController* controller) = 0;
 	//XV
 	virtual void Update(const DX::StepTimer& timer) = 0;
 	//•`‰æ

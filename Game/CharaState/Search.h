@@ -8,6 +8,8 @@
 
 #include <Game/CharaState/CharaState.h>
 
+#include <Game/Controller/CharacterController.h>
+
 class Search : public CharaState
 {
 public:
@@ -15,7 +17,7 @@ public:
 	Search();
 public:
 	//‰Šú‰»
-	void Initialize(Character* chara) override;
+	void Initialize(Character* chara, CharacterController* controller) override;
 	//XV
 	void Update(const DX::StepTimer& timer) override;
 	//•`‰æ

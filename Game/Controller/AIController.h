@@ -10,6 +10,10 @@
 
 #include <Game/Controller/CharacterController.h>
 
+#include <Game/CharaState/Attack.h>
+#include <Game/CharaState/WallAvoid.h>
+#include <Game/CharaState/Search.h>
+
 class RuleBased;
 class NeuralNetworkManager;
 class Ai;
@@ -17,16 +21,13 @@ class Ai;
 class AIController : public  CharacterController
 {
 public:
-	enum  class Behavior
+	enum  class State
 	{
 		NONE,
-		MOVE_FORWARD,	//1
-		MOVE_BACKWARD,	//2
-		MOVE_LEFTWARD,	//3
-		MOVE_RIGHTWARD,	//4	
-		SHOOT,			//5
-		TURN_LEFT,		//6
-		TURN_RIGHT,		//7
+		
+		ATTACK,
+		SEARCH,
+		WALLAVOID,
 
 		NUM
 	};
@@ -41,14 +42,6 @@ public:
 	};
 
 public:
-	enum class SearchDirection
-	{
-		FRONT,
-		LEFT,
-		RIGHT
-	};
-
-public:
 	//コンストラク
 	AIController(Character* character, Character* enemy);
 	//デストラクタ
@@ -59,6 +52,14 @@ public:
 	void Update(const DX::StepTimer& timer) override;
 	//デバック描画
 	void Render();
+
+public:
+	//攻撃にステイトを変更
+	void ChangeAttackState();
+	//サーチにステイトを変更
+	void ChangeSearchState();
+	//壁回避にステイトを変更
+	void ChangeWallAvoidState();
 
 public:
 	using AiGroupList	  = std::map<AiType, std::unique_ptr<Ai>>;
@@ -83,8 +84,15 @@ private:
 	//敵キャラ
 	Character*                              m_enemy;
 	//ステイト
-	Behavior                                m_state;
+	State                                m_state;
 	//ステイト変更インターバル
 	float                                   m_stateInterval;
+
+	//攻撃ステート
+	std::unique_ptr<Attack>                 m_attack;
+	//サーチステート
+	std::unique_ptr<Search>                 m_search;
+	//壁回避ステート
+	std::unique_ptr<WallAvoid>              m_wallAvoid;
 	
 };

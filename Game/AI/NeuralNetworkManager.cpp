@@ -27,7 +27,7 @@ NeuralNetworkManager::NeuralNetworkManager()
 	, m_isDirectRight()
 {
 	m_neuralNetwork = std::make_unique<NeuralNetwork>();
-	InitializeTraining(L"Resources\\CSV\\test4.csv");
+	InitializeTraining(L"Resources\\CSV\\test5.csv");
 	InitializeNeuralNetwork();
 	m_error = 0.0f;
 }
@@ -73,7 +73,7 @@ void NeuralNetworkManager::InitializeTraining(wchar_t* fname)
 void NeuralNetworkManager::InitializeNeuralNetwork()
 {
 	// ニューラルネットワークを初期化する(入力層:5、隠れ層:40、出力層:4)
-	m_neuralNetwork->Initialize(6, 20, 6);
+	m_neuralNetwork->Initialize(6, 20, 5);
 
 	// 学習率を設定する
 	// Setup learning rate
@@ -113,12 +113,10 @@ void NeuralNetworkManager::InitializeNeuralNetwork()
 			m_neuralNetwork->SetDesiredOutput(1, m_training[i][7]);
 			//右判定
 			m_neuralNetwork->SetDesiredOutput(2, m_training[i][8]);
-			//左移動
+			//壁
 			m_neuralNetwork->SetDesiredOutput(3, m_training[i][9]);
-			//右移動
-			m_neuralNetwork->SetDesiredOutput(4, m_training[i][10]);
 			//打つ
-			m_neuralNetwork->SetDesiredOutput(5, m_training[i][11]);
+			m_neuralNetwork->SetDesiredOutput(4, m_training[i][10]);
 
 			//// 前方伝播する(Feed forward)
 			m_neuralNetwork->FeedForward();
@@ -139,7 +137,7 @@ void NeuralNetworkManager::InitializeNeuralNetwork()
 /// <param name="character">自機</param>
 /// <param name="enemys">敵</param>
 /// <returns>行動パターン</returns>
-AIController::Behavior NeuralNetworkManager::BehaviorSelection(Character* character, Character* enemy)
+AIController::State NeuralNetworkManager::BehaviorSelection(Character* character, Character* enemy)
 {
 	m_character = character;
 	//距離計算
@@ -154,7 +152,7 @@ AIController::Behavior NeuralNetworkManager::BehaviorSelection(Character* charac
 	//右判定
 	m_neuralNetwork->SetInput(2, static_cast<float>(m_isDirectRight));
 	//目の前に壁がある
-	m_neuralNetwork->SetInput(3, static_cast<float>(character->GetWallSightContact()));
+	m_neuralNetwork->SetInput(3, static_cast<float>(character->GetWallContact()));
 	//敵を撃てるか判定
 	m_neuralNetwork->SetInput(4, static_cast<float>(character->GetEnemySightContact()));
 	//HP
@@ -170,70 +168,44 @@ AIController::Behavior NeuralNetworkManager::BehaviorSelection(Character* charac
 	data.inputDis      = distance / 18.0f;
 	data.inputLeft     = static_cast<float>(m_isDirectLeft);
 	data.inputRight    = static_cast<float>(m_isDirectRight);
-	data.inputWall     = static_cast<float>(character->GetWallSightContact());
+	data.inputWall     = static_cast<float>(character->GetWallContact());
 	data.inputShoot    = static_cast<float>(character->GetEnemySightContact());
 	data.inputHp       = static_cast<float>(character->GetHp() / 5);
 
 	data.outputDis       = m_neuralNetwork->GetOutput(0);
 	data.outputLeft      = m_neuralNetwork->GetOutput(1);
 	data.outputRight     = m_neuralNetwork->GetOutput(2);
-	data.outputMoveLeft  = m_neuralNetwork->GetOutput(3);
-	data.outputMoveRight = m_neuralNetwork->GetOutput(4);
-	data.outputShoot     = m_neuralNetwork->GetOutput(5);
+	data.outputWall      = m_neuralNetwork->GetOutput(3);
+	data.outputShoot     = m_neuralNetwork->GetOutput(4);
 
 	
 	float dis   = m_neuralNetwork->GetOutput(0);
 	float left  = m_neuralNetwork->GetOutput(1);
 	float right = m_neuralNetwork->GetOutput(2);
-	float MoveL = m_neuralNetwork->GetOutput(3);
-	float MoveR = m_neuralNetwork->GetOutput(4);
-	float shot  = m_neuralNetwork->GetOutput(5);
+	float wall  = m_neuralNetwork->GetOutput(3);
+	float shot  = m_neuralNetwork->GetOutput(4);
 
 	if (shot >= 0.6f)
 	{
-		data.outputChoiceMode = "shoot";
+		data.outputChoiceMode = "ATTACK";
 		m_outputData.push_back(data);
-		return	AIController::Behavior::SHOOT;
+		return	AIController::State::ATTACK;
 	}
-	else if (left >= 0.6f)
+	else if (wall >= 0.6)
 	{
-		data.outputChoiceMode = "left";
+		data.outputChoiceMode = "WALLAVOID";
 		m_outputData.push_back(data);
-		return AIController::Behavior::TURN_LEFT;
+		return	AIController::State::WALLAVOID;
 	}
-	else if (right >= 0.6f)
+	else 
 	{
-		data.outputChoiceMode = "right";
+		data.outputChoiceMode = "SEARCH";
 		m_outputData.push_back(data);
-		return AIController::Behavior::TURN_RIGHT;
-	}
-	else if (MoveL >= 0.5f)
-	{
-		data.outputChoiceMode = "MoveL";
-		m_outputData.push_back(data);
-		return AIController::Behavior::MOVE_LEFTWARD;
-	}
-	else if (MoveR >= 0.5f)
-	{
-		data.outputChoiceMode = "MoveR";
-		m_outputData.push_back(data);
-		return AIController::Behavior::MOVE_RIGHTWARD;
-	}
-	else if (dis >= 0.5f)
-	{
-		data.outputChoiceMode = "forward";
-		m_outputData.push_back(data);
-		return AIController::Behavior::MOVE_FORWARD;
-	}
-	else if (dis >= 0.1f)
-	{
-		data.outputChoiceMode = "backward";
-		m_outputData.push_back(data);
-		return AIController::Behavior::MOVE_BACKWARD;
+		return AIController::State::SEARCH;
 	}
 	data.outputChoiceMode = "none";
 	m_outputData.push_back(data);
-	return AIController::Behavior::NONE;
+	return AIController::State::NONE;
 }
 
 void NeuralNetworkManager::Render()
@@ -270,13 +242,11 @@ void NeuralNetworkManager::Render()
 
 	if (m_character->GetEnemySightContact())
 	{
-		float a = m_character->GetEnemySightContact();
 		debugFont->print(700, 340, L"shoot = true");
 		debugFont->draw();
 	}
 	else
 	{
-		float a = m_character->GetEnemySightContact();
 		debugFont->print(700, 340, L"shoot = false");
 		debugFont->draw();
 	}
@@ -332,15 +302,15 @@ void NeuralNetworkManager::OutputDataFile(char* fname)
 	error = fopen_s(&f, fname, "w");
 
 	fprintf(f, "-------------------------------------------------------------------------------------------------------\n");
-	fprintf(f, "IN Distance, Left, Right, Wall, Shoot, Hp,  OUT Distance, Left, Right, MoveL, MoveR, Shoot ,ChoiceMode \n");
+	fprintf(f, "IN Distance, Left, Right, Wall, Shoot, Hp,  OUT Distance, Left, Right, Wall, Shoot ,ChoiceMode, Error  \n");
 	fprintf(f, "-------------------------------------------------------------------------------------------------------\n");
 	fprintf(f, "\n");
 	
 	for (auto& output : m_outputData)
 	{
-		fprintf(f, "%2f, %2f, %2f, %2f, %2f, %2f, %2f, %2f, %2f, %2f, %2f, %2f, %s, %f%\n"
+		fprintf(f, "%2f, %2f, %2f, %2f, %2f, %2f, %2f, %2f, %2f, %2f, %2f, %s, %f% \n"
 			,output.inputDis, output.inputLeft, output.inputRight, output.inputWall,output.inputShoot, output.inputHp
-			,output.outputDis, output.outputLeft, output.outputRight, output.outputMoveLeft, output.outputMoveRight, output.outputShoot
+			,output.outputDis, output.outputLeft, output.outputRight, output.outputWall, output.outputShoot
 			,output.outputChoiceMode, m_error*100);
 	}
 	fclose(f);

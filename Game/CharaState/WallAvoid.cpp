@@ -19,7 +19,7 @@ WallAvoid::WallAvoid()
 /// 初期化
 /// </summary>
 /// <param name="chara"></param>
-void WallAvoid::Initialize(Character* chara)
+void WallAvoid::Initialize(Character* chara, CharacterController* controller)
 {
 	m_chara = chara;
 }
@@ -30,7 +30,7 @@ void WallAvoid::Initialize(Character* chara)
 /// <param name="timer">タイマー</param>
 void WallAvoid::Update(const DX::StepTimer& timer)
 {
-	m_chara->Shoot();
+	
 }
 
 /// <summary>

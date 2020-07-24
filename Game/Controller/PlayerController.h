@@ -8,7 +8,8 @@
 
 #include <Game/Controller/CharacterController.h>
 
-
+#include <Game/CharaState/Attack.h>
+#include <Game/CharaState/Search.h>
 
 class PlayerController : public  CharacterController
 {
@@ -31,7 +32,6 @@ public:
 	//ショットインターバル
 	static const float  SHOT_INTERVAL;
 
-public:
 
 
 

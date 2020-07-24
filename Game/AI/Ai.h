@@ -18,6 +18,6 @@ public:
 
 public:
 	//s“®‚ğ‘I‘ğ
-	virtual AIController::Behavior BehaviorSelection(Character* character, Character* enemys) = 0;
+	virtual AIController::State BehaviorSelection(Character* character, Character* enemys) = 0;
 	virtual void Render() = 0;
 };
