@@ -1,0 +1,533 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Game">
+      <UniqueIdentifier>{ab828224-370e-4838-aad8-6f075c975359}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Common">
+      <UniqueIdentifier>{cd7e1b52-69f7-4d03-add3-d60bc3f02230}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3rdParty">
+      <UniqueIdentifier>{d18d8924-e420-4106-a787-2c76892c1166}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3rdParty\DirectXTK">
+      <UniqueIdentifier>{b874bbcd-cd12-43c4-9a62-399d925ad217}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3rdParty\DirectXTK\Include">
+      <UniqueIdentifier>{c9a5e858-92f6-4e96-86ae-d3a55bcdfc20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3rdParty\DirectXTK\Lib">
+      <UniqueIdentifier>{7acd42a6-a710-4826-8b07-faa193ea37fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{6b71eaf2-9109-444b-b74a-a3c13f37617c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Fonts">
+      <UniqueIdentifier>{db04916e-6a45-4051-b4e2-f5f325c5bebe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Icon">
+      <UniqueIdentifier>{3792b0bb-fb79-42a5-9d85-2052db4cf932}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Models">
+      <UniqueIdentifier>{fe84b319-39e2-4abf-92e7-9a2e21ccc4f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Shaders">
+      <UniqueIdentifier>{d34f9067-8b07-484e-806f-3a9b1dab1827}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Sounds">
+      <UniqueIdentifier>{92810e2c-9a1f-4cb1-8607-6e1fc2c61c98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Textures">
+      <UniqueIdentifier>{09ea98a4-e177-4738-9b60-2e38109d274a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3rdParty\PicoJSON">
+      <UniqueIdentifier>{d55be8a2-bd2f-4837-b314-8f4494aad993}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3rdParty\PicoJSON\Include">
+      <UniqueIdentifier>{59a41ae9-aa83-4227-be74-666cf9993798}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3rdParty\PicoJSON\Include\PicoJSON">
+      <UniqueIdentifier>{4641b1b8-c36d-47bc-855a-4d0b268f92be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameState">
+      <UniqueIdentifier>{2bef6e33-7557-405c-b27c-59860237487d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Camera">
+      <UniqueIdentifier>{0a5dc624-f135-4b37-88b0-61380f06e172}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject">
+      <UniqueIdentifier>{d64b63b5-b7af-4ac8-a920-39f7d6332d69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\UI">
+      <UniqueIdentifier>{b539fbdf-c0c8-479b-af95-418f7e6c7f05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\FBX">
+      <UniqueIdentifier>{5cb58e9d-eacf-4d00-ad12-565ba7f6df18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Stage">
+      <UniqueIdentifier>{eec01eb4-317f-46fe-acf8-5e090f3545f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Controller">
+      <UniqueIdentifier>{39cdac4b-c16a-4005-b2a7-084a34aab475}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Bg">
+      <UniqueIdentifier>{6b513902-ec90-4dd5-9aa4-c317cdb11476}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Collider">
+      <UniqueIdentifier>{a3616636-1c23-454e-be22-6ddecad3c7e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\AI">
+      <UniqueIdentifier>{a4701fb1-e930-445d-aa4c-69f3503de88a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\CSV">
+      <UniqueIdentifier>{f91f60ae-8bb9-4c60-be99-1f9c0ff61cd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\CharaState">
+      <UniqueIdentifier>{40ed8fda-256e-4603-a40d-73c3a2261de0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\CharaState\Search">
+      <UniqueIdentifier>{f69fe0d6-16b1-4be7-a29d-ec9f9df08818}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\CharaState\Attack">
+      <UniqueIdentifier>{d28a9b5d-9c77-4984-9784-fdbda16914e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\CharaState\WallAvoid">
+      <UniqueIdentifier>{848dd4a9-a5b0-49c6-8843-14938c26b903}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <!-- アプリケーションマニフェスト -->
+    <Manifest Include="settings.manifest" />
+    <!-- プリコンパイル済みヘッダ -->
+    <ClInclude Include="pch.h" />
+    <ClCompile Include="pch.cpp" />
+    <!-- メイン -->
+    <ClCompile Include="Main.cpp" />
+    <!-- Gameフォルダ -->
+    <!-- ゲーム本体 -->
+    <ClInclude Include="Game\Game.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClCompile Include="Game\Game.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <!-- 共通 -->
+    <ClInclude Include="Game\Common\BinaryFile.h">
+      <Filter>Game\Common</Filter>
+    </ClInclude>
+    <ClCompile Include="Game\Common\BinaryFile.cpp">
+      <Filter>Game\Common</Filter>
+    </ClCompile>
+    <ClInclude Include="Game\Common\DeviceResources.h">
+      <Filter>Game\Common</Filter>
+    </ClInclude>
+    <ClCompile Include="Game\Common\DeviceResources.cpp">
+      <Filter>Game\Common</Filter>
+    </ClCompile>
+    <ClInclude Include="Game\Common\StepTimer.h">
+      <Filter>Game\Common</Filter>
+    </ClInclude>
+    <!-- アセット -->
+    <!-- 3rdPartyフォルダ -->
+    <!-- DirectXTK -->
+    <!-- プロパティシート -->
+    <None Include="3rdParty\DirectXTK\DirectXTK.props">
+      <Filter>3rdParty\DirectXTK</Filter>
+    </None>
+    <!-- ヘッダリスト -->
+    <ClInclude Include="3rdParty\DirectXTK\DirectXTKHeaderList.h">
+      <Filter>3rdParty\DirectXTK</Filter>
+    </ClInclude>
+    <!-- ライブラリヘッダ -->
+    <ClInclude Include="3rdParty\DirectXTK\Include\DirectXTK\CommonStates.h">
+      <Filter>3rdParty\DirectXTK\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\DirectXTK\Include\DirectXTK\DDSTextureLoader.h">
+      <Filter>3rdParty\DirectXTK\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\DirectXTK\Include\DirectXTK\DirectXHelpers.h">
+      <Filter>3rdParty\DirectXTK\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\DirectXTK\Include\DirectXTK\Effects.h">
+      <Filter>3rdParty\DirectXTK\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\DirectXTK\Include\DirectXTK\GamePad.h">
+      <Filter>3rdParty\DirectXTK\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\DirectXTK\Include\DirectXTK\GeometricPrimitive.h">
+      <Filter>3rdParty\DirectXTK\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\DirectXTK\Include\DirectXTK\GraphicsMemory.h">
+      <Filter>3rdParty\DirectXTK\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\DirectXTK\Include\DirectXTK\Keyboard.h">
+      <Filter>3rdParty\DirectXTK\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\DirectXTK\Include\DirectXTK\Model.h">
+      <Filter>3rdParty\DirectXTK\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\DirectXTK\Include\DirectXTK\Mouse.h">
+      <Filter>3rdParty\DirectXTK\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\DirectXTK\Include\DirectXTK\PostProcess.h">
+      <Filter>3rdParty\DirectXTK\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\DirectXTK\Include\DirectXTK\PrimitiveBatch.h">
+      <Filter>3rdParty\DirectXTK\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\DirectXTK\Include\DirectXTK\ScreenGrab.h">
+      <Filter>3rdParty\DirectXTK\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\DirectXTK\Include\DirectXTK\SimpleMath.h">
+      <Filter>3rdParty\DirectXTK\Include</Filter>
+    </ClInclude>
+    <None Include="3rdParty\DirectXTK\Include\DirectXTK\SimpleMath.inl">
+      <Filter>3rdParty\DirectXTK\Include</Filter>
+    </None>
+    <ClInclude Include="3rdParty\DirectXTK\Include\DirectXTK\SpriteBatch.h">
+      <Filter>3rdParty\DirectXTK\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\DirectXTK\Include\DirectXTK\SpriteFont.h">
+      <Filter>3rdParty\DirectXTK\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\DirectXTK\Include\DirectXTK\VertexTypes.h">
+      <Filter>3rdParty\DirectXTK\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\DirectXTK\Include\DirectXTK\WICTextureLoader.h">
+      <Filter>3rdParty\DirectXTK\Include</Filter>
+    </ClInclude>
+    <!-- ライブラリ -->
+    <Library Include="3rdParty\DirectXTK\Lib\DirectXTK.lib">
+      <Filter>3rdParty\DirectXTK\Lib</Filter>
+    </Library>
+    <Library Include="3rdParty\DirectXTK\Lib\DirectXTKd.lib">
+      <Filter>3rdParty\DirectXTK\Lib</Filter>
+    </Library>
+    <None Include="3rdParty\DirectXTK\Lib\DirectXTKd.pdb">
+      <Filter>3rdParty\DirectXTK\Lib</Filter>
+    </None>
+    <!-- Resources -->
+    <!-- アイコン -->
+    <Image Include="Resources\Icon\Icon.ico">
+      <Filter>Resources\Icon</Filter>
+    </Image>
+    <ResourceCompile Include="Resources\Icon\Icon.rc">
+      <Filter>Resources\Icon</Filter>
+    </ResourceCompile>
+    <!-- フォント -->
+    <None Include="Resources\Fonts\SegoeUI_18.spritefont">
+      <Filter>Resources\Fonts</Filter>
+    </None>
+    <!-- テクスチャ -->
+    <Image Include="Resources\Textures\TridentLogo.png">
+      <Filter>Resources\Textures</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="3rdParty\PicoJSON\PicoJSON.props">
+      <Filter>3rdParty\PicoJSON</Filter>
+    </None>
+    <None Include="Resources\CSV\Stage01.csv">
+      <Filter>Resources\CSV</Filter>
+    </None>
+    <None Include="Resources\CSV\Stage02.csv">
+      <Filter>Resources\CSV</Filter>
+    </None>
+    <None Include="Resources\CSV\test.csv">
+      <Filter>Resources\CSV</Filter>
+    </None>
+    <None Include="Resources\CSV\test2.csv">
+      <Filter>Resources\CSV</Filter>
+    </None>
+    <None Include="Resources\CSV\TrainingSet.csv">
+      <Filter>Resources\CSV</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="3rdParty\PicoJSON\PicoJSONHeaderList.h">
+      <Filter>3rdParty\PicoJSON</Filter>
+    </ClInclude>
+    <ClInclude Include="3rdParty\PicoJSON\Include\PicoJSON\picojson.h">
+      <Filter>3rdParty\PicoJSON\Include\PicoJSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Common\DebugFont.h">
+      <Filter>Game\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Common\GameContext.h">
+      <Filter>Game\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Common\ServiceLocator.h">
+      <Filter>Game\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Common\Utilities.h">
+      <Filter>Game\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameState\PlayState.h">
+      <Filter>Game\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Camera\Camera.h">
+      <Filter>Game\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\GameObjectManager.h">
+      <Filter>Game\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\ObjectManager.h">
+      <Filter>Game\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\UI\Blink.h">
+      <Filter>Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\UI\InfoWindow.h">
+      <Filter>Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\UI\Letter.h">
+      <Filter>Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Stage\Stage.h">
+      <Filter>Game\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Controller\CharacterController.h">
+      <Filter>Game\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Bg\Bg.h">
+      <Filter>Game\Bg</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Controller\AIController.h">
+      <Filter>Game\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Controller\PlayerController.h">
+      <Filter>Game\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Character.h">
+      <Filter>Game\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\GameObject.h">
+      <Filter>Game\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Collider\BoxCollider.h">
+      <Filter>Game\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Collider\Collider.h">
+      <Filter>Game\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Collider\CollisionManager.h">
+      <Filter>Game\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Collider\SphereCollider.h">
+      <Filter>Game\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Bullet.h">
+      <Filter>Game\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameState\GameStateManager.h">
+      <Filter>Game\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameState\IGameState.h">
+      <Filter>Game\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameState\PauseState.h">
+      <Filter>Game\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameState\ResultState.h">
+      <Filter>Game\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameState\TitleState.h">
+      <Filter>Game\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Flag.h">
+      <Filter>Game\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Floor.h">
+      <Filter>Game\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Wall.h">
+      <Filter>Game\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\AI\NeuralNetwork.h">
+      <Filter>Game\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Sight.h">
+      <Filter>Game\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Collider\RayCollider.h">
+      <Filter>Game\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\AI\RuleBased.h">
+      <Filter>Game\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\AI\NeuralNetworkManager.h">
+      <Filter>Game\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\AI\Ai.h">
+      <Filter>Game\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\CharaState\CharaState.h">
+      <Filter>Game\CharaState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\CharaState\Search.h">
+      <Filter>Game\CharaState\Search</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\CharaState\Attack.h">
+      <Filter>Game\CharaState\Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\CharaState\WallAvoid.h">
+      <Filter>Game\CharaState\WallAvoid</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\CharaState\Forward.h">
+      <Filter>Game\CharaState\Search</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\CharaState\Backward.h">
+      <Filter>Game\CharaState\Search</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\CharaState\LeftTurn.h">
+      <Filter>Game\CharaState\Search</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\CharaState\RightTurn.h">
+      <Filter>Game\CharaState\Search</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\CharaState\Standing.h">
+      <Filter>Game\CharaState\Search</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Game\Common\DebugFont.cpp">
+      <Filter>Game\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameState\PlayState.cpp">
+      <Filter>Game\GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Camera\Camera.cpp">
+      <Filter>Game\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\GameObjectManager.cpp">
+      <Filter>Game\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\ObjectManager.cpp">
+      <Filter>Game\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\UI\Blink.cpp">
+      <Filter>Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\UI\InfoWindow.cpp">
+      <Filter>Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\UI\Letter.cpp">
+      <Filter>Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Stage\Stage.cpp">
+      <Filter>Game\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Controller\CharacterController.cpp">
+      <Filter>Game\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Bg\Bg.cpp">
+      <Filter>Game\Bg</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Controller\AIController.cpp">
+      <Filter>Game\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Controller\PlayerController.cpp">
+      <Filter>Game\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Character.cpp">
+      <Filter>Game\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\GameObject.cpp">
+      <Filter>Game\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Collider\BoxCollider.cpp">
+      <Filter>Game\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Collider\Collider.cpp">
+      <Filter>Game\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Collider\CollisionManager.cpp">
+      <Filter>Game\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Collider\SphereCollider.cpp">
+      <Filter>Game\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Bullet.cpp">
+      <Filter>Game\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameState\GameStateManager.cpp">
+      <Filter>Game\GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameState\PauseState.cpp">
+      <Filter>Game\GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameState\ResultState.cpp">
+      <Filter>Game\GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameState\TitleState.cpp">
+      <Filter>Game\GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Flag.cpp">
+      <Filter>Game\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Floor.cpp">
+      <Filter>Game\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Wall.cpp">
+      <Filter>Game\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\AI\NeuralNetwork.cpp">
+      <Filter>Game\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Sight.cpp">
+      <Filter>Game\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Collider\RayCollider.cpp">
+      <Filter>Game\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\AI\RuleBased.cpp">
+      <Filter>Game\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\AI\NeuralNetworkManager.cpp">
+      <Filter>Game\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\CharaState\Search.cpp">
+      <Filter>Game\CharaState\Search</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\CharaState\Attack.cpp">
+      <Filter>Game\CharaState\Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\CharaState\WallAvoid.cpp">
+      <Filter>Game\CharaState\WallAvoid</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\CharaState\Forward.cpp">
+      <Filter>Game\CharaState\Search</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\CharaState\Backward.cpp">
+      <Filter>Game\CharaState\Search</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\CharaState\LeftTurn.cpp">
+      <Filter>Game\CharaState\Search</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\CharaState\RightTurn.cpp">
+      <Filter>Game\CharaState\Search</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\CharaState\Standing.cpp">
+      <Filter>Game\CharaState\Search</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <MeshContentTask Include="Resources\FBX\bg.FBX">
+      <Filter>Resources\FBX</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Resources\FBX\floorPanel_00.FBX">
+      <Filter>Resources\FBX</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Resources\FBX\floorPanel_01.FBX">
+      <Filter>Resources\FBX</Filter>
+    </MeshContentTask>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\Textures\bg01.png">
+      <Filter>Resources\Textures</Filter>
+    </Image>
+    <Image Include="Resources\Textures\floor01.png">
+      <Filter>Resources\Textures</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
