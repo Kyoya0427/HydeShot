@@ -94,6 +94,9 @@
     <Filter Include="Game\CharaState\WallAvoid">
       <UniqueIdentifier>{848dd4a9-a5b0-49c6-8843-14938c26b903}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\TakumiYanase">
+      <UniqueIdentifier>{add410ee-9f58-48c6-98e6-aa1165d5e73e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <!-- アプリケーションマニフェスト -->
@@ -388,6 +391,9 @@
     <ClInclude Include="Game\CharaState\Standing.h">
       <Filter>Game\CharaState\Search</Filter>
     </ClInclude>
+    <ClInclude Include="Game\TakumiYanase\TakumiYanase.h">
+      <Filter>Game\TakumiYanase</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game\Common\DebugFont.cpp">
@@ -509,6 +515,9 @@
     </ClCompile>
     <ClCompile Include="Game\CharaState\Standing.cpp">
       <Filter>Game\CharaState\Search</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TakumiYanase\TakumiYanase.cpp">
+      <Filter>Game\TakumiYanase</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
