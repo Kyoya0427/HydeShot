@@ -132,8 +132,13 @@
     <ClInclude Include="Game\Bg\Bg.h" />
     <ClInclude Include="Game\Camera\Camera.h" />
     <ClInclude Include="Game\CharaState\Attack.h" />
+    <ClInclude Include="Game\CharaState\Backward.h" />
     <ClInclude Include="Game\CharaState\CharaState.h" />
+    <ClInclude Include="Game\CharaState\Forward.h" />
+    <ClInclude Include="Game\CharaState\LeftTurn.h" />
+    <ClInclude Include="Game\CharaState\RightTurn.h" />
     <ClInclude Include="Game\CharaState\Search.h" />
+    <ClInclude Include="Game\CharaState\Standing.h" />
     <ClInclude Include="Game\CharaState\WallAvoid.h" />
     <ClInclude Include="Game\Collider\BoxCollider.h" />
     <ClInclude Include="Game\Collider\Collider.h" />
@@ -173,7 +178,12 @@
     <ClCompile Include="Game\Bg\Bg.cpp" />
     <ClCompile Include="Game\Camera\Camera.cpp" />
     <ClCompile Include="Game\CharaState\Attack.cpp" />
+    <ClCompile Include="Game\CharaState\Backward.cpp" />
+    <ClCompile Include="Game\CharaState\Forward.cpp" />
+    <ClCompile Include="Game\CharaState\LeftTurn.cpp" />
+    <ClCompile Include="Game\CharaState\RightTurn.cpp" />
     <ClCompile Include="Game\CharaState\Search.cpp" />
+    <ClCompile Include="Game\CharaState\Standing.cpp" />
     <ClCompile Include="Game\CharaState\WallAvoid.cpp" />
     <ClCompile Include="Game\Collider\BoxCollider.cpp" />
     <ClCompile Include="Game\Collider\Collider.cpp" />

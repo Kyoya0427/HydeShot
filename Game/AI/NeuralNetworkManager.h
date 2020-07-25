@@ -14,7 +14,7 @@ class NeuralNetwork;
 
 class NeuralNetworkManager : public Ai
 {
-private:
+public:
 	struct OutputData
 	{
 		float inputDis;
@@ -66,6 +66,8 @@ public:
 
 	float m_error;
 	Character* m_character;
+
+	OutputData					   m_data;
 	std::vector<OutputData>        m_outputData;
 
 	bool                          m_isDirectLeft;

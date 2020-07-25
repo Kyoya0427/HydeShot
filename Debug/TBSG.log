@@ -1,13 +1,8 @@
 ﻿  Resources\FBX\bg.FBX
   Resources\FBX\floorPanel_00.FBX
   Resources\FBX\floorPanel_01.FBX
-  NeuralNetworkManager.cpp
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\game\ai\neuralnetworkmanager.cpp(183): warning C4189: 'left': ローカル変数が初期化されましたが、参照されていません
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\game\ai\neuralnetworkmanager.cpp(182): warning C4189: 'dis': ローカル変数が初期化されましたが、参照されていません
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\game\ai\neuralnetworkmanager.cpp(184): warning C4189: 'right': ローカル変数が初期化されましたが、参照されていません
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\game\ai\neuralnetworkmanager.cpp(311): warning C4778: 'fprintf' : 書式文字列 '% \n' がありません
+  PlayState.cpp
   コードを生成中...
-c:\users\s182106\documents\visual studio 2015\projects\tbsg\game\ai\neuralnetworkmanager.cpp(206): warning C4702: 制御が渡らないコードです。
   スキップ中... (関連する変更は検出されませんでした)
   Main.cpp
   Letter.cpp
@@ -28,6 +23,7 @@ c:\users\s182106\documents\visual studio 2015\projects\tbsg\game\ai\neuralnetwor
   Character.cpp
   Bullet.cpp
   Game.cpp
+  PlayerController.cpp
   CharacterController.cpp
   DeviceResources.cpp
   DebugFont.cpp
@@ -38,9 +34,15 @@ c:\users\s182106\documents\visual studio 2015\projects\tbsg\game\ai\neuralnetwor
   Collider.cpp
   BoxCollider.cpp
   WallAvoid.cpp
-  Search.cpp
+  Standing.cpp
+  RightTurn.cpp
+  LeftTurn.cpp
+  Forward.cpp
+  Backward.cpp
   Attack.cpp
   Camera.cpp
   Bg.cpp
+  RuleBased.cpp
+  NeuralNetwork.cpp
   TBSG.vcxproj -> C:\Users\s182106\Documents\Visual Studio 2015\Projects\TBSG\Debug\TBSG.exe
   TBSG.vcxproj -> C:\Users\s182106\Documents\Visual Studio 2015\Projects\TBSG\Debug\TBSG.pdb (Full PDB)

@@ -162,21 +162,21 @@ AIController::State NeuralNetworkManager::BehaviorSelection(Character* character
 	//計算開始
 	m_neuralNetwork->FeedForward();
 
-		//外部にデータ出力する為に保管
-	OutputData data;
+	//外部にデータ出力する為に保管
+	m_data = OutputData();
 
-	data.inputDis      = distance / 18.0f;
-	data.inputLeft     = static_cast<float>(m_isDirectLeft);
-	data.inputRight    = static_cast<float>(m_isDirectRight);
-	data.inputWall     = static_cast<float>(character->GetWallContact());
-	data.inputShoot    = static_cast<float>(character->GetEnemySightContact());
-	data.inputHp       = static_cast<float>(character->GetHp() / 5);
+	m_data.inputDis      = distance / 18.0f;
+	m_data.inputLeft     = static_cast<float>(m_isDirectLeft);
+	m_data.inputRight    = static_cast<float>(m_isDirectRight);
+	m_data.inputWall     = static_cast<float>(character->GetWallContact());
+	m_data.inputShoot    = static_cast<float>(character->GetEnemySightContact());
+	m_data.inputHp       = static_cast<float>(character->GetHp() / 5);
 
-	data.outputDis       = m_neuralNetwork->GetOutput(0);
-	data.outputLeft      = m_neuralNetwork->GetOutput(1);
-	data.outputRight     = m_neuralNetwork->GetOutput(2);
-	data.outputWall      = m_neuralNetwork->GetOutput(3);
-	data.outputShoot     = m_neuralNetwork->GetOutput(4);
+	m_data.outputDis       = m_neuralNetwork->GetOutput(0);
+	m_data.outputLeft      = m_neuralNetwork->GetOutput(1);
+	m_data.outputRight     = m_neuralNetwork->GetOutput(2);
+	m_data.outputWall      = m_neuralNetwork->GetOutput(3);
+	m_data.outputShoot     = m_neuralNetwork->GetOutput(4);
 
 	
 	float dis   = m_neuralNetwork->GetOutput(0);
@@ -187,24 +187,24 @@ AIController::State NeuralNetworkManager::BehaviorSelection(Character* character
 
 	if (shot >= 0.6f)
 	{
-		data.outputChoiceMode = "ATTACK";
-		m_outputData.push_back(data);
+		m_data.outputChoiceMode = "ATTACK";
+		m_outputData.push_back(m_data);
 		return	AIController::State::ATTACK;
 	}
 	else if (wall >= 0.6)
 	{
-		data.outputChoiceMode = "WALLAVOID";
-		m_outputData.push_back(data);
+		m_data.outputChoiceMode = "WALLAVOID";
+		m_outputData.push_back(m_data);
 		return	AIController::State::WALLAVOID;
 	}
 	else 
 	{
-		data.outputChoiceMode = "SEARCH";
-		m_outputData.push_back(data);
+		m_data.outputChoiceMode = "SEARCH";
+		m_outputData.push_back(m_data);
 		return AIController::State::SEARCH;
 	}
-	data.outputChoiceMode = "none";
-	m_outputData.push_back(data);
+	m_data.outputChoiceMode = "none";
+	m_outputData.push_back(m_data);
 	return AIController::State::NONE;
 }
 

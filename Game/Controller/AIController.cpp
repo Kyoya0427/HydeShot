@@ -56,11 +56,15 @@ AIController::AIController(Character* character, Character* enemy)
 	m_attack->Initialize(m_character, this);
 	m_wallAvoid->Initialize(m_character, this);
 
+	GameContext::Register<Search>(m_search.get());
+	GameContext::Register<WallAvoid>(m_wallAvoid.get());
+
 	ChangeSearchState();
 
 	std::unique_ptr<RuleBased> ruleBased = std::make_unique<RuleBased>();
 	std::unique_ptr<NeuralNetworkManager> neuralNetworkManager = std::make_unique<NeuralNetworkManager>();
 	neuralNetworkManager->InitializeNeuralNetwork();
+	GameContext::Register<NeuralNetworkManager>(neuralNetworkManager.get());
 
 	m_aiManager.emplace(std::make_pair(AiType::RULEBASED, std::move(ruleBased)));
 	m_aiManager.emplace(std::make_pair(AiType::NEURALNETWORK, std::move(neuralNetworkManager)));
@@ -96,36 +100,10 @@ void AIController::Update(const DX::StepTimer& timer)
 			m_state = m_aiManager[AiType::RULEBASED]->BehaviorSelection(m_character, m_enemy);
 	
 		m_stateInterval = STATE_INTERVAL;
-
 	}
+	m_charaState->Update(timer);
+
 	Keyboard::State keyState = Keyboard::Get().GetState();
-
-	/*if (keyState.IsKeyDown(Keyboard::Keys::I))
-	{
-		m_character->Forward(MOVE_SPEED);
-	}
-	else if (keyState.IsKeyDown(Keyboard::Keys::K))
-	{
-		m_character->Backward(MOVE_SPEED);
-	}
-	else if (keyState.IsKeyDown(Keyboard::Keys::J))
-	{
-		m_character->Leftward(MOVE_SPEED);
-	}
-	else if (keyState.IsKeyDown(Keyboard::Keys::L))
-	{
-		m_character->Rightward(MOVE_SPEED);
-	}
-
-
-	if (keyState.IsKeyDown(Keyboard::Keys::O))
-	{
-		m_character->LeftTurn(ROT_SPEED);
-	}
-	else if (keyState.IsKeyDown(Keyboard::Keys::P))
-	{
-		m_character->RightTurn(ROT_SPEED);
-	}*/
 
 	if (keyState.IsKeyDown(Keyboard::Keys::F1))
 	{

@@ -373,6 +373,21 @@
     <ClInclude Include="Game\CharaState\WallAvoid.h">
       <Filter>Game\CharaState\WallAvoid</Filter>
     </ClInclude>
+    <ClInclude Include="Game\CharaState\Forward.h">
+      <Filter>Game\CharaState\Search</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\CharaState\Backward.h">
+      <Filter>Game\CharaState\Search</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\CharaState\LeftTurn.h">
+      <Filter>Game\CharaState\Search</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\CharaState\RightTurn.h">
+      <Filter>Game\CharaState\Search</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\CharaState\Standing.h">
+      <Filter>Game\CharaState\Search</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game\Common\DebugFont.cpp">
@@ -479,6 +494,21 @@
     </ClCompile>
     <ClCompile Include="Game\CharaState\WallAvoid.cpp">
       <Filter>Game\CharaState\WallAvoid</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\CharaState\Forward.cpp">
+      <Filter>Game\CharaState\Search</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\CharaState\Backward.cpp">
+      <Filter>Game\CharaState\Search</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\CharaState\LeftTurn.cpp">
+      <Filter>Game\CharaState\Search</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\CharaState\RightTurn.cpp">
+      <Filter>Game\CharaState\Search</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\CharaState\Standing.cpp">
+      <Filter>Game\CharaState\Search</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
