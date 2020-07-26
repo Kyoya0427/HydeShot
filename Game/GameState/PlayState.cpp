@@ -99,7 +99,7 @@ void PlayState::Initialize()
 	//ステージを生成
 	m_stage = std::make_unique<Stage>();
 	// ステージデータの読み込み
-	m_stage->LoadStageData(L"Resources\\CSV\\Stage02.csv");
+	m_stage->LoadStageData(L"Resources\\CSV\\Stage01.csv");
 	// ステージデータの設定
 	m_stage->SetStageData();
 	m_stage->Initialize();

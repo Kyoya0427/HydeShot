@@ -70,8 +70,8 @@ public:
 	OutputData					   m_data;
 	std::vector<OutputData>        m_outputData;
 
-	bool                          m_isDirectLeft;
-	bool                          m_isDirectRight;
-	float                         m_p;
+	bool                          m_isDirectionLeft;
+	bool                          m_isDirectionRight;
+	float                         m_distance;
 };
 

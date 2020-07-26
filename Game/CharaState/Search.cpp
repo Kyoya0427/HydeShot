@@ -59,7 +59,7 @@ void Search::Update(const DX::StepTimer& timer)
 		ChangeLeftTurnState();
 	else if (right >= 0.8f)
 		ChangeRightTurnState();
-	else if (dis >= 0.6f)
+	else if (dis >= 0.4f)
 		ChangeForwardState();
 	else if (dis >= 0.1f)
 		ChangeBackwardState();

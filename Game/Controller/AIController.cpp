@@ -101,6 +101,23 @@ void AIController::Update(const DX::StepTimer& timer)
 	
 		m_stateInterval = STATE_INTERVAL;
 	}
+
+	switch (m_state)
+	{
+	case AIController::State::ATTACK:
+		ChangeAttackState();
+		break;
+	case AIController::State::SEARCH:
+		ChangeSearchState();
+		break;
+	case AIController::State::WALLAVOID:
+		ChangeWallAvoidState();
+		break;
+	}
+
+
+
+
 	m_charaState->Update(timer);
 
 	Keyboard::State keyState = Keyboard::Get().GetState();

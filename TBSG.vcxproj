@@ -14,20 +14,20 @@
     <RootNamespace>TBSG</RootNamespace>
     <ProjectGuid>{2f06e239-a251-46fd-8439-ab2b07015ae4}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <PreferredToolArchitecture>x64</PreferredToolArchitecture>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <PreferredToolArchitecture>x64</PreferredToolArchitecture>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
@@ -136,7 +136,9 @@
     <ClInclude Include="Game\CharaState\CharaState.h" />
     <ClInclude Include="Game\CharaState\Forward.h" />
     <ClInclude Include="Game\CharaState\LeftTurn.h" />
+    <ClInclude Include="Game\CharaState\Leftward.h" />
     <ClInclude Include="Game\CharaState\RightTurn.h" />
+    <ClInclude Include="Game\CharaState\Rightward.h" />
     <ClInclude Include="Game\CharaState\Search.h" />
     <ClInclude Include="Game\CharaState\Standing.h" />
     <ClInclude Include="Game\CharaState\WallAvoid.h" />
@@ -181,7 +183,9 @@
     <ClCompile Include="Game\CharaState\Backward.cpp" />
     <ClCompile Include="Game\CharaState\Forward.cpp" />
     <ClCompile Include="Game\CharaState\LeftTurn.cpp" />
+    <ClCompile Include="Game\CharaState\Leftward.cpp" />
     <ClCompile Include="Game\CharaState\RightTurn.cpp" />
+    <ClCompile Include="Game\CharaState\Rightward.cpp" />
     <ClCompile Include="Game\CharaState\Search.cpp" />
     <ClCompile Include="Game\CharaState\Standing.cpp" />
     <ClCompile Include="Game\CharaState\WallAvoid.cpp" />

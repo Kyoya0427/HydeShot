@@ -388,6 +388,12 @@
     <ClInclude Include="Game\CharaState\Standing.h">
       <Filter>Game\CharaState\Search</Filter>
     </ClInclude>
+    <ClInclude Include="Game\CharaState\Leftward.h">
+      <Filter>Game\CharaState\WallAvoid</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\CharaState\Rightward.h">
+      <Filter>Game\CharaState\WallAvoid</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game\Common\DebugFont.cpp">
@@ -509,6 +515,12 @@
     </ClCompile>
     <ClCompile Include="Game\CharaState\Standing.cpp">
       <Filter>Game\CharaState\Search</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\CharaState\Leftward.cpp">
+      <Filter>Game\CharaState\WallAvoid</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\CharaState\Rightward.cpp">
+      <Filter>Game\CharaState\WallAvoid</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

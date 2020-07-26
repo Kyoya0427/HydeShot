@@ -8,6 +8,9 @@
 
 #include <Game/CharaState/CharaState.h>
 
+#include <Game/CharaState/Leftward.h>
+#include <Game/CharaState/Rightward.h>
+
 #include <Game/Controller/CharacterController.h>
 
 class WallAvoid : public CharaState
@@ -24,7 +27,15 @@ public:
 	//•`‰æ
 	void Render() override;
 
-protected:
-	Character* m_chara;
+public:
+	void ChangeLeftwardState();
+	void ChangeRightwardState();
 
+private:
+	Character*                      m_chara;
+	CharacterController*            m_controller;
+	CharaState*						m_wallAvoid;
+
+	std::unique_ptr<Leftward>		m_leftward;
+	std::unique_ptr<Rightward>      m_rightward;
 };

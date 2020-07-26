@@ -23,8 +23,8 @@ using namespace DirectX::SimpleMath;
 /// コンストラクタ
 /// </summary>
 NeuralNetworkManager::NeuralNetworkManager()
-	: m_isDirectLeft()
-	, m_isDirectRight()
+	: m_isDirectionLeft()
+	, m_isDirectionRight()
 {
 	m_neuralNetwork = std::make_unique<NeuralNetwork>();
 	InitializeTraining(L"Resources\\CSV\\test5.csv");
@@ -142,15 +142,15 @@ AIController::State NeuralNetworkManager::BehaviorSelection(Character* character
 	m_character = character;
 	//距離計算
 	float distance = Vector3::Distance(character->GetPosition(), enemy->GetPosition());
-	m_p = distance;
+	m_distance = distance;
 	//左右判定
 	SearchDirection(character, enemy);
 	//距離
 	m_neuralNetwork->SetInput(0, distance / 18.0f);
 	//左判定
-	m_neuralNetwork->SetInput(1, static_cast<float>(m_isDirectLeft));
+	m_neuralNetwork->SetInput(1, static_cast<float>(m_isDirectionLeft));
 	//右判定
-	m_neuralNetwork->SetInput(2, static_cast<float>(m_isDirectRight));
+	m_neuralNetwork->SetInput(2, static_cast<float>(m_isDirectionRight));
 	//目の前に壁がある
 	m_neuralNetwork->SetInput(3, static_cast<float>(character->GetWallContact()));
 	//敵を撃てるか判定
@@ -166,8 +166,8 @@ AIController::State NeuralNetworkManager::BehaviorSelection(Character* character
 	m_data = OutputData();
 
 	m_data.inputDis      = distance / 18.0f;
-	m_data.inputLeft     = static_cast<float>(m_isDirectLeft);
-	m_data.inputRight    = static_cast<float>(m_isDirectRight);
+	m_data.inputLeft     = static_cast<float>(m_isDirectionLeft);
+	m_data.inputRight    = static_cast<float>(m_isDirectionRight);
 	m_data.inputWall     = static_cast<float>(character->GetWallContact());
 	m_data.inputShoot    = static_cast<float>(character->GetEnemySightContact());
 	m_data.inputHp       = static_cast<float>(character->GetHp() / 5);
@@ -215,10 +215,10 @@ void NeuralNetworkManager::Render()
 	debugFont->print(10, 190, L"error = %f%", m_error * 100);
 	debugFont->draw();
 
-	debugFont->print(700, 250, L"dis = %f", m_p / 18.0f);
+	debugFont->print(700, 250, L"dis = %f", m_distance / 18.0f);
 	debugFont->draw();
 
-	if (m_isDirectLeft) 
+	if (m_isDirectionLeft)
 	{
 		debugFont->print(700, 280, L"left = true");
 		debugFont->draw();
@@ -229,7 +229,7 @@ void NeuralNetworkManager::Render()
 		debugFont->draw();
 	}
 
-	if (m_isDirectRight)
+	if (m_isDirectionRight)
 	{
 		debugFont->print(700, 310, L"right = true");
 		debugFont->draw();
@@ -260,8 +260,8 @@ void NeuralNetworkManager::Render()
 void NeuralNetworkManager::SearchDirection(Character* character, Character* enemy)
 {
 	Vector3 u;
-	m_isDirectLeft = false;
-	m_isDirectRight = false;
+	m_isDirectionLeft = false;
+	m_isDirectionRight = false;
 
 	DirectX::SimpleMath::Vector3 cv = Rotate(character->GetRadiansY(), DirectX::SimpleMath::Vector3::Forward);
 	DirectX::SimpleMath::Vector3 rv = enemy->GetPosition() - character->GetPosition();
@@ -269,9 +269,9 @@ void NeuralNetworkManager::SearchDirection(Character* character, Character* enem
 	DirectX::SimpleMath::Vector3 n = cv.Cross(rv);
 
 	if (n.y > 0.1f)
-		m_isDirectLeft = true;
+		m_isDirectionLeft = true;
 	else if (n.y < -0.1f)
-		m_isDirectRight = true;
+		m_isDirectionRight = true;
 }
 
 /// <summary>
