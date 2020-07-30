@@ -11,12 +11,17 @@
 
 #include <Game/Controller/AIController.h>
 
+#include <Game/AI/NeuralNetworkManager.h>
+#include <Game/AI/NeuralNetwork.h>
+
 #include <Game/CharaState/Search.h>
 
 /// <summary>
 /// コンストラクタ
 /// </summary>
 Standing::Standing()
+	: m_chara()
+	, m_enemy()
 {
 }
 
@@ -32,10 +37,10 @@ Standing::~Standing()
 /// </summary>
 /// <param name="chara">ステイト操作するキャラクター</param>
 /// <param name="controller">コントローラー</param>
-void Standing::Initialize(Character* chara, CharacterController* controller)
+void Standing::Initialize(Character* chara, Character* enemy)
 {
 	m_chara = chara;
-	m_controller = controller;
+	m_enemy = enemy;
 }
 
 /// <summary>

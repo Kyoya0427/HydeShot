@@ -8,6 +8,8 @@
 
 #include <DirectXTK/SimpleMath.h>
 
+#include <Game/Collider/RaycastHit.h>
+
 class GameObject;
 class SphereCollider;
 class BoxCollider;
@@ -46,10 +48,11 @@ public:
 	//差引勘定を設定
 	void SetOffset(const DirectX::SimpleMath::Vector3& offset);
 
+	void SetRaycastHit(RaycastHit hit);
+
 protected:
 	//オブジェクト
 	GameObject*                  m_owner;
 	//差引勘定数値
 	DirectX::SimpleMath::Vector3 m_offset;
-
 };

@@ -172,6 +172,11 @@ GameObject::ObjectTag GameObject::GetCharaTag()
 	return m_charaTag;
 }
 
+RaycastHit GameObject::GetRaycastHit()
+{
+	return m_hit;
+}
+
 /// <summary>
 /// ƒ^ƒO–¼‚ð“o˜^
 /// </summary>
@@ -243,4 +248,9 @@ void GameObject::SetCharaTag(ObjectTag tag)
 void GameObject::Destroy(GameObject * object)
 {
 	object->Invalidate();
+}
+
+void GameObject::SetRaycastHit(RaycastHit hit)
+{
+	m_hit = hit;
 }

@@ -18,7 +18,7 @@ public:
 
 public:
 	//‰Šú‰»
-	void Initialize(Character* chara , CharacterController* controller) override;
+	void Initialize(Character* chara , Character* enemy) override;
 	//XV
 	void Update(const DX::StepTimer& timer) override;
 	//•`‰æ

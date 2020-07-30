@@ -44,8 +44,8 @@ private:
 	DirectX::SimpleMath::Vector3                 m_posB;
 	//“G‚Æ‚Ì‘Š‘ÎÀ•W
 	float						                 m_enemyToDistance;
-
-	
+	//•Ç‚Æ‚Ì‘Š‘ÎÀ•W
+	float						                 m_wallToDistance;
 
 };
 

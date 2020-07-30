@@ -7,6 +7,7 @@
 #include "Backward.h"
 
 #include <Game/Common/DebugFont.h>
+#include <Game/Common/GameContext.h>
 
 #include <Game/Controller/AIController.h>
 
@@ -14,6 +15,8 @@
 /// コンストラクタ
 /// </summary>
 Backward::Backward()
+	: m_chara()
+	, m_enemy()
 {
 }
 
@@ -29,10 +32,10 @@ Backward::~Backward()
 /// </summary>
 /// <param name="chara">ステイト操作するキャラクター</param>
 /// <param name="controller">コントローラー</param>
-void Backward::Initialize(Character* chara, CharacterController* controller)
+void Backward::Initialize(Character* chara, Character* enemy)
 {
 	m_chara = chara;
-	m_controller = controller;
+	m_enemy = enemy;
 }
 
 /// <summary>
@@ -41,7 +44,9 @@ void Backward::Initialize(Character* chara, CharacterController* controller)
 /// <param name="timer">タイマー</param>
 void Backward::Update(const DX::StepTimer& timer)
 {
+	timer;
 	m_chara->Backward(AIController::MOVE_SPEED);
+//	GameContext::Get<Search>()->ChangeStandingState();
 }
 
 /// <summary>

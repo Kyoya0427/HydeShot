@@ -11,10 +11,17 @@
 
 #include <Game/AI/NeuralNetworkManager.h>
 
+using namespace DirectX;
+using namespace DirectX::SimpleMath;
+
+
 /// <summary>
 /// コンストラクタ
 /// </summary>
 WallAvoid::WallAvoid()
+	: m_chara()
+	, m_enemy()
+	, m_wallAvoid()
 {
 }
 
@@ -22,15 +29,15 @@ WallAvoid::WallAvoid()
 /// 初期化
 /// </summary>
 /// <param name="chara"></param>
-void WallAvoid::Initialize(Character* chara, CharacterController* controller)
+void WallAvoid::Initialize(Character* chara, Character* enemy)
 {
 	m_chara = chara;
-	
+	m_enemy = enemy;
 	m_leftward = std::make_unique<Leftward>();
 	m_rightward = std::make_unique<Rightward>();
 
-	m_leftward->Initialize(m_chara, m_controller);
-	m_rightward->Initialize(m_chara, m_controller);
+	m_leftward->Initialize(m_chara, m_enemy);
+	m_rightward->Initialize(m_chara, m_enemy);
 
 }
 
@@ -40,16 +47,16 @@ void WallAvoid::Initialize(Character* chara, CharacterController* controller)
 /// <param name="timer">タイマー</param>
 void WallAvoid::Update(const DX::StepTimer& timer)
 {
-	float direction = m_chara->GetRadiansY();
-
-	if (direction >= DirectX::XM_PI)
+	float z = m_chara->GetPosition().x - m_enemy->GetPosition().x;
+	
+	if (z < 0.0f)
 		ChangeLeftwardState();
-	else 
+	else
 		ChangeRightwardState();
-
 
 	m_wallAvoid->Update(timer);
 }
+
 
 /// <summary>
 /// 描画

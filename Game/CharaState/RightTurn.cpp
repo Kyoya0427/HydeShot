@@ -7,6 +7,7 @@
 #include "RightTurn.h"
 
 #include <Game/Common/DebugFont.h>
+#include <Game/Common/GameContext.h>
 
 #include <Game/Controller/AIController.h>
 
@@ -14,6 +15,8 @@
 /// コンストラクタ
 /// </summary>
 RightTurn::RightTurn()
+	: m_chara()
+	, m_enemy()
 {
 }
 
@@ -29,10 +32,10 @@ RightTurn::~RightTurn()
 /// </summary>
 /// <param name="chara">ステイト操作するキャラクター</param>
 /// <param name="controller">コントローラー</param>
-void RightTurn::Initialize(Character* chara, CharacterController* controller)
+void RightTurn::Initialize(Character* chara, Character* enemy)
 {
 	m_chara = chara;
-	m_controller = controller;
+	m_enemy = enemy;
 }
 
 /// <summary>
@@ -41,8 +44,9 @@ void RightTurn::Initialize(Character* chara, CharacterController* controller)
 /// <param name="timer">タイマー</param>
 void RightTurn::Update(const DX::StepTimer& timer)
 {
+	timer;
 	m_chara->RightTurn(AIController::ROT_SPEED);
-
+//	GameContext::Get<Search>()->ChangeStandingState();
 }
 
 /// <summary>

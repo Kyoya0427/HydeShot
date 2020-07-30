@@ -21,7 +21,7 @@ public:
 
 public:
 	//‰Šú‰»
-	virtual void Initialize(Character* chara, CharacterController* controller) = 0;
+	virtual void Initialize(Character* chara, Character* enemy) = 0;
 	//XV
 	virtual void Update(const DX::StepTimer& timer) = 0;
 	//•`‰æ

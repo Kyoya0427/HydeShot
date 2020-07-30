@@ -21,7 +21,7 @@ public:
 
 public:
 	//‰Šú‰»
-	void Initialize(Character* chara, CharacterController* controller) override;
+	void Initialize(Character* chara, Character* enemy) override;
 	//XV
 	void Update(const DX::StepTimer& timer) override;
 	//•`‰æ
@@ -33,7 +33,7 @@ public:
 
 private:
 	Character*                      m_chara;
-	CharacterController*            m_controller;
+	Character*						m_enemy;
 	CharaState*						m_wallAvoid;
 
 	std::unique_ptr<Leftward>		m_leftward;

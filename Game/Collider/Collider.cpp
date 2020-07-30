@@ -112,3 +112,8 @@ void Collider::SetOffset(const Vector3 & offset)
 {
 	m_offset = offset;
 }
+
+void Collider::SetRaycastHit(RaycastHit hit)
+{
+	m_owner->SetRaycastHit(hit);
+}

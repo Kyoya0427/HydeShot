@@ -10,11 +10,14 @@
 #include <Game/Common/GameContext.h>
 
 #include <Game/AI/NeuralNetworkManager.h>
+#include <Game/AI/NeuralNetwork.h>
 
 /// <summary>
 /// コンストラクタ
 /// </summary>
 Search::Search()
+	: m_chara()
+	, m_enemy()
 {
 }
 
@@ -22,10 +25,10 @@ Search::Search()
 /// 初期化
 /// </summary>
 /// <param name="chara"></param>
-void Search::Initialize(Character* chara, CharacterController* controller)
+void Search::Initialize(Character* chara, Character* enemy)
 {
 	m_chara      = chara;
-	m_controller = controller;
+	m_enemy      = enemy;
 
 	m_standing   = std::make_unique<Standing>();
 	m_forward    = std::make_unique<Forward>();
@@ -33,11 +36,11 @@ void Search::Initialize(Character* chara, CharacterController* controller)
 	m_leftTurn   = std::make_unique<LeftTurn>();
 	m_rightTurn  = std::make_unique<RightTurn>();
 
-	m_standing->Initialize(m_chara, m_controller);
-	m_forward->Initialize(m_chara, m_controller);
-	m_backward->Initialize(m_chara, m_controller);
-	m_leftTurn->Initialize(m_chara, m_controller);
-	m_rightTurn->Initialize(m_chara, m_controller);
+	m_standing->Initialize(m_chara, m_enemy);
+	m_forward->Initialize(m_chara, m_enemy);
+	m_backward->Initialize(m_chara, m_enemy);
+	m_leftTurn->Initialize(m_chara, m_enemy);
+	m_rightTurn->Initialize(m_chara, m_enemy);
 
 	ChangeStandingState();
 }
@@ -45,23 +48,24 @@ void Search::Initialize(Character* chara, CharacterController* controller)
 /// <summary>
 /// 更新
 /// </summary>
+/// </summary>
 /// <param name="timer"></param>
 void Search::Update(const DX::StepTimer& timer)
 {
-	NeuralNetworkManager::OutputData data = GameContext::Get<NeuralNetworkManager>()->m_data;
+	NeuralNetwork* data = GameContext::Get<NeuralNetworkManager>()->m_neuralNetwork.get();
 
-	float dis   = data.outputDis;
-	float left  = data.outputLeft;
-	float right = data.outputRight;
+	float dis   = data->GetOutput(0);
+	float left  = data->GetOutput(1);
+	float right = data->GetOutput(2);
 
 
-	if (left >= 0.8f)
+	if (left >= 0.5f)
 		ChangeLeftTurnState();
-	else if (right >= 0.8f)
+	else if (right >= 0.5f)
 		ChangeRightTurnState();
-	else if (dis >= 0.4f)
+	else if (dis >= 0.45f)
 		ChangeForwardState();
-	else if (dis >= 0.1f)
+	else if (dis >= 0.0f)
 		ChangeBackwardState();
 
 

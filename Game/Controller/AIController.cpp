@@ -52,9 +52,9 @@ AIController::AIController(Character* character, Character* enemy)
 	m_attack    = std::make_unique<Attack>();
 	m_wallAvoid = std::make_unique<WallAvoid>();
 
-	m_search->Initialize(m_character, this);
-	m_attack->Initialize(m_character, this);
-	m_wallAvoid->Initialize(m_character, this);
+	m_search->Initialize(m_character, m_enemy);
+	m_attack->Initialize(m_character, m_enemy);
+	m_wallAvoid->Initialize(m_character, m_enemy);
 
 	GameContext::Register<Search>(m_search.get());
 	GameContext::Register<WallAvoid>(m_wallAvoid.get());
@@ -105,7 +105,14 @@ void AIController::Update(const DX::StepTimer& timer)
 	switch (m_state)
 	{
 	case AIController::State::ATTACK:
-		ChangeAttackState();
+		if (m_shotInterval < 0.0f)
+		{
+			ChangeAttackState();
+			m_shotInterval = SHOT_INTERVAL;
+		}
+		else
+			ChangeSearchState();
+		
 		break;
 	case AIController::State::SEARCH:
 		ChangeSearchState();
@@ -146,7 +153,7 @@ void AIController::Render()
 	if (PlayState::m_isDebug)
 	{
 		DebugFont* debugFont = DebugFont::GetInstance();
-		debugFont->print(10, 30, L"%f / 0.1", m_stateInterval);
+		debugFont->print(10, 30, L"%f / 0.1", m_shotInterval);
 		debugFont->draw();
 	
 

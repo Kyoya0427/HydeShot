@@ -6,7 +6,9 @@
 //======================================================
 #include "Rightward.h"
 
+
 #include <Game/Common/DebugFont.h>
+#include <Game/Common/GameContext.h>
 
 #include <Game/Controller/AIController.h>
 
@@ -14,6 +16,8 @@
 /// コンストラクタ
 /// </summary>
 Rightward::Rightward()
+	: m_chara()
+	, m_enemy()
 {
 }
 
@@ -29,10 +33,10 @@ Rightward::~Rightward()
 /// </summary>
 /// <param name="chara">ステイト操作するキャラクター</param>
 /// <param name="controller">コントローラー</param>
-void Rightward::Initialize(Character* chara, CharacterController* controller)
+void Rightward::Initialize(Character* chara, Character* enemy)
 {
 	m_chara      = chara;
-	m_controller = controller;
+	m_enemy      = enemy;
 }
 
 /// <summary>
@@ -41,6 +45,12 @@ void Rightward::Initialize(Character* chara, CharacterController* controller)
 /// <param name="timer">タイマー</param>
 void Rightward::Update(const DX::StepTimer& timer)
 {
+	timer;
+	float direction = m_chara->GetRadiansY();
+
+	if (direction > DirectX::XM_PI)
+		GameContext::Get<WallAvoid>()->ChangeLeftwardState();
+
 	m_chara->Rightward(AIController::MOVE_SPEED);
 }
 

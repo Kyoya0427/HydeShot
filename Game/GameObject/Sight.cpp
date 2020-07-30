@@ -89,6 +89,8 @@ void Sight::Update(const DX::StepTimer& timer)
 	{
 		GameContext().Get<CollisionManager>()->Add(ObjectTag::Sight02, m_collider.get());
 	}
+
+	
 }
 
 /// <summary>
@@ -116,23 +118,28 @@ void Sight::OnCollision(GameObject* object)
 	if (object->GetTag() == ObjectTag::Wall)
 	{
 		m_chara->SetWallSightContact(true);
-
-		float wallToDistance = Vector3::Distance(m_chara->GetPosition(), object->GetPosition());
-
-		if (m_chara->GetEnemySightContact())
-		{
-			if(m_enemyToDistance < wallToDistance)
-				m_chara->SetWallSightContact(false);
-
-		}
+		m_wallToDistance = Vector3::Distance(m_chara->GetPosition(), object->GetPosition());
+		m_hit = object->GetRaycastHit();
+		
 	}
 	else if (object->GetTag() != m_chara->GetTag())
 	{
 		m_chara->SetEnemySightContact(true);
-
 		m_enemyToDistance = Vector3::Distance(m_chara->GetPosition(), object->GetPosition());
 	}
 
+	if (m_chara->GetWallSightContact())
+	{
+		if (m_enemyToDistance < m_wallToDistance)
+			m_chara->SetWallSightContact(false);
+
+	}
+
+	if (m_chara->GetEnemySightContact())
+	{
+		if (m_enemyToDistance > m_wallToDistance)
+			m_chara->SetEnemySightContact(false);
+	}	
 }
 
 

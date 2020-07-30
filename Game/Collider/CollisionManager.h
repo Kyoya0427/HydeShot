@@ -14,6 +14,7 @@
 #include <DirectXTK/SimpleMath.h>
 
 #include <Game/Collider/Collider.h>
+#include <Game/Collider/RaycastHit.h>
 
 #include <Game/GameObject/GameObject.h>
 
@@ -22,19 +23,6 @@ class BoxCollider;
 
 class CollisionManager final
 {
-public:
-	struct RaycastHit
-	{
-		RaycastHit() :distNear(), distFar(), posNear(), posFar(), normNear(), normFar() {
-		}
-		float distNear;
-		float distFar;
-		DirectX::SimpleMath::Vector3 posNear;
-		DirectX::SimpleMath::Vector3 posFar;
-		DirectX::SimpleMath::Vector3 normNear;
-		DirectX::SimpleMath::Vector3 normFar;
-	};
-
 public:
 	using ColliderList       = std::vector<Collider*>;
 	using ColliderGroupList  = std::unordered_map<GameObject::ObjectTag, ColliderList>;

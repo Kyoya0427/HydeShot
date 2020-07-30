@@ -7,6 +7,8 @@
 #include "LeftTurn.h"
 
 #include <Game/Common/DebugFont.h>
+#include <Game/Common/GameContext.h>
+#include <Game/Common/GameContext.h>
 
 #include <Game/Controller/AIController.h>
 
@@ -14,6 +16,8 @@
 /// コンストラクタ
 /// </summary>
 LeftTurn::LeftTurn()
+	: m_chara()
+	, m_enemy()
 {
 }
 
@@ -29,10 +33,10 @@ LeftTurn::~LeftTurn()
 /// </summary>
 /// <param name="chara">ステイト操作するキャラクター</param>
 /// <param name="controller">コントローラー</param>
-void LeftTurn::Initialize(Character* chara, CharacterController* controller)
+void LeftTurn::Initialize(Character* chara, Character* enemy)
 {
 	m_chara = chara;
-	m_controller = controller;
+	m_enemy = enemy;
 }
 
 /// <summary>
@@ -41,7 +45,9 @@ void LeftTurn::Initialize(Character* chara, CharacterController* controller)
 /// <param name="timer">タイマー</param>
 void LeftTurn::Update(const DX::StepTimer& timer)
 {
+	timer;
 	m_chara->LeftTurn(AIController::ROT_SPEED);
+//	GameContext::Get<Search>()->ChangeStandingState();
 }
 
 /// <summary>

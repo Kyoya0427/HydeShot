@@ -7,6 +7,7 @@
 #include "Leftward.h"
 
 #include <Game/Common/DebugFont.h>
+#include <Game/Common/GameContext.h>
 
 #include <Game/Controller/AIController.h>
 
@@ -14,6 +15,8 @@
 /// コンストラクタ
 /// </summary>
 Leftward::Leftward()
+	: m_chara()
+	, m_enemy()
 {
 }
 
@@ -29,10 +32,10 @@ Leftward::~Leftward()
 /// </summary>
 /// <param name="chara">ステイト操作するキャラクター</param>
 /// <param name="controller">コントローラー</param>
-void Leftward::Initialize(Character* chara, CharacterController* controller)
+void Leftward::Initialize(Character* chara, Character* enemy)
 {
 	m_chara      = chara;
-	m_controller = controller;
+	m_enemy      = enemy;
 }
 
 /// <summary>
@@ -41,6 +44,12 @@ void Leftward::Initialize(Character* chara, CharacterController* controller)
 /// <param name="timer">タイマー</param>
 void Leftward::Update(const DX::StepTimer& timer)
 {
+	timer;
+	float direction = m_chara->GetRadiansY();
+
+	if (direction > DirectX::XM_PI)
+		GameContext::Get<WallAvoid>()->ChangeRightwardState();
+
 	m_chara->Leftward(AIController::MOVE_SPEED);
 }
 

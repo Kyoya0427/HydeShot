@@ -154,6 +154,10 @@ bool CollisionManager::IsCollided(const BoxCollider* collider1, const RayCollide
 	RaycastHit hit;
 	bool b     = LineToAABB(collider1, collider2, &hit);
 	float dist = Vector3::Distance(collider2->GetPosA(), collider2->GetPosB());
+	
+	collider1->GetGameObject()->SetRaycastHit(hit);
+	collider2->GetGameObject()->SetRaycastHit(hit);
+	
 	return b && 0 < hit.distFar && 0 < (dist - hit.distNear);
 }
 
@@ -230,12 +234,18 @@ bool CollisionManager::IsCollided(const RayCollider* collider1, const RayCollide
 	return false;
 }
 
+/// <summary>
+/// ” ‚Æ” ‚Ì“–‚½‚è”»’è
+/// </summary>
+/// <param name="collider1"></param>
+/// <param name="collider2"></param>
+/// <returns></returns>
 bool CollisionManager::IsCollided(const BoxCollider* collider1, const BoxCollider* collider2)
 {
-	collider1;
-	collider2;
-
-	return false;
+	if (fabsf(collider1->GetPosition().x - collider2->GetPosition().x) > (collider1->GetSize().x + collider1->GetSize().x)) return false;
+	if (fabsf(collider1->GetPosition().y - collider2->GetPosition().y) > (collider1->GetSize().y + collider1->GetSize().y)) return false;
+	if (fabsf(collider1->GetPosition().z - collider2->GetPosition().z) > (collider1->GetSize().z + collider1->GetSize().z)) return false;
+	return true;
 }
 
 /// /// <summary>

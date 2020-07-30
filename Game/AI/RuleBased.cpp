@@ -38,8 +38,8 @@ AIController::State RuleBased::BehaviorSelection(Character* character, Character
 	//‘Š‘ÎÀ•WŒvŽZ
 	Vector3 charaPos = character->GetPosition();
 	Vector3 enemyPos = enemy->GetPosition();
-	float x = charaPos.x - enemyPos.x;
-	float z = charaPos.z - enemyPos.z;
+//	float x = charaPos.x - enemyPos.x;
+//	float z = charaPos.z - enemyPos.z;
 
 	/*if(character->GetWallContact())
 		return static_cast<AIController::Behavior>(rand() % static_cast<int>(AIController::Behavior::SHOOT));

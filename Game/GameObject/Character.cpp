@@ -16,6 +16,7 @@
 #include <Game/GameObject/ObjectManager.h>
 #include <Game/GameObject/Bullet.h>
 #include <Game/GameObject/Sight.h>
+#include <Game/GameObject/WallApproach.h>
 			  
 #include <Game/Collider/CollisionManager.h>
 			  
@@ -35,11 +36,13 @@ Character::Character(const ObjectTag tag)
 	, m_model()
 	, m_sphereCollider()
 	, m_sight()
+	, m_wallApproach()
 	, m_collider()
 	, m_previousPos()
 	, m_wallSightContact(false)
 	, m_wallContact(false)
 	, m_enemySightContact(false)
+	, m_isWallApproach(false)
 	, m_hp()
 {
 	
@@ -74,6 +77,7 @@ void Character::Initialize(DirectX::SimpleMath::Vector2 & pos)
 	m_collider = std::make_unique<SphereCollider>(this, m_radius);
 
 	m_sight = std::make_unique<Sight>(this);
+	m_wallApproach = std::make_unique<WallApproach>(this);
 }
 
 /// <summary>
@@ -97,6 +101,7 @@ void Character::Update(const DX::StepTimer & timer)
 
 
 	m_sight->Update(timer);
+	m_wallApproach->Update(timer);
 }
 
 /// <summary>
@@ -110,6 +115,34 @@ void Character::Render()
 	Matrix rotMat = Matrix::CreateFromQuaternion(rot);
 	Matrix transMat = Matrix::CreateTranslation(m_position);
 	// ÉèÅ[ÉãÉhçsóÒÇçÏê¨
+	DebugFont* debugFont = DebugFont::GetInstance();
+
+	if (m_tag == GameObject::ObjectTag::Player)
+	{
+		if (m_isWallApproach)
+		{
+			debugFont->print(700, 310, L"Player = true");
+			debugFont->draw();
+		}
+		else
+		{
+			debugFont->print(700, 310, L"Player = false");
+			debugFont->draw();
+		}
+	}
+	if (m_tag == GameObject::ObjectTag::Enemy1)
+	{
+		if (m_isWallApproach)
+		{
+			debugFont->print(700, 340, L"Enemy1 = true");
+			debugFont->draw();
+		}
+		else
+		{
+			debugFont->print(700, 340, L"Enemy1 = false");
+			debugFont->draw();
+		}
+	}
 
 	m_world = scalemat * r * rotMat * transMat;
 
@@ -121,6 +154,7 @@ void Character::Render()
 	m_sphereCollider->Draw(world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_color, nullptr, true);
 
 	m_sight->Render();
+	m_wallApproach->Render();
 }
 /// <summary>
 /// ìñÇΩÇ¡ÇΩå„ÇÃèàóù
@@ -268,5 +302,20 @@ bool Character::GetEnemySightContact()
 void Character::SetEnemySightContact(bool contact)
 {
 	m_enemySightContact = contact;
+}
+
+bool Character::GetWallApproach()
+{
+	return m_isWallApproach;
+}
+
+void Character::SetWallApproach(bool approach)
+{
+	m_isWallApproach = approach;
+}
+
+Sight* Character::GetSight()
+{
+	return m_sight.get();
 }
                                                            

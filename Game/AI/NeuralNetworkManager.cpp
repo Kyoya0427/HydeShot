@@ -72,7 +72,7 @@ void NeuralNetworkManager::InitializeTraining(wchar_t* fname)
 /// </summary>
 void NeuralNetworkManager::InitializeNeuralNetwork()
 {
-	// ƒjƒ…[ƒ‰ƒ‹ƒlƒbƒgƒ[ƒN‚ð‰Šú‰»‚·‚é(“ü—Í‘w:5A‰B‚ê‘w:40Ao—Í‘w:4)
+	// ƒjƒ…[ƒ‰ƒ‹ƒlƒbƒgƒ[ƒN‚ð‰Šú‰»‚·‚é(“ü—Í‘w:6A‰B‚ê‘w:20Ao—Í‘w:5)
 	m_neuralNetwork->Initialize(6, 20, 5);
 
 	// ŠwK—¦‚ðÝ’è‚·‚é
@@ -86,7 +86,7 @@ void NeuralNetworkManager::InitializeNeuralNetwork()
 	float	error = 1.0;
 	int		count = 0;    
 	// Œë·‹t“`”d‚·‚é(Back propagate)
-	while (error > 0.01 && count < 10000)
+	while (error > 0.01 && count < 100000)
 	{
 		error = 0.0;
 		count++;
@@ -152,13 +152,11 @@ AIController::State NeuralNetworkManager::BehaviorSelection(Character* character
 	//‰E”»’è
 	m_neuralNetwork->SetInput(2, static_cast<float>(m_isDirectionRight));
 	//–Ú‚Ì‘O‚É•Ç‚ª‚ ‚é
-	m_neuralNetwork->SetInput(3, static_cast<float>(character->GetWallContact()));
+	m_neuralNetwork->SetInput(3, static_cast<float>(character->GetWallApproach()));
 	//“G‚ðŒ‚‚Ä‚é‚©”»’è
 	m_neuralNetwork->SetInput(4, static_cast<float>(character->GetEnemySightContact()));
 	//HP
 	m_neuralNetwork->SetInput(5, static_cast<float>(character->GetHp() / 5));
-
-
 	//ŒvŽZŠJŽn
 	m_neuralNetwork->FeedForward();
 
@@ -168,7 +166,7 @@ AIController::State NeuralNetworkManager::BehaviorSelection(Character* character
 	m_data.inputDis      = distance / 18.0f;
 	m_data.inputLeft     = static_cast<float>(m_isDirectionLeft);
 	m_data.inputRight    = static_cast<float>(m_isDirectionRight);
-	m_data.inputWall     = static_cast<float>(character->GetWallContact());
+	m_data.inputWall     = static_cast<float>(character->GetWallApproach());
 	m_data.inputShoot    = static_cast<float>(character->GetEnemySightContact());
 	m_data.inputHp       = static_cast<float>(character->GetHp() / 5);
 
@@ -179,9 +177,6 @@ AIController::State NeuralNetworkManager::BehaviorSelection(Character* character
 	m_data.outputShoot     = m_neuralNetwork->GetOutput(4);
 
 	
-	float dis   = m_neuralNetwork->GetOutput(0);
-	float left  = m_neuralNetwork->GetOutput(1);
-	float right = m_neuralNetwork->GetOutput(2);
 	float wall  = m_neuralNetwork->GetOutput(3);
 	float shot  = m_neuralNetwork->GetOutput(4);
 
@@ -191,7 +186,7 @@ AIController::State NeuralNetworkManager::BehaviorSelection(Character* character
 		m_outputData.push_back(m_data);
 		return	AIController::State::ATTACK;
 	}
-	else if (wall >= 0.6)
+	else if (wall >= 0.8)
 	{
 		m_data.outputChoiceMode = "WALLAVOID";
 		m_outputData.push_back(m_data);
@@ -203,6 +198,7 @@ AIController::State NeuralNetworkManager::BehaviorSelection(Character* character
 		m_outputData.push_back(m_data);
 		return AIController::State::SEARCH;
 	}
+
 	m_data.outputChoiceMode = "none";
 	m_outputData.push_back(m_data);
 	return AIController::State::NONE;
@@ -308,7 +304,7 @@ void NeuralNetworkManager::OutputDataFile(char* fname)
 	
 	for (auto& output : m_outputData)
 	{
-		fprintf(f, "%2f, %2f, %2f, %2f, %2f, %2f, %2f, %2f, %2f, %2f, %2f, %s, %f% \n"
+		fprintf(f, "%2f, %2f, %2f, %2f, %2f, %2f, %2f, %2f, %2f, %2f, %2f, %s, %f%  \n"
 			,output.inputDis, output.inputLeft, output.inputRight, output.inputWall,output.inputShoot, output.inputHp
 			,output.outputDis, output.outputLeft, output.outputRight, output.outputWall, output.outputShoot
 			,output.outputChoiceMode, m_error*100);

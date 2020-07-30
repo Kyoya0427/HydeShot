@@ -394,6 +394,12 @@
     <ClInclude Include="Game\CharaState\Rightward.h">
       <Filter>Game\CharaState\WallAvoid</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Collider\RaycastHit.h">
+      <Filter>Game\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\WallApproach.h">
+      <Filter>Game\GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game\Common\DebugFont.cpp">
@@ -521,6 +527,9 @@
     </ClCompile>
     <ClCompile Include="Game\CharaState\Rightward.cpp">
       <Filter>Game\CharaState\WallAvoid</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\WallApproach.cpp">
+      <Filter>Game\GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

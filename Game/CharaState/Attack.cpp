@@ -7,11 +7,15 @@
 #include "Attack.h"
 
 #include <Game/Common/DebugFont.h>
+#include <Game/Common/GameContext.h>
+
+#include <Game/Controller/AIController.h>
 
 /// <summary>
 /// コンストラクタ
 /// </summary>
 Attack::Attack()
+	: m_chara()
 {
 }
 
@@ -19,8 +23,9 @@ Attack::Attack()
 /// 初期化
 /// </summary>
 /// <param name="chara"></param>
-void Attack::Initialize(Character* chara, CharacterController* controller)
+void Attack::Initialize(Character* chara, Character* enemy)
 {
+	enemy;
 	m_chara = chara;
 }
 
@@ -30,8 +35,8 @@ void Attack::Initialize(Character* chara, CharacterController* controller)
 /// <param name="timer">タイマー</param>
 void Attack::Update(const DX::StepTimer& timer)
 {
+	timer;
 	m_chara->Shoot();
-
 }
 
 /// <summary>

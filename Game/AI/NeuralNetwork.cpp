@@ -33,8 +33,8 @@ Example:        Neural Networks, Chapter 14
 /// </summary>
 NeuralNetworkLayer::NeuralNetworkLayer()
 {
-	m_parentLayer    = nullptr;
-	m_childLayer     = nullptr;
+	m_parentLayer    = NULL;
+	m_childLayer     = NULL;
 	m_linearOutput   = false;
 	m_useMomentum    = false;
 	m_momentumFactor = 0.9;
@@ -54,12 +54,12 @@ void NeuralNetworkLayer::Initialize(int NumNodes, NeuralNetworkLayer* parent, Ne
 	m_desiredValues = (float*)malloc(sizeof(float) * m_numNodes);
 	m_errors        = (float*)malloc(sizeof(float) * m_numNodes);
 
-	if (parent != nullptr)
+	if (parent != NULL)
 	{
 		m_parentLayer = parent;
 	}
 
-	if (child != nullptr)
+	if (child != NULL)
 	{
 		m_childLayer    = child;
 		m_weights       = (float**)malloc(sizeof(float*) * m_numNodes);
@@ -76,9 +76,9 @@ void NeuralNetworkLayer::Initialize(int NumNodes, NeuralNetworkLayer* parent, Ne
 	}
 	else 
 	{
-		m_weights     = nullptr;
-		m_biasValues  = nullptr;
-		m_biasWeights = nullptr;
+		m_weights     = NULL;
+		m_biasValues  = NULL;
+		m_biasWeights = NULL;
 	}
 
 	// Make sure everything contains zeros
@@ -98,7 +98,7 @@ void NeuralNetworkLayer::Initialize(int NumNodes, NeuralNetworkLayer* parent, Ne
 		}
 	}
 
-	if (m_childLayer != nullptr) 
+	if (m_childLayer != NULL) 
 	{
 		for (int j = 0; j < m_numChildNodes; j++) 
 		{
@@ -117,7 +117,7 @@ void NeuralNetworkLayer::CleanUp(void)
 	free(m_desiredValues);
 	free(m_errors);
 
-	if (m_weights != nullptr)
+	if (m_weights != NULL)
 	{
 		for (int i = 0; i < m_numNodes; i++)
 		{
@@ -129,9 +129,9 @@ void NeuralNetworkLayer::CleanUp(void)
 		free(m_weightChanges);
 	}
 
-	if (m_biasValues != nullptr)
+	if (m_biasValues != NULL)
 		free(m_biasValues);
-	if (m_biasWeights != nullptr)
+	if (m_biasWeights != NULL)
 		free(m_biasWeights);
 }
 
@@ -144,7 +144,7 @@ void NeuralNetworkLayer::RandomizeWeights(void)
 	int	max = 200;
 	int	number;
 
-	srand((unsigned)time(nullptr));
+	srand((unsigned)time(NULL));
 
 	for (int i = 0; i < m_numNodes; i++)
 	{
@@ -178,14 +178,14 @@ void NeuralNetworkLayer::CalculateErrors(void)
 {
 	float	sum = 0.0;
 	// o—Í‘w(output layer)
-	if (m_childLayer == nullptr)
+	if (m_childLayer == NULL)
 	{
 		for (int i = 0; i < m_numNodes; i++) 
 		{
 			m_errors[i] = (m_desiredValues[i] - m_neuronValues[i]) * m_neuronValues[i] * (1.0f - m_neuronValues[i]);
 		}
 	} // “ü—Í‘w(input layer)
-	else if (m_parentLayer == nullptr)
+	else if (m_parentLayer == NULL)
 	{
 		for (int i = 0; i < m_numNodes; i++)
 		{
@@ -213,7 +213,7 @@ void NeuralNetworkLayer::CalculateErrors(void)
 void NeuralNetworkLayer::AdjustWeights(void)
 {
 	float	dw = 0.0;
-	if (m_childLayer != nullptr) 
+	if (m_childLayer != NULL) 
 	{
 		for (int i = 0; i < m_numNodes; i++)
 		{
@@ -238,7 +238,7 @@ void NeuralNetworkLayer::AdjustWeights(void)
 void NeuralNetworkLayer::CalculateNeuronValues(void)
 {
 	float	x;
-	if (m_parentLayer != nullptr)
+	if (m_parentLayer != NULL)
 	{
 		for (int j = 0; j < m_numNodes; j++)
 		{
@@ -249,10 +249,10 @@ void NeuralNetworkLayer::CalculateNeuronValues(void)
 			}
 			x += m_parentLayer->m_biasValues[j] * m_parentLayer->m_biasWeights[j];
 
-			if ((m_childLayer == nullptr) && m_linearOutput)
+			if ((m_childLayer == NULL) && m_linearOutput)
 				m_neuronValues[j] = x;
 			else
-				m_neuronValues[j] = 1.0f / (1.0f + exp(-x));
+				m_neuronValues[j] = 1.0f / (1.0f + static_cast<float>(exp(-x)));
 		}
 	}
 }
@@ -392,7 +392,7 @@ float NeuralNetwork::CalculateError(void)
 
 	for (int i = 0; i < m_outputLayer.m_numNodes; i++) 
 	{
-		error += pow(m_outputLayer.m_neuronValues[i] - m_outputLayer.m_desiredValues[i], 2);
+		error += static_cast<float>(pow(m_outputLayer.m_neuronValues[i] - m_outputLayer.m_desiredValues[i], 2));
 	}
 	error = error / m_outputLayer.m_numNodes;
 	return error;
@@ -506,8 +506,8 @@ void NeuralNetwork::DumpData(char* filename)
 ///// </summary>
 //NeuralNetwork::NeuralNetworkLayer::NeuralNetworkLayer()
 //{
-//	m_parentLayer    = nullptr;
-//	m_m_childLayer     = nullptr;
+//	m_parentLayer    = NULL;
+//	m_m_childLayer     = NULL;
 //	m_linearOutput   = false;
 //	m_useMomentum    = false;
 //	m_momentumFactor = 0.9;
@@ -527,12 +527,12 @@ void NeuralNetwork::DumpData(char* filename)
 //	m_desiredValues = std::make_unique<DataType[]>(m_numNodes);
 //	m_errors        = std::make_unique<DataType[]>(m_numNodes);
 //
-//	if (parent != nullptr)
+//	if (parent != NULL)
 //	{
 //		m_parentLayer = parent;
 //	}
 //
-//	if (child != nullptr)
+//	if (child != NULL)
 //	{
 //		m_m_childLayer    = child;
 //		m_weights       = std::make_unique<DataArray[]>(m_numNodes);
@@ -548,9 +548,9 @@ void NeuralNetwork::DumpData(char* filename)
 //	}
 //	else
 //	{
-//		m_weights     = nullptr;
-//		m_biasValues  = nullptr;
-//		m_biasWeights = nullptr;
+//		m_weights     = NULL;
+//		m_biasValues  = NULL;
+//		m_biasWeights = NULL;
 //	}
 //
 //	// Make sure everything contains zeros
@@ -560,7 +560,7 @@ void NeuralNetwork::DumpData(char* filename)
 //		m_desiredValues[i] = 0;
 //		m_errors[i]        = 0;
 //
-//		if (m_m_childLayer != nullptr)
+//		if (m_m_childLayer != NULL)
 //		{
 //			for (int j = 0; j < m_numChildNodes; j++)
 //			{
@@ -570,7 +570,7 @@ void NeuralNetwork::DumpData(char* filename)
 //		}
 //	}
 //
-//	if (m_m_childLayer != nullptr)
+//	if (m_m_childLayer != NULL)
 //	{
 //		for (int j = 0; j < m_numChildNodes; j++)
 //		{
@@ -615,7 +615,7 @@ void NeuralNetwork::DumpData(char* filename)
 //	int	max = 200;
 //	int	number;
 //
-//	srand((unsigned)time(nullptr));
+//	srand((unsigned)time(NULL));
 //
 //	for (int i = 0; i < m_numNodes; i++)
 //	{
@@ -656,7 +656,7 @@ void NeuralNetwork::DumpData(char* filename)
 //	DataType	sum = 0.0;
 //
 //	// o—Í‘w(output layer)
-//	if (m_m_childLayer == nullptr)
+//	if (m_m_childLayer == NULL)
 //	{
 //		for (int i = 0; i < m_numNodes; i++)
 //		{
@@ -664,7 +664,7 @@ void NeuralNetwork::DumpData(char* filename)
 //		}
 //	}
 //	// “ü—Í‘w(input layer)
-//	else if (m_parentLayer == nullptr)
+//	else if (m_parentLayer == NULL)
 //	{
 //		for (int i = 0; i < m_numNodes; i++)
 //		{
@@ -673,7 +673,7 @@ void NeuralNetwork::DumpData(char* filename)
 //	}
 //	// ‰B‚ê‘w(hidden layer)
 //	else {
-//		DataType* weights = nullptr;
+//		DataType* weights = NULL;
 //		DataType* m_childLayerErrors = &(m_m_childLayer->m_errors[0]);
 //
 //		for (int i = 0; i < m_numNodes; i++)
@@ -708,7 +708,7 @@ void NeuralNetwork::DumpData(char* filename)
 //	errors;
 //	desiredValues;
 //
-//	if (m_m_childLayer != nullptr)
+//	if (m_m_childLayer != NULL)
 //	{
 //		for (int i = 0; i < m_numNodes; i++) 
 //		{
@@ -738,7 +738,7 @@ void NeuralNetwork::DumpData(char* filename)
 //void NeuralNetwork::NeuralNetworkLayer::CalculateNeuronValues()
 //{
 //	DataType	x;
-//	if (m_parentLayer != nullptr)
+//	if (m_parentLayer != NULL)
 //	{
 //		for (int j = 0; j < m_numNodes; j++)
 //		{
@@ -751,7 +751,7 @@ void NeuralNetwork::DumpData(char* filename)
 //
 //			x += m_parentLayer->m_biasValues[j] * m_parentLayer->m_biasWeights[j];
 //
-//			if ((m_m_childLayer == nullptr) && m_linearOutput)
+//			if ((m_m_childLayer == NULL) && m_linearOutput)
 //				m_neuronValues[j] = x;
 //			else
 //				m_neuronValues[j] = 1.0f / (1.0f + exp(-x));
@@ -777,7 +777,7 @@ void NeuralNetwork::DumpData(char* filename)
 //	m_inputLayer.m_numNodes = nNodesInput;
 //	m_inputLayer.m_numChildNodes = nNodesHidden;
 //	m_inputLayer.m_numParentNodes = 0;
-//	m_inputLayer.Initialize(nNodesInput, nullptr, &m_hiddenLayer);
+//	m_inputLayer.Initialize(nNodesInput, NULL, &m_hiddenLayer);
 //	m_inputLayer.RandomizeWeights();
 //
 //	m_hiddenLayer.m_numNodes = nNodesHidden;
@@ -789,7 +789,7 @@ void NeuralNetwork::DumpData(char* filename)
 //	m_outputLayer.m_numNodes = nNodesOutput;
 //	m_outputLayer.m_numChildNodes = 0;
 //	m_outputLayer.m_numParentNodes = nNodesHidden;
-//	m_outputLayer.Initialize(nNodesOutput, &m_hiddenLayer, nullptr);
+//	m_outputLayer.Initialize(nNodesOutput, &m_hiddenLayer, NULL);
 //}
 //
 ///// <summary>

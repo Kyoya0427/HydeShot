@@ -12,6 +12,9 @@
 
 #include <Game/Common/StepTimer.h>
 
+#include <Game/Collider/RaycastHit.h>
+
+
 class GameObject
 {
 public:
@@ -28,8 +31,8 @@ public:
 		Flag_02,
 		Sight01,
 		Sight02,
-
-
+		WallApproach,
+		
 		NUM
 	};
 
@@ -77,7 +80,7 @@ public:
 	//弾を撃ったオブジェクトのタグを取得
 	ObjectTag GetCharaTag();
 
-
+	RaycastHit GetRaycastHit();
 public:
 	//タグ名を登録
 	void SetTag(const ObjectTag tag);
@@ -98,6 +101,9 @@ public:
 	//非表示にする
 	static void Destroy(GameObject* object);
 	
+
+	void SetRaycastHit(RaycastHit hit);
+
 private:
 	//true有効
 	bool m_isValid;
@@ -127,4 +133,6 @@ protected:
 	//弾を撃ったオブジェクトのタグ名
 	ObjectTag                       m_charaTag;
 
+
+	RaycastHit		             m_hit;
 };
