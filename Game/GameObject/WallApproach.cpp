@@ -31,8 +31,6 @@ WallApproach::WallApproach(Character* chara)
 	, m_WallApproachCollider()
 	, m_size()
 	, m_chara(chara)
-	, m_posA()
-	, m_posB()
 	, m_enemyToDistance()
 
 {
@@ -41,8 +39,8 @@ WallApproach::WallApproach(Character* chara)
 
 	ID3D11DeviceContext* deviceContext = GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext();
 	m_WallApproachCollider = GeometricPrimitive::CreateBox(deviceContext, m_size);
-	m_collider      = std::make_unique<RayCollider>(this);
-
+	m_collider      = std::make_unique<BoxCollider>(this,m_size);
+	
 }
 
 /// <summary>
@@ -65,12 +63,11 @@ void WallApproach::Update(const DX::StepTimer& timer)
 	m_velocity = Vector3::Transform(Vector3(0.0f, 0.0f, -1.5f), quaternion);
 	m_position = m_chara->GetPosition();
 
-	m_posA = m_chara->GetPosition();
-	m_posB = m_position + m_velocity;
+	m_position += m_velocity;
 
+	m_collider->SetPosition(m_position);
 
-	m_collider->SetPosA(m_posA);
-	m_collider->SetPosB(m_posB);
+	
 	
 	GameContext().Get<CollisionManager>()->Add(ObjectTag::WallApproach, m_collider.get());
 	
@@ -84,9 +81,8 @@ void WallApproach::Render()
 	Quaternion rot    = Quaternion::CreateFromAxisAngle(Vector3::UnitY, m_chara->GetRotation().y);
 	Matrix rotMat     = Matrix::CreateFromQuaternion(rot);
 	Matrix transMat   = Matrix::CreateTranslation(m_position);
-	Matrix offset     = Matrix::CreateTranslation(Vector3(0.0f,0.0f,-0.75f));
 
-	m_world  = offset *rotMat * transMat;
+	m_world  = rotMat * transMat;
 
 	if (PlayState::m_isDebug)
 		m_WallApproachCollider->Draw(m_world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), DirectX::Colors::Green, nullptr, true);
