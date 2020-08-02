@@ -73,7 +73,7 @@ void PlayState::Initialize()
 	m_collisionManager = std::make_unique<CollisionManager>();
 	GameContext().Register<CollisionManager>(m_collisionManager.get());
 	
-	m_isDebug = false;
+	m_isDebug = true;
 
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1,	    GameObject::ObjectTag::Wall);
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1,	    GameObject::ObjectTag::Flag_01);
@@ -212,7 +212,7 @@ void PlayState::Render()
 	m_bg->Render();
 	m_objectManager->GetGameOM()->Render();
 	m_aiController[0]->Render();
-	m_playerControll->Render();
+//	m_playerControll->Render();
 	spriteBach->End(); // <---スプライトの描画はここでまとめて行われている
 
 

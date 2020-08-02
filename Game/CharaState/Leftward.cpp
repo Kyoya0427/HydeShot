@@ -11,6 +11,8 @@
 
 #include <Game/Controller/AIController.h>
 
+#include <Game/GameObject/WallApproach.h>
+
 /// <summary>
 /// コンストラクタ
 /// </summary>
@@ -45,12 +47,8 @@ void Leftward::Initialize(Character* chara, Character* enemy)
 void Leftward::Update(const DX::StepTimer& timer)
 {
 	timer;
-	float direction = m_chara->GetRadiansY();
-
-	if (direction > DirectX::XM_PI)
-		GameContext::Get<WallAvoid>()->ChangeRightwardState();
-
 	m_chara->Leftward(AIController::MOVE_SPEED);
+	m_chara->GetWallApproachVel()->SetOffsetAngle(WallApproach::LEFT_ANGLE);
 }
 
 /// <summary>

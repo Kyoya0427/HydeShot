@@ -18,6 +18,7 @@
 Search::Search()
 	: m_chara()
 	, m_enemy()
+	, m_search()
 {
 }
 
@@ -54,20 +55,31 @@ void Search::Update(const DX::StepTimer& timer)
 {
 	NeuralNetwork* data = GameContext::Get<NeuralNetworkManager>()->m_neuralNetwork.get();
 
-	float dis   = data->GetOutput(0);
-	float left  = data->GetOutput(1);
+	float dis = data->GetOutput(0);
+	float left = data->GetOutput(1);
 	float right = data->GetOutput(2);
 
 
 	if (left >= 0.5f)
+	{
 		ChangeLeftTurnState();
+		m_chara->SetCharaState(CharaStateID::LEFT_TURN);
+	}
 	else if (right >= 0.5f)
+	{
 		ChangeRightTurnState();
+		m_chara->SetCharaState(CharaStateID::RIGHT_TURN);
+	}
 	else if (dis >= 0.45f)
+	{
 		ChangeForwardState();
+		m_chara->SetCharaState(CharaStateID::FORWARD);
+	}
 	else if (dis >= 0.0f)
+	{
 		ChangeBackwardState();
-
+		m_chara->SetCharaState(CharaStateID::BACKWARD);
+	}
 
 	m_search->Update(timer);
 }

@@ -33,7 +33,7 @@ public:
 
 public:
 	//コンストラクタ
-	NeuralNetworkManager();
+	NeuralNetworkManager(Character* character, Character* enemy);
 	//デストラクタ
 	virtual ~NeuralNetworkManager();
 
@@ -47,7 +47,7 @@ public:
 	//ニューラルネットワークの初期化
 	void InitializeNeuralNetwork();
 	//行動パターンを選択
-	AIController::State BehaviorSelection(Character* character, Character* enemy) override;
+	CharaStateID BehaviorSelection() override;
 
 	void Render();
 
@@ -66,6 +66,7 @@ public:
 
 	float m_error;
 	Character* m_character;
+	Character* m_enemy;
 
 	OutputData					   m_data;
 	std::vector<OutputData>        m_outputData;

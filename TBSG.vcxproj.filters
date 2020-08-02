@@ -85,15 +85,6 @@
     <Filter Include="Game\CharaState">
       <UniqueIdentifier>{40ed8fda-256e-4603-a40d-73c3a2261de0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\CharaState\Search">
-      <UniqueIdentifier>{f69fe0d6-16b1-4be7-a29d-ec9f9df08818}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\CharaState\Attack">
-      <UniqueIdentifier>{d28a9b5d-9c77-4984-9784-fdbda16914e7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\CharaState\WallAvoid">
-      <UniqueIdentifier>{848dd4a9-a5b0-49c6-8843-14938c26b903}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <!-- アプリケーションマニフェスト -->
@@ -364,40 +355,46 @@
     <ClInclude Include="Game\CharaState\CharaState.h">
       <Filter>Game\CharaState</Filter>
     </ClInclude>
-    <ClInclude Include="Game\CharaState\Search.h">
-      <Filter>Game\CharaState\Search</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\CharaState\Attack.h">
-      <Filter>Game\CharaState\Attack</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\CharaState\WallAvoid.h">
-      <Filter>Game\CharaState\WallAvoid</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\CharaState\Forward.h">
-      <Filter>Game\CharaState\Search</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\CharaState\Backward.h">
-      <Filter>Game\CharaState\Search</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\CharaState\LeftTurn.h">
-      <Filter>Game\CharaState\Search</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\CharaState\RightTurn.h">
-      <Filter>Game\CharaState\Search</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\CharaState\Standing.h">
-      <Filter>Game\CharaState\Search</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\CharaState\Leftward.h">
-      <Filter>Game\CharaState\WallAvoid</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\CharaState\Rightward.h">
-      <Filter>Game\CharaState\WallAvoid</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Collider\RaycastHit.h">
       <Filter>Game\Collider</Filter>
     </ClInclude>
     <ClInclude Include="Game\GameObject\WallApproach.h">
+      <Filter>Game\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\CharaState\CharaStateID.h">
+      <Filter>Game\CharaState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\CharaState\Leftward.h">
+      <Filter>Game\CharaState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\CharaState\Rightward.h">
+      <Filter>Game\CharaState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\CharaState\WallAvoid.h">
+      <Filter>Game\CharaState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\CharaState\Backward.h">
+      <Filter>Game\CharaState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\CharaState\Forward.h">
+      <Filter>Game\CharaState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\CharaState\LeftTurn.h">
+      <Filter>Game\CharaState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\CharaState\RightTurn.h">
+      <Filter>Game\CharaState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\CharaState\Search.h">
+      <Filter>Game\CharaState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\CharaState\Standing.h">
+      <Filter>Game\CharaState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\CharaState\Attack.h">
+      <Filter>Game\CharaState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\WallApproachVelID.h">
       <Filter>Game\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
@@ -498,38 +495,38 @@
     <ClCompile Include="Game\AI\NeuralNetworkManager.cpp">
       <Filter>Game\AI</Filter>
     </ClCompile>
-    <ClCompile Include="Game\CharaState\Search.cpp">
-      <Filter>Game\CharaState\Search</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\CharaState\Attack.cpp">
-      <Filter>Game\CharaState\Attack</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\CharaState\WallAvoid.cpp">
-      <Filter>Game\CharaState\WallAvoid</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\CharaState\Forward.cpp">
-      <Filter>Game\CharaState\Search</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\CharaState\Backward.cpp">
-      <Filter>Game\CharaState\Search</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\CharaState\LeftTurn.cpp">
-      <Filter>Game\CharaState\Search</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\CharaState\RightTurn.cpp">
-      <Filter>Game\CharaState\Search</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\CharaState\Standing.cpp">
-      <Filter>Game\CharaState\Search</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\CharaState\Leftward.cpp">
-      <Filter>Game\CharaState\WallAvoid</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\CharaState\Rightward.cpp">
-      <Filter>Game\CharaState\WallAvoid</Filter>
-    </ClCompile>
     <ClCompile Include="Game\GameObject\WallApproach.cpp">
       <Filter>Game\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\CharaState\Leftward.cpp">
+      <Filter>Game\CharaState</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\CharaState\Rightward.cpp">
+      <Filter>Game\CharaState</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\CharaState\WallAvoid.cpp">
+      <Filter>Game\CharaState</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\CharaState\Backward.cpp">
+      <Filter>Game\CharaState</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\CharaState\Forward.cpp">
+      <Filter>Game\CharaState</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\CharaState\LeftTurn.cpp">
+      <Filter>Game\CharaState</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\CharaState\RightTurn.cpp">
+      <Filter>Game\CharaState</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\CharaState\Search.cpp">
+      <Filter>Game\CharaState</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\CharaState\Standing.cpp">
+      <Filter>Game\CharaState</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\CharaState\Attack.cpp">
+      <Filter>Game\CharaState</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

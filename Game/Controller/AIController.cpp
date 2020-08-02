@@ -46,7 +46,7 @@ AIController::AIController(Character* character, Character* enemy)
 	m_enemy = enemy;
 	m_shotInterval  = SHOT_INTERVAL;
 	m_stateInterval = STATE_INTERVAL;
-	m_state = State::NONE;
+	m_state = CharaStateID::NONE;
 	
 	m_search    = std::make_unique<Search>();
 	m_attack    = std::make_unique<Attack>();
@@ -62,7 +62,7 @@ AIController::AIController(Character* character, Character* enemy)
 	ChangeSearchState();
 
 	std::unique_ptr<RuleBased> ruleBased = std::make_unique<RuleBased>();
-	std::unique_ptr<NeuralNetworkManager> neuralNetworkManager = std::make_unique<NeuralNetworkManager>();
+	std::unique_ptr<NeuralNetworkManager> neuralNetworkManager = std::make_unique<NeuralNetworkManager>(m_character, m_enemy);
 	neuralNetworkManager->InitializeNeuralNetwork();
 	GameContext::Register<NeuralNetworkManager>(neuralNetworkManager.get());
 
@@ -95,16 +95,16 @@ void AIController::Update(const DX::StepTimer& timer)
 	if (m_stateInterval < 0.0f)
 	{
 		if (m_character->GetTag() == GameObject::ObjectTag::Enemy1)
-		m_state = m_aiManager[AiType::NEURALNETWORK]->BehaviorSelection(m_character, m_enemy);
+		m_state = m_aiManager[AiType::NEURALNETWORK]->BehaviorSelection();
 		if (m_character->GetTag() == GameObject::ObjectTag::Enemy2)
-			m_state = m_aiManager[AiType::RULEBASED]->BehaviorSelection(m_character, m_enemy);
+			m_state = m_aiManager[AiType::RULEBASED]->BehaviorSelection();
 	
 		m_stateInterval = STATE_INTERVAL;
 	}
 
 	switch (m_state)
 	{
-	case AIController::State::ATTACK:
+	case CharaStateID::ATTACK:
 		if (m_shotInterval < 0.0f)
 		{
 			ChangeAttackState();
@@ -112,12 +112,11 @@ void AIController::Update(const DX::StepTimer& timer)
 		}
 		else
 			ChangeSearchState();
-		
 		break;
-	case AIController::State::SEARCH:
+	case CharaStateID::SEARCH:
 		ChangeSearchState();
 		break;
-	case AIController::State::WALLAVOID:
+	case CharaStateID::WALLAVOID:
 		ChangeWallAvoidState();
 		break;
 	}
@@ -166,8 +165,9 @@ void AIController::Render()
 
 
 
-		m_aiManager[AiType::NEURALNETWORK]->Render();
+		
 		m_charaState->Render();
+		m_aiManager[AiType::NEURALNETWORK]->Render();
 	}
 
 }

@@ -33,11 +33,9 @@ RuleBased::~RuleBased()
 /// <param name="character">自機</param>
 /// <param name="enemy">敵</param>
 /// <returns>選択された行動</returns>
-AIController::State RuleBased::BehaviorSelection(Character* character, Character* enemy)
+CharaStateID RuleBased::BehaviorSelection()
 {
-	//相対座標計算
-	Vector3 charaPos = character->GetPosition();
-	Vector3 enemyPos = enemy->GetPosition();
+	
 //	float x = charaPos.x - enemyPos.x;
 //	float z = charaPos.z - enemyPos.z;
 
@@ -60,7 +58,7 @@ AIController::State RuleBased::BehaviorSelection(Character* character, Character
 		return AIController::Behavior::MOVE_LEFTWARD;*/
 
 
-    return AIController::State::NONE;
+    return CharaStateID::NONE;
 }
 
 void RuleBased::Render()

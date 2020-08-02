@@ -8,6 +8,8 @@
 
 #include <Game/CharaState/CharaState.h>
 
+#include <Game/CharaState/Forward.h>
+#include <Game/CharaState/Backward.h>
 #include <Game/CharaState/Leftward.h>
 #include <Game/CharaState/Rightward.h>
 
@@ -28,6 +30,8 @@ public:
 	void Render() override;
 
 public:
+	void ChangeForwardState();
+	void ChangeBackwardState();
 	void ChangeLeftwardState();
 	void ChangeRightwardState();
 
@@ -36,6 +40,9 @@ private:
 	Character*						m_enemy;
 	CharaState*						m_wallAvoid;
 
+	std::unique_ptr<Forward>		m_forward;
+	std::unique_ptr<Backward>		m_backward;
 	std::unique_ptr<Leftward>		m_leftward;
 	std::unique_ptr<Rightward>      m_rightward;
+
 };

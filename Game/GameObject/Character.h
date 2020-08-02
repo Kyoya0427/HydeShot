@@ -14,6 +14,8 @@
 
 #include <Game/Collider/SphereCollider.h>
 
+#include <Game/CharaState/CharaStateID.h>
+
 class Sight;
 class WallApproach;
 
@@ -64,15 +66,23 @@ public:
 	bool GetEnemySightContact();
 	//敵にセンサーが接触しているか設定
 	void SetEnemySightContact(bool contact);
-	//壁に接近しているか
-	bool GetWallApproach();
-	//壁に接近しているか
-	void SetWallApproach(bool approach);
+	
+	void SetCharaState(CharaStateID state);
+
+	CharaStateID GetCharaState();
 
 	Sight* GetSight();
+
+	WallApproach* GetWallApproachVel();
+
+	bool GetWallFlont();
+	void SetWallFlont(bool wallFlont);
+
 public:
 	//最大HP
 	static const int  MAX_HP;
+
+	
 
 private:
 	//モデル
@@ -81,11 +91,14 @@ private:
 	std::unique_ptr<DirectX::GeometricPrimitive> m_sphereCollider;
 	//射程
 	std::unique_ptr<Sight>                       m_sight;
-	//壁に接近しているか
+	//壁に接近しているか(前方)
 	std::unique_ptr<WallApproach>                m_wallApproach;
+	//壁に接近しているか(移動方向)
+	std::unique_ptr<WallApproach>                m_wallApproachVel;
 	//当たり判定
 	std::unique_ptr<SphereCollider>              m_collider;
-
+	
+	CharaStateID								 m_state;
 	//１フレーム前の座標
 	DirectX::SimpleMath::Vector3                 m_previousPos;
 	//壁にセンサーが接触してるか
@@ -95,7 +108,9 @@ private:
 	//敵にセンサーが接触しているか
 	bool                                         m_enemySightContact;
 
-	bool										 m_isWallApproach;
+	bool										 m_isWallflont;
+
+
 	//HP
 	int                                          m_hp;
 };

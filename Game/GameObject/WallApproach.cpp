@@ -14,6 +14,7 @@
 
 #include <Game/GameObject/GameObject.h>
 #include <Game/GameObject/Character.h>
+#include <Game/GameObject/WallApproachVelID.h>
 
 #include <Game/Collider/CollisionManager.h>
 
@@ -21,6 +22,11 @@
 
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
+
+const float WallApproach::FORWARD_ANGLE = 0.0f;
+const float WallApproach::BACKWARD_ANGLE = -XM_PI;
+const float WallApproach::LEFT_ANGLE = XM_PI / 2;
+const float WallApproach::RIGHT_ANGLE = -XM_PI / 2;
 
 /// <summary>
 /// コンストラクタ
@@ -31,8 +37,7 @@ WallApproach::WallApproach(Character* chara)
 	, m_WallApproachCollider()
 	, m_size()
 	, m_chara(chara)
-	, m_enemyToDistance()
-
+	, m_offsetAngle()
 {
 	m_tag = ObjectTag::WallApproach;
 	m_size = Vector3(0.3f, 0.1f, 1.5f);
@@ -57,9 +62,10 @@ WallApproach::~WallApproach()
 void WallApproach::Update(const DX::StepTimer& timer)
 {
 	timer;
-	m_chara->SetWallApproach(false);
+	m_chara->GetWallApproachVel()->SetWallApproach(WallApproachVelID::NONE);
+	m_chara->SetWallFlont(false);
 
-	Quaternion quaternion = Quaternion::CreateFromAxisAngle(Vector3::UnitY, m_chara->GetRotation().y);
+	Quaternion quaternion = Quaternion::CreateFromAxisAngle(Vector3::UnitY, m_chara->GetRadiansY() + m_offsetAngle);
 	m_velocity = Vector3::Transform(Vector3(0.0f, 0.0f, -1.5f), quaternion);
 	m_position = m_chara->GetPosition();
 
@@ -78,14 +84,37 @@ void WallApproach::Update(const DX::StepTimer& timer)
 /// </summary>
 void WallApproach::Render()
 {
-	Quaternion rot    = Quaternion::CreateFromAxisAngle(Vector3::UnitY, m_chara->GetRotation().y);
+	Quaternion rot    = Quaternion::CreateFromAxisAngle(Vector3::UnitY, m_chara->GetRadiansY() + m_offsetAngle);
 	Matrix rotMat     = Matrix::CreateFromQuaternion(rot);
 	Matrix transMat   = Matrix::CreateTranslation(m_position);
 
 	m_world  = rotMat * transMat;
-
+	DebugFont* debugFont = DebugFont::GetInstance();
+	
 	if (PlayState::m_isDebug)
+	{
 		m_WallApproachCollider->Draw(m_world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), DirectX::Colors::Green, nullptr, true);
+		if (m_offsetAngle == FORWARD_ANGLE)
+		{
+			debugFont->print(10, 120, L"FORWARD");
+			debugFont->draw();
+		}
+		if (m_offsetAngle == BACKWARD_ANGLE)
+		{
+			debugFont->print(10, 120, L"BACKWARD");
+			debugFont->draw();
+		}
+		if (m_offsetAngle == LEFT_ANGLE)
+		{
+			debugFont->print(10, 120, L"LEFT");
+			debugFont->draw();
+		}
+		if (m_offsetAngle == RIGHT_ANGLE)
+		{
+			debugFont->print(10, 120, L"RIGHT");
+			debugFont->draw();
+		}
+	}
 }
 
 /// <summary>
@@ -94,7 +123,30 @@ void WallApproach::Render()
 /// <param name="object"></param>
 void WallApproach::OnCollision(GameObject* object)
 {
-	m_chara->SetWallApproach(true);
+	m_chara->SetWallFlont(true);
+	if (m_offsetAngle == FORWARD_ANGLE)
+		m_chara->GetWallApproachVel()->SetWallApproach(WallApproachVelID::FORWARD);
+	if (m_offsetAngle == BACKWARD_ANGLE)
+		m_chara->GetWallApproachVel()->SetWallApproach(WallApproachVelID::BACKWARD);
+	if (m_offsetAngle == LEFT_ANGLE)
+		m_chara->GetWallApproachVel()->SetWallApproach(WallApproachVelID::LEFTWARD);
+	if (m_offsetAngle == RIGHT_ANGLE)
+		m_chara->GetWallApproachVel()->SetWallApproach(WallApproachVelID::RIGHTWARD);
+}
+
+void WallApproach::SetOffsetAngle(float angle)
+{
+	m_offsetAngle = angle;
+}
+
+WallApproachVelID WallApproach::GetWallApproach()
+{
+	return m_isWallApproach;
+}
+
+void WallApproach::SetWallApproach(WallApproachVelID approach)
+{
+	m_isWallApproach = approach;
 }
 
 

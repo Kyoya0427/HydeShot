@@ -42,8 +42,8 @@ Character::Character(const ObjectTag tag)
 	, m_wallSightContact(false)
 	, m_wallContact(false)
 	, m_enemySightContact(false)
-	, m_isWallApproach(false)
 	, m_hp()
+	, m_state(CharaStateID::NONE)
 {
 	
 }
@@ -78,6 +78,7 @@ void Character::Initialize(DirectX::SimpleMath::Vector2 & pos)
 
 	m_sight = std::make_unique<Sight>(this);
 	m_wallApproach = std::make_unique<WallApproach>(this);
+	m_wallApproachVel = std::make_unique<WallApproach>(this);
 }
 
 /// <summary>
@@ -102,6 +103,7 @@ void Character::Update(const DX::StepTimer & timer)
 
 	m_sight->Update(timer);
 	m_wallApproach->Update(timer);
+	m_wallApproachVel->Update(timer);
 }
 
 /// <summary>
@@ -117,33 +119,6 @@ void Character::Render()
 	// ÉèÅ[ÉãÉhçsóÒÇçÏê¨
 	DebugFont* debugFont = DebugFont::GetInstance();
 
-	if (m_tag == GameObject::ObjectTag::Player)
-	{
-		if (m_isWallApproach)
-		{
-			debugFont->print(700, 310, L"Player = true");
-			debugFont->draw();
-		}
-		else
-		{
-			debugFont->print(700, 310, L"Player = false");
-			debugFont->draw();
-		}
-	}
-	if (m_tag == GameObject::ObjectTag::Enemy1)
-	{
-		if (m_isWallApproach)
-		{
-			debugFont->print(700, 340, L"Enemy1 = true");
-			debugFont->draw();
-		}
-		else
-		{
-			debugFont->print(700, 340, L"Enemy1 = false");
-			debugFont->draw();
-		}
-	}
-
 	m_world = scalemat * r * rotMat * transMat;
 
 	m_model->Draw(m_world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_color);
@@ -155,6 +130,7 @@ void Character::Render()
 
 	m_sight->Render();
 	m_wallApproach->Render();
+	m_wallApproachVel->Render();
 }
 /// <summary>
 /// ìñÇΩÇ¡ÇΩå„ÇÃèàóù
@@ -304,18 +280,34 @@ void Character::SetEnemySightContact(bool contact)
 	m_enemySightContact = contact;
 }
 
-bool Character::GetWallApproach()
+
+void Character::SetCharaState(CharaStateID state)
 {
-	return m_isWallApproach;
+	m_state = state;
 }
 
-void Character::SetWallApproach(bool approach)
+CharaStateID Character::GetCharaState()
 {
-	m_isWallApproach = approach;
+	return m_state;
 }
 
 Sight* Character::GetSight()
 {
 	return m_sight.get();
+}
+
+WallApproach* Character::GetWallApproachVel()
+{
+	return m_wallApproachVel.get();
+}
+
+bool Character::GetWallFlont()
+{
+	return m_isWallflont;
+}
+
+void Character::SetWallFlont(bool wallFlont)
+{
+	m_isWallflont = wallFlont;
 }
                                                            

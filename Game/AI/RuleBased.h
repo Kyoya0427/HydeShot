@@ -18,7 +18,7 @@ public:
 
 public:
 	//行動パターンを選択する
-	AIController::State BehaviorSelection(Character* character, Character* enemy) override;
+	CharaStateID BehaviorSelection() override;
 	void Render() override;
 };
 

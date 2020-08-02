@@ -22,9 +22,11 @@ using namespace DirectX::SimpleMath;
 /// <summary>
 /// コンストラクタ
 /// </summary>
-NeuralNetworkManager::NeuralNetworkManager()
+NeuralNetworkManager::NeuralNetworkManager(Character* character, Character* enemy)
 	: m_isDirectionLeft()
 	, m_isDirectionRight()
+	, m_character(character)
+	, m_enemy(enemy)
 {
 	m_neuralNetwork = std::make_unique<NeuralNetwork>();
 	InitializeTraining(L"Resources\\CSV\\test5.csv");
@@ -137,14 +139,14 @@ void NeuralNetworkManager::InitializeNeuralNetwork()
 /// <param name="character">自機</param>
 /// <param name="enemys">敵</param>
 /// <returns>行動パターン</returns>
-AIController::State NeuralNetworkManager::BehaviorSelection(Character* character, Character* enemy)
+CharaStateID NeuralNetworkManager::BehaviorSelection()
 {
-	m_character = character;
+	
 	//距離計算
-	float distance = Vector3::Distance(character->GetPosition(), enemy->GetPosition());
+	float distance = Vector3::Distance(m_character->GetPosition(), m_enemy->GetPosition());
 	m_distance = distance;
 	//左右判定
-	SearchDirection(character, enemy);
+	SearchDirection(m_character, m_enemy);
 	//距離
 	m_neuralNetwork->SetInput(0, distance / 18.0f);
 	//左判定
@@ -152,11 +154,11 @@ AIController::State NeuralNetworkManager::BehaviorSelection(Character* character
 	//右判定
 	m_neuralNetwork->SetInput(2, static_cast<float>(m_isDirectionRight));
 	//目の前に壁がある
-	m_neuralNetwork->SetInput(3, static_cast<float>(character->GetWallApproach()));
+	m_neuralNetwork->SetInput(3, static_cast<float>(m_character->GetWallFlont()));
 	//敵を撃てるか判定
-	m_neuralNetwork->SetInput(4, static_cast<float>(character->GetEnemySightContact()));
+	m_neuralNetwork->SetInput(4, static_cast<float>(m_character->GetEnemySightContact()));
 	//HP
-	m_neuralNetwork->SetInput(5, static_cast<float>(character->GetHp() / 5));
+	m_neuralNetwork->SetInput(5, static_cast<float>(m_character->GetHp() / 5));
 	//計算開始
 	m_neuralNetwork->FeedForward();
 
@@ -166,9 +168,9 @@ AIController::State NeuralNetworkManager::BehaviorSelection(Character* character
 	m_data.inputDis      = distance / 18.0f;
 	m_data.inputLeft     = static_cast<float>(m_isDirectionLeft);
 	m_data.inputRight    = static_cast<float>(m_isDirectionRight);
-	m_data.inputWall     = static_cast<float>(character->GetWallApproach());
-	m_data.inputShoot    = static_cast<float>(character->GetEnemySightContact());
-	m_data.inputHp       = static_cast<float>(character->GetHp() / 5);
+	m_data.inputWall     = static_cast<float>(m_character->GetWallFlont());
+	m_data.inputShoot    = static_cast<float>(m_character->GetEnemySightContact());
+	m_data.inputHp       = static_cast<float>(m_character->GetHp() / 5);
 
 	m_data.outputDis       = m_neuralNetwork->GetOutput(0);
 	m_data.outputLeft      = m_neuralNetwork->GetOutput(1);
@@ -184,24 +186,24 @@ AIController::State NeuralNetworkManager::BehaviorSelection(Character* character
 	{
 		m_data.outputChoiceMode = "ATTACK";
 		m_outputData.push_back(m_data);
-		return	AIController::State::ATTACK;
+		return	CharaStateID::ATTACK;
 	}
 	else if (wall >= 0.8)
 	{
 		m_data.outputChoiceMode = "WALLAVOID";
 		m_outputData.push_back(m_data);
-		return	AIController::State::WALLAVOID;
+		return	CharaStateID::WALLAVOID;
 	}
 	else 
 	{
 		m_data.outputChoiceMode = "SEARCH";
 		m_outputData.push_back(m_data);
-		return AIController::State::SEARCH;
+		return CharaStateID::SEARCH;
 	}
 
 	m_data.outputChoiceMode = "none";
 	m_outputData.push_back(m_data);
-	return AIController::State::NONE;
+	return CharaStateID::NONE;
 }
 
 void NeuralNetworkManager::Render()

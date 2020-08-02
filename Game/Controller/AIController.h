@@ -21,18 +21,6 @@ class Ai;
 class AIController : public  CharacterController
 {
 public:
-	enum  class State
-	{
-		NONE,
-		
-		ATTACK,
-		SEARCH,
-		WALLAVOID,
-
-		NUM
-	};
-
-public:
 	enum class AiType
 	{
 		RULEBASED,
@@ -83,11 +71,10 @@ private:
 	AiGroupList                             m_aiManager;
 	//敵キャラ
 	Character*                              m_enemy;
-	//ステイト
-	State                                m_state;
 	//ステイト変更インターバル
 	float                                   m_stateInterval;
 
+	CharaStateID                            m_state;
 	//攻撃ステート
 	std::unique_ptr<Attack>                 m_attack;
 	//サーチステート

@@ -134,6 +134,7 @@
     <ClInclude Include="Game\CharaState\Attack.h" />
     <ClInclude Include="Game\CharaState\Backward.h" />
     <ClInclude Include="Game\CharaState\CharaState.h" />
+    <ClInclude Include="Game\CharaState\CharaStateID.h" />
     <ClInclude Include="Game\CharaState\Forward.h" />
     <ClInclude Include="Game\CharaState\LeftTurn.h" />
     <ClInclude Include="Game\CharaState\Leftward.h" />
@@ -165,6 +166,7 @@
     <ClInclude Include="Game\GameObject\Sight.h" />
     <ClInclude Include="Game\GameObject\Wall.h" />
     <ClInclude Include="Game\GameObject\WallApproach.h" />
+    <ClInclude Include="Game\GameObject\WallApproachVelID.h" />
     <ClInclude Include="Game\GameState\GameStateManager.h" />
     <ClInclude Include="Game\GameState\IGameState.h" />
     <ClInclude Include="Game\GameState\PauseState.h" />

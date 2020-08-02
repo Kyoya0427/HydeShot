@@ -86,13 +86,7 @@ void PlayerController::Update(const DX::StepTimer& timer)
 /// </summary>
 void PlayerController::Render()
 {
-	if (PlayState::m_isDebug)
-	{
-		
 
-
-		
-	}
 }
 
 

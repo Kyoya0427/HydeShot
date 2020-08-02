@@ -11,6 +11,8 @@
 
 #include <Game/Controller/AIController.h>
 
+#include <Game/GameObject/WallApproach.h>
+
 /// <summary>
 /// コンストラクタ
 /// </summary>
@@ -46,7 +48,7 @@ void RightTurn::Update(const DX::StepTimer& timer)
 {
 	timer;
 	m_chara->RightTurn(AIController::ROT_SPEED);
-//	GameContext::Get<Search>()->ChangeStandingState();
+	m_chara->GetWallApproachVel()->SetOffsetAngle(WallApproach::FORWARD_ANGLE);
 }
 
 /// <summary>

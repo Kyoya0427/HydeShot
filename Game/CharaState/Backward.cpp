@@ -11,6 +11,8 @@
 
 #include <Game/Controller/AIController.h>
 
+#include <Game/GameObject/WallApproach.h>
+
 /// <summary>
 /// コンストラクタ
 /// </summary>
@@ -46,7 +48,7 @@ void Backward::Update(const DX::StepTimer& timer)
 {
 	timer;
 	m_chara->Backward(AIController::MOVE_SPEED);
-//	GameContext::Get<Search>()->ChangeStandingState();
+	m_chara->GetWallApproachVel()->SetOffsetAngle(WallApproach::BACKWARD_ANGLE);
 }
 
 /// <summary>

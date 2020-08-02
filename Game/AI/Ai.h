@@ -8,6 +8,8 @@
 
 #include <Game/Controller/AIController.h>
 
+#include <Game/CharaState/CharaStateID.h>
+
 class Ai
 {
 public:
@@ -18,6 +20,6 @@ public:
 
 public:
 	//s“®‚ğ‘I‘ğ
-	virtual AIController::State BehaviorSelection(Character* character, Character* enemys) = 0;
+	virtual CharaStateID BehaviorSelection() = 0;
 	virtual void Render() = 0;
 };
