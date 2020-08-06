@@ -34,6 +34,7 @@ Sight::Sight(Character* chara)
 	, m_posA()
 	, m_posB()
 	, m_enemyToDistance()
+	, m_wallToDistance()
 
 {
 	if (m_chara->GetTag() == ObjectTag::Enemy1)
@@ -69,9 +70,12 @@ void Sight::Update(const DX::StepTimer& timer)
 
 	m_chara->SetEnemySightContact(false);
 	m_chara->SetWallSightContact(false);
-	
+	m_enemyToDistance = 0.0f;
+	m_wallToDistance  = 0.0f;
+
+
 	Quaternion quaternion = Quaternion::CreateFromAxisAngle(Vector3::UnitY, m_chara->GetRotation().y);
-	m_velocity = Vector3::Transform(Vector3(0.0f, 0.0f, -9.0f), quaternion);
+	m_velocity = Vector3::Transform(Vector3(0.0f, 0.0f, -m_size.z), quaternion);
 	m_position = m_chara->GetPosition();
 
 	m_posA = m_chara->GetPosition();
@@ -103,7 +107,7 @@ void Sight::Render()
 	Matrix transMat   = Matrix::CreateTranslation(m_position);
 	Matrix offset     = Matrix::CreateTranslation(Vector3(0.0f,0.0f,-4.5f));
 
-	m_world  = offset *rotMat * transMat;
+	m_world = offset * rotMat * transMat;
 
 	if (PlayState::m_isDebug)
 	m_sightCollider->Draw(m_world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_chara->GetColor(), nullptr, true);
@@ -128,14 +132,14 @@ void Sight::OnCollision(GameObject* object)
 		m_enemyToDistance = Vector3::Distance(m_chara->GetPosition(), object->GetPosition());
 	}
 
-	if (m_chara->GetWallSightContact())
+	if (m_chara->GetWallSightContact() && m_enemyToDistance != 0.0f)
 	{
 		if (m_enemyToDistance < m_wallToDistance)
 			m_chara->SetWallSightContact(false);
 
 	}
 
-	if (m_chara->GetEnemySightContact())
+	if (m_chara->GetEnemySightContact() && m_wallToDistance != 0.0f)
 	{
 		if (m_enemyToDistance > m_wallToDistance)
 			m_chara->SetEnemySightContact(false);

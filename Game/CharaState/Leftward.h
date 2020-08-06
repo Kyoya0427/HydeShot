@@ -26,7 +26,9 @@ public:
 	void Render() override;
 
 private:
+	//ステイト操作するキャラクター
 	Character*           m_chara;
+	//敵キャラクター
 	Character*			 m_enemy;
 
 };

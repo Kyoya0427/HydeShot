@@ -40,7 +40,7 @@ WallApproach::WallApproach(Character* chara)
 	, m_offsetAngle()
 {
 	m_tag = ObjectTag::WallApproach;
-	m_size = Vector3(0.3f, 0.1f, 1.5f);
+	m_size = Vector3(0.3f, 0.1f, 0.8f);
 
 	ID3D11DeviceContext* deviceContext = GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext();
 	m_WallApproachCollider = GeometricPrimitive::CreateBox(deviceContext, m_size);
@@ -66,7 +66,7 @@ void WallApproach::Update(const DX::StepTimer& timer)
 	m_chara->SetWallFlont(false);
 
 	Quaternion quaternion = Quaternion::CreateFromAxisAngle(Vector3::UnitY, m_chara->GetRadiansY() + m_offsetAngle);
-	m_velocity = Vector3::Transform(Vector3(0.0f, 0.0f, -1.5f), quaternion);
+	m_velocity = Vector3::Transform(Vector3(0.0f, 0.0f, -m_size.z), quaternion);
 	m_position = m_chara->GetPosition();
 
 	m_position += m_velocity;
@@ -89,31 +89,10 @@ void WallApproach::Render()
 	Matrix transMat   = Matrix::CreateTranslation(m_position);
 
 	m_world  = rotMat * transMat;
-	DebugFont* debugFont = DebugFont::GetInstance();
 	
 	if (PlayState::m_isDebug)
 	{
 		m_WallApproachCollider->Draw(m_world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), DirectX::Colors::Green, nullptr, true);
-		if (m_offsetAngle == FORWARD_ANGLE)
-		{
-			debugFont->print(10, 120, L"FORWARD");
-			debugFont->draw();
-		}
-		if (m_offsetAngle == BACKWARD_ANGLE)
-		{
-			debugFont->print(10, 120, L"BACKWARD");
-			debugFont->draw();
-		}
-		if (m_offsetAngle == LEFT_ANGLE)
-		{
-			debugFont->print(10, 120, L"LEFT");
-			debugFont->draw();
-		}
-		if (m_offsetAngle == RIGHT_ANGLE)
-		{
-			debugFont->print(10, 120, L"RIGHT");
-			debugFont->draw();
-		}
 	}
 }
 
@@ -123,6 +102,7 @@ void WallApproach::Render()
 /// <param name="object"></param>
 void WallApproach::OnCollision(GameObject* object)
 {
+	object;
 	m_chara->SetWallFlont(true);
 	if (m_offsetAngle == FORWARD_ANGLE)
 		m_chara->GetWallApproachVel()->SetWallApproach(WallApproachVelID::FORWARD);

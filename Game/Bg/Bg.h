@@ -32,10 +32,10 @@ public:
 
 private:
 	// ゲームウインドウへのポインタ
-	GameWindow* m_gameWindow;
+	GameWindow*                     m_gameWindow;
 	// モデルデータへのポインタ
 	std::unique_ptr<DirectX::Model> m_model;
 	// 回転角
-	float m_angle;
+	float                           m_angle;
 
 };

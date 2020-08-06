@@ -79,9 +79,9 @@ void Bg::Render()
 {
 	//ワールド行列作成
 	Matrix world = Matrix::CreateRotationY(m_angle);
-	world *= Matrix::CreateTranslation(4.5f, -10.0f, 5.5f);
+	world       *= Matrix::CreateTranslation(4.5f, -10.0f, 5.5f);
 	//ビュー行列作成
-	Matrix view = Matrix::CreateLookAt(Vector3(0, 0, 0), Vector3(0, 0, -1), Vector3::Up);
+	Matrix view  = Matrix::CreateLookAt(Vector3(0, 0, 0), Vector3(0, 0, -1), Vector3::Up);
 
 	// モデルの描画
 	m_model->Draw(

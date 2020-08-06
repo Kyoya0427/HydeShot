@@ -228,9 +228,7 @@ bool CollisionManager::IsCollided(const RayCollider* collider1, const BoxCollide
 
 bool CollisionManager::IsCollided(const RayCollider* collider1, const RayCollider* collider2)
 {
-	collider1;
-	collider2;
-
+	collider1; collider2;
 	return false;
 }
 

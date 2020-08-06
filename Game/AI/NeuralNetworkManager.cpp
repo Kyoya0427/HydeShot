@@ -29,7 +29,7 @@ NeuralNetworkManager::NeuralNetworkManager(Character* character, Character* enem
 	, m_enemy(enemy)
 {
 	m_neuralNetwork = std::make_unique<NeuralNetwork>();
-	InitializeTraining(L"Resources\\CSV\\test5.csv");
+	InitializeTraining(L"Resources\\CSV\\test6.csv");
 	InitializeNeuralNetwork();
 	m_error = 0.0f;
 }
@@ -64,7 +64,6 @@ void NeuralNetworkManager::InitializeTraining(wchar_t* fname)
 		{
 			std::getline(stream, tmp, L',');
 			m_training[i][j] = std::stof(tmp);
-		
 		}
 	}
 }
@@ -88,7 +87,7 @@ void NeuralNetworkManager::InitializeNeuralNetwork()
 	float	error = 1.0;
 	int		count = 0;    
 	// 誤差逆伝播する(Back propagate)
-	while (error > 0.01 && count < 100000)
+	while (error > 0.01 && count < 1000)
 	{
 		error = 0.0;
 		count++;
@@ -105,20 +104,18 @@ void NeuralNetworkManager::InitializeNeuralNetwork()
 			m_neuralNetwork->SetInput(3, m_training[i][3]);		
 			//打つ
 			m_neuralNetwork->SetInput(4, m_training[i][4]);			
-			//HP
-			m_neuralNetwork->SetInput(5, m_training[i][5]);
-
+			
 			//出力値
 			//距離
-			m_neuralNetwork->SetDesiredOutput(0, m_training[i][6]);
+			m_neuralNetwork->SetDesiredOutput(0, m_training[i][5]);
 			//左判定
-			m_neuralNetwork->SetDesiredOutput(1, m_training[i][7]);
+			m_neuralNetwork->SetDesiredOutput(1, m_training[i][6]);
 			//右判定
-			m_neuralNetwork->SetDesiredOutput(2, m_training[i][8]);
+			m_neuralNetwork->SetDesiredOutput(2, m_training[i][7]);
 			//壁
-			m_neuralNetwork->SetDesiredOutput(3, m_training[i][9]);
+			m_neuralNetwork->SetDesiredOutput(3, m_training[i][8]);
 			//打つ
-			m_neuralNetwork->SetDesiredOutput(4, m_training[i][10]);
+			m_neuralNetwork->SetDesiredOutput(4, m_training[i][9]);
 
 			//// 前方伝播する(Feed forward)
 			m_neuralNetwork->FeedForward();
@@ -148,7 +145,7 @@ CharaStateID NeuralNetworkManager::BehaviorSelection()
 	//左右判定
 	SearchDirection(m_character, m_enemy);
 	//距離
-	m_neuralNetwork->SetInput(0, distance / 18.0f);
+	m_neuralNetwork->SetInput(0, distance / 16.0f);
 	//左判定
 	m_neuralNetwork->SetInput(1, static_cast<float>(m_isDirectionLeft));
 	//右判定
@@ -157,20 +154,17 @@ CharaStateID NeuralNetworkManager::BehaviorSelection()
 	m_neuralNetwork->SetInput(3, static_cast<float>(m_character->GetWallFlont()));
 	//敵を撃てるか判定
 	m_neuralNetwork->SetInput(4, static_cast<float>(m_character->GetEnemySightContact()));
-	//HP
-	m_neuralNetwork->SetInput(5, static_cast<float>(m_character->GetHp() / 5));
 	//計算開始
 	m_neuralNetwork->FeedForward();
 
 	//外部にデータ出力する為に保管
-	m_data = OutputData();
+	m_data = {};
 
-	m_data.inputDis      = distance / 18.0f;
-	m_data.inputLeft     = static_cast<float>(m_isDirectionLeft);
-	m_data.inputRight    = static_cast<float>(m_isDirectionRight);
-	m_data.inputWall     = static_cast<float>(m_character->GetWallFlont());
-	m_data.inputShoot    = static_cast<float>(m_character->GetEnemySightContact());
-	m_data.inputHp       = static_cast<float>(m_character->GetHp() / 5);
+	m_data.inputDis        = distance / 16.0f;
+	m_data.inputLeft       = static_cast<float>(m_isDirectionLeft);
+	m_data.inputRight      = static_cast<float>(m_isDirectionRight);
+	m_data.inputWall       = static_cast<float>(m_character->GetWallFlont());
+	m_data.inputShoot      = static_cast<float>(m_character->GetEnemySightContact());
 
 	m_data.outputDis       = m_neuralNetwork->GetOutput(0);
 	m_data.outputLeft      = m_neuralNetwork->GetOutput(1);
@@ -178,11 +172,12 @@ CharaStateID NeuralNetworkManager::BehaviorSelection()
 	m_data.outputWall      = m_neuralNetwork->GetOutput(3);
 	m_data.outputShoot     = m_neuralNetwork->GetOutput(4);
 
-	
+	//出力データから行動を選択
+	float dis   = m_neuralNetwork->GetOutput(0);
 	float wall  = m_neuralNetwork->GetOutput(3);
 	float shot  = m_neuralNetwork->GetOutput(4);
 
-	if (shot >= 0.6f)
+	if (shot >= 0.5f)
 	{
 		m_data.outputChoiceMode = "ATTACK";
 		m_outputData.push_back(m_data);
@@ -194,7 +189,7 @@ CharaStateID NeuralNetworkManager::BehaviorSelection()
 		m_outputData.push_back(m_data);
 		return	CharaStateID::WALLAVOID;
 	}
-	else 
+	else if (dis > 0.001f)
 	{
 		m_data.outputChoiceMode = "SEARCH";
 		m_outputData.push_back(m_data);
@@ -206,6 +201,9 @@ CharaStateID NeuralNetworkManager::BehaviorSelection()
 	return CharaStateID::NONE;
 }
 
+/// <summary>
+/// 描画
+/// </summary>
 void NeuralNetworkManager::Render()
 {
 	DebugFont* debugFont = DebugFont::GetInstance();
@@ -253,19 +251,22 @@ void NeuralNetworkManager::Render()
 /// <summary>
 /// 左右判定
 /// </summary>
-/// <param name="character"></param>
-/// <param name="enemy"></param>
+/// <param name="character">自機</param>
+/// <param name="enemy">敵</param>
 void NeuralNetworkManager::SearchDirection(Character* character, Character* enemy)
 {
 	Vector3 u;
+	//フラグを初期化
 	m_isDirectionLeft = false;
 	m_isDirectionRight = false;
 
-	DirectX::SimpleMath::Vector3 cv = Rotate(character->GetRadiansY(), DirectX::SimpleMath::Vector3::Forward);
+	//左右判定計算
+	Vector3 cv = Rotate(character->GetRadiansY(), Vector3::Forward);
 	DirectX::SimpleMath::Vector3 rv = enemy->GetPosition() - character->GetPosition();
 	rv.Normalize();
 	DirectX::SimpleMath::Vector3 n = cv.Cross(rv);
 
+	//適したフラグtrue
 	if (n.y > 0.1f)
 		m_isDirectionLeft = true;
 	else if (n.y < -0.1f)
@@ -273,12 +274,12 @@ void NeuralNetworkManager::SearchDirection(Character* character, Character* enem
 }
 
 /// <summary>
-/// 
+/// 内積計算
 /// </summary>
-/// <param name="angle"></param>
-/// <param name="u"></param>
+/// <param name="angle">ラジアン</param>
+/// <param name="u">方向</param>
 /// <returns></returns>
-Vector3 NeuralNetworkManager::Rotate(float angle, Vector3 u)
+Vector3 NeuralNetworkManager::Rotate(float angle, const Vector3& u)
 {
 	float	x, z;
 
@@ -306,8 +307,8 @@ void NeuralNetworkManager::OutputDataFile(char* fname)
 	
 	for (auto& output : m_outputData)
 	{
-		fprintf(f, "%2f, %2f, %2f, %2f, %2f, %2f, %2f, %2f, %2f, %2f, %2f, %s, %f%  \n"
-			,output.inputDis, output.inputLeft, output.inputRight, output.inputWall,output.inputShoot, output.inputHp
+		fprintf(f, "%2f, %2f, %2f, %2f, %2f, %2f, %2f, %2f, %2f, %2f, %s, %f%%  \n"
+			,output.inputDis, output.inputLeft, output.inputRight, output.inputWall,output.inputShoot
 			,output.outputDis, output.outputLeft, output.outputRight, output.outputWall, output.outputShoot
 			,output.outputChoiceMode, m_error*100);
 	}

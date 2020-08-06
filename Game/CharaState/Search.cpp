@@ -31,6 +31,7 @@ void Search::Initialize(Character* chara, Character* enemy)
 	m_chara      = chara;
 	m_enemy      = enemy;
 
+	//ステイトを初期化
 	m_standing   = std::make_unique<Standing>();
 	m_forward    = std::make_unique<Forward>();
 	m_backward   = std::make_unique<Backward>();
@@ -43,6 +44,7 @@ void Search::Initialize(Character* chara, Character* enemy)
 	m_leftTurn->Initialize(m_chara, m_enemy);
 	m_rightTurn->Initialize(m_chara, m_enemy);
 
+	//初期ステイト
 	ChangeStandingState();
 }
 

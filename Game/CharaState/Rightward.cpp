@@ -48,10 +48,8 @@ void Rightward::Initialize(Character* chara, Character* enemy)
 void Rightward::Update(const DX::StepTimer& timer)
 {
 	timer;
-
 	m_chara->Rightward(AIController::MOVE_SPEED);
 	m_chara->GetWallApproachVel()->SetOffsetAngle(WallApproach::RIGHT_ANGLE);
-
 }
 
 /// <summary>

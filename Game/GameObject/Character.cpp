@@ -117,7 +117,6 @@ void Character::Render()
 	Matrix rotMat = Matrix::CreateFromQuaternion(rot);
 	Matrix transMat = Matrix::CreateTranslation(m_position);
 	// ƒ[ƒ‹ƒhs—ñ‚ğì¬
-	DebugFont* debugFont = DebugFont::GetInstance();
 
 	m_world = scalemat * r * rotMat * transMat;
 

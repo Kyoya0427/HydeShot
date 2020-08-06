@@ -21,5 +21,7 @@ public:
 public:
 	//s“®‚ğ‘I‘ğ
 	virtual CharaStateID BehaviorSelection() = 0;
+	//•`‰æ
 	virtual void Render() = 0;
+
 };
