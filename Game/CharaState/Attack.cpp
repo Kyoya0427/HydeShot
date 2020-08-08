@@ -1,5 +1,5 @@
 //======================================================
-// File Name	: Attack.h
+// File Name	: Attack.cpp
 // Summary		: 攻撃ステート
 // Date			: 2020/7/23
 // Author		: Kyoya  Sakamoto
@@ -22,7 +22,8 @@ Attack::Attack()
 /// <summary>
 /// 初期化
 /// </summary>
-/// <param name="chara"></param>
+/// <param name="chara">ステイト操作するキャラクター</param>
+/// <param name="enemy">敵キャラクター</param>
 void Attack::Initialize(Character* chara, Character* enemy)
 {
 	enemy;

@@ -17,7 +17,7 @@ class Bullet : public GameObject
 {
 public:
 	//コンストラク
-	Bullet(const ObjectTag tag, const ObjectTag charaTag,const DirectX::SimpleMath::Vector3& position, const DirectX::SimpleMath::Quaternion& azimuth);
+	Bullet(const ObjectTag& tag, const ObjectTag& charaTag, const DirectX::SimpleMath::Vector3& position, const DirectX::SimpleMath::Quaternion& azimuth);
 	//デストラクタ
 	~Bullet();
 
@@ -30,13 +30,19 @@ public:
 	void OnCollision(GameObject* object) override;
 
 public:
+	//モデルを設定
+ 	void SetModel(DirectX::GeometricPrimitive* model) { m_sphereModel = model; }
+
+public:
 	//弾のスピード
 	static const float MOVE_SPEED;
+	//モデルの半径
+	static const float RADIUS;
 
 private:
 	//弾のモデル
-	std::unique_ptr<DirectX::GeometricPrimitive>  m_sphereModel;
-	// コライダー
+	DirectX::GeometricPrimitive*                  m_sphereModel;
+	//コライダー
 	std::unique_ptr<SphereCollider>               m_collider;
 
 };

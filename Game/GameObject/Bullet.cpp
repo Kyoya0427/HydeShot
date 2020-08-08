@@ -7,8 +7,7 @@
 #include "Bullet.h"
 
 #include <Game/Common/GameContext.h>
-#include <Game/Common/DeviceResources.h>
-			  
+
 #include <Game/Camera/Camera.h>
 			  
 #include <Game/Collider/SphereCollider.h>
@@ -18,6 +17,7 @@ using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
 const float Bullet::MOVE_SPEED = 0.2f;
+const float Bullet::RADIUS     = 0.3f;
 
 /// <summary>
 /// コンストラクタ
@@ -25,22 +25,18 @@ const float Bullet::MOVE_SPEED = 0.2f;
 /// <param name="tag">オブジェクト名</param>
 /// <param name="position">座標</param>
 /// <param name="azimuth">キャラの向いてる方角</param>
-Bullet::Bullet(const ObjectTag tag, const ObjectTag charaTag,const Vector3& position, const Quaternion& azimuth)
+Bullet::Bullet(const ObjectTag& tag, const ObjectTag& charaTag,const Vector3& position, const Quaternion& azimuth)
 	: GameObject(tag)
-	, m_sphereModel()
 	, m_collider()
 {
-	//デバイスコンテキストを取得
-	ID3D11DeviceContext* deviceContext = GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext();
 	//初期設定
-	m_position = position;
+	m_position   = position;
 	m_velocity.z = -MOVE_SPEED;
-	m_velocity = Vector3::Transform(m_velocity, azimuth);
-	m_charaTag = charaTag;
-	m_radius = 0.3f;
-	m_color = Colors::Silver;
-	m_sphereModel = GeometricPrimitive::CreateSphere(deviceContext, m_radius);
-	m_collider = std::make_unique<SphereCollider>(this, m_radius);
+	m_velocity   = Vector3::Transform(m_velocity, azimuth);
+	m_charaTag   = charaTag;
+	m_radius     = RADIUS;
+	m_color      = Colors::Silver;
+	m_collider   = std::make_unique<SphereCollider>(this, m_radius);
 
 }
 
@@ -72,8 +68,8 @@ void Bullet::Render()
 {
 	//ワールド座標を生成
 	Matrix transMat = Matrix::CreateTranslation(m_position);
-	
 	m_world = transMat;
+
 	//モデルを描画
 	m_sphereModel->Draw(m_world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_color);
 }

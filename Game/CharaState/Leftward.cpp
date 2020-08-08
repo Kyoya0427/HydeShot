@@ -1,5 +1,5 @@
 //======================================================
-// File Name	: Leftward.h
+// File Name	: Leftward.cpp
 // Summary		: 左移動ステート
 // Date			: 2020/7/23
 // Author		: Kyoya  Sakamoto
@@ -33,7 +33,7 @@ Leftward::~Leftward()
 /// 初期化
 /// </summary>
 /// <param name="chara">ステイト操作するキャラクター</param>
-/// <param name="controller">コントローラー</param>
+/// <param name="controller">敵キャラクター</param>
 void Leftward::Initialize(Character* chara, Character* enemy)
 {
 	m_chara      = chara;

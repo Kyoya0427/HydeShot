@@ -1,5 +1,5 @@
 //======================================================
-// File Name	: RightTurn.h
+// File Name	: RightTurn.cpp
 // Summary		: 右回転ステート
 // Date			: 2020/7/23
 // Author		: Kyoya  Sakamoto
@@ -33,7 +33,7 @@ RightTurn::~RightTurn()
 /// 初期化
 /// </summary>
 /// <param name="chara">ステイト操作するキャラクター</param>
-/// <param name="controller">コントローラー</param>
+/// <param name="controller">敵キャラクター</param>
 void RightTurn::Initialize(Character* chara, Character* enemy)
 {
 	m_chara = chara;

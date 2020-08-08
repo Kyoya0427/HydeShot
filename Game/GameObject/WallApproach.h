@@ -31,16 +31,24 @@ public:
 	void OnCollision(GameObject* object) override;
 
 public:
-	void SetOffsetAngle(float angle);
 	//壁に接近しているか
-	WallApproachVelID GetWallApproach();
-	//壁に接近しているか
-	void SetWallApproach(WallApproachVelID approach);
+	const WallApproachVelID& GetWallApproach() const        { return m_isWallApproach; }
 
 public:
+	//壁に接近しているか設定
+	void SetWallApproach(const WallApproachVelID& approach) { m_isWallApproach = approach; }
+	//オフセットを設定
+	void SetOffsetAngle(const float angle)                  { m_offsetAngle = angle; }
+	
+
+public:
+	//前の角度
 	static const float  FORWARD_ANGLE;
+	//後ろの角度
 	static const float  BACKWARD_ANGLE;
+	//左の角度
 	static const float  LEFT_ANGLE;
+	//右の角度
 	static const float  RIGHT_ANGLE;
 
 private:
@@ -52,9 +60,8 @@ private:
 	DirectX::SimpleMath::Vector3                 m_size;
 	//所持してるキャラ
 	Character*									 m_chara;
-
+	//オフセット角度
 	float                                        m_offsetAngle;
-
+	//移動方向
 	WallApproachVelID							 m_isWallApproach;
 };
-

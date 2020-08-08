@@ -16,15 +16,9 @@ public:
 
 public:	// アクセッサ
 	// ゲーム画面のオブジェクトマネージャー取得
-	GameObjectManager* GetGameOM()
-	{
-		return m_gameOM.get();
-	}
+	GameObjectManager* GetGameOM()	{ return m_gameOM.get(); }
 	// 情報画面のオブジェクトマネージャー取得
-	GameObjectManager* GetInfoOM()
-	{
-		return m_infoOM.get();
-	}
+	GameObjectManager* GetInfoOM()  { return m_infoOM.get(); }
 
 private:
 	// ゲームオブジェクトマネージャー（ゲーム画面）

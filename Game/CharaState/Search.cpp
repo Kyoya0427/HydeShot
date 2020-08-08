@@ -23,9 +23,17 @@ Search::Search()
 }
 
 /// <summary>
+/// デストラクタ
+/// </summary>
+Search::~Search()
+{
+}
+
+/// <summary>
 /// 初期化
 /// </summary>
-/// <param name="chara"></param>
+/// <param name="chara">ステイト操作するキャラクター</param>
+/// <param name="enemy">敵キャラクター</param>
 void Search::Initialize(Character* chara, Character* enemy)
 {
 	m_chara      = chara;
@@ -38,10 +46,10 @@ void Search::Initialize(Character* chara, Character* enemy)
 	m_leftTurn   = std::make_unique<LeftTurn>();
 	m_rightTurn  = std::make_unique<RightTurn>();
 
-	m_standing->Initialize(m_chara, m_enemy);
-	m_forward->Initialize(m_chara, m_enemy);
-	m_backward->Initialize(m_chara, m_enemy);
-	m_leftTurn->Initialize(m_chara, m_enemy);
+	m_standing->Initialize (m_chara, m_enemy);
+	m_forward->Initialize  (m_chara, m_enemy);
+	m_backward->Initialize (m_chara, m_enemy);
+	m_leftTurn->Initialize (m_chara, m_enemy);
 	m_rightTurn->Initialize(m_chara, m_enemy);
 
 	//初期ステイト
@@ -51,17 +59,16 @@ void Search::Initialize(Character* chara, Character* enemy)
 /// <summary>
 /// 更新
 /// </summary>
-/// </summary>
-/// <param name="timer"></param>
+/// <param name="timer">タイマー</param>
 void Search::Update(const DX::StepTimer& timer)
 {
 	NeuralNetwork* data = GameContext::Get<NeuralNetworkManager>()->m_neuralNetwork.get();
 
-	float dis = data->GetOutput(0);
-	float left = data->GetOutput(1);
+	float dis   = data->GetOutput(0);
+	float left  = data->GetOutput(1);
 	float right = data->GetOutput(2);
 
-
+	//出力データから行動を選択
 	if (left >= 0.5f)
 	{
 		ChangeLeftTurnState();
@@ -83,6 +90,7 @@ void Search::Update(const DX::StepTimer& timer)
 		m_chara->SetCharaState(CharaStateID::BACKWARD);
 	}
 
+	//現在のステートの更新
 	m_search->Update(timer);
 }
 
@@ -94,45 +102,7 @@ void Search::Render()
 	DebugFont* debugFont = DebugFont::GetInstance();
 	debugFont->print(10, 50, L"Search");
 	debugFont->draw();
+	//現在のステートの描画
 	m_search->Render();
 }
 
-/// <summary>
-/// Standingに変更
-/// </summary>
-void Search::ChangeStandingState()
-{
-	m_search = static_cast<CharaState*>(m_standing.get());
-}
-
-/// <summary>
-/// Forwardに変更
-/// </summary>
-void Search::ChangeForwardState()
-{
-	m_search = static_cast<CharaState*>(m_forward.get());
-}
-
-/// <summary>
-/// Backwardに変更
-/// </summary>
-void Search::ChangeBackwardState()
-{
-	m_search = static_cast<CharaState*>(m_backward.get());
-}
-
-/// <summary>
-/// LeftTurnに変更
-/// </summary>
-void Search::ChangeLeftTurnState()
-{
-	m_search = static_cast<CharaState*>(m_leftTurn.get());
-}
-
-/// <summary>
-/// RightTurn変更
-/// </summary>
-void Search::ChangeRightTurnState()
-{
-	m_search = static_cast<CharaState*>(m_rightTurn.get());
-}

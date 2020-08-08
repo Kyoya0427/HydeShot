@@ -62,58 +62,8 @@ bool Collider::IsCollided(const RayCollider* collider) const
 /// <summary>
 ///  当たった後の処理
 /// </summary>
-/// <param name="object"></param>
+/// <param name="object">a</param>
 void Collider::OnCollision(const Collider* object) const
 {
 	m_owner->OnCollision(object->m_owner);
-}
-
-/// <summary>
-/// 座標を取得
-/// </summary>
-/// <returns></returns>
-const Vector3 Collider::GetPosition() const
-{
-	return m_owner->GetPosition() + m_offset;
-}
-
-/// <summary>
-/// 座標を設定
-/// </summary>
-/// <param name="pos"></param>
-void Collider::SetPosition(Vector3& pos)
-{
-	m_owner->SetPosition(pos);
-}
-
-/// <summary>
-/// 差引勘定を取得
-/// </summary>
-/// <returns></returns>
-const Vector3 Collider::GetOffset() const
-{
-	return m_offset;
-}
-
-/// <summary>
-/// オブジェクトを取得
-/// </summary>
-/// <returns></returns>
-GameObject* Collider::GetGameObject() const
-{
-	return m_owner;
-}
-
-/// <summary>
-/// 差引勘定を設定
-/// </summary>
-/// <param name="offset"></param>
-void Collider::SetOffset(const Vector3 & offset)
-{
-	m_offset = offset;
-}
-
-void Collider::SetRaycastHit(RaycastHit hit)
-{
-	m_owner->SetRaycastHit(hit);
 }

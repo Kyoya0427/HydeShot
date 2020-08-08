@@ -39,12 +39,14 @@ WallApproach::WallApproach(Character* chara)
 	, m_chara(chara)
 	, m_offsetAngle()
 {
-	m_tag = ObjectTag::WallApproach;
+	ID3D11DeviceContext* deviceContext = GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext();
+
+
+	m_tag  = ObjectTag::WallApproach;
 	m_size = Vector3(0.3f, 0.1f, 0.8f);
 
-	ID3D11DeviceContext* deviceContext = GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext();
 	m_WallApproachCollider = GeometricPrimitive::CreateBox(deviceContext, m_size);
-	m_collider      = std::make_unique<BoxCollider>(this,m_size);
+	m_collider             = std::make_unique<BoxCollider>(this,m_size);
 	
 }
 
@@ -63,7 +65,7 @@ void WallApproach::Update(const DX::StepTimer& timer)
 {
 	timer;
 	m_chara->GetWallApproachVel()->SetWallApproach(WallApproachVelID::NONE);
-	m_chara->SetWallFlont(false);
+	m_chara->SetWallDiscovery(false);
 
 	Quaternion quaternion = Quaternion::CreateFromAxisAngle(Vector3::UnitY, m_chara->GetRadiansY() + m_offsetAngle);
 	m_velocity = Vector3::Transform(Vector3(0.0f, 0.0f, -m_size.z), quaternion);
@@ -73,8 +75,6 @@ void WallApproach::Update(const DX::StepTimer& timer)
 
 	m_collider->SetPosition(m_position);
 
-	
-	
 	GameContext().Get<CollisionManager>()->Add(ObjectTag::WallApproach, m_collider.get());
 	
 }
@@ -103,7 +103,7 @@ void WallApproach::Render()
 void WallApproach::OnCollision(GameObject* object)
 {
 	object;
-	m_chara->SetWallFlont(true);
+	m_chara->SetWallDiscovery(true);
 	if (m_offsetAngle == FORWARD_ANGLE)
 		m_chara->GetWallApproachVel()->SetWallApproach(WallApproachVelID::FORWARD);
 	if (m_offsetAngle == BACKWARD_ANGLE)
@@ -113,20 +113,3 @@ void WallApproach::OnCollision(GameObject* object)
 	if (m_offsetAngle == RIGHT_ANGLE)
 		m_chara->GetWallApproachVel()->SetWallApproach(WallApproachVelID::RIGHTWARD);
 }
-
-void WallApproach::SetOffsetAngle(float angle)
-{
-	m_offsetAngle = angle;
-}
-
-WallApproachVelID WallApproach::GetWallApproach()
-{
-	return m_isWallApproach;
-}
-
-void WallApproach::SetWallApproach(WallApproachVelID approach)
-{
-	m_isWallApproach = approach;
-}
-
-

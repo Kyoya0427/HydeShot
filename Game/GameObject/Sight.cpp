@@ -37,6 +37,9 @@ Sight::Sight(Character* chara)
 	, m_wallToDistance()
 
 {
+	ID3D11DeviceContext* deviceContext = GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext();
+
+	//ƒ^ƒO‚ðÝ’è
 	if (m_chara->GetTag() == ObjectTag::Enemy1)
 		m_tag = ObjectTag::Sight01;
 	if (m_chara->GetTag() == ObjectTag::Enemy2)
@@ -44,7 +47,6 @@ Sight::Sight(Character* chara)
 
 	m_size = Vector3(0.3f, 0.1f, 9.0f);
 
-	ID3D11DeviceContext* deviceContext = GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext();
 	m_sightCollider = GeometricPrimitive::CreateBox(deviceContext, m_size);
 	m_collider      = std::make_unique<RayCollider>(this);
 
@@ -80,7 +82,6 @@ void Sight::Update(const DX::StepTimer& timer)
 
 	m_posA = m_chara->GetPosition();
 	m_posB = m_position + m_velocity;
-
 
 	m_collider->SetPosA(m_posA);
 	m_collider->SetPosB(m_posB);
@@ -122,9 +123,7 @@ void Sight::OnCollision(GameObject* object)
 	if (object->GetTag() == ObjectTag::Wall)
 	{
 		m_chara->SetWallSightContact(true);
-		m_wallToDistance = Vector3::Distance(m_chara->GetPosition(), object->GetPosition());
-		m_hit = object->GetRaycastHit();
-		
+		m_wallToDistance = Vector3::Distance(m_chara->GetPosition(), object->GetPosition());		
 	}
 	else if (object->GetTag() != m_chara->GetTag())
 	{

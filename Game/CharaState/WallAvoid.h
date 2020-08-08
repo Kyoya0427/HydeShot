@@ -30,19 +30,27 @@ public:
 	void Render() override;
 
 public:
-	void ChangeForwardState();
-	void ChangeBackwardState();
-	void ChangeLeftwardState();
-	void ChangeRightwardState();
+	//ステイトを変更
+	void ChangeForwardState()   { m_wallAvoid = static_cast<CharaState*>(m_forward.get());   }
+	void ChangeBackwardState()  { m_wallAvoid = static_cast<CharaState*>(m_backward.get());  }
+	void ChangeLeftwardState()  { m_wallAvoid = static_cast<CharaState*>(m_leftward.get());  }
+	void ChangeRightwardState() { m_wallAvoid = static_cast<CharaState*>(m_rightward.get()); }
 
 private:
+	//ステイト操作するキャラクター
 	Character*                      m_chara;
-	Character*						m_enemy;
-	CharaState*						m_wallAvoid;
+	//敵キャラクター
+	Character*                      m_enemy;
+	//現在のステート
+	CharaState*                     m_wallAvoid;
 
+	//Forward状態
 	std::unique_ptr<Forward>		m_forward;
+	//Backward状態
 	std::unique_ptr<Backward>		m_backward;
+	//Leftward状態
 	std::unique_ptr<Leftward>		m_leftward;
+	//Rightward状態
 	std::unique_ptr<Rightward>      m_rightward;
 
 };

@@ -1,3 +1,9 @@
+//======================================================
+// File Name	: CharaStateID.h
+// Summary		: キャラのステートID
+// Date			: 2020/7/23
+// Author		: Kyoya  Sakamoto
+//======================================================
 #pragma once
 
 enum  class CharaStateID
@@ -15,6 +21,5 @@ enum  class CharaStateID
 	LEFTWARD,
 	RIGHTWARD,
 	
-
 	NUM
 };

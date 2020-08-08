@@ -80,7 +80,7 @@ void GameObjectManager::Add(GameObjectPtr&& object)
 /// </summary>
 /// <param name="tag">Žw’èƒ^ƒO</param>
 /// <returns></returns>
-std::vector<GameObject*> GameObjectManager::Find(GameObject::ObjectTag tag)
+std::vector<GameObject*> GameObjectManager::Find(const GameObject::ObjectTag& tag)
 {
 	std::vector<GameObject*> result;
 

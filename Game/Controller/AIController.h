@@ -14,9 +14,8 @@
 #include <Game/CharaState/WallAvoid.h>
 #include <Game/CharaState/Search.h>
 
-class RuleBased;
+
 class NeuralNetworkManager;
-class Ai;
 
 class AIController : public  CharacterController
 {
@@ -50,9 +49,6 @@ public:
 	void ChangeWallAvoidState();
 
 public:
-	using AiGroupList	  = std::map<AiType, std::unique_ptr<Ai>>;
-
-public:
 	//移動速度
 	static const float  MOVE_SPEED;
 	//回転速度
@@ -67,13 +63,13 @@ public:
 	static const int    MODE_COUNT = 7;
 
 private:
-	//Aiマネージャー
-	AiGroupList                             m_aiManager;
 	//敵キャラ
-	Character*                              m_enemy;
+	Character* m_enemy;
+	//ニューラルネットワーク
+	std::unique_ptr<NeuralNetworkManager>   m_neuralNetworkManager;
 	//ステイト変更インターバル
 	float                                   m_stateInterval;
-
+	//現在のステイト
 	CharaStateID                            m_state;
 	//攻撃ステート
 	std::unique_ptr<Attack>                 m_attack;

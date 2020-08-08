@@ -12,7 +12,7 @@
 
 #include <Game/GameObject/Floor.h>
 #include <Game/GameObject/Wall.h>
-#include <Game/GameObject/Flag.h>
+
 
 
 class GameWindow;
@@ -26,8 +26,6 @@ public:
 		NONE,			// Ç»Çµ
 		PLAYER,			// ÉvÉåÉCÉÑÅ[
 		ENEMY,			// ìGÇP
-		FLAG_01,
-		FLAG_02,
 		WALL,
 	};
 	
@@ -79,7 +77,6 @@ private:
 	
 	Floor*     m_floor;
 	Wall*      m_wall;
-	Flag*      m_flag[2];
 
 	DirectX::SimpleMath::Vector2  m_playerPos;
 	DirectX::SimpleMath::Vector2  m_enemyPos;

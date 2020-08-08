@@ -35,13 +35,15 @@ Character::Character(const ObjectTag tag)
 	: GameObject(tag)
 	, m_model()
 	, m_sphereCollider()
+	, m_bulletModel()
 	, m_sight()
 	, m_wallApproach()
 	, m_collider()
 	, m_previousPos()
-	, m_wallSightContact(false)
-	, m_wallContact(false)
-	, m_enemySightContact(false)
+	, m_isWallSightContact(false)
+	, m_isWallContact(false)
+	, m_isEnemySightContact(false)
+	, m_isWallDiscovery(false)
 	, m_hp()
 	, m_state(CharaStateID::NONE)
 {
@@ -59,7 +61,7 @@ Character::~Character()
 /// 初期化
 /// </summary>
 /// <param name="pos">初期座標</param>
-void Character::Initialize(DirectX::SimpleMath::Vector2 & pos)
+void Character::Initialize(const DirectX::SimpleMath::Vector2 & pos)
 {
 	m_x = (int)pos.x;
 	m_y = (int)pos.y;
@@ -67,13 +69,14 @@ void Character::Initialize(DirectX::SimpleMath::Vector2 & pos)
 	m_radius = 0.4f;
 	
 	m_hp = MAX_HP;
-	m_wallContact = false;
+
 
 	ID3D11DeviceContext* deviceContext = GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext();
 
 	m_model = GeometricPrimitive::CreateCone(deviceContext);
 
 	m_sphereCollider = GeometricPrimitive::CreateSphere(deviceContext,1.0f,8U);
+	m_bulletModel    = GeometricPrimitive::CreateSphere(deviceContext, Bullet::RADIUS,8U);
 	m_collider = std::make_unique<SphereCollider>(this, m_radius);
 
 	m_sight = std::make_unique<Sight>(this);
@@ -88,7 +91,7 @@ void Character::Initialize(DirectX::SimpleMath::Vector2 & pos)
 void Character::Update(const DX::StepTimer & timer)
 {
 	timer;
-	m_wallContact = false;
+	m_isWallContact = false;
 	m_previousPos = m_position;
 
 	GameContext::Get<CollisionManager>()->Add(GetTag(), m_collider.get());
@@ -142,7 +145,7 @@ void Character::OnCollision(GameObject* object)
 	{
 		m_position = m_previousPos;
 		m_velocity = Vector3::Zero;
-		m_wallContact = true;
+		m_isWallContact = true;
 	}
 
 	if (object->GetTag() == GameObject::ObjectTag::Bullet)
@@ -164,149 +167,12 @@ void Character::OnCollision(GameObject* object)
 }
 
 /// <summary>
-/// 前進
-/// </summary>
-/// <param name="speed"></param>
-void Character::Forward(float speed)
-{
-	m_velocity.z = -speed;
-
-}
-/// <summary>
-/// 後進
-/// </summary>
-/// <param name="speed"></param>
-void Character::Backward(float speed)
-{
-	m_velocity.z = speed;
-
-}
-
-/// <summary>
-/// 左に進む
-/// </summary>
-/// <param name="speed"></param>
-void Character::Leftward(float speed)
-{
-	m_velocity.x = -speed;
-
-}
-
-/// <summary>
-/// 右に進む
-/// </summary>
-/// <param name="speed"></param>
-void Character::Rightward(float speed)
-{
-	m_velocity.x = speed;
-}
-
-/// <summary>
-/// 左に旋回
-/// </summary>
-/// <param name="speed"></param>
-void Character::LeftTurn(float speed)
-{
-	m_rotation.y += speed;
-}
-
-/// <summary>
-/// 右に旋回
-/// </summary>
-/// <param name="speed"></param>
-void Character::RightTurn(float speed)
-{
-	m_rotation.y -= speed;
-}
-
-/// <summary>
 /// 発砲
 /// </summary>
 void Character::Shoot()
 {
 	Quaternion rot = DirectX::SimpleMath::Quaternion::CreateFromAxisAngle(Vector3::UnitY, m_rotation.y);
-	std::unique_ptr<Bullet> shell = std::make_unique<Bullet>(ObjectTag::Bullet, GetTag(),m_position, rot);
+	std::unique_ptr<Bullet> shell = std::make_unique<Bullet>(ObjectTag::Bullet, GetTag(), m_position, rot);
+	shell->SetModel(m_bulletModel.get());
 	GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(shell));
 }
-
-/// <summary>
-/// hpを取得
-/// </summary>
-/// <returns></returns>
-int Character::GetHp()
-{
-	return m_hp;
-}
-
-/// <summary>
-/// 壁に接触してるか
-/// </summary>
-/// <returns></returns>
-bool Character::GetWallSightContact()
-{
-	return m_wallSightContact;
-}
-
-bool Character::GetWallContact()
-{
-	return m_wallContact;
-}
-
-/// <summary>
-/// 設定
-/// </summary>
-/// <param name="contact"></param>
-void Character::SetWallSightContact(bool contact)
-{
-	m_wallSightContact = contact;
-}
-
-/// <summary>
-/// 敵に接触しているか
-/// </summary>
-/// <returns></returns>
-bool Character::GetEnemySightContact()
-{
-	return m_enemySightContact;
-}
-
-/// <summary>
-/// 設定
-/// </summary>
-/// <param name="contact"></param>
-void Character::SetEnemySightContact(bool contact)
-{
-	m_enemySightContact = contact;
-}
-
-
-void Character::SetCharaState(CharaStateID state)
-{
-	m_state = state;
-}
-
-CharaStateID Character::GetCharaState()
-{
-	return m_state;
-}
-
-Sight* Character::GetSight()
-{
-	return m_sight.get();
-}
-
-WallApproach* Character::GetWallApproachVel()
-{
-	return m_wallApproachVel.get();
-}
-
-bool Character::GetWallFlont()
-{
-	return m_isWallflont;
-}
-
-void Character::SetWallFlont(bool wallFlont)
-{
-	m_isWallflont = wallFlont;
-}
-                                                           

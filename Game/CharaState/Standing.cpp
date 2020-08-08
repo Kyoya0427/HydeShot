@@ -1,5 +1,5 @@
 //======================================================
-// File Name	: Standing.h
+// File Name	: Standing.cpp
 // Summary		: 初期ステート
 // Date			: 2020/7/23
 // Author		: Kyoya  Sakamoto
@@ -7,12 +7,6 @@
 #include "Standing.h"
 
 #include <Game/Common/DebugFont.h>
-#include <Game/Common/GameContext.h>
-
-#include <Game/Controller/AIController.h>
-
-#include <Game/AI/NeuralNetworkManager.h>
-#include <Game/AI/NeuralNetwork.h>
 
 #include <Game/CharaState/Search.h>
 
@@ -36,7 +30,7 @@ Standing::~Standing()
 /// 初期化
 /// </summary>
 /// <param name="chara">ステイト操作するキャラクター</param>
-/// <param name="controller">コントローラー</param>
+/// <param name="controller">敵キャラクター</param>
 void Standing::Initialize(Character* chara, Character* enemy)
 {
 	m_chara = chara;

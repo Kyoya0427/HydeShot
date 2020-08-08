@@ -1,5 +1,5 @@
 //======================================================
-// File Name	: WallAvoid.h
+// File Name	: WallAvoid.cpp
 // Summary		: 壁回避ステート
 // Date			: 2020/7/23
 // Author		: Kyoya  Sakamoto
@@ -42,15 +42,18 @@ void WallAvoid::Initialize(Character* chara, Character* enemy)
 	m_chara = chara;
 	m_enemy = enemy;
 
+	//ステイトを初期化
 	m_forward   = std::make_unique<Forward>();
 	m_backward  = std::make_unique<Backward>();
 	m_leftward  = std::make_unique<Leftward>();
 	m_rightward = std::make_unique<Rightward>();
 
-	m_forward ->Initialize(m_chara, m_enemy);
-	m_backward->Initialize(m_chara, m_enemy);
-	m_leftward->Initialize(m_chara, m_enemy);
+	m_forward ->Initialize (m_chara, m_enemy);
+	m_backward->Initialize (m_chara, m_enemy);
+	m_leftward->Initialize (m_chara, m_enemy);
 	m_rightward->Initialize(m_chara, m_enemy);
+
+	//初期ステイト
 	ChangeForwardState();
 }
 
@@ -65,7 +68,7 @@ void WallAvoid::Update(const DX::StepTimer& timer)
 	
 	float z = m_chara->GetPosition().x - m_enemy->GetPosition().x;
 
-
+	//データから行動を選択
 
 	if (m_chara->GetWallApproachVel()->GetWallApproach() == WallApproachVelID::FORWARD || m_chara->GetWallApproachVel()->GetWallApproach() == WallApproachVelID::BACKWARD)
 	{
@@ -95,6 +98,7 @@ void WallAvoid::Update(const DX::StepTimer& timer)
 		}
 	}
 
+	//現在のステートの更新
 	m_wallAvoid->Update(timer);
 }
 
@@ -108,32 +112,7 @@ void WallAvoid::Render()
 	debugFont->print(10, 50, L"WallAvoid");
 	debugFont->draw();
 
-
+	//現在のステートの描画
 	m_wallAvoid->Render();
 }
 
-void WallAvoid::ChangeForwardState()
-{
-	m_wallAvoid = static_cast<CharaState*>(m_forward.get());
-}
-
-void WallAvoid::ChangeBackwardState()
-{
-	m_wallAvoid = static_cast<CharaState*>(m_backward.get());
-}
-
-/// <summary>
-/// Leftwardに変更
-/// </summary>
-void WallAvoid::ChangeLeftwardState()
-{
-	m_wallAvoid = static_cast<CharaState*>(m_leftward.get());
-}
-
-/// <summary>
-/// Rightwardに変更
-/// </summary>
-void WallAvoid::ChangeRightwardState()
-{
-	m_wallAvoid = static_cast<CharaState*>(m_rightward.get());
-}

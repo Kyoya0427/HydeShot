@@ -125,10 +125,8 @@
     <!-- プリコンパイル済みヘッダ -->
     <ClInclude Include="3rdParty\PicoJSON\Include\PicoJSON\picojson.h" />
     <ClInclude Include="3rdParty\PicoJSON\PicoJSONHeaderList.h" />
-    <ClInclude Include="Game\AI\Ai.h" />
     <ClInclude Include="Game\AI\NeuralNetwork.h" />
     <ClInclude Include="Game\AI\NeuralNetworkManager.h" />
-    <ClInclude Include="Game\AI\RuleBased.h" />
     <ClInclude Include="Game\Bg\Bg.h" />
     <ClInclude Include="Game\Camera\Camera.h" />
     <ClInclude Include="Game\CharaState\Attack.h" />
@@ -158,7 +156,6 @@
     <ClInclude Include="Game\Controller\PlayerController.h" />
     <ClInclude Include="Game\GameObject\Bullet.h" />
     <ClInclude Include="Game\GameObject\Character.h" />
-    <ClInclude Include="Game\GameObject\Flag.h" />
     <ClInclude Include="Game\GameObject\Floor.h" />
     <ClInclude Include="Game\GameObject\GameObject.h" />
     <ClInclude Include="Game\GameObject\GameObjectManager.h" />
@@ -180,7 +177,6 @@
     <ClInclude Include="pch.h" />
     <ClCompile Include="Game\AI\NeuralNetwork.cpp" />
     <ClCompile Include="Game\AI\NeuralNetworkManager.cpp" />
-    <ClCompile Include="Game\AI\RuleBased.cpp" />
     <ClCompile Include="Game\Bg\Bg.cpp" />
     <ClCompile Include="Game\Camera\Camera.cpp" />
     <ClCompile Include="Game\CharaState\Attack.cpp" />
@@ -204,7 +200,6 @@
     <ClCompile Include="Game\Controller\PlayerController.cpp" />
     <ClCompile Include="Game\GameObject\Bullet.cpp" />
     <ClCompile Include="Game\GameObject\Character.cpp" />
-    <ClCompile Include="Game\GameObject\Flag.cpp" />
     <ClCompile Include="Game\GameObject\Floor.cpp" />
     <ClCompile Include="Game\GameObject\GameObject.cpp" />
     <ClCompile Include="Game\GameObject\GameObjectManager.cpp" />

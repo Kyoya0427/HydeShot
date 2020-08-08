@@ -39,7 +39,7 @@ public:
 	//追加
 	void Add(GameObjectPtr&& object);
 	//特定のオブジェクトを取得
-	std::vector<GameObject*> Find(GameObject::ObjectTag tag);
+	std::vector<GameObject*> Find(const GameObject::ObjectTag& tag);
 
 private:
 	//追加されたオブジェクトの更新
@@ -48,32 +48,16 @@ private:
 	void AcceptObjects();
 	//オブジェクト消去
 	void DestroyObjects();
+
+public:
 	//描画順登録
-	const int GetDrawPrio() const;
+	const int GetDrawPrio() const       { return m_drawPrio; }
 	//描画順設定
-	void SetDrawPrio(int prio);
+	void SetDrawPrio(const int prio)    {  m_drawPrio = prio; }
 
 private:
-	GameObjectList m_objects;
-	GameObjectList m_objectQueue;
-	int m_drawPrio;
+	GameObjectList		m_objects;
+	GameObjectList		m_objectQueue;
+	int					m_drawPrio;
+
 };
-
-
-/// <summary>
-/// 描画順登録
-/// </summary>
-/// <returns></returns>
-inline const int GameObjectManager::GetDrawPrio() const
-{
-	return m_drawPrio;
-}
-
-/// <summary>
-/// 描画順設定
-/// </summary>
-/// <param name="prio"></param>
-inline void GameObjectManager::SetDrawPrio(int prio)
-{
-	m_drawPrio = prio;
-}

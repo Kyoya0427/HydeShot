@@ -33,7 +33,7 @@ Floor::Floor()
 /// </summary>
 /// <param name="x">x座標</param>
 /// <param name="y">y座標</param>
-void Floor::Initialize(int x, int y)
+void Floor::Initialize(const int x, const int y)
 {
 	m_position = DirectX::SimpleMath::Vector3((float)x, 0.0f, (float)y);
 }
@@ -68,8 +68,6 @@ void Floor::Render()
 		GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext()->OMSetBlendState(GameContext::Get<DirectX::CommonStates>()->Additive(), nullptr, 0xffffffff);
 	});
 
-	
-
 }
 
 /// <summary>
@@ -80,19 +78,3 @@ void Floor::OnCollision(GameObject* object)
 {
 	object;
 }
-
-/// <summary>
-/// モデルを設定
-/// </summary>
-/// <param name="model">モデル</param>
-void Floor::SetModel(DirectX::Model * model)
-{
-	m_model = model;
-}
-
-
-
-
-
-
-

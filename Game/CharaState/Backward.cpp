@@ -1,5 +1,5 @@
 //======================================================
-// File Name	: Backward.h
+// File Name	: Backward.cpp
 // Summary		: 後ろ移動ステート
 // Date			: 2020/7/23
 // Author		: Kyoya  Sakamoto
@@ -33,7 +33,7 @@ Backward::~Backward()
 /// 初期化
 /// </summary>
 /// <param name="chara">ステイト操作するキャラクター</param>
-/// <param name="controller">コントローラー</param>
+/// <param name="controller">敵キャラクター</param>
 void Backward::Initialize(Character* chara, Character* enemy)
 {
 	m_chara = chara;

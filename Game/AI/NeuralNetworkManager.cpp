@@ -151,7 +151,7 @@ CharaStateID NeuralNetworkManager::BehaviorSelection()
 	//右判定
 	m_neuralNetwork->SetInput(2, static_cast<float>(m_isDirectionRight));
 	//目の前に壁がある
-	m_neuralNetwork->SetInput(3, static_cast<float>(m_character->GetWallFlont()));
+	m_neuralNetwork->SetInput(3, static_cast<float>(m_character->GetWallDiscovery()));
 	//敵を撃てるか判定
 	m_neuralNetwork->SetInput(4, static_cast<float>(m_character->GetEnemySightContact()));
 	//計算開始
@@ -163,7 +163,7 @@ CharaStateID NeuralNetworkManager::BehaviorSelection()
 	m_data.inputDis        = distance / 16.0f;
 	m_data.inputLeft       = static_cast<float>(m_isDirectionLeft);
 	m_data.inputRight      = static_cast<float>(m_isDirectionRight);
-	m_data.inputWall       = static_cast<float>(m_character->GetWallFlont());
+	m_data.inputWall       = static_cast<float>(m_character->GetWallDiscovery());
 	m_data.inputShoot      = static_cast<float>(m_character->GetEnemySightContact());
 
 	m_data.outputDis       = m_neuralNetwork->GetOutput(0);

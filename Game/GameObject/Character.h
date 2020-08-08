@@ -29,7 +29,7 @@ public:
 
 public:
 	// 初期化関数
-	void Initialize(DirectX::SimpleMath::Vector2& pos);
+	void Initialize(const DirectX::SimpleMath::Vector2& pos);
 	// 更新
 	void Update(const DX::StepTimer& timer) override;
 	// 描画
@@ -39,56 +39,57 @@ public:
 
 public:
 	//前進
-	void Forward  (float speed);
+	void Forward(const float speed)   { m_velocity.z = -speed; }
 	//後進
-	void Backward (float speed);
+	void Backward(const float speed)  { m_velocity.z = speed;  }
 	//左に進む
-	void Leftward (float speed);
+	void Leftward (const float speed) { m_velocity.x = -speed; }
 	//右に進む
-	void Rightward(float speed);
+	void Rightward(const float speed) { m_velocity.x = speed;  }
 	//左に旋回
-	void LeftTurn (float speed);
+	void LeftTurn (const float speed) { m_rotation.y += speed; }
 	//右に旋回
-	void RightTurn(float speed);
+	void RightTurn(const float speed) { m_rotation.y -= speed; }
 	//発砲
 	void Shoot();
 
 public:
 	//hpを取得
-	int  GetHp();
-	//壁に接触してるか
-	bool GetWallContact();
-	//壁にセンサーが接触してるか
-	bool GetWallSightContact();
-	//壁にセンサーが接触してるか設定
-	void SetWallSightContact(bool contact);
-	//敵にセンサーが接触しているか
-	bool GetEnemySightContact();
-	//敵にセンサーが接触しているか設定
-	void SetEnemySightContact(bool contact);
+	const int  GetHp() const                           { return m_hp; }
+	//壁に接触してるかを取得
+	const bool GetWallContact() const                  { return m_isWallContact; }
+	//壁にセンサーが接触してるかを取得
+	const bool GetWallSightContact() const             { return m_isWallSightContact; }
+	//敵にセンサーが接触しているかを取得
+	const bool GetEnemySightContact() const            { return m_isEnemySightContact; }
+	//現在のステートを取得
+	const CharaStateID& GetCharaState() const          { return m_state; }
+	//移動方向壁センサーを取得
+	WallApproach* GetWallApproachVel() const           { return m_wallApproachVel.get(); }
+	//壁発見を取得
+	const bool GetWallDiscovery() const                { return m_isWallDiscovery; }
 	
-	void SetCharaState(CharaStateID state);
-
-	CharaStateID GetCharaState();
-
-	Sight* GetSight();
-
-	WallApproach* GetWallApproachVel();
-
-	bool GetWallFlont();
-	void SetWallFlont(bool wallFlont);
+public:	
+	//壁発見設定
+	void SetWallDiscovery(const bool wallFlont)       { m_isWallDiscovery = wallFlont; }
+	//壁にセンサーが接触してるか設定
+	void SetWallSightContact(const bool contact)      { m_isWallSightContact = contact; }
+	//敵にセンサーが接触しているか設定
+	void SetEnemySightContact(const bool contact)     { m_isEnemySightContact = contact; }
+	//現在のステートを設定
+	void SetCharaState(const CharaStateID& state)     { m_state = state; }
 
 public:
 	//最大HP
 	static const int  MAX_HP;
-
-	
 
 private:
 	//モデル
 	std::unique_ptr<DirectX::GeometricPrimitive> m_model;
 	//当たり判定モデル
 	std::unique_ptr<DirectX::GeometricPrimitive> m_sphereCollider;
+	//弾モデル
+	std::unique_ptr<DirectX::GeometricPrimitive> m_bulletModel;
 	//射程
 	std::unique_ptr<Sight>                       m_sight;
 	//壁に接近しているか(前方)
@@ -97,20 +98,18 @@ private:
 	std::unique_ptr<WallApproach>                m_wallApproachVel;
 	//当たり判定
 	std::unique_ptr<SphereCollider>              m_collider;
-	
+	//現在のステート
 	CharaStateID								 m_state;
 	//１フレーム前の座標
 	DirectX::SimpleMath::Vector3                 m_previousPos;
 	//壁にセンサーが接触してるか
-	bool                                         m_wallSightContact;
+	bool                                         m_isWallSightContact;
 	//壁に接触してるか
-	bool										 m_wallContact;
+	bool										 m_isWallContact;
 	//敵にセンサーが接触しているか
-	bool                                         m_enemySightContact;
-
-	bool										 m_isWallflont;
-
-
+	bool                                         m_isEnemySightContact;
+	//壁発見
+	bool										 m_isWallDiscovery;
 	//HP
 	int                                          m_hp;
 };

@@ -25,11 +25,10 @@ public:
 
 public:
 	//始点と終点を取得
-	DirectX::SimpleMath::Vector3 GetPosA() const;
-	DirectX::SimpleMath::Vector3 GetPosB() const;
-	//サイズの取得と設定
-	void SetPosA(DirectX::SimpleMath::Vector3 posA);
-	void SetPosB(DirectX::SimpleMath::Vector3 posB);
+	const DirectX::SimpleMath::Vector3& GetPosA() const{ return m_posA; }
+	const DirectX::SimpleMath::Vector3& GetPosB() const{ return m_posB; }
+	void SetPosA(const DirectX::SimpleMath::Vector3& posA) { m_posA = posA; }
+	void SetPosB(const DirectX::SimpleMath::Vector3& posB) { m_posB = posB; }
 
 private:
 	//始点

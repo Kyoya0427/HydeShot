@@ -21,6 +21,9 @@ class Search : public CharaState
 public:
 	//コンストラクタ
 	Search();
+	//デストラクタ
+	~Search();
+
 public:
 	//初期化
 	void Initialize(Character* chara, Character* enemy) override;
@@ -31,17 +34,17 @@ public:
 
 public:
 	//ステイトを変更
-	void ChangeStandingState();
-	void ChangeForwardState();
-	void ChangeBackwardState();
-	void ChangeLeftTurnState();
-	void ChangeRightTurnState();
+	void ChangeStandingState()  { m_search = static_cast<CharaState*>(m_standing.get());  }
+	void ChangeForwardState()   { m_search = static_cast<CharaState*>(m_forward.get());   }
+	void ChangeBackwardState()  { m_search = static_cast<CharaState*>(m_backward.get());  }
+	void ChangeLeftTurnState()  { m_search = static_cast<CharaState*>(m_leftTurn.get());  }
+	void ChangeRightTurnState() { m_search = static_cast<CharaState*>(m_rightTurn.get()); }
 
 private:
 	//ステイト操作するキャラクター
-	Character* m_chara;
+	Character*                    m_chara;
 	//敵キャラクター
-	Character* m_enemy;
+	Character*                    m_enemy;
 	//現在のステート
 	CharaState*				      m_search;
 

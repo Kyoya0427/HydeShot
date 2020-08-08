@@ -17,6 +17,7 @@ public:
 	Leftward();
 	//デストラクタ
 	~Leftward();
+
 public:
 	//初期化
 	void Initialize(Character* chara, Character* enemy) override;
@@ -27,8 +28,8 @@ public:
 
 private:
 	//ステイト操作するキャラクター
-	Character*           m_chara;
+	Character*		m_chara;
 	//敵キャラクター
-	Character*			 m_enemy;
+	Character*		m_enemy;
 
 };

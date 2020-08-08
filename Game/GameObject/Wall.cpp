@@ -28,7 +28,7 @@ using namespace DirectX::SimpleMath;
 /// <summary>
 /// コンストラクタ
 /// </summary>
-/// <param name="tag"></param>
+/// <param name="tag">オブジェクト名</param>
 Wall::Wall(const ObjectTag tag)
 	: GameObject(tag)
 	, m_model{nullptr}
@@ -78,10 +78,9 @@ void Wall::Update(const DX::StepTimer & timer)
 /// </summary>
 void Wall::Render()
 {
-
 	// ワールド行列の作成
 	Matrix world  = Matrix::CreateScale(Vector3(1.0f,10.0f,1.0f));
-	world *= Matrix::CreateTranslation(m_position);
+	world        *= Matrix::CreateTranslation(m_position);
 
 	// モデルの描画
 	m_model->Draw(GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext()
@@ -94,9 +93,7 @@ void Wall::Render()
 		GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext()->OMSetBlendState(GameContext::Get<DirectX::CommonStates>()->Additive(), nullptr, 0xffffffff);
 	});
 
-		Matrix transMat = Matrix::CreateTranslation(m_position);
-
-		m_world = transMat;
+		m_world = Matrix::CreateTranslation(m_position);
 
 		if (PlayState::m_isDebug)
 		m_boxCollider->Draw(m_world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_color, m_texture.Get(), true);
@@ -111,26 +108,4 @@ void Wall::OnCollision(GameObject* object)
 {
 	object;
 }
-
-/// <summary>
-/// モデルを設定
-/// </summary>
-/// <param name="model"></param>
-void Wall::SetModel(Model * model)
-{
-	m_model = model;
-}
-
-/// <summary>
-/// 当たり判定に使うサイズ
-/// </summary>
-/// <returns></returns>
-Vector3 Wall::GetCollSize()
-{
-	return m_collSize;
-}
-
-
-
-
 

@@ -1,5 +1,5 @@
 //======================================================
-// File Name	: Forward.h
+// File Name	: Forward.cpp
 // Summary		: 前移動ステート
 // Date			: 2020/7/23
 // Author		: Kyoya  Sakamoto
@@ -33,7 +33,7 @@ Forward::~Forward()
 /// 初期化
 /// </summary>
 /// <param name="chara">ステイト操作するキャラクター</param>
-/// <param name="controller">コントローラー</param>
+/// <param name="controller">敵キャラクター</param>
 void Forward::Initialize(Character* chara, Character* enemy)
 {
 	m_chara      = chara;

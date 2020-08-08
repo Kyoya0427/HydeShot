@@ -13,7 +13,6 @@
 #include <Game/GameObject/Character.h>
 
 #include <Game/AI/NeuralNetworkManager.h>
-#include <Game/AI/RuleBased.h>
 
 #include <Game/Controller/PlayerController.h>
 
@@ -38,7 +37,7 @@ const float AIController::STATE_INTERVAL = 0.05f;
 /// <param name="character">コントロールするオブジェクト</param>
 AIController::AIController(Character* character, Character* enemy)
 	: CharacterController(character)
-	, m_aiManager()
+	, m_neuralNetworkManager()
 	, m_enemy()
 	, m_state()
 	, m_stateInterval()
@@ -61,13 +60,10 @@ AIController::AIController(Character* character, Character* enemy)
 
 	ChangeSearchState();
 
-	std::unique_ptr<RuleBased> ruleBased = std::make_unique<RuleBased>();
-	std::unique_ptr<NeuralNetworkManager> neuralNetworkManager = std::make_unique<NeuralNetworkManager>(m_character, m_enemy);
-	neuralNetworkManager->InitializeNeuralNetwork();
-	GameContext::Register<NeuralNetworkManager>(neuralNetworkManager.get());
+	m_neuralNetworkManager = std::make_unique<NeuralNetworkManager>(m_character, m_enemy);
+	m_neuralNetworkManager->InitializeNeuralNetwork();
+	GameContext::Register<NeuralNetworkManager>(m_neuralNetworkManager.get());
 
-	m_aiManager.emplace(std::make_pair(AiType::RULEBASED, std::move(ruleBased)));
-	m_aiManager.emplace(std::make_pair(AiType::NEURALNETWORK, std::move(neuralNetworkManager)));
 
 	if (m_character->GetTag() == GameObject::ObjectTag::Enemy1)
 		m_character->SetRotation(Vector3(0.0f, 3.15f, 0.0f));
@@ -94,11 +90,7 @@ void AIController::Update(const DX::StepTimer& timer)
 	//インターバル
 	if (m_stateInterval < 0.0f)
 	{
-		if (m_character->GetTag() == GameObject::ObjectTag::Enemy1)
-		m_state = m_aiManager[AiType::NEURALNETWORK]->BehaviorSelection();
-		if (m_character->GetTag() == GameObject::ObjectTag::Enemy2)
-			m_state = m_aiManager[AiType::RULEBASED]->BehaviorSelection();
-	
+		m_state = m_neuralNetworkManager->BehaviorSelection();
 		m_stateInterval = STATE_INTERVAL;
 	}
 
@@ -148,14 +140,12 @@ void AIController::Update(const DX::StepTimer& timer)
 /// </summary>
 void AIController::Render()
 {
-
 	if (PlayState::m_isDebug)
 	{
 		DebugFont* debugFont = DebugFont::GetInstance();
 		debugFont->print(10, 30, L"%f / 0.1", m_shotInterval);
 		debugFont->draw();
 	
-
 		debugFont->print(700, 30, L"posX = %f", m_enemy->GetPosition().x);
 		debugFont->draw();
 		debugFont->print(700, 60, L"posY = %f", m_enemy->GetPosition().y);
@@ -163,11 +153,8 @@ void AIController::Render()
 		debugFont->print(700, 90, L"posZ = %f", m_enemy->GetPosition().z);
 		debugFont->draw();
 
-
-
-		
 		m_charaState->Render();
-		m_aiManager[AiType::NEURALNETWORK]->Render();
+		m_neuralNetworkManager->Render();
 	}
 
 }

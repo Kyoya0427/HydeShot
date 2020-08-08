@@ -155,8 +155,7 @@ bool CollisionManager::IsCollided(const BoxCollider* collider1, const RayCollide
 	bool b     = LineToAABB(collider1, collider2, &hit);
 	float dist = Vector3::Distance(collider2->GetPosA(), collider2->GetPosB());
 	
-	collider1->GetGameObject()->SetRaycastHit(hit);
-	collider2->GetGameObject()->SetRaycastHit(hit);
+	
 	
 	return b && 0 < hit.distFar && 0 < (dist - hit.distNear);
 }

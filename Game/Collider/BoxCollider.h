@@ -21,12 +21,12 @@ public:
 	bool IsCollided(const Collider*       collider) const override;
 	bool IsCollided(const SphereCollider* collider) const override;
 	bool IsCollided(const BoxCollider*    collider) const override;
-	bool IsCollided(const RayCollider* collider) const override;
+	bool IsCollided(const RayCollider*    collider) const override;
 
 public:
 	//サイズの取得と設定
-	void SetSize(const DirectX::SimpleMath::Vector3& size);
-	const DirectX::SimpleMath::Vector3& GetSize() const;
+	const DirectX::SimpleMath::Vector3& GetSize() const		   { return m_size; }
+	void SetSize(const DirectX::SimpleMath::Vector3& size) { m_size = size; }
 
 private:
 	//サイズ

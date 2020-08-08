@@ -21,18 +21,20 @@ public:
 
 public:
 	// 初期化関数
-	void Initialize(int x, int y);
+	void Initialize(const int x, const int y);
 	// 更新
 	void Update(const DX::StepTimer& timer) override;
 	// 描画関数
 	void Render() override;
 	//当たった後の処理
 	void OnCollision(GameObject* object) override;
+
+public:
 	// モデル設定関数
-	void SetModel(DirectX::Model* model);
+	void SetModel(DirectX::Model* model) { m_model = model; }
 
 private:
 	// モデルデータへのポインタ
-	DirectX::Model* m_model;
+	DirectX::Model*			m_model;
 
 };

@@ -27,8 +27,8 @@ public:
 
 private:
 	//ステイト操作するキャラクター
-	Character* m_chara;
+	Character*		m_chara;
 	//敵キャラクター
-	Character* m_enemy;
+	Character*		m_enemy;
 
 };

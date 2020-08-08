@@ -60,21 +60,3 @@ bool BoxCollider::IsCollided(const RayCollider* collider) const
 {
 	return CollisionManager::IsCollided(this, collider);
 }
-
-/// <summary>
-/// サイズを設定
-/// </summary>
-/// <param name="size"></param>
-void BoxCollider::SetSize(const DirectX::SimpleMath::Vector3& size)
-{
-	m_size = size;
-}
-
-/// <summary>
-/// サイズを取得
-/// </summary>
-/// <returns></returns>
-const DirectX::SimpleMath::Vector3& BoxCollider::GetSize() const
-{
-	return m_size;
-}

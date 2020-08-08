@@ -30,23 +30,25 @@ public:
 	void Update(const DX::StepTimer& timer) override;
 	// 描画関数
 	void Render() override;
-
+	//当たった後の処理
 	void OnCollision(GameObject* object) override;
-	// モデル設定関数
-	void SetModel(DirectX::Model* model);
+
+public:
 	//当たり判定のサイズを取得
-	DirectX::SimpleMath::Vector3 GetCollSize();
+	const DirectX::SimpleMath::Vector3& GetCollSize() const { return m_collSize; }
+	// モデル設定関数
+	void SetModel(DirectX::Model* model)                    { m_model = model; }
 
 private:
 	//テクスチャーハンドル
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_texture;
 	// モデルデータへのポインタ
-	DirectX::Model* m_model;
+	DirectX::Model*                                  m_model;
 	//当たり判定オブジェクト
-	std::unique_ptr<DirectX::GeometricPrimitive> m_boxCollider;
+	std::unique_ptr<DirectX::GeometricPrimitive>     m_boxCollider;
 	//当たり判定
-	std::unique_ptr<BoxCollider>  m_collider;
+	std::unique_ptr<BoxCollider>                     m_collider;
 	//当たり判定のサイズ
-	DirectX::SimpleMath::Vector3  m_collSize;
+	DirectX::SimpleMath::Vector3                     m_collSize;
 
 };

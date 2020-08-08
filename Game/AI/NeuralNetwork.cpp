@@ -1,5 +1,5 @@
 //======================================================
-// File Name	: NeuralNetworkLayer.cpp
+// File Name	: NeuralNetwork.cpp
 // Summary		: ニューラルネットワーク
 // Date			: 2020/6/12
 // Author		: Kyoya  Sakamoto

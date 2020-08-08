@@ -1,11 +1,10 @@
 //======================================================
-// File Name	: Rightward.h
+// File Name	: Rightward.cpp
 // Summary		: 右移動ステート
 // Date			: 2020/7/23
 // Author		: Kyoya  Sakamoto
 //======================================================
 #include "Rightward.h"
-
 
 #include <Game/Common/DebugFont.h>
 #include <Game/Common/GameContext.h>

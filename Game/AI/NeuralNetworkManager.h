@@ -8,11 +8,12 @@
 
 #include <vector>
 
-#include <Game/AI/Ai.h>
+#include <Game/CharaState/CharaStateID.h>
 
+class Character;
 class NeuralNetwork;
 
-class NeuralNetworkManager : public Ai
+class NeuralNetworkManager
 {
 public:
 	//外部出力データ
@@ -48,7 +49,7 @@ public:
 	//ニューラルネットワークの初期化
 	void InitializeNeuralNetwork();
 	//行動パターンを選択
-	CharaStateID BehaviorSelection() override;
+	CharaStateID BehaviorSelection();
 	//描画
 	void Render();
 	//左右判定

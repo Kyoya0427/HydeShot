@@ -24,7 +24,8 @@ public:
 	//•`‰æ
 	void Render() override;
 
-protected:
+private:
+	//Ž©‹@
 	Character* m_chara;
 
 };

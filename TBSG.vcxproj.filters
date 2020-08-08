@@ -325,9 +325,6 @@
     <ClInclude Include="Game\GameState\TitleState.h">
       <Filter>Game\GameState</Filter>
     </ClInclude>
-    <ClInclude Include="Game\GameObject\Flag.h">
-      <Filter>Game\GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="Game\GameObject\Floor.h">
       <Filter>Game\GameObject</Filter>
     </ClInclude>
@@ -343,13 +340,7 @@
     <ClInclude Include="Game\Collider\RayCollider.h">
       <Filter>Game\Collider</Filter>
     </ClInclude>
-    <ClInclude Include="Game\AI\RuleBased.h">
-      <Filter>Game\AI</Filter>
-    </ClInclude>
     <ClInclude Include="Game\AI\NeuralNetworkManager.h">
-      <Filter>Game\AI</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\AI\Ai.h">
       <Filter>Game\AI</Filter>
     </ClInclude>
     <ClInclude Include="Game\CharaState\CharaState.h">
@@ -471,9 +462,6 @@
     <ClCompile Include="Game\GameState\TitleState.cpp">
       <Filter>Game\GameState</Filter>
     </ClCompile>
-    <ClCompile Include="Game\GameObject\Flag.cpp">
-      <Filter>Game\GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="Game\GameObject\Floor.cpp">
       <Filter>Game\GameObject</Filter>
     </ClCompile>
@@ -488,9 +476,6 @@
     </ClCompile>
     <ClCompile Include="Game\Collider\RayCollider.cpp">
       <Filter>Game\Collider</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\AI\RuleBased.cpp">
-      <Filter>Game\AI</Filter>
     </ClCompile>
     <ClCompile Include="Game\AI\NeuralNetworkManager.cpp">
       <Filter>Game\AI</Filter>

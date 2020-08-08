@@ -76,19 +76,16 @@ void PlayState::Initialize()
 	m_isDebug = true;
 
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1,	    GameObject::ObjectTag::Wall);
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1,	    GameObject::ObjectTag::Flag_01);
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1,	    GameObject::ObjectTag::Bullet);
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1,	    GameObject::ObjectTag::Sight02);
 																		   
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2,	    GameObject::ObjectTag::Wall);
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2,	    GameObject::ObjectTag::Bullet);
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2,	    GameObject::ObjectTag::Flag_02);
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2,	    GameObject::ObjectTag::Sight01);
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2,	    GameObject::ObjectTag::Enemy1);
 																		   
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player,	    GameObject::ObjectTag::Wall);
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player,	    GameObject::ObjectTag::Bullet);
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player,	    GameObject::ObjectTag::Flag_02);
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player,	    GameObject::ObjectTag::Sight01);
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player,	    GameObject::ObjectTag::Enemy1);
 																		   

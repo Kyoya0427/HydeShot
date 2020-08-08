@@ -17,6 +17,7 @@ public:
 	Standing();
 	//デストラクタ
 	~Standing();
+
 public:
 	//初期化
 	void Initialize(Character* chara, Character* enemy) override;
@@ -26,7 +27,9 @@ public:
 	void Render() override;
 
 private:
-	Character*           m_chara;
-	Character*			 m_enemy;
+	//ステイト操作するキャラクター
+	Character*		m_chara;
+	//敵キャラクター
+	Character*		m_enemy;
 
 };

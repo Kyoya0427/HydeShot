@@ -19,7 +19,6 @@
 #include <Game\GameObject\ObjectManager.h>
 #include <Game\GameObject\GameObject.h>
 
-#include <Game/GameObject/Flag.h>
 
 using namespace std;
 using namespace DirectX;
@@ -162,25 +161,9 @@ void Stage::SetStageData()
 			case OBJECT_ID::ENEMY:	// “G‚Q
 				SetEnemyPos(i, j);
 				break;
-			
-			case OBJECT_ID::FLAG_01:
-			{
-				std::unique_ptr<Flag> flag = std::make_unique<Flag>(GameObject::ObjectTag::Flag_01);
-				m_flag[0] = flag.get();
-				GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(flag));
-				m_flag[0]->Initialize(i,j);
+
 			}
-				break;
-			
-			case OBJECT_ID::FLAG_02:
-			{
-				std::unique_ptr<Flag> flag = std::make_unique<Flag>(GameObject::ObjectTag::Flag_02);
-				m_flag[1] = flag.get();
-				GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(flag));
-				m_flag[1]->Initialize(i,j);
-			}
-				break;
-			}
+		
 		}
 	}
 }

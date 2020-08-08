@@ -50,40 +50,5 @@ void Camera::Initialize()
 	m_view       = Matrix::CreateLookAt(m_eye, m_target, up);
 }
 
-/// <summary>
-/// ビュー行列取得
-/// </summary>
-/// <returns></returns>
-DirectX::SimpleMath::Matrix Camera::GetView()
-{
-	return m_view;
-}
-
-/// <summary>
-/// 視点取得
-/// </summary>
-/// <returns></returns>
-DirectX::SimpleMath::Vector3 Camera::Geteye()
-{
-	return m_eye;
-}
-
-/// <summary>
-/// 注視点取得
-/// </summary>
-/// <returns></returns>
-DirectX::SimpleMath::Vector3 Camera::GetTarget()
-{
-	return m_target;
-}
-
-/// <summary>
-/// 射影行列取得
-/// </summary>
-/// <returns></returns>
-DirectX::SimpleMath::Matrix Camera::GetProjection()
-{
-	return m_projection;
-}
 
 

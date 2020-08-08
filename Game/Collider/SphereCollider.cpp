@@ -22,24 +22,6 @@ SphereCollider::SphereCollider(GameObject* owner, float radius)
 }
 
 /// <summary>
-/// 半径を設定
-/// </summary>
-/// <param name="radius"></param>
-void SphereCollider::SetRadius(float radius)
-{
-	m_radius = radius;
-}
-
-/// <summary>
-/// 半径取得
-/// </summary>
-/// <returns></returns>
-float SphereCollider::GetRadius() const
-{
-	return m_radius;
-}
-
-/// <summary>
 ///  衝突した
 /// </summary>
 /// <param name="collider">オブジェクト</param>

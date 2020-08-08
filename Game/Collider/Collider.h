@@ -8,7 +8,7 @@
 
 #include <DirectXTK/SimpleMath.h>
 
-#include <Game/Collider/RaycastHit.h>
+#include <Game/GameObject/GameObject.h>
 
 class GameObject;
 class SphereCollider;
@@ -36,19 +36,17 @@ public:
 
 public:
 	// 座標を取得
-	const DirectX::SimpleMath::Vector3 GetPosition() const;
+	const DirectX::SimpleMath::Vector3& GetPosition() const	{ return m_owner->GetPosition() + m_offset; }
 	 //差引勘定を取得
-	const DirectX::SimpleMath::Vector3 GetOffset() const;
+	const DirectX::SimpleMath::Vector3& GetOffset() const   { return m_offset;}
 	//オブジェクトを取得
-	GameObject* GetGameObject() const;
+	GameObject* GetGameObject()								{ return m_owner; }
 
 public:
 	//座標を設定
-	void SetPosition(DirectX::SimpleMath::Vector3& pos);
+	void SetPosition(const DirectX::SimpleMath::Vector3& pos)  { m_owner->SetPosition(pos); }
 	//差引勘定を設定
-	void SetOffset(const DirectX::SimpleMath::Vector3& offset);
-
-	void SetRaycastHit(RaycastHit hit);
+	void SetOffset(const DirectX::SimpleMath::Vector3& offset) { m_offset = offset; }
 
 protected:
 	//オブジェクト

@@ -1,5 +1,5 @@
 //======================================================
-// File Name	: LeftTurn.h
+// File Name	: LeftTurn.cpp	
 // Summary		: 左回転ステート
 // Date			: 2020/7/23
 // Author		: Kyoya  Sakamoto
@@ -34,7 +34,7 @@ LeftTurn::~LeftTurn()
 /// 初期化
 /// </summary>
 /// <param name="chara">ステイト操作するキャラクター</param>
-/// <param name="controller">コントローラー</param>
+/// <param name="controller">敵キャラクター</param>
 void LeftTurn::Initialize(Character* chara, Character* enemy)
 {
 	m_chara = chara;
