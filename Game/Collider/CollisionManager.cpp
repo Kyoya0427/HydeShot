@@ -132,7 +132,6 @@ void CollisionManager::AllowCollision(GameObject::ObjectTag groupName1, GameObje
 /// </summary>
 /// <param name="collider1">オブジェクト１</param>
 /// <param name="collider2">オブジェクト２</param>
-/// <returns></returns>
 bool CollisionManager::IsCollided(const SphereCollider* collider1, const SphereCollider* collider2)
 {
 	// 中心間の距離の平方を計算
@@ -148,16 +147,23 @@ bool CollisionManager::IsCollided(const SphereCollider* collider1, const SphereC
 /// </summary>
 /// <param name="collider1">オブジェクト１</param>
 /// <param name="collider2">オブジェクト２</param>
-/// <returns></returns>
 bool CollisionManager::IsCollided(const BoxCollider* collider1, const RayCollider* collider2)
 {
 	RaycastHit hit;
 	bool b     = LineToAABB(collider1, collider2, &hit);
 	float dist = Vector3::Distance(collider2->GetPosA(), collider2->GetPosB());
 	
-	
-	
 	return b && 0 < hit.distFar && 0 < (dist - hit.distNear);
+}
+
+/// <summary>
+/// 箱とレイの当たり判定
+/// </summary>
+/// <param name="collider1">オブジェクト１</param>
+/// <param name="collider2">オブジェクト２</param>
+bool CollisionManager::IsCollided(const RayCollider* collider1, const BoxCollider* collider2)
+{
+	return IsCollided(collider2, collider1);
 }
 
 /// <summary>
@@ -165,7 +171,6 @@ bool CollisionManager::IsCollided(const BoxCollider* collider1, const RayCollide
 /// </summary>
 /// <param name="collider1">オブジェクト１</param>
 /// <param name="collider2">オブジェクト２</param>
-/// <returns></returns>
 bool CollisionManager::IsCollided(const SphereCollider* collider1, const BoxCollider* collider2)
 {
 	float sq = SquareCalculation(collider1, collider2);
@@ -173,11 +178,20 @@ bool CollisionManager::IsCollided(const SphereCollider* collider1, const BoxColl
 }
 
 /// <summary>
+/// 箱と球の当たり判定
+/// </summary>
+/// <param name="collider1">オブジェクト１</param>
+/// <param name="collider2">オブジェクト２</param>
+bool CollisionManager::IsCollided(const BoxCollider* collider1, const SphereCollider* collider2)
+{
+	return IsCollided(collider2, collider1);
+}
+
+/// <summary>
 /// 球とレイの当たり判定
 /// </summary>
 /// <param name="collider1"></param>
 /// <param name="collider2"></param>
-/// <returns></returns>
 bool CollisionManager::IsCollided(const SphereCollider* collider1, const RayCollider* collider2)
 {
 	float s, t;
@@ -193,37 +207,15 @@ bool CollisionManager::IsCollided(const SphereCollider* collider1, const RayColl
 }
 
 /// <summary>
-/// 箱と球の当たり判定
-/// </summary>
-/// <param name="collider1">オブジェクト１</param>
-/// <param name="collider2">オブジェクト２</param>
-/// <returns></returns>
-bool CollisionManager::IsCollided(const BoxCollider* collider1, const SphereCollider* collider2)
-{
-	return IsCollided(collider2, collider1);
-}
-
-/// <summary>
 /// 球とレイの当たり判定
 /// </summary>
 /// <param name="collider1"></param>
 /// <param name="collider2"></param>
-/// <returns></returns>
 bool CollisionManager::IsCollided(const RayCollider* collider1, const SphereCollider* collider2)
 {
 	return IsCollided(collider2, collider1);
 }
 
-/// <summary>
-/// 箱とレイの当たり判定
-/// </summary>
-/// <param name="collider1">オブジェクト１</param>
-/// <param name="collider2">オブジェクト２</param>
-/// <returns></returns>
-bool CollisionManager::IsCollided(const RayCollider* collider1, const BoxCollider* collider2)
-{
-	return IsCollided(collider2, collider1);
-}
 
 bool CollisionManager::IsCollided(const RayCollider* collider1, const RayCollider* collider2)
 {
@@ -234,9 +226,8 @@ bool CollisionManager::IsCollided(const RayCollider* collider1, const RayCollide
 /// <summary>
 /// 箱と箱の当たり判定
 /// </summary>
-/// <param name="collider1"></param>
-/// <param name="collider2"></param>
-/// <returns></returns>
+/// <param name="collider1">オブジェクト１</param>
+/// <param name="collider2">オブジェクト２</param>
 bool CollisionManager::IsCollided(const BoxCollider* collider1, const BoxCollider* collider2)
 {
 	if (fabsf(collider1->GetPosition().x - collider2->GetPosition().x) > (collider1->GetSize().x + collider1->GetSize().x)) return false;
@@ -250,7 +241,6 @@ bool CollisionManager::IsCollided(const BoxCollider* collider1, const BoxCollide
 /// </summary>
 /// <param name="collider1">オブジェクト１</param>
 /// <param name="collider2">オブジェクト２</param>
-/// <returns></returns>
 float CollisionManager::SquareCalculation(const SphereCollider* collider1, const BoxCollider* collider2)
 {
 	float point[3] = { collider1->GetPosition().x, collider1->GetPosition().y, collider1->GetPosition().z };
@@ -406,5 +396,3 @@ bool CollisionManager::LineToAABB(const BoxCollider* collider1, const RayCollide
 	// 交差している
 	return true;
 }
-
-

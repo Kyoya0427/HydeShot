@@ -13,8 +13,6 @@
 #include <Game/GameObject/Floor.h>
 #include <Game/GameObject/Wall.h>
 
-
-
 class GameWindow;
 
 class Stage
@@ -55,36 +53,34 @@ public:
 	~Stage();
 
 public:
-	// 初期化関数
+	//初期化
 	void Initialize();
-
-	// 床タスク取得関数
+	//床タスク取得
 	int GetFloor(int x, int y);
-
-	// ステージデータの読み込み関数
+	//ステージデータの読み込み
 	bool LoadStageData(wchar_t* fname);
-
-	// ステージデータ初期化関数
+	//ステージデータ初期化
 	void SetStageData();
+	//初期座標を取得
+	const DirectX::SimpleMath::Vector2& GetPlayerPos() { return m_playerPos; }
+	const DirectX::SimpleMath::Vector2& GetEnemyPos() { return m_enemyPos; }
+	//初期座標を設定
+	void SetPlayerPos(int x, int y) { m_playerPos = DirectX::SimpleMath::Vector2((float)x, (float)y);}
+	void SetEnemyPos(int x, int y)  { m_enemyPos  = DirectX::SimpleMath::Vector2((float)x, (float)y);}
 
-
-	void SetPlayerPos(int x, int y);
-	void SetEnemyPos(int x, int y);
-
-	DirectX::SimpleMath::Vector2& GetPlayerPos();
-	DirectX::SimpleMath::Vector2& GetEnemyPos();
 private:
-	
-	Floor*     m_floor;
+	//床
+	Floor*     m_floor;	
+	//壁
 	Wall*      m_wall;
-
+	//プレイヤー初期座標
 	DirectX::SimpleMath::Vector2  m_playerPos;
+	//敵初期座標
 	DirectX::SimpleMath::Vector2  m_enemyPos;
-	
 	// 床のモデル
 	std::unique_ptr<DirectX::Model> m_floorModels[static_cast<int>(Map::NUM)];
 
 public:
-	// ステージデータ
+	//ステージデータ
 	StageData m_stageData;
 };

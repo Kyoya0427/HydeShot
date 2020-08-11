@@ -15,7 +15,9 @@
 class ResultState :public IGameState
 {
 public:
+	//コンストラクタ
 	ResultState();
+	//デストラクタ
 	virtual ~ResultState();
 
 public:
@@ -28,7 +30,12 @@ public:
 	//終了
 	void Finalize() override;
 
+public:
+	static bool		 m_isPlayerWin;
+
+
 private:
+	//キートラッカー
 	DirectX::Keyboard::KeyboardStateTracker          m_keyTracker;
 
 };

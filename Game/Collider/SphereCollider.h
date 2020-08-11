@@ -27,7 +27,7 @@ public:
 	//”¼Œa‚ğæ“¾
 	float GetRadius() const			  { return m_radius; }
 	//”¼Œa‚ğİ’è
-	void  SetRadius(float radius) { m_radius = radius; }
+	void  SetRadius(float radius)     { m_radius = radius; }
 
 private:
 	//”¼Œa

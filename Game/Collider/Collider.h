@@ -50,7 +50,7 @@ public:
 
 protected:
 	//オブジェクト
-	GameObject*                  m_owner;
+	GameObject*                         m_owner;
 	//差引勘定数値
-	DirectX::SimpleMath::Vector3 m_offset;
+	DirectX::SimpleMath::Vector3		m_offset;
 };

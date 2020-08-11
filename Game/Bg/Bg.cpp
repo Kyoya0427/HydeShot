@@ -65,6 +65,7 @@ void Bg::Initialize()
 /// <summary>
 /// 更新
 /// </summary>
+/// <param name="timer">タイマー</param>
 void Bg::Update(const DX::StepTimer& timer)
 {
 	timer;

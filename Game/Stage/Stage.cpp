@@ -19,20 +19,27 @@
 #include <Game\GameObject\ObjectManager.h>
 #include <Game\GameObject\GameObject.h>
 
-
-using namespace std;
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
+/// <summary>
+/// コンストラクタ
+/// </summary>
 Stage::Stage()
 	: m_stageData{0}
 {
 }
 
+/// <summary>
+/// デストラクタ
+/// </summary>
 Stage::~Stage()
 {
 }
 
+/// <summary>
+/// 初期化
+/// </summary>
 void Stage::Initialize()
 {
 	// モデルデータの読み込み
@@ -72,6 +79,12 @@ void Stage::Initialize()
 	}
 }
 
+/// <summary>
+/// 床タスク取得
+/// </summary>
+/// <param name="x">x座標</param>
+/// <param name="y">y座標</param>
+/// <returns></returns>
 int Stage::GetFloor(int x, int y)
 {
 	if (x >= 0 && x < STAGE_W && y >= 0 && y < STAGE_H)
@@ -81,6 +94,11 @@ int Stage::GetFloor(int x, int y)
 	return 0;
 }
 
+/// <summary>
+/// ステージデータの読み込み
+/// </summary>
+/// <param name="fname">ファイルネーム</param>
+/// <returns></returns>
 bool Stage::LoadStageData(wchar_t * fname)
 {
 	std::wstring str;
@@ -142,6 +160,9 @@ bool Stage::LoadStageData(wchar_t * fname)
 	return true;
 }
 
+/// <summary>
+/// ステージデータ初期化
+/// </summary>
 void Stage::SetStageData()
 {
 	//----- 各ゲームオブジェクトの生成 -----//
@@ -167,32 +188,3 @@ void Stage::SetStageData()
 		}
 	}
 }
-
-
-
-void Stage::SetPlayerPos(int x, int y)
-{
-	m_playerPos = Vector2((float)x, (float)y);
-}
-
-void Stage::SetEnemyPos(int x, int y)
-{
-	m_enemyPos = Vector2((float)x, (float)y);
-}
-
-DirectX::SimpleMath::Vector2& Stage::GetPlayerPos()
-{
-	
-	return m_playerPos;
-}
-
-DirectX::SimpleMath::Vector2& Stage::GetEnemyPos()
-{
-	return m_enemyPos;
-}
-
-
-
-
-
-

@@ -22,11 +22,11 @@ public:
 
 public:
 	// ビュー行列取得
-	const DirectX::SimpleMath::Matrix& GetView() { return m_view; }
+	const DirectX::SimpleMath::Matrix& GetView()       { return m_view; }
 	// 視点取得
-	const DirectX::SimpleMath::Vector3& Geteye() { return m_eye; }
+	const DirectX::SimpleMath::Vector3& Geteye()       { return m_eye; }
 	// 注視点取得
-	const DirectX::SimpleMath::Vector3& GetTarget() { return m_target; }
+	const DirectX::SimpleMath::Vector3& GetTarget()    { return m_target; }
 	//射影行列取得
 	const DirectX::SimpleMath::Matrix& GetProjection() { return m_projection; }
 

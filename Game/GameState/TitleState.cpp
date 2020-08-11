@@ -28,14 +28,14 @@ TitleState::~TitleState()
 }
 
 /// <summary>
-/// イニシャライズ
+/// 初期化
 /// </summary>
 void TitleState::Initialize()
 {
 }
 
 /// <summary>
-///アップデート 
+///　更新
 /// </summary>
 /// <param name="elapsedTime">タイマー</param>
 void TitleState::Update(const DX::StepTimer& timer)

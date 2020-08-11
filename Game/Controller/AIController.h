@@ -22,7 +22,6 @@ class AIController : public  CharacterController
 public:
 	enum class AiType
 	{
-		RULEBASED,
 		NEURALNETWORK,
 	
 		NUM
@@ -42,11 +41,11 @@ public:
 
 public:
 	//攻撃にステイトを変更
-	void ChangeAttackState();
+	void ChangeAttackState()    { m_charaState = static_cast<CharaState*>(m_attack.get());}
 	//サーチにステイトを変更
-	void ChangeSearchState();
+	void ChangeSearchState()    { m_charaState = static_cast<CharaState*>(m_search.get()); }
 	//壁回避にステイトを変更
-	void ChangeWallAvoidState();
+	void ChangeWallAvoidState() { m_charaState = static_cast<CharaState*>(m_wallAvoid.get()); }
 
 public:
 	//移動速度
@@ -64,7 +63,7 @@ public:
 
 private:
 	//敵キャラ
-	Character* m_enemy;
+	Character*                              m_enemy;
 	//ニューラルネットワーク
 	std::unique_ptr<NeuralNetworkManager>   m_neuralNetworkManager;
 	//ステイト変更インターバル

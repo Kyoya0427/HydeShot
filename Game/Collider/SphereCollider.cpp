@@ -25,7 +25,6 @@ SphereCollider::SphereCollider(GameObject* owner, float radius)
 ///  衝突した
 /// </summary>
 /// <param name="collider">オブジェクト</param>
-/// <returns></returns>
 bool SphereCollider::IsCollided(const Collider* collider) const
 {
 	return collider->IsCollided(this);
@@ -35,7 +34,6 @@ bool SphereCollider::IsCollided(const Collider* collider) const
 ///  衝突した
 /// </summary>
 /// <param name="collider">オブジェクト</param>
-/// <returns></returns>
 bool SphereCollider::IsCollided(const SphereCollider* collider) const
 {
 	return CollisionManager::IsCollided(this, collider);
@@ -45,7 +43,6 @@ bool SphereCollider::IsCollided(const SphereCollider* collider) const
 ///  衝突した
 /// </summary>
 /// <param name="collider">オブジェクト</param>
-/// <returns></returns>
 bool SphereCollider::IsCollided(const BoxCollider* collider) const
 {
 	return CollisionManager::IsCollided(this, collider);
@@ -55,7 +52,6 @@ bool SphereCollider::IsCollided(const BoxCollider* collider) const
 ///  衝突した
 /// </summary>
 /// <param name="collider">オブジェクト</param>
-/// <returns></returns>
 bool SphereCollider::IsCollided(const RayCollider* collider) const
 {
 	return CollisionManager::IsCollided(this, collider);

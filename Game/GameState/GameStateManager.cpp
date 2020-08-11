@@ -101,7 +101,7 @@ void GameStateManager::PushState(const GameState id)
 /// <summary>
 /// 追加ステイトを消去
 /// </summary>
-/// <param name="count"></param>
+/// <param name="count">カウント</param>
 void GameStateManager::PopState(int count)
 {
 	assert(count > 0 && "Count is invalid.");

@@ -26,7 +26,6 @@ RayCollider::RayCollider(GameObject* owner)
 ///  衝突した
 /// </summary>
 /// <param name="collider">オブジェクト</param>
-/// <returns></returns>
 bool RayCollider::IsCollided(const Collider* collider) const
 {
 	return collider->IsCollided(this);
@@ -36,7 +35,6 @@ bool RayCollider::IsCollided(const Collider* collider) const
 ///  衝突した
 /// </summary>
 /// <param name="collider">オブジェクト</param>
-/// <returns></returns>
 bool RayCollider::IsCollided(const SphereCollider* collider) const
 {
 	return CollisionManager::IsCollided(this, collider);
@@ -46,7 +44,6 @@ bool RayCollider::IsCollided(const SphereCollider* collider) const
 ///  衝突した
 /// </summary>
 /// <param name="collider">オブジェクト</param>
-/// <returns></returns>
 bool RayCollider::IsCollided(const BoxCollider* collider) const
 {
 	return  CollisionManager::IsCollided(this, collider);
@@ -56,7 +53,6 @@ bool RayCollider::IsCollided(const BoxCollider* collider) const
 ///  衝突した
 /// </summary>
 /// <param name="collider">オブジェクト</param>
-/// <returns></returns>
 bool RayCollider::IsCollided(const RayCollider* collider) const
 {
 	return CollisionManager::IsCollided(this, collider);

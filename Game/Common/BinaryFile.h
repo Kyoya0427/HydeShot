@@ -13,7 +13,7 @@ class BinaryFile
 public:
 	//コンストラクタ
 	BinaryFile();
-	// ムーブコンストラクタ
+	//ムーブコンストラクタ
 	BinaryFile(BinaryFile&& in);
 
 public:

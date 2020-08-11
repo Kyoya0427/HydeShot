@@ -13,8 +13,6 @@
 #include <math.h>
 #include <stdio.h>
 
-
-
 /// <summary>
 /// コンストラクタ
 /// </summary>
@@ -47,7 +45,7 @@ NeuralNetworkLayer::NeuralNetworkLayer()
 void NeuralNetworkLayer::Initialize(int NumNodes, NeuralNetworkLayer* parent, NeuralNetworkLayer* child)
 {
 	NumNodes;
-	// Allocate memory
+	//メモリを割り当てる
 	m_neuronValues  = (float*)malloc(sizeof(float) * m_numNodes);
 	m_desiredValues = (float*)malloc(sizeof(float) * m_numNodes);
 	m_errors        = (float*)malloc(sizeof(float) * m_numNodes);
@@ -79,7 +77,7 @@ void NeuralNetworkLayer::Initialize(int NumNodes, NeuralNetworkLayer* parent, Ne
 		m_biasWeights = NULL;
 	}
 
-	// Make sure everything contains zeros
+	//すべてにゼロが含まれていることを確認
 	for (int i = 0; i < m_numNodes; i++) 
 	{
 		m_neuronValues[i]  = 0;
@@ -311,7 +309,7 @@ void NeuralNetwork::SetInput(int i, float value)
 /// 出力値
 /// </summary>
 /// <param name="i">指数</param>
-/// <returns></returns>
+/// <returns>出力データ</returns>
 float NeuralNetwork::GetOutput(int i)
 {
 	if ((i >= 0) && (i < m_outputLayer.m_numNodes))
@@ -324,8 +322,8 @@ float NeuralNetwork::GetOutput(int i)
 /// <summary>
 /// 望ましい値を設定
 /// </summary>
-/// <param name="i"></param>
-/// <param name="value"></param>
+/// <param name="i">要素番号</param>
+/// <param name="value">値</param>
 void NeuralNetwork::SetDesiredOutput(int i, float value)
 {
 	if ((i >= 0) && (i < m_outputLayer.m_numNodes)) 
@@ -379,7 +377,7 @@ int	NeuralNetwork::GetMaxOutputID()
 /// <summary>
 /// 出力値と望ましい値の集合に関係するエラー
 /// </summary>
-/// <returns><エラーを返す/returns>
+/// <returns>エラーを返す</returns>
 float NeuralNetwork::CalculateError()
 {
 	float	error = 0.0;
@@ -406,7 +404,7 @@ void NeuralNetwork::SetLearningRate(float rate)
 /// <summary>
 /// 線形活性化関数を使うか設定
 /// </summary>
-/// <param name="useLinear"></param>
+/// <param name="useLinear">trueで使う</param>
 void NeuralNetwork::SetLinearOutput(bool linear)
 {
 	m_inputLayer.m_linearOutput  = linear;
@@ -417,8 +415,8 @@ void NeuralNetwork::SetLinearOutput(bool linear)
 /// <summary>
 /// モーメントを使うかと前述モーメンタム因数を設定
 /// </summary>
-/// <param name="m_useMomentum"></param>
-/// <param name="factor"></param>
+/// <param name="m_useMomentum">trueで使う</param>
+/// <param name="factor">因子</param>
 void NeuralNetwork::SetMomentum(bool momentum, float factor)
 {
 	m_inputLayer.m_useMomentum     = momentum;
@@ -433,7 +431,7 @@ void NeuralNetwork::SetMomentum(bool momentum, float factor)
 /// <summary>
 /// データを出力
 /// </summary>
-/// <param name="filename"></param>
+/// <param name="filename">ファイルネーム</param>
 void NeuralNetwork::DumpData(char* filename)
 {
 	FILE* f;
@@ -494,4 +492,3 @@ void NeuralNetwork::DumpData(char* filename)
 
 	fclose(f);
 }
-

@@ -28,8 +28,8 @@ public:
 	void Finalize() override;
 
 private:
+	//キートラッカー
 	DirectX::Keyboard::KeyboardStateTracker          m_keyTracker;
-
 
 };
 

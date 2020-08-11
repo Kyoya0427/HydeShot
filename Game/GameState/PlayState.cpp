@@ -76,11 +76,11 @@ void PlayState::Initialize()
 	m_isDebug = true;
 
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1,	    GameObject::ObjectTag::Wall);
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1,	    GameObject::ObjectTag::Bullet);
+//	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1,	    GameObject::ObjectTag::Bullet);
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1,	    GameObject::ObjectTag::Sight02);
 																		   
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2,	    GameObject::ObjectTag::Wall);
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2,	    GameObject::ObjectTag::Bullet);
+//	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2,	    GameObject::ObjectTag::Bullet);
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2,	    GameObject::ObjectTag::Sight01);
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2,	    GameObject::ObjectTag::Enemy1);
 																		   
@@ -98,7 +98,7 @@ void PlayState::Initialize()
 	//ステージを生成
 	m_stage = std::make_unique<Stage>();
 	// ステージデータの読み込み
-	m_stage->LoadStageData(L"Resources\\CSV\\Stage01.csv");
+	m_stage->LoadStageData(L"Resources\\CSV\\Stage02.csv");
 	// ステージデータの設定
 	m_stage->SetStageData();
 	m_stage->Initialize();

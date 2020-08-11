@@ -22,6 +22,8 @@ using namespace DirectX::SimpleMath;
 /// <summary>
 /// コンストラクタ
 /// </summary>
+/// <param name="chara">ステイト操作するキャラクター</param>
+/// <param name="enemy">敵キャラクター</param>
 NeuralNetworkManager::NeuralNetworkManager(Character* character, Character* enemy)
 	: m_isDirectionLeft()
 	, m_isDirectionRight()
@@ -138,10 +140,9 @@ void NeuralNetworkManager::InitializeNeuralNetwork()
 /// <returns>行動パターン</returns>
 CharaStateID NeuralNetworkManager::BehaviorSelection()
 {
-	
 	//距離計算
 	float distance = Vector3::Distance(m_character->GetPosition(), m_enemy->GetPosition());
-	m_distance = distance;
+	m_distance     = distance;
 	//左右判定
 	SearchDirection(m_character, m_enemy);
 	//距離

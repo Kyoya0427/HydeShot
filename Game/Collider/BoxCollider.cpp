@@ -25,7 +25,6 @@ BoxCollider::BoxCollider(GameObject* owner, const DirectX::SimpleMath::Vector3& 
 ///  衝突した
 /// </summary>
 /// <param name="collider">オブジェクト</param>
-/// <returns></returns>
 bool BoxCollider::IsCollided(const Collider* collider) const
 {
 	return collider->IsCollided(this);
@@ -35,7 +34,6 @@ bool BoxCollider::IsCollided(const Collider* collider) const
 ///  衝突した
 /// </summary>
 /// <param name="collider">オブジェクト</param>
-/// <returns></returns>
 bool BoxCollider::IsCollided(const SphereCollider* collider) const
 {
 	return CollisionManager::IsCollided(this, collider);
@@ -45,7 +43,6 @@ bool BoxCollider::IsCollided(const SphereCollider* collider) const
 ///  衝突した
 /// </summary>
 /// <param name="collider">オブジェクト</param>
-/// <returns></returns>
 bool BoxCollider::IsCollided(const BoxCollider* collider) const
 {
 	return CollisionManager::IsCollided(this, collider);
@@ -55,7 +52,6 @@ bool BoxCollider::IsCollided(const BoxCollider* collider) const
 ///  衝突した
 /// </summary>
 /// <param name="collider">オブジェクト</param>
-/// <returns></returns>
 bool BoxCollider::IsCollided(const RayCollider* collider) const
 {
 	return CollisionManager::IsCollided(this, collider);

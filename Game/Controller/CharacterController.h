@@ -27,14 +27,6 @@ public:
 	//キャラを取得
 	Character* GetCharacter();
 
-public:
-	//攻撃にステイトを変更
-	void ChangeAttackState();
-	//サーチにステイトを変更
-	void ChangeSearchState();
-	//壁回避にステイトを変更
-	void ChangeWallAvoidState();
-
 protected:
 	//操作するオブジェクト
 	Character*                   m_character;

@@ -26,7 +26,7 @@ public:
 public:
 	//サイズの取得と設定
 	const DirectX::SimpleMath::Vector3& GetSize() const		   { return m_size; }
-	void SetSize(const DirectX::SimpleMath::Vector3& size) { m_size = size; }
+	void SetSize(const DirectX::SimpleMath::Vector3& size)     { m_size = size; }
 
 private:
 	//サイズ

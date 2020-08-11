@@ -11,13 +11,15 @@
 #include <Game\Common\DebugFont.h>
 #include <Game\Common\GameContext.h>
 
+bool  ResultState::m_isPlayerWin = false;
+
 /// <summary>
 /// コンストラクタ
 /// </summary>
 ResultState::ResultState()
-	:IGameState()
-
+	: IGameState()
 {
+	
 }
 
 /// <summary>
@@ -28,7 +30,7 @@ ResultState::~ResultState()
 }
 
 /// <summary>
-/// イニシャライズ
+/// 初期化
 /// </summary>
 void ResultState::Initialize()
 {
@@ -36,7 +38,7 @@ void ResultState::Initialize()
 }
 
 /// <summary>
-/// デストラクタ
+/// 更新
 /// </summary>
 /// <param name="elapsedTime">タイマー</param>
 void ResultState::Update(const DX::StepTimer& timer)
@@ -53,7 +55,7 @@ void ResultState::Update(const DX::StepTimer& timer)
 }
 
 /// <summary>
-///描画
+/// 描画
 /// </summary>
 void ResultState::Render()
 {
@@ -62,10 +64,24 @@ void ResultState::Render()
 	debugFont->draw();
 	debugFont->print(100, 100, L"Z Key");
 	debugFont->draw();
+
+	if (m_isPlayerWin)
+	{
+		debugFont->print(500, 500, L"Player Win");
+		debugFont->draw();
+	}
+	else
+	{
+		debugFont->print(500, 500, L"Enemy Win");
+		debugFont->draw();
+	}
+
+
 }
 
+
 /// <summary>
-/// ファイナライズ
+/// 終了
 /// </summary>
 void ResultState::Finalize()
 {

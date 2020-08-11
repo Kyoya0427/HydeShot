@@ -35,6 +35,7 @@ const float AIController::STATE_INTERVAL = 0.05f;
 /// コンストラクタ
 /// </summary>
 /// <param name="character">コントロールするオブジェクト</param>
+/// <param name="enemy">敵キャラクター</param>
 AIController::AIController(Character* character, Character* enemy)
 	: CharacterController(character)
 	, m_neuralNetworkManager()
@@ -79,9 +80,9 @@ AIController::~AIController()
 }
 
 /// <summary>
-///　更新	
+/// 更新	
 /// </summary>
-/// <param name="timer"></param>
+/// <param name="timer">タイマー</param>
 void AIController::Update(const DX::StepTimer& timer)
 {
 	//カウントダウン
@@ -113,30 +114,12 @@ void AIController::Update(const DX::StepTimer& timer)
 		break;
 	}
 
+	m_charaState->Update(timer);	
 
-
-
-	m_charaState->Update(timer);
-
-	Keyboard::State keyState = Keyboard::Get().GetState();
-
-	if (keyState.IsKeyDown(Keyboard::Keys::F1))
-	{
-		ChangeAttackState();
-	}
-	if (keyState.IsKeyDown(Keyboard::Keys::F2))
-	{
-		ChangeSearchState();
-	}
-	if (keyState.IsKeyDown(Keyboard::Keys::F3))
-	{
-		ChangeWallAvoidState();
-	}
-	
 }
 
 /// <summary>
-/// デバック
+/// 描画
 /// </summary>
 void AIController::Render()
 {
@@ -157,30 +140,4 @@ void AIController::Render()
 		m_neuralNetworkManager->Render();
 	}
 
-}
-
-
-/// <summary>
-/// 攻撃にステイトを変更
-/// </summary>
-void AIController::ChangeAttackState()
-{
-	
-	m_charaState = static_cast<CharaState*>(m_attack.get());
-}
-
-/// <summary>
-/// サーチにステイトを変更
-/// </summary>
-void AIController::ChangeSearchState()
-{
-	m_charaState = static_cast<CharaState*>(m_search.get());
-}
-
-/// <summary>
-/// 壁回避にステイトを変更
-/// </summary>
-void AIController::ChangeWallAvoidState()
-{
-	m_charaState = static_cast<CharaState*>(m_wallAvoid.get());
 }

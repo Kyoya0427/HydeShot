@@ -22,6 +22,7 @@
 			  
 #include <Game/GameState/GameStateManager.h>
 #include <Game/GameState/PlayState.h>
+#include <Game/GameState/ResultState.h>
 
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
@@ -107,6 +108,18 @@ void Character::Update(const DX::StepTimer & timer)
 	m_sight->Update(timer);
 	m_wallApproach->Update(timer);
 	m_wallApproachVel->Update(timer);
+
+	if (m_hp <= 0)
+	{
+		if (GetTag() == GameObject::ObjectTag::Player)
+			ResultState::m_isPlayerWin = false;
+		else
+			ResultState::m_isPlayerWin = true;;
+		Destroy(this);
+		using State = GameStateManager::GameState;
+		GameStateManager* gameStateManager = GameContext().Get<GameStateManager>();
+		gameStateManager->RequestState(State::RESULT_STATE);
+	}
 }
 
 /// <summary>
@@ -133,6 +146,20 @@ void Character::Render()
 	m_sight->Render();
 	m_wallApproach->Render();
 	m_wallApproachVel->Render();
+
+	if (GetTag() == GameObject::ObjectTag::Player)
+	{
+		DebugFont* debugFont = DebugFont::GetInstance();
+		debugFont->print(10, 500, L"hpP = %d", m_hp);
+		debugFont->draw();
+	}
+	if (GetTag() == GameObject::ObjectTag::Enemy1)
+	{
+		DebugFont* debugFont = DebugFont::GetInstance();
+		debugFont->print(10, 520, L"hpE = %d", m_hp);
+		debugFont->draw();
+	}
+
 }
 /// <summary>
 /// ìñÇΩÇ¡ÇΩå„ÇÃèàóù
@@ -155,15 +182,6 @@ void Character::OnCollision(GameObject* object)
 			m_hp -= 1;
 		}
 	}
-
-	if (m_hp <= 0)
-	{
-		Destroy(this);
-		using State = GameStateManager::GameState;
-		GameStateManager* gameStateManager = GameContext().Get<GameStateManager>();
-		gameStateManager->RequestState(State::RESULT_STATE);
-	}
-
 }
 
 /// <summary>

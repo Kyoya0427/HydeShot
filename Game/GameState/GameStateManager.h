@@ -53,25 +53,33 @@ public:
 	void Render();
 
 public:
-
+	//始めのステイトの初期設定
+	void SetStartState(const GameState id);
+	//ステイトを登録
 	template<typename State>
 	void RegisterState(const GameState id);
-	void SetStartState(const GameState id);
+	//次のステイトの設定
 	void RequestState(const GameState id);
+	//既存ステイトにステイトを追加
 	void PushState(const GameState id);
+	//追加ステイトを消去
 	void PopState(int count = 1);
 
 private:
+	//ステイトを変更
 	void ChangeState();
 
 private:
+	//使用するステートのリスト
 	IGameStateFactoryList m_stateFactories;
+	//現在のステート
 	IGameStateStack       m_states;
+	//ステートの数
 	int                   m_popCount;
+	//次のステート登録
 	GameState             m_nextStateName;
 
 };
-
 
 template<typename State>
 /// <summary>
@@ -83,13 +91,11 @@ template<typename State>
 	return std::make_unique<State>();
 }
 
-
-
 template<typename State>
 /// <summary>
 ///  ステイトを登録
 /// </summary>
-/// <param name="id"></param>
+/// <param name="id">ステイトID</param>
  void GameStateManager::RegisterState(const GameState id)
 {
 	 m_stateFactories.emplace(std::make_pair(id, CrateState<State>));

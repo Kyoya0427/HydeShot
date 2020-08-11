@@ -25,10 +25,8 @@ Collider::Collider(GameObject* owner)
 /// 衝突した
 /// </summary>
 /// <param name="collider">オブジェクト</param>
-/// <returns></returns>
 bool Collider::IsCollided(const SphereCollider* collider) const
 {
-	assert(false && "This collision detection is not implemented.");
 	collider;
 	return false;
 }
@@ -37,10 +35,8 @@ bool Collider::IsCollided(const SphereCollider* collider) const
 /// 衝突した
 /// </summary>
 /// <param name="collider">オブジェクト</param>
-/// <returns></returns>
 bool Collider::IsCollided(const BoxCollider* collider) const
 {
-	assert(false && "This collision detection is not implemented.");
 	collider;
 
 	return false;
@@ -50,19 +46,17 @@ bool Collider::IsCollided(const BoxCollider* collider) const
 /// 衝突した
 /// </summary>
 /// <param name="collider">オブジェクト</param>
-/// <returns></returns>
 bool Collider::IsCollided(const RayCollider* collider) const
 {
-	assert(false && "This collision detection is not implemented.");
 	collider;
 
 	return false;
 }
 
 /// <summary>
-///  当たった後の処理
+/// 当たった後の処理
 /// </summary>
-/// <param name="object">a</param>
+/// <param name="object">当たったオブジェクト</param>
 void Collider::OnCollision(const Collider* object) const
 {
 	m_owner->OnCollision(object->m_owner);

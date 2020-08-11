@@ -25,8 +25,8 @@ public:
 
 public:
 	//始点と終点を取得
-	const DirectX::SimpleMath::Vector3& GetPosA() const{ return m_posA; }
-	const DirectX::SimpleMath::Vector3& GetPosB() const{ return m_posB; }
+	const DirectX::SimpleMath::Vector3& GetPosA() const    { return m_posA; }
+	const DirectX::SimpleMath::Vector3& GetPosB() const    { return m_posB; }
 	void SetPosA(const DirectX::SimpleMath::Vector3& posA) { m_posA = posA; }
 	void SetPosB(const DirectX::SimpleMath::Vector3& posB) { m_posB = posB; }
 
@@ -35,4 +35,5 @@ private:
 	DirectX::SimpleMath::Vector3 m_posA;
 	//終点
 	DirectX::SimpleMath::Vector3 m_posB;
+
 };

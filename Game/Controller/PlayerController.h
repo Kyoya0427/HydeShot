@@ -32,7 +32,4 @@ public:
 	//ショットインターバル
 	static const float  SHOT_INTERVAL;
 
-
-
-
 };
