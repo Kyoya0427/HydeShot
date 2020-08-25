@@ -10,6 +10,9 @@
 
 #include <Game/CharaState/Search.h>
 
+using namespace DirectX;
+using namespace DirectX::SimpleMath;
+
 /// <summary>
 /// コンストラクタ
 /// </summary>
@@ -52,6 +55,6 @@ void Standing::Update(const DX::StepTimer& timer)
 void Standing::Render()
 {
 	DebugFont* debugFont = DebugFont::GetInstance();
-	debugFont->print(10, 80, L"Standing");
+	debugFont->print(10, 80, static_cast<Color>(Colors::White), 1.0f, L"Standing");
 	debugFont->draw();
 }

@@ -388,6 +388,12 @@
     <ClInclude Include="Game\GameObject\WallApproachVelID.h">
       <Filter>Game\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Bg\TitleBg.h">
+      <Filter>Game\Bg</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\UI\Button.h">
+      <Filter>Game\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game\Common\DebugFont.cpp">
@@ -512,6 +518,12 @@
     </ClCompile>
     <ClCompile Include="Game\CharaState\Attack.cpp">
       <Filter>Game\CharaState</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Bg\TitleBg.cpp">
+      <Filter>Game\Bg</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\UI\Button.cpp">
+      <Filter>Game\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

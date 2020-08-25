@@ -11,6 +11,9 @@
 
 #include <Game/Controller/AIController.h>
 
+using namespace DirectX;
+using namespace DirectX::SimpleMath;
+
 /// <summary>
 /// コンストラクタ
 /// </summary>
@@ -46,6 +49,6 @@ void Attack::Update(const DX::StepTimer& timer)
 void Attack::Render()
 {
 	DebugFont* debugFont = DebugFont::GetInstance();
-	debugFont->print(10, 50, L"Attack");
+	debugFont->print(10, 50, static_cast<Color>(Colors::White), 1.0f, L"Attack");
 	debugFont->draw();
 }

@@ -109,7 +109,7 @@ void WallAvoid::Update(const DX::StepTimer& timer)
 void WallAvoid::Render()
 {
 	DebugFont* debugFont = DebugFont::GetInstance();
-	debugFont->print(10, 50, L"WallAvoid");
+	debugFont->print(10, 50, static_cast<Color>(Colors::White), 1.0f, L"WallAvoid");
 	debugFont->draw();
 
 	//現在のステートの描画

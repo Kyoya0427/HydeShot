@@ -87,8 +87,9 @@ void WallApproach::Render()
 	Quaternion rot    = Quaternion::CreateFromAxisAngle(Vector3::UnitY, m_chara->GetRadiansY() + m_offsetAngle);
 	Matrix rotMat     = Matrix::CreateFromQuaternion(rot);
 	Matrix transMat   = Matrix::CreateTranslation(m_position);
+	Matrix offset = Matrix::CreateTranslation(Vector3(0.0f, 0.0f, -m_size.z / 2));
 
-	m_world  = rotMat * transMat;
+	m_world  = offset * rotMat * transMat;
 	
 	if (PlayState::m_isDebug)
 	{

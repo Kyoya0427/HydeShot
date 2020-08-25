@@ -89,7 +89,7 @@ void Character::Initialize(const DirectX::SimpleMath::Vector2 & pos)
 /// 更新
 /// </summary>
 /// <param name="timer">タイマー</param>
-void Character::Update(const DX::StepTimer & timer)
+void Character::Update(const DX::StepTimer& timer)
 {
 	timer;
 	m_isWallContact = false;
@@ -150,13 +150,13 @@ void Character::Render()
 	if (GetTag() == GameObject::ObjectTag::Player)
 	{
 		DebugFont* debugFont = DebugFont::GetInstance();
-		debugFont->print(10, 500, L"hpP = %d", m_hp);
+		debugFont->print(10, 500, static_cast<Color>(Colors::White), 1.0f, L"hpP = %d", m_hp);
 		debugFont->draw();
 	}
 	if (GetTag() == GameObject::ObjectTag::Enemy1)
 	{
 		DebugFont* debugFont = DebugFont::GetInstance();
-		debugFont->print(10, 520, L"hpE = %d", m_hp);
+		debugFont->print(10, 520, static_cast<Color>(Colors::White), 1.0f, L"hpE = %d", m_hp);
 		debugFont->draw();
 	}
 

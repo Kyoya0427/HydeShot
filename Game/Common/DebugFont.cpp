@@ -14,12 +14,17 @@ std::unique_ptr<DebugFont> DebugFont::m_pInstance = nullptr;
 DebugFont DebugFont::m_instance;
 #endif
 
+using namespace DirectX;
+using namespace DirectX::SimpleMath;
+
 /// <summary>
 /// コンストラクタ
 /// </summary>
 DebugFont::DebugFont()
 	: m_pos(0, 0)
+	, m_color()
 	, m_string(nullptr)
+	, m_fontSize()
 {
 	m_string = new wchar_t[STRING_SIZE_MAX];
 }
@@ -49,7 +54,7 @@ void DebugFont::create(ID3D11Device1* device, ID3D11DeviceContext1* context)
 void DebugFont::draw()
 {
 	m_spriteBatch->Begin();
-	m_spriteFont->DrawString(m_spriteBatch.get(), m_string, m_pos);
+	m_spriteFont->DrawString(m_spriteBatch.get(), m_string, m_pos, m_color, 0.0f, Vector2::Zero, m_fontSize);
 	m_spriteBatch->End();
 }
 
@@ -65,14 +70,12 @@ void DebugFont::reset()
 /// <summary>
 /// 表示情報登録
 /// </summary>
-/// <param name="posX"></param>
-/// <param name="posY"></param>
-/// <param name="format"></param>
-/// <param name=""></param>
-void DebugFont::print(float posX, float posY, wchar_t const * const format, ...)
+void DebugFont::print(float posX, float posY, DirectX::SimpleMath::Color color, float fontSize, wchar_t const* const format, ...)
 {
 	m_pos.x = posX;
 	m_pos.y = posY;
+	m_color = color;
+	m_fontSize = fontSize;
 	va_list arg_ptr;
 	va_start(arg_ptr, format);
 	vswprintf(m_string, STRING_SIZE_MAX, format, arg_ptr);
@@ -82,12 +85,11 @@ void DebugFont::print(float posX, float posY, wchar_t const * const format, ...)
 /// <summary>
 /// 表示情報登録（Vector2版）
 /// </summary>
-/// <param name="pos"></param>
-/// <param name="format"></param>
-/// <param name=""></param>
-void DebugFont::print(DirectX::SimpleMath::Vector2 pos, wchar_t const * const format, ...)
+void DebugFont::print(const DirectX::SimpleMath::Vector2& pos, DirectX::SimpleMath::Color color, float fontSize, wchar_t const* const format, ...)
 {
 	m_pos = pos;
+	m_color = color;
+	m_color = color;
 	va_list arg_ptr;
 	va_start(arg_ptr, format);
 	vswprintf(m_string, STRING_SIZE_MAX, format, arg_ptr);

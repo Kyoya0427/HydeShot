@@ -13,6 +13,9 @@
 
 #include <Game/GameObject/WallApproach.h>
 
+using namespace DirectX;
+using namespace DirectX::SimpleMath;
+
 /// <summary>
 /// コンストラクタ
 /// </summary>
@@ -57,6 +60,6 @@ void RightTurn::Update(const DX::StepTimer& timer)
 void RightTurn::Render()
 {
 	DebugFont* debugFont = DebugFont::GetInstance();
-	debugFont->print(10, 80, L"RightTurn");
+	debugFont->print(10, 80, static_cast<Color>(Colors::White), 1.0f, L"RightTurn");
 	debugFont->draw();
 }

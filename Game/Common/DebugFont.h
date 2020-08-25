@@ -35,8 +35,8 @@ public:
 	// リセット
 	void reset();
 	// 表示情報登録
-	void print(float posX, float posY, wchar_t const* const format, ...);
-	void print(DirectX::SimpleMath::Vector2 pos, wchar_t const* const format, ...);
+	void print(float posX, float posY, DirectX::SimpleMath::Color color, float fontSize, wchar_t const* const format, ...);
+	void print(const DirectX::SimpleMath::Vector2& pos, DirectX::SimpleMath::Color color, float fontSize, wchar_t const* const format, ...);
 #if DEBUG_FONT_SINGLETON_TYPE == 0
 public:
 	// オブジェクトへのポインタを返す
@@ -117,5 +117,6 @@ private:
 	std::unique_ptr<DirectX::SpriteFont>  m_spriteFont;
 	wchar_t*                              m_string;
 	DirectX::SimpleMath::Vector2          m_pos;
-
+	DirectX::SimpleMath::Color            m_color;
+	float                                 m_fontSize;
 };

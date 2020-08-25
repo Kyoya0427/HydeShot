@@ -13,6 +13,9 @@
 
 #include <Game\GameState\GameStateManager.h>
 
+using namespace DirectX;
+using namespace DirectX::SimpleMath;
+
 /// <summary>
 /// コンストラクタ
 /// </summary>
@@ -63,7 +66,7 @@ void PauseState::Update(const DX::StepTimer& timer)
 void PauseState::Render()
 {
 	DebugFont* debugFont = DebugFont::GetInstance();
-	debugFont->print(10, 10, L"PauseState");
+	debugFont->print(10, 10, static_cast<Color>(Colors::White), 1.0f, L"PauseState");
 	debugFont->draw();
 }
 

@@ -209,42 +209,42 @@ void NeuralNetworkManager::Render()
 {
 	DebugFont* debugFont = DebugFont::GetInstance();
 
-	debugFont->print(10, 190, L"error = %f%", m_error * 100);
+	debugFont->print(10, 190, static_cast<Color>(Colors::White), 1.0f, L"error = %f%", m_error * 100);
 	debugFont->draw();
 
-	debugFont->print(700, 250, L"dis = %f", m_distance / 18.0f);
+	debugFont->print(700, 250, static_cast<Color>(Colors::White), 1.0f, L"dis = %f", m_distance / 18.0f);
 	debugFont->draw();
 
 	if (m_isDirectionLeft)
 	{
-		debugFont->print(700, 280, L"left = true");
+		debugFont->print(700, 280, static_cast<Color>(Colors::White), 1.0f, L"left = true");
 		debugFont->draw();
 	}
 	else
 	{
-		debugFont->print(700, 280, L"left = false");
+		debugFont->print(700, 280, static_cast<Color>(Colors::White), 1.0f, L"left = false");
 		debugFont->draw();
 	}
 
 	if (m_isDirectionRight)
 	{
-		debugFont->print(700, 310, L"right = true");
+		debugFont->print(700, 310, static_cast<Color>(Colors::White), 1.0f, L"right = true");
 		debugFont->draw();
 	}
 	else
 	{
-		debugFont->print(700, 310, L"right = false");
+		debugFont->print(700, 310, static_cast<Color>(Colors::White), 1.0f, L"right = false");
 		debugFont->draw();
 	}
 
 	if (m_character->GetEnemySightContact())
 	{
-		debugFont->print(700, 340, L"shoot = true");
+		debugFont->print(700, 340, static_cast<Color>(Colors::White), 1.0f, L"shoot = true");
 		debugFont->draw();
 	}
 	else
 	{
-		debugFont->print(700, 340, L"shoot = false");
+		debugFont->print(700, 340, static_cast<Color>(Colors::White), 1.0f, L"shoot = false");
 		debugFont->draw();
 	}
 }

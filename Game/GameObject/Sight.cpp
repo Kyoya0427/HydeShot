@@ -106,7 +106,7 @@ void Sight::Render()
 	Quaternion rot    = Quaternion::CreateFromAxisAngle(Vector3::UnitY, m_chara->GetRotation().y);
 	Matrix rotMat     = Matrix::CreateFromQuaternion(rot);
 	Matrix transMat   = Matrix::CreateTranslation(m_position);
-	Matrix offset     = Matrix::CreateTranslation(Vector3(0.0f,0.0f,-4.5f));
+	Matrix offset = Matrix::CreateTranslation(Vector3(0.0f, 0.0f, -m_size.z / 2));
 
 	m_world = offset * rotMat * transMat;
 

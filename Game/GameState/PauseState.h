@@ -14,7 +14,7 @@ public:
 	PauseState();
 
 public:
-	virtual ~PauseState();
+	 ~PauseState();
 
 public:
 	//‰Šú‰»

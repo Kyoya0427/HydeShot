@@ -12,6 +12,9 @@
 #include <Game/AI/NeuralNetworkManager.h>
 #include <Game/AI/NeuralNetwork.h>
 
+using namespace DirectX;
+using namespace DirectX::SimpleMath;
+
 /// <summary>
 /// コンストラクタ
 /// </summary>
@@ -100,7 +103,7 @@ void Search::Update(const DX::StepTimer& timer)
 void Search::Render()
 {
 	DebugFont* debugFont = DebugFont::GetInstance();
-	debugFont->print(10, 50, L"Search");
+	debugFont->print(10, 50, static_cast<Color>(Colors::White), 1.0f, L"Search");
 	debugFont->draw();
 	//現在のステートの描画
 	m_search->Render();

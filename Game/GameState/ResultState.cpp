@@ -11,6 +11,9 @@
 #include <Game\Common\DebugFont.h>
 #include <Game\Common\GameContext.h>
 
+using namespace DirectX;
+using namespace DirectX::SimpleMath;
+
 bool  ResultState::m_isPlayerWin = false;
 
 /// <summary>
@@ -60,19 +63,19 @@ void ResultState::Update(const DX::StepTimer& timer)
 void ResultState::Render()
 {
 	DebugFont* debugFont = DebugFont::GetInstance();
-	debugFont->print(10, 10, L"ResultState");
+	debugFont->print(10, 10, static_cast<Color>(Colors::White), 1.0f, L"ResultState");
 	debugFont->draw();
-	debugFont->print(100, 100, L"Z Key");
+	debugFont->print(100, 100, static_cast<Color>(Colors::White), 1.0f, L"Z Key");
 	debugFont->draw();
 
 	if (m_isPlayerWin)
 	{
-		debugFont->print(500, 500, L"Player Win");
+		debugFont->print(500, 500, static_cast<Color>(Colors::White), 1.0f, L"Player Win");
 		debugFont->draw();
 	}
 	else
 	{
-		debugFont->print(500, 500, L"Enemy Win");
+		debugFont->print(500, 500, static_cast<Color>(Colors::White), 1.0f, L"Enemy Win");
 		debugFont->draw();
 	}
 

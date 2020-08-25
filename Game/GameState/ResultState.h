@@ -18,7 +18,7 @@ public:
 	//コンストラクタ
 	ResultState();
 	//デストラクタ
-	virtual ~ResultState();
+	 ~ResultState();
 
 public:
 	//初期化

@@ -29,7 +29,7 @@ class PlayState : public IGameState
 {
 public:
 	PlayState();
-	virtual ~PlayState();
+	 ~PlayState();
 
 public:
 	//‰Šú‰»
