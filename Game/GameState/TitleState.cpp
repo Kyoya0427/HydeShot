@@ -6,8 +6,6 @@
 //======================================================
 #include"TitleState.h"
 
-
-
 #include <Game/Common/GameContext.h>
 #include <Game/Common/DebugFont.h>
 

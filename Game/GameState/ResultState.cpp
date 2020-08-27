@@ -6,15 +6,18 @@
 //======================================================
 #include "ResultState.h"
 
-#include <Game\GameState\GameStateManager.h>
-
 #include <Game\Common\DebugFont.h>
 #include <Game\Common\GameContext.h>
+#include <Game\Common\DeviceResources.h>
+
+#include <Game\GameState\GameStateManager.h>
+
+#include <Game/Bg/ResultBg.h>
 
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
-bool  ResultState::m_isPlayerWin = false;
+bool  ResultState::m_isPlayerWin = true;
 
 /// <summary>
 /// コンストラクタ
@@ -22,7 +25,6 @@ bool  ResultState::m_isPlayerWin = false;
 ResultState::ResultState()
 	: IGameState()
 {
-	
 }
 
 /// <summary>
@@ -37,7 +39,17 @@ ResultState::~ResultState()
 /// </summary>
 void ResultState::Initialize()
 {
-	
+	m_spriteBatch = std::make_unique<DirectX::SpriteBatch>(GameContext().Get<DX::DeviceResources>()->GetD3DDeviceContext());
+
+	m_resultBg = std::make_unique<ResultBg>();
+	m_resultBg->Initialize(Vector3(0.0F, 0.0f, 0.0f));
+
+	DirectX::CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\space.png", NULL, m_pushTexture.ReleaseAndGetAddressOf());
+	m_pushPos = DirectX::SimpleMath::Vector2(430, 500);
+
+	m_blink = std::make_unique<Blink>();
+	m_blink->Initialize(0.16f);
+	m_blink->Start();
 }
 
 /// <summary>
@@ -55,6 +67,9 @@ void ResultState::Update(const DX::StepTimer& timer)
 		GameStateManager* gameStateManager = GameContext().Get<GameStateManager>();
 		gameStateManager->RequestState(State::TITLE_STATE);
 	}
+
+	SelectPartsMode(true);
+	m_blink->Update(timer);
 }
 
 /// <summary>
@@ -68,18 +83,14 @@ void ResultState::Render()
 	debugFont->print(100, 100, static_cast<Color>(Colors::White), 1.0f, L"Z Key");
 	debugFont->draw();
 
-	if (m_isPlayerWin)
+	
+	m_resultBg->Render();
+	m_spriteBatch->Begin(SpriteSortMode_Deferred, GameContext::Get<CommonStates>()->NonPremultiplied());
+	if (m_blinkFlag == false || m_blink->GetState())
 	{
-		debugFont->print(500, 500, static_cast<Color>(Colors::White), 1.0f, L"Player Win");
-		debugFont->draw();
+		m_spriteBatch->Draw(m_pushTexture.Get(), m_pushPos);
 	}
-	else
-	{
-		debugFont->print(500, 500, static_cast<Color>(Colors::White), 1.0f, L"Enemy Win");
-		debugFont->draw();
-	}
-
-
+	m_spriteBatch->End();
 }
 
 
@@ -88,4 +99,18 @@ void ResultState::Render()
 /// </summary>
 void ResultState::Finalize()
 {
+}
+
+void ResultState::SelectPartsMode(bool flag)
+{
+	m_blinkFlag = flag;
+	// 点滅間隔の設定
+	if (m_blinkFlag == true)
+	{
+		m_blink->Initialize(0.2f);
+	}
+	else
+	{
+		m_blink->Initialize(0.2f);
+	}
 }

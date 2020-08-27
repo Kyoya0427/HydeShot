@@ -76,11 +76,11 @@ void PlayState::Initialize()
 	m_isDebug = true;
 
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1,	    GameObject::ObjectTag::Wall);
-//	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1,	    GameObject::ObjectTag::Bullet);
+	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1,	    GameObject::ObjectTag::Bullet);
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1,	    GameObject::ObjectTag::Sight02);
 																		   
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2,	    GameObject::ObjectTag::Wall);
-//	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2,	    GameObject::ObjectTag::Bullet);
+	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2,	    GameObject::ObjectTag::Bullet);
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2,	    GameObject::ObjectTag::Sight01);
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2,	    GameObject::ObjectTag::Enemy1);
 																		   
@@ -109,24 +109,22 @@ void PlayState::Initialize()
 	m_enemy[0]->Initialize(m_stage->GetEnemyPos());
 	m_enemy[0]->SetColor(Color(Colors::Blue));
 	
-	//エネミー初期化
-//	m_enemy[1] = std::make_unique<Character>(GameObject::ObjectTag::Enemy2);
-//	m_enemy[1]->Initialize(m_stage->GetPlayerPos());
-//	m_enemy[1]->SetColor(Color(Colors::Red));
-
 	m_player = std::make_unique<Character>(GameObject::ObjectTag::Player);
 	m_player->Initialize(m_stage->GetPlayerPos());
 	m_player->SetColor(Color(Colors::Red));
 
 	m_aiController[0] = std::make_unique<AIController>(m_enemy[0].get(), m_player.get());
-//	m_aiController[0] = std::make_unique<AIController>(m_enemy[0].get(), m_enemy[1].get());
-//	m_aiController[1] = std::make_unique<AIController>(m_enemy[1].get(), m_enemy[0].get());
 	m_playerControll = std::make_unique<PlayerController>(m_player.get());
 
 	GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(m_player));
 	GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(m_enemy[0]));
+
+	//エネミー初期化
+//	m_enemy[1] = std::make_unique<Character>(GameObject::ObjectTag::Enemy2);
+//	m_enemy[1]->Initialize(m_stage->GetPlayerPos());
+//	m_enemy[1]->SetColor(Color(Colors::Red));
 //	GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(m_enemy[1]));
-	
+
 	// 情報ウィンドウ
 	m_infoWindow = std::make_unique<InfoWindow>();
 	m_infoWindow->Initialize();

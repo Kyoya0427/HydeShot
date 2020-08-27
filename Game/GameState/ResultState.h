@@ -12,6 +12,10 @@
 
 #include <Game\GameState\IGameState.h>
 
+#include <Game\UI\Blink.h>
+
+class ResultBg;
+
 class ResultState :public IGameState
 {
 public:
@@ -31,12 +35,23 @@ public:
 	void Finalize() override;
 
 public:
+	void SelectPartsMode(bool flag);
+
+public:
 	static bool		 m_isPlayerWin;
 
 
 private:
 	//キートラッカー
 	DirectX::Keyboard::KeyboardStateTracker          m_keyTracker;
+	std::unique_ptr<DirectX::SpriteBatch>            m_spriteBatch;
+
+	std::unique_ptr<ResultBg>                        m_resultBg;
+
+	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_pushTexture;
+	DirectX::SimpleMath::Vector2                     m_pushPos;
+	std::unique_ptr<Blink>                           m_blink;
+	bool                                             m_blinkFlag;
 
 };
 
