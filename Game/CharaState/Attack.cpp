@@ -11,6 +11,8 @@
 
 #include <Game/Controller/AIController.h>
 
+#include <Game/UI/SelectStateUi.h>
+
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
@@ -40,6 +42,7 @@ void Attack::Initialize(Character* chara, Character* enemy)
 void Attack::Update(const DX::StepTimer& timer)
 {
 	timer;
+	GameContext::Get<SelectStateUi>()->SetSelectState(L"SHOOT");
 	m_chara->Shoot();
 }
 

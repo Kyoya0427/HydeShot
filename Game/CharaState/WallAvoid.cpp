@@ -18,6 +18,7 @@
 #include <Game/GameObject/WallApproachVelID.h>
 #include <Game/GameObject/WallApproach.h>
 
+#include <Game/UI/SelectStateUi.h>
 
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
@@ -74,11 +75,13 @@ void WallAvoid::Update(const DX::StepTimer& timer)
 	{
 		if (z < 0.0f)
 		{
+			GameContext::Get<SelectStateUi>()->SetSelectState(L"BACKWARD");
 			m_chara->SetCharaState(CharaStateID::LEFTWARD);
 			ChangeLeftwardState();
 		}
 		else
 		{
+			GameContext::Get<SelectStateUi>()->SetSelectState(L"RIGHTWARD");
 			m_chara->SetCharaState(CharaStateID::RIGHTWARD);	
 			ChangeRightwardState();
 		}
@@ -88,11 +91,13 @@ void WallAvoid::Update(const DX::StepTimer& timer)
 	{
 		if (dis >= 0.45f)
 		{
+			GameContext::Get<SelectStateUi>()->SetSelectState(L"FORWARD");
 			m_chara->SetCharaState(CharaStateID::FORWARD);		
 			ChangeForwardState();
 		}
 		else if (dis > 0.1f)
 		{
+			GameContext::Get<SelectStateUi>()->SetSelectState(L"BACKWARD");
 			m_chara->SetCharaState(CharaStateID::BACKWARD);
 			ChangeBackwardState();
 		}

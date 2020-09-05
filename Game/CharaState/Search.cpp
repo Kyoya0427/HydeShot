@@ -12,6 +12,8 @@
 #include <Game/AI/NeuralNetworkManager.h>
 #include <Game/AI/NeuralNetwork.h>
 
+#include <Game/UI/SelectStateUi.h>
+
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
@@ -43,20 +45,18 @@ void Search::Initialize(Character* chara, Character* enemy)
 	m_enemy      = enemy;
 
 	//ステイトを初期化
-	m_standing   = std::make_unique<Standing>();
 	m_forward    = std::make_unique<Forward>();
 	m_backward   = std::make_unique<Backward>();
 	m_leftTurn   = std::make_unique<LeftTurn>();
 	m_rightTurn  = std::make_unique<RightTurn>();
 
-	m_standing->Initialize (m_chara, m_enemy);
 	m_forward->Initialize  (m_chara, m_enemy);
 	m_backward->Initialize (m_chara, m_enemy);
 	m_leftTurn->Initialize (m_chara, m_enemy);
 	m_rightTurn->Initialize(m_chara, m_enemy);
 
 	//初期ステイト
-	ChangeStandingState();
+	ChangeForwardState();
 }
 
 /// <summary>
@@ -74,21 +74,25 @@ void Search::Update(const DX::StepTimer& timer)
 	//出力データから行動を選択
 	if (left >= 0.5f)
 	{
+		GameContext::Get<SelectStateUi>()->SetSelectState(L"LEFT_TURN");
 		ChangeLeftTurnState();
 		m_chara->SetCharaState(CharaStateID::LEFT_TURN);
 	}
 	else if (right >= 0.5f)
 	{
+		GameContext::Get<SelectStateUi>()->SetSelectState(L"RIGHT_TURN");
 		ChangeRightTurnState();
 		m_chara->SetCharaState(CharaStateID::RIGHT_TURN);
 	}
 	else if (dis >= 0.45f)
 	{
+		GameContext::Get<SelectStateUi>()->SetSelectState(L"FORWARD");
 		ChangeForwardState();
 		m_chara->SetCharaState(CharaStateID::FORWARD);
 	}
 	else if (dis >= 0.0f)
 	{
+		GameContext::Get<SelectStateUi>()->SetSelectState(L"BACKWARD");
 		ChangeBackwardState();
 		m_chara->SetCharaState(CharaStateID::BACKWARD);
 	}
@@ -102,9 +106,6 @@ void Search::Update(const DX::StepTimer& timer)
 /// </summary>
 void Search::Render()
 {
-	DebugFont* debugFont = DebugFont::GetInstance();
-	debugFont->print(10, 50, static_cast<Color>(Colors::White), 1.0f, L"Search");
-	debugFont->draw();
 	//現在のステートの描画
 	m_search->Render();
 }

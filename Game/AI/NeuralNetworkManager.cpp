@@ -11,10 +11,15 @@
 #include <string>
 
 #include <Game/Common/DebugFont.h>
+#include <Game/Common/GameContext.h>
 
 #include <Game/AI/NeuralNetwork.h>
 
+#include <Game/CharaState/CharaStateID.h>
+
 #include <Game/GameObject/Character.h>
+
+#include <Game/UI/SelectStateUi.h>
 
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
@@ -31,7 +36,7 @@ NeuralNetworkManager::NeuralNetworkManager(Character* character, Character* enem
 	, m_enemy(enemy)
 {
 	m_neuralNetwork = std::make_unique<NeuralNetwork>();
-	InitializeTraining(L"Resources\\CSV\\test6.csv");
+	InitializeTraining(L"Resources//CSV//test6.csv");
 	InitializeNeuralNetwork();
 	m_error = 0.0f;
 }
@@ -182,18 +187,21 @@ CharaStateID NeuralNetworkManager::BehaviorSelection()
 	{
 		m_data.outputChoiceMode = "ATTACK";
 		m_outputData.push_back(m_data);
+		GameContext::Get<SelectStateUi>()->SetSelectMode(L"ATTACK");
 		return	CharaStateID::ATTACK;
 	}
 	else if (wall >= 0.8)
 	{
 		m_data.outputChoiceMode = "WALLAVOID";
 		m_outputData.push_back(m_data);
+		GameContext::Get<SelectStateUi>()->SetSelectMode(L"WALLAVOID");
 		return	CharaStateID::WALLAVOID;
 	}
 	else if (dis > 0.001f)
 	{
 		m_data.outputChoiceMode = "SEARCH";
 		m_outputData.push_back(m_data);
+		GameContext::Get<SelectStateUi>()->SetSelectMode(L"SEARCH");
 		return CharaStateID::SEARCH;
 	}
 
@@ -207,46 +215,7 @@ CharaStateID NeuralNetworkManager::BehaviorSelection()
 /// </summary>
 void NeuralNetworkManager::Render()
 {
-	DebugFont* debugFont = DebugFont::GetInstance();
-
-	debugFont->print(10, 190, static_cast<Color>(Colors::White), 1.0f, L"error = %f%", m_error * 100);
-	debugFont->draw();
-
-	debugFont->print(700, 250, static_cast<Color>(Colors::White), 1.0f, L"dis = %f", m_distance / 18.0f);
-	debugFont->draw();
-
-	if (m_isDirectionLeft)
-	{
-		debugFont->print(700, 280, static_cast<Color>(Colors::White), 1.0f, L"left = true");
-		debugFont->draw();
-	}
-	else
-	{
-		debugFont->print(700, 280, static_cast<Color>(Colors::White), 1.0f, L"left = false");
-		debugFont->draw();
-	}
-
-	if (m_isDirectionRight)
-	{
-		debugFont->print(700, 310, static_cast<Color>(Colors::White), 1.0f, L"right = true");
-		debugFont->draw();
-	}
-	else
-	{
-		debugFont->print(700, 310, static_cast<Color>(Colors::White), 1.0f, L"right = false");
-		debugFont->draw();
-	}
-
-	if (m_character->GetEnemySightContact())
-	{
-		debugFont->print(700, 340, static_cast<Color>(Colors::White), 1.0f, L"shoot = true");
-		debugFont->draw();
-	}
-	else
-	{
-		debugFont->print(700, 340, static_cast<Color>(Colors::White), 1.0f, L"shoot = false");
-		debugFont->draw();
-	}
+	
 }
 
 /// <summary>

@@ -8,7 +8,6 @@
 
 #include <Game/CharaState/CharaState.h>
 
-#include <Game/CharaState/Standing.h>
 #include <Game/CharaState/Forward.h>
 #include <Game/CharaState/Backward.h>
 #include <Game/CharaState/LeftTurn.h>
@@ -34,7 +33,6 @@ public:
 
 public:
 	//ステイトを変更
-	void ChangeStandingState()  { m_search = static_cast<CharaState*>(m_standing.get());  }
 	void ChangeForwardState()   { m_search = static_cast<CharaState*>(m_forward.get());   }
 	void ChangeBackwardState()  { m_search = static_cast<CharaState*>(m_backward.get());  }
 	void ChangeLeftTurnState()  { m_search = static_cast<CharaState*>(m_leftTurn.get());  }
@@ -48,8 +46,6 @@ private:
 	//現在のステート
 	CharaState*				      m_search;
 
-	//Standing状態
-	std::unique_ptr<Standing>     m_standing;
 	//Forward状態
 	std::unique_ptr<Forward>      m_forward;
 	//Backward状態

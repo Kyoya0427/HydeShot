@@ -141,7 +141,6 @@
     <ClInclude Include="Game\CharaState\RightTurn.h" />
     <ClInclude Include="Game\CharaState\Rightward.h" />
     <ClInclude Include="Game\CharaState\Search.h" />
-    <ClInclude Include="Game\CharaState\Standing.h" />
     <ClInclude Include="Game\CharaState\WallAvoid.h" />
     <ClInclude Include="Game\Collider\BoxCollider.h" />
     <ClInclude Include="Game\Collider\Collider.h" />
@@ -176,7 +175,9 @@
     <ClInclude Include="Game\UI\Blink.h" />
     <ClInclude Include="Game\UI\Button.h" />
     <ClInclude Include="Game\UI\InfoWindow.h" />
-    <ClInclude Include="Game\UI\Letter.h" />
+    <ClInclude Include="Game\UI\NeuralNetworkData.h" />
+    <ClInclude Include="Game\UI\SelectStateUi.h" />
+    <ClInclude Include="Game\UI\UiBg.h" />
     <ClInclude Include="pch.h" />
     <ClCompile Include="Game\AI\NeuralNetwork.cpp" />
     <ClCompile Include="Game\AI\NeuralNetworkManager.cpp" />
@@ -192,7 +193,6 @@
     <ClCompile Include="Game\CharaState\RightTurn.cpp" />
     <ClCompile Include="Game\CharaState\Rightward.cpp" />
     <ClCompile Include="Game\CharaState\Search.cpp" />
-    <ClCompile Include="Game\CharaState\Standing.cpp" />
     <ClCompile Include="Game\CharaState\WallAvoid.cpp" />
     <ClCompile Include="Game\Collider\BoxCollider.cpp" />
     <ClCompile Include="Game\Collider\Collider.cpp" />
@@ -221,7 +221,9 @@
     <ClCompile Include="Game\UI\Blink.cpp" />
     <ClCompile Include="Game\UI\Button.cpp" />
     <ClCompile Include="Game\UI\InfoWindow.cpp" />
-    <ClCompile Include="Game\UI\Letter.cpp" />
+    <ClCompile Include="Game\UI\NeuralNetworkData.cpp" />
+    <ClCompile Include="Game\UI\SelectStateUi.cpp" />
+    <ClCompile Include="Game\UI\UiBg.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
       <ForcedIncludeFiles>

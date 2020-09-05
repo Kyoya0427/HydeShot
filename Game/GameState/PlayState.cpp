@@ -62,9 +62,11 @@ void PlayState::Initialize()
 {
 	// オブジェクトマネージャー生成
 	m_objectManager = std::make_unique<ObjectManager>();
-	// 情報ウィンドウを登録
-
 	GameContext::Register<ObjectManager>(m_objectManager);
+
+	m_infoWindow = std::make_unique<InfoWindow>();
+	m_infoWindow->Initialize();
+
 	//カメラを生成
 	m_camera = std::make_unique<Camera>();
 	m_camera->Initialize();
@@ -125,12 +127,6 @@ void PlayState::Initialize()
 //	m_enemy[1]->SetColor(Color(Colors::Red));
 //	GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(m_enemy[1]));
 
-	// 情報ウィンドウ
-	m_infoWindow = std::make_unique<InfoWindow>();
-	m_infoWindow->Initialize();
-	GameContext::Register<InfoWindow>(m_infoWindow.get());
-
-
 	//ゲームウィンドウ
 	m_bg = std::make_unique<Bg>();
 	m_bg->Initialize();
@@ -160,10 +156,10 @@ void PlayState::Update(const DX::StepTimer& timer)
 {
 	timer;
 	m_bg->Update(timer);
-	m_infoWindow->Update(timer);
 	// ゲーム画面のオブジェクト更新
 
 	m_objectManager->GetGameOM()->Update(timer);
+	m_objectManager->GetInfoOM()->Update(timer);
 
 	m_collisionManager->DetectCollision();
 
@@ -206,9 +202,8 @@ void PlayState::Render()
 	// ゲーム画面のオブジェクト描画
 	m_bg->Render();
 	m_objectManager->GetGameOM()->Render();
-	m_aiController[0]->Render();
-//	m_playerControll->Render();
-	spriteBach->End(); // <---スプライトの描画はここでまとめて行われている
+	spriteBach->End();
+	//スプライトの描画はここでまとめて行われている
 
 
 	// ビューポートを変更する（右側へ描画エリアを変更する）
@@ -216,8 +211,8 @@ void PlayState::Render()
 	spriteBach->Begin(SpriteSortMode_Deferred, state->NonPremultiplied());
 
 	// 情報画面のオブジェクト描画
-	m_infoWindow->Render();
-	
+	m_objectManager->GetInfoOM()->Render();
+
 	spriteBach->End(); // <---スプライトの描画はここでまとめて行われている
 
 	auto viewport = deviceResources->GetScreenViewport();

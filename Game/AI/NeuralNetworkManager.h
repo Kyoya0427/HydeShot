@@ -60,7 +60,8 @@ public:
 public:
 	// 入力と出力の値を外部に出力
 	void OutputDataFile(char* fname);
-
+	//データを取得
+	const OutputData& GetOutputData() { return m_data; }
 public: 
 	//データを格納
 	std::vector<std::vector<float>>  m_training;

@@ -6,11 +6,15 @@
 #include <Game\Common\GameContext.h>
 #include <Game\Common\DeviceResources.h>
 
-
 #include <Game\GameObject\GameObjectManager.h>
 #include <Game\GameObject\ObjectManager.h>
 
+#include <Game/UI/NeuralNetworkData.h>
+#include <Game/UI/UiBg.h>
+#include <Game/UI/SelectStateUi.h>
 
+using namespace DirectX;
+using namespace DirectX::SimpleMath;
 
 InfoWindow::InfoWindow()
 {
@@ -23,12 +27,18 @@ InfoWindow::~InfoWindow()
 
 void InfoWindow::Initialize()
 {
-	//テクスチャの読み込み
-	DirectX::CreateWICTextureFromFile(GameContext::Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\bg01.png", nullptr,m_bg01Texture.GetAddressOf());
+	m_uiBg = std::make_unique<UiBg>();
+	m_uiBg->Initialize(Vector3::Zero);
+	GameContext::Get<ObjectManager>()->GetInfoOM()->Add(std::move(m_uiBg));
 
-	
-	
-	
+	m_neuralNetworkData = std::make_unique<NeuralNetworkData>();
+	GameContext::Get<ObjectManager>()->GetInfoOM()->Add(std::move(m_neuralNetworkData));
+
+	std::unique_ptr<SelectStateUi> selectStateUi = std::make_unique<SelectStateUi>();
+	m_selectState = selectStateUi.get();
+	GameContext::Register<SelectStateUi>(m_selectState);
+	GameContext::Get<ObjectManager>()->GetInfoOM()->Add(std::move(selectStateUi));
+
 }
 
 void InfoWindow::Update(const DX::StepTimer & timer)
@@ -38,7 +48,6 @@ void InfoWindow::Update(const DX::StepTimer & timer)
 
 void InfoWindow::Render()
 {
-	GameContext::Get<DirectX::SpriteBatch>()->Draw(m_bg01Texture.Get(), DirectX::SimpleMath::Vector2(0.0f, 0.0f));
 }
 
 void InfoWindow::OnCollision(GameObject* object)

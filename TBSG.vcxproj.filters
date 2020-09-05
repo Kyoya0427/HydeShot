@@ -58,9 +58,6 @@
     <Filter Include="Game\GameObject">
       <UniqueIdentifier>{d64b63b5-b7af-4ac8-a920-39f7d6332d69}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\UI">
-      <UniqueIdentifier>{b539fbdf-c0c8-479b-af95-418f7e6c7f05}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resources\FBX">
       <UniqueIdentifier>{5cb58e9d-eacf-4d00-ad12-565ba7f6df18}</UniqueIdentifier>
     </Filter>
@@ -84,6 +81,9 @@
     </Filter>
     <Filter Include="Game\CharaState">
       <UniqueIdentifier>{40ed8fda-256e-4603-a40d-73c3a2261de0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Ui">
+      <UniqueIdentifier>{b539fbdf-c0c8-479b-af95-418f7e6c7f05}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -266,13 +266,10 @@
       <Filter>Game\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="Game\UI\Blink.h">
-      <Filter>Game\UI</Filter>
+      <Filter>Game\Ui</Filter>
     </ClInclude>
     <ClInclude Include="Game\UI\InfoWindow.h">
-      <Filter>Game\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\UI\Letter.h">
-      <Filter>Game\UI</Filter>
+      <Filter>Game\Ui</Filter>
     </ClInclude>
     <ClInclude Include="Game\Stage\Stage.h">
       <Filter>Game\Stage</Filter>
@@ -379,9 +376,6 @@
     <ClInclude Include="Game\CharaState\Search.h">
       <Filter>Game\CharaState</Filter>
     </ClInclude>
-    <ClInclude Include="Game\CharaState\Standing.h">
-      <Filter>Game\CharaState</Filter>
-    </ClInclude>
     <ClInclude Include="Game\CharaState\Attack.h">
       <Filter>Game\CharaState</Filter>
     </ClInclude>
@@ -392,10 +386,19 @@
       <Filter>Game\Bg</Filter>
     </ClInclude>
     <ClInclude Include="Game\UI\Button.h">
-      <Filter>Game\UI</Filter>
+      <Filter>Game\Ui</Filter>
     </ClInclude>
     <ClInclude Include="Game\Bg\ResultBg.h">
       <Filter>Game\Bg</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\UI\NeuralNetworkData.h">
+      <Filter>Game\Ui</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\UI\UiBg.h">
+      <Filter>Game\Ui</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\UI\SelectStateUi.h">
+      <Filter>Game\Ui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -415,13 +418,10 @@
       <Filter>Game\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Game\UI\Blink.cpp">
-      <Filter>Game\UI</Filter>
+      <Filter>Game\Ui</Filter>
     </ClCompile>
     <ClCompile Include="Game\UI\InfoWindow.cpp">
-      <Filter>Game\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\UI\Letter.cpp">
-      <Filter>Game\UI</Filter>
+      <Filter>Game\Ui</Filter>
     </ClCompile>
     <ClCompile Include="Game\Stage\Stage.cpp">
       <Filter>Game\Stage</Filter>
@@ -516,9 +516,6 @@
     <ClCompile Include="Game\CharaState\Search.cpp">
       <Filter>Game\CharaState</Filter>
     </ClCompile>
-    <ClCompile Include="Game\CharaState\Standing.cpp">
-      <Filter>Game\CharaState</Filter>
-    </ClCompile>
     <ClCompile Include="Game\CharaState\Attack.cpp">
       <Filter>Game\CharaState</Filter>
     </ClCompile>
@@ -526,10 +523,19 @@
       <Filter>Game\Bg</Filter>
     </ClCompile>
     <ClCompile Include="Game\UI\Button.cpp">
-      <Filter>Game\UI</Filter>
+      <Filter>Game\Ui</Filter>
     </ClCompile>
     <ClCompile Include="Game\Bg\ResultBg.cpp">
       <Filter>Game\Bg</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\UI\NeuralNetworkData.cpp">
+      <Filter>Game\Ui</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\UI\UiBg.cpp">
+      <Filter>Game\Ui</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\UI\SelectStateUi.cpp">
+      <Filter>Game\Ui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
