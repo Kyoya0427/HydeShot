@@ -100,7 +100,7 @@ void WallApproach::Render()
 /// <summary>
 /// 当たった後の処理
 /// </summary>
-/// <param name="object"></param>
+/// <param name="object">オブジェクト</param>
 void WallApproach::OnCollision(GameObject* object)
 {
 	object;

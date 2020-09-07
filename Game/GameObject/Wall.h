@@ -41,14 +41,14 @@ public:
 
 private:
 	//テクスチャーハンドル
-	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_texture;
+	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>	m_texture;
 	// モデルデータへのポインタ
-	DirectX::Model*                                  m_model;
+	DirectX::Model*                                     m_model;
 	//当たり判定オブジェクト
-	std::unique_ptr<DirectX::GeometricPrimitive>     m_boxCollider;
+	std::unique_ptr<DirectX::GeometricPrimitive>        m_boxCollider;
 	//当たり判定
-	std::unique_ptr<BoxCollider>                     m_collider;
+	std::unique_ptr<BoxCollider>                        m_collider;
 	//当たり判定のサイズ
-	DirectX::SimpleMath::Vector3                     m_collSize;
+	DirectX::SimpleMath::Vector3                        m_collSize;
 
 };

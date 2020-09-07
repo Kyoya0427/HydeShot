@@ -36,18 +36,17 @@ public:
 
 private:
 	//キートラッカー
-	DirectX::Keyboard::KeyboardStateTracker          m_keyTracker;
-
-	std::unique_ptr<TitleBg>                        m_titleBg;
-
-	std::unique_ptr<Button>							m_playButton;
-
-	std::unique_ptr<Button>							m_exitButton;
-
-	SelectButtton                                   m_selectButton;
-
+	DirectX::Keyboard::KeyboardStateTracker             m_keyTracker;
+	//タイトルの背景
+	std::unique_ptr<TitleBg>                            m_titleBg;
+	//プレイボタン
+	std::unique_ptr<Button>							    m_playButton;
+	//イグジットボタン
+	std::unique_ptr<Button>							    m_exitButton;
+	//現在のセレクトボタン
+	SelectButtton                                       m_selectButton;
 	//デフォルトテクスチャー
-	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_defaultTexture;
+	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>	m_defaultTexture;
 	//セレクトテクスチャー
-	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_selectTexture;
+	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>    m_selectTexture;
 };

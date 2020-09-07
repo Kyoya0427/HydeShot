@@ -40,18 +40,20 @@ public:
 public:
 	static bool		 m_isPlayerWin;
 
-
 private:
 	//キートラッカー
 	DirectX::Keyboard::KeyboardStateTracker          m_keyTracker;
+	//スプライトバッチ
 	std::unique_ptr<DirectX::SpriteBatch>            m_spriteBatch;
-
+	//リザルト背景
 	std::unique_ptr<ResultBg>                        m_resultBg;
-
+	//テクスチャー
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_pushTexture;
+	//テクスチャー座標
 	DirectX::SimpleMath::Vector2                     m_pushPos;
+	//ブリンク
 	std::unique_ptr<Blink>                           m_blink;
-	bool                                             m_blinkFlag;
+	//ブリンクを使用するか
+	bool                                             m_isBlink;
 
 };
-

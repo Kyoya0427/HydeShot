@@ -1,6 +1,6 @@
 //======================================================
-// File Name	: TitleResultBg.h
-// Summary		: タイトル画像
+// File Name	: ResultBg.h
+// Summary		: リザルト背景
 // Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================

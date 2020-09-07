@@ -49,6 +49,3 @@ void Camera::Initialize()
 	// ƒrƒ…[s—ñ
 	m_view       = Matrix::CreateLookAt(m_eye, m_target, up);
 }
-
-
-

@@ -39,8 +39,8 @@ Rightward::~Rightward()
 /// <param name="controller">コントローラー</param>
 void Rightward::Initialize(Character* chara, Character* enemy)
 {
-	m_chara      = chara;
-	m_enemy      = enemy;
+	m_chara = chara;
+	m_enemy = enemy;
 }
 
 /// <summary>
@@ -52,14 +52,4 @@ void Rightward::Update(const DX::StepTimer& timer)
 	timer;
 	m_chara->Rightward(AIController::MOVE_SPEED);
 	m_chara->GetWallApproachVel()->SetOffsetAngle(WallApproach::RIGHT_ANGLE);
-}
-
-/// <summary>
-/// 描画
-/// </summary>
-void Rightward::Render()
-{
-	DebugFont* debugFont = DebugFont::GetInstance();
-	debugFont->print(10, 80, static_cast<Color>(Colors::White), 1.0f, L"Rightward");
-	debugFont->draw();
 }

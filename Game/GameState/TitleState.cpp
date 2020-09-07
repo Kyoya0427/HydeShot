@@ -107,12 +107,9 @@ void TitleState::Update(const DX::StepTimer& timer)
 /// </summary>
 void TitleState::Render()
 {
-	DebugFont* debugFont = DebugFont::GetInstance();
-
 	m_titleBg->Render();
 	m_playButton->Render();
 	m_exitButton->Render();
-
 }
 
 /// <summary>
@@ -121,4 +118,3 @@ void TitleState::Render()
 void TitleState::Finalize()
 {
 }
-

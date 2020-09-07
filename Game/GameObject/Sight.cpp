@@ -75,7 +75,6 @@ void Sight::Update(const DX::StepTimer& timer)
 	m_enemyToDistance = 0.0f;
 	m_wallToDistance  = 0.0f;
 
-
 	Quaternion quaternion = Quaternion::CreateFromAxisAngle(Vector3::UnitY, m_chara->GetRotation().y);
 	m_velocity = Vector3::Transform(Vector3(0.0f, 0.0f, -m_size.z), quaternion);
 	m_position = m_chara->GetPosition();
@@ -144,5 +143,3 @@ void Sight::OnCollision(GameObject* object)
 			m_chara->SetEnemySightContact(false);
 	}	
 }
-
-

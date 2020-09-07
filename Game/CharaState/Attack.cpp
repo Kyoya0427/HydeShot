@@ -25,6 +25,13 @@ Attack::Attack()
 }
 
 /// <summary>
+/// デストラクタ
+/// </summary>
+Attack::~Attack()
+{
+}
+
+/// <summary>
 /// 初期化
 /// </summary>
 /// <param name="chara">ステイト操作するキャラクター</param>
@@ -44,14 +51,4 @@ void Attack::Update(const DX::StepTimer& timer)
 	timer;
 	GameContext::Get<SelectStateUi>()->SetSelectState(L"SHOOT");
 	m_chara->Shoot();
-}
-
-/// <summary>
-/// 描画
-/// </summary>
-void Attack::Render()
-{
-	DebugFont* debugFont = DebugFont::GetInstance();
-	debugFont->print(10, 50, static_cast<Color>(Colors::White), 1.0f, L"Attack");
-	debugFont->draw();
 }

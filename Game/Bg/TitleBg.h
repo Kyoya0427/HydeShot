@@ -1,5 +1,5 @@
 //======================================================
-// File Name	: TitleTitleBg.h
+// File Name	: TitleBg.h
 // Summary		: ƒ^ƒCƒgƒ‹‰æ‘œ
 // Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
@@ -7,8 +7,6 @@
 #pragma once
 
 #include <Game/GameObject/GameObject.h>
-
-class GameWindow;
 
 class TitleBg : public GameObject
 {

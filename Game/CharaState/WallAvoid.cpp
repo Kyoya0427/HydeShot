@@ -37,7 +37,8 @@ WallAvoid::WallAvoid()
 /// <summary>
 /// 初期化
 /// </summary>
-/// <param name="chara"></param>
+/// <param name="chara">ステイト操作するキャラクター</param>
+/// <param name="controller">敵キャラクター</param>
 void WallAvoid::Initialize(Character* chara, Character* enemy)
 {
 	m_chara = chara;
@@ -64,18 +65,17 @@ void WallAvoid::Initialize(Character* chara, Character* enemy)
 /// <param name="timer">タイマー</param>
 void WallAvoid::Update(const DX::StepTimer& timer)
 {
-
+	//相対座標
 	float dis = Vector3::Distance(m_chara->GetPosition(), m_enemy->GetPosition()) / 18.0f;
-	
-	float z = m_chara->GetPosition().x - m_enemy->GetPosition().x;
+	//ステイト操作するキャラクターを原点とした絶対座標
+	float x = m_chara->GetPosition().x - m_enemy->GetPosition().x;
 
 	//データから行動を選択
-
 	if (m_chara->GetWallApproachVel()->GetWallApproach() == WallApproachVelID::FORWARD || m_chara->GetWallApproachVel()->GetWallApproach() == WallApproachVelID::BACKWARD)
 	{
-		if (z < 0.0f)
+		if (x < 0.0f)
 		{
-			GameContext::Get<SelectStateUi>()->SetSelectState(L"BACKWARD");
+			GameContext::Get<SelectStateUi>()->SetSelectState(L"LEFTWARD");
 			m_chara->SetCharaState(CharaStateID::LEFTWARD);
 			ChangeLeftwardState();
 		}
@@ -105,19 +105,5 @@ void WallAvoid::Update(const DX::StepTimer& timer)
 
 	//現在のステートの更新
 	m_wallAvoid->Update(timer);
+
 }
-
-
-/// <summary>
-/// 描画
-/// </summary>
-void WallAvoid::Render()
-{
-	DebugFont* debugFont = DebugFont::GetInstance();
-	debugFont->print(10, 50, static_cast<Color>(Colors::White), 1.0f, L"WallAvoid");
-	debugFont->draw();
-
-	//現在のステートの描画
-	m_wallAvoid->Render();
-}
-

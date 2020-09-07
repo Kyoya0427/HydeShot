@@ -1,6 +1,6 @@
 //======================================================
 // File Name	: ResultBg.cpp
-// Summary		: ”wŒi
+// Summary		: ƒŠƒUƒ‹ƒg”wŒi
 // Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
@@ -40,8 +40,8 @@ ResultBg::~ResultBg()
 void ResultBg::Initialize(const Vector3& pos)
 {
 	m_spriteBatch = std::make_unique<SpriteBatch>(GameContext().Get<DX::DeviceResources>()->GetD3DDeviceContext());
-	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\playerWin.png", NULL, m_winTexture.ReleaseAndGetAddressOf());
-	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\youLose.png", NULL, m_loseTexture.ReleaseAndGetAddressOf());
+	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources//Textures//playerWin.png", NULL, m_winTexture.ReleaseAndGetAddressOf());
+	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources//Textures//youLose.png", NULL, m_loseTexture.ReleaseAndGetAddressOf());
 	m_position = pos;
 }
 
@@ -52,7 +52,6 @@ void ResultBg::Initialize(const Vector3& pos)
 void ResultBg::Update(const DX::StepTimer& timer)
 {
 	timer;
-
 }
 
 /// <summary>

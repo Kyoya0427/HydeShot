@@ -6,31 +6,32 @@
 //======================================================
 #include "PlayState.h"
 
-#include <DirectXTK\Keyboard.h>
+#include <DirectXTK/Keyboard.h>
 
-#include <Game\Common\DebugFont.h>
-#include <Game\Common\GameContext.h>
-#include <Game\Common\DeviceResources.h>
+#include <Game/Common/DebugFont.h>
+#include <Game/Common/GameContext.h>
+#include <Game/Common/DeviceResources.h>
 
-#include <Game\GameObject\ObjectManager.h>
-#include <Game\GameObject\GameObjectManager.h>
-#include <Game\GameObject\Character.h>
+#include <Game/GameObject/ObjectManager.h>
+#include <Game/GameObject/GameObjectManager.h>
+#include <Game/GameObject/Character.h>
 
-#include <Game\GameState\GameStateManager.h>
+#include <Game/GameState/GameStateManager.h>
 
-#include <Game\Camera\Camera.h>
+#include <Game/Camera/Camera.h>
 
-#include <Game\Bg\Bg.h>
+#include <Game/Bg/Bg.h>
 
-#include <Game\Stage\Stage.h>
-#include <Game\GameObject\Floor.h>
+#include <Game/Stage/Stage.h>
 
-#include <Game\UI\InfoWindow.h>
+#include <Game/GameObject/Floor.h>
 
-#include <Game\Controller\PlayerController.h>
-#include <Game\Controller\AIController.h>
+#include <Game/UI/InfoWindow.h>
 
-#include <Game\Collider\CollisionManager.h>
+#include <Game/Controller/PlayerController.h>
+#include <Game/Controller/AIController.h>
+
+#include <Game/Collider/CollisionManager.h>
 
 
 using namespace DirectX;
@@ -71,12 +72,12 @@ void PlayState::Initialize()
 	m_camera = std::make_unique<Camera>();
 	m_camera->Initialize();
 	GameContext::Register<Camera>(m_camera.get());
+
 	//コライダーマネジャー生成
 	m_collisionManager = std::make_unique<CollisionManager>();
 	GameContext().Register<CollisionManager>(m_collisionManager.get());
-	
-	m_isDebug = true;
 
+	//当たり判定するオブジェクトタグを登録
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1,	    GameObject::ObjectTag::Wall);
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1,	    GameObject::ObjectTag::Bullet);
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1,	    GameObject::ObjectTag::Sight02);
@@ -96,7 +97,6 @@ void PlayState::Initialize()
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::Sight02,	    GameObject::ObjectTag::Wall);	
 	m_collisionManager->AllowCollision(GameObject::ObjectTag::WallApproach, GameObject::ObjectTag::Wall);	
 	
-
 	//ステージを生成
 	m_stage = std::make_unique<Stage>();
 	// ステージデータの読み込み
@@ -186,7 +186,6 @@ void PlayState::Update(const DX::StepTimer& timer)
 /// <summary>
 /// 描画
 /// </summary>
-/// <param name="timer"></param>
 void PlayState::Render()
 {
 	DeviceResources* deviceResources = GameContext::Get<DeviceResources>();
@@ -197,12 +196,15 @@ void PlayState::Render()
 	// ビューポートを変更する（左側へ描画エリアを変更する）
 	context->RSSetViewports(1, &m_viewportGame);
 	spriteBach->Begin(SpriteSortMode_Deferred, state->NonPremultiplied());
+
 	// TODO: ビュー行列とプロジェクション行列を設定
 	SimpleMath::Matrix viewMat, projMat;
+	
 	// ゲーム画面のオブジェクト描画
 	m_bg->Render();
 	m_objectManager->GetGameOM()->Render();
 	spriteBach->End();
+	
 	//スプライトの描画はここでまとめて行われている
 
 

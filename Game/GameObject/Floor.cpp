@@ -73,7 +73,7 @@ void Floor::Render()
 /// <summary>
 /// 当たった後の処理
 /// </summary>
-/// <param name="object"></param>
+/// <param name="object">オブジェクト</param>
 void Floor::OnCollision(GameObject* object)
 {
 	object;

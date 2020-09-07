@@ -63,22 +63,22 @@ public:
 	void SetStageData();
 	//初期座標を取得
 	const DirectX::SimpleMath::Vector2& GetPlayerPos() { return m_playerPos; }
-	const DirectX::SimpleMath::Vector2& GetEnemyPos() { return m_enemyPos; }
+	const DirectX::SimpleMath::Vector2& GetEnemyPos()  { return m_enemyPos; }
 	//初期座標を設定
 	void SetPlayerPos(int x, int y) { m_playerPos = DirectX::SimpleMath::Vector2((float)x, (float)y);}
 	void SetEnemyPos(int x, int y)  { m_enemyPos  = DirectX::SimpleMath::Vector2((float)x, (float)y);}
 
 private:
 	//床
-	Floor*     m_floor;	
+	Floor*                              m_floor;	
 	//壁
-	Wall*      m_wall;
+	Wall*                               m_wall;
 	//プレイヤー初期座標
-	DirectX::SimpleMath::Vector2  m_playerPos;
+	DirectX::SimpleMath::Vector2        m_playerPos;
 	//敵初期座標
-	DirectX::SimpleMath::Vector2  m_enemyPos;
+	DirectX::SimpleMath::Vector2        m_enemyPos;
 	// 床のモデル
-	std::unique_ptr<DirectX::Model> m_floorModels[static_cast<int>(Map::NUM)];
+	std::unique_ptr<DirectX::Model>		m_floorModels[static_cast<int>(Map::NUM)];
 
 public:
 	//ステージデータ

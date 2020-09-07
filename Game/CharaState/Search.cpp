@@ -41,8 +41,8 @@ Search::~Search()
 /// <param name="enemy">敵キャラクター</param>
 void Search::Initialize(Character* chara, Character* enemy)
 {
-	m_chara      = chara;
-	m_enemy      = enemy;
+	m_chara = chara;
+	m_enemy = enemy;
 
 	//ステイトを初期化
 	m_forward    = std::make_unique<Forward>();
@@ -100,13 +100,3 @@ void Search::Update(const DX::StepTimer& timer)
 	//現在のステートの更新
 	m_search->Update(timer);
 }
-
-/// <summary>
-/// 描画
-/// </summary>
-void Search::Render()
-{
-	//現在のステートの描画
-	m_search->Render();
-}
-

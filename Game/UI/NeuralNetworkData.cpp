@@ -1,6 +1,6 @@
 //======================================================
-// File Name	: InfoWindow.h
-// Summary		: 情報ウィンドウ
+// File Name	: NeuralNetworkData.cpp
+// Summary		: ニューラルネットワークの情報
 // Date			: 2020/6/12
 // Author		: Kyoya  Sakamoto
 //======================================================
@@ -43,6 +43,7 @@ void NeuralNetworkData::Initialize()
 /// <param name="timer">タイマー</param>
 void NeuralNetworkData::Update(const DX::StepTimer& timer)
 {
+	timer;
 }
 
 /// <summary>
@@ -96,4 +97,5 @@ void NeuralNetworkData::Render()
 /// <param name="object">オブジェクト</param>
 void NeuralNetworkData::OnCollision(GameObject* object)
 {
+	object;
 }

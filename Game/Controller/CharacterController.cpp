@@ -28,7 +28,7 @@ CharacterController::~CharacterController()
 /// <summary>
 /// ƒLƒƒƒ‰‚ğæ“¾
 /// </summary>
-/// <returns></returns>
+/// <returns>ƒLƒƒƒ‰</returns>
 Character* CharacterController::GetCharacter()
 {
 	return m_character;

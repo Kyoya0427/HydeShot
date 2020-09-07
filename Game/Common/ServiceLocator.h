@@ -6,12 +6,8 @@
 //======================================================
 #pragma once
 
-
-
 #include <cassert>
 #include <memory>
-
-
 
 template<typename Service>
 class ServiceLocator final
@@ -70,8 +66,6 @@ class ServiceLocator final
 		}
 };
 
-
-
 template<typename Service>
 class ServiceLocator<Service>::IServiceHolder
 {
@@ -79,8 +73,6 @@ class ServiceLocator<Service>::IServiceHolder
 		virtual ~IServiceHolder() = default;
 		virtual Service* Get() const = 0;
 };
-
-
 
 template<typename Service>
 template<typename ConcreteService>
@@ -103,8 +95,6 @@ class ServiceLocator<Service>::ServicePtrHolder final : public IServiceHolder
 		}
 };
 
-
-
 template<typename Service>
 template<typename ConcreteService>
 class ServiceLocator<Service>::ServiceRefHolder final : public IServiceHolder
@@ -126,8 +116,6 @@ class ServiceLocator<Service>::ServiceRefHolder final : public IServiceHolder
 		}
 };
 
-
-
 template<typename Service>
 template<typename ConcreteService>
 class ServiceLocator<Service>::ServiceValHolder final : public IServiceHolder
@@ -148,8 +136,6 @@ class ServiceLocator<Service>::ServiceValHolder final : public IServiceHolder
 			return m_service.get();
 		}
 };
-
-
 
 template<typename Service>
 std::unique_ptr<typename ServiceLocator<Service>::IServiceHolder> ServiceLocator<Service>::s_serviceHolder;

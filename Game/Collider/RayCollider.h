@@ -32,8 +32,8 @@ public:
 
 private:
 	//始点
-	DirectX::SimpleMath::Vector3 m_posA;
+	DirectX::SimpleMath::Vector3		m_posA;
 	//終点
-	DirectX::SimpleMath::Vector3 m_posB;
+	DirectX::SimpleMath::Vector3		m_posB;
 
 };

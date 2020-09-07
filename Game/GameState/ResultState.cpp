@@ -6,11 +6,11 @@
 //======================================================
 #include "ResultState.h"
 
-#include <Game\Common\DebugFont.h>
-#include <Game\Common\GameContext.h>
-#include <Game\Common\DeviceResources.h>
+#include <Game/Common/DebugFont.h>
+#include <Game/Common/GameContext.h>
+#include <Game/Common/DeviceResources.h>
 
-#include <Game\GameState\GameStateManager.h>
+#include <Game/GameState/GameStateManager.h>
 
 #include <Game/Bg/ResultBg.h>
 
@@ -86,13 +86,12 @@ void ResultState::Render()
 	
 	m_resultBg->Render();
 	m_spriteBatch->Begin(SpriteSortMode_Deferred, GameContext::Get<CommonStates>()->NonPremultiplied());
-	if (m_blinkFlag == false || m_blink->GetState())
+	if (m_isBlink == false || m_blink->GetState())
 	{
 		m_spriteBatch->Draw(m_pushTexture.Get(), m_pushPos);
 	}
 	m_spriteBatch->End();
 }
-
 
 /// <summary>
 /// 終了
@@ -101,11 +100,15 @@ void ResultState::Finalize()
 {
 }
 
+/// <summary>
+/// ブリンク処理
+/// </summary>
+/// <param name="flag">使うかどうか</param>
 void ResultState::SelectPartsMode(bool flag)
 {
-	m_blinkFlag = flag;
+	m_isBlink = flag;
 	// 点滅間隔の設定
-	if (m_blinkFlag == true)
+	if (m_isBlink == true)
 	{
 		m_blink->Initialize(0.2f);
 	}

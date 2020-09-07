@@ -36,8 +36,6 @@ public:
 public:
 	//更新
 	void Update(const DX::StepTimer& timer) override;
-	//デバック描画
-	void Render();
 
 public:
 	//攻撃にステイトを変更

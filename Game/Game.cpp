@@ -5,19 +5,17 @@
 // Author		: Kyoya  Sakamoto
 //======================================================
 
-
 #include "Game.h"
 
-#include <Game\Common\DeviceResources.h>
-#include <Game\Common\GameContext.h>
-#include <Game\Common\DebugFont.h>
-
-#include <Game\GameState\GameStateManager.h>
-#include <Game\GameState\TitleState.h>
-#include <Game\GameState\PlayState.h>
-#include <Game\GameState\PauseState.h>
-#include <Game\GameState\ResultState.h>
-
+#include <Game/Common/DeviceResources.h>
+#include <Game/Common/GameContext.h>
+#include <Game/Common/DebugFont.h>
+              
+#include <Game/GameState/GameStateManager.h>
+#include <Game/GameState/TitleState.h>
+#include <Game/GameState/PlayState.h>
+#include <Game/GameState/PauseState.h>
+#include <Game/GameState/ResultState.h>
 
 extern void ExitGame();
 
@@ -25,11 +23,9 @@ using namespace DirectX;
 
 using Microsoft::WRL::ComPtr;
 
-
 const wchar_t* Game::WINDOW_TITLE  = L"TBSG";
 const int      Game::WINDOW_WIDTH  = 1280;
 const int      Game::WINDOW_HEIGHT = 720;
-
 
 Game::Game() noexcept(false)
 {

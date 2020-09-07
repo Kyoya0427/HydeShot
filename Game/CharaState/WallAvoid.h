@@ -26,9 +26,7 @@ public:
 	void Initialize(Character* chara, Character* enemy) override;
 	//更新
 	void Update(const DX::StepTimer& timer) override;
-	//描画
-	void Render() override;
-
+	
 public:
 	//ステイトを変更
 	void ChangeForwardState()   { m_wallAvoid = static_cast<CharaState*>(m_forward.get());   }

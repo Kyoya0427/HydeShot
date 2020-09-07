@@ -31,4 +31,5 @@ public:
 private:
 	//ÉTÉCÉY
 	DirectX::SimpleMath::Vector3 m_size;
+
 };

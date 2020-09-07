@@ -53,13 +53,3 @@ void Backward::Update(const DX::StepTimer& timer)
 	m_chara->Backward(AIController::MOVE_SPEED);
 	m_chara->GetWallApproachVel()->SetOffsetAngle(WallApproach::BACKWARD_ANGLE);
 }
-
-/// <summary>
-/// •`‰æ
-/// </summary>
-void Backward::Render()
-{
-	DebugFont* debugFont = DebugFont::GetInstance();
-	debugFont->print(10, 80, static_cast<Color>(Colors::White), 1.0f, L"Backward");
-	debugFont->draw();
-}

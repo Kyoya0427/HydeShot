@@ -39,8 +39,8 @@ Leftward::~Leftward()
 /// <param name="controller">敵キャラクター</param>
 void Leftward::Initialize(Character* chara, Character* enemy)
 {
-	m_chara      = chara;
-	m_enemy      = enemy;
+	m_chara = chara;
+	m_enemy = enemy;
 }
 
 /// <summary>
@@ -52,14 +52,4 @@ void Leftward::Update(const DX::StepTimer& timer)
 	timer;
 	m_chara->Leftward(AIController::MOVE_SPEED);
 	m_chara->GetWallApproachVel()->SetOffsetAngle(WallApproach::LEFT_ANGLE);
-}
-
-/// <summary>
-/// 描画
-/// </summary>
-void Leftward::Render()
-{
-	DebugFont* debugFont = DebugFont::GetInstance();
-	debugFont->print(10, 80, static_cast<Color>(Colors::White), 1.0f, L"Leftward");
-	debugFont->draw();
 }

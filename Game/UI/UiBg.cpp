@@ -34,7 +34,8 @@ UiBg::~UiBg()
 /// <summary>
 /// èâä˙âª
 /// </summary>
-void UiBg::Initialize(const DirectX::SimpleMath::Vector3& pos)
+/// <param name="pos">ç¿ïW</param>
+void UiBg::Initialize(const Vector3& pos)
 {
 	m_spriteBatch = std::make_unique<SpriteBatch>(GameContext().Get<DX::DeviceResources>()->GetD3DDeviceContext());
 	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\bg01.png", NULL, m_texture.ReleaseAndGetAddressOf());

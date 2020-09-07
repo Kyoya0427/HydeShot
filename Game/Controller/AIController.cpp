@@ -62,6 +62,7 @@ AIController::AIController(Character* character, Character* enemy)
 	ChangeSearchState();
 
 	m_neuralNetworkManager = std::make_unique<NeuralNetworkManager>(m_character, m_enemy);
+
 	m_neuralNetworkManager->InitializeNeuralNetwork();
 	GameContext::Register<NeuralNetworkManager>(m_neuralNetworkManager.get());
 
@@ -115,29 +116,5 @@ void AIController::Update(const DX::StepTimer& timer)
 	}
 
 	m_charaState->Update(timer);	
-
-}
-
-/// <summary>
-/// •`‰æ
-/// </summary>
-void AIController::Render()
-{
-	if (PlayState::m_isDebug)
-	{
-		DebugFont* debugFont = DebugFont::GetInstance();
-		debugFont->print(10, 30, static_cast<Color>(Colors::White), 1.0f, L"%f / 0.1", m_shotInterval);
-		debugFont->draw();
-	
-		debugFont->print(700, 30, static_cast<Color>(Colors::White), 1.0f, L"posX = %f", m_enemy->GetPosition().x);
-		debugFont->draw();
-		debugFont->print(700, 60, static_cast<Color>(Colors::White), 1.0f, L"posY = %f", m_enemy->GetPosition().y);
-		debugFont->draw();
-		debugFont->print(700, 90, static_cast<Color>(Colors::White), 1.0f, L"posZ = %f", m_enemy->GetPosition().z);
-		debugFont->draw();
-
-		m_charaState->Render();
-		m_neuralNetworkManager->Render();
-	}
 
 }

@@ -1,5 +1,5 @@
 //======================================================
-// File Name	: DebugFont.h
+// File Name	: DebugFont.cpp
 // Summary		: デバックフォント
 // Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
@@ -40,8 +40,8 @@ DebugFont::~DebugFont()
 /// <summary>
 /// 生成
 /// </summary>
-/// <param name="device"></param>
-/// <param name="context"></param>
+/// <param name="device">デバイス</param>
+/// <param name="context">コンテキスト</param>
 void DebugFont::create(ID3D11Device1* device, ID3D11DeviceContext1* context)
 {
 	m_spriteBatch = std::make_unique<DirectX::SpriteBatch>(context);
@@ -70,7 +70,7 @@ void DebugFont::reset()
 /// <summary>
 /// 表示情報登録
 /// </summary>
-void DebugFont::print(float posX, float posY, DirectX::SimpleMath::Color color, float fontSize, wchar_t const* const format, ...)
+void DebugFont::print(float posX, float posY, Color color, float fontSize, wchar_t const* const format, ...)
 {
 	m_pos.x = posX;
 	m_pos.y = posY;
@@ -85,11 +85,12 @@ void DebugFont::print(float posX, float posY, DirectX::SimpleMath::Color color, 
 /// <summary>
 /// 表示情報登録（Vector2版）
 /// </summary>
-void DebugFont::print(const DirectX::SimpleMath::Vector2& pos, DirectX::SimpleMath::Color color, float fontSize, wchar_t const* const format, ...)
+void DebugFont::print(const Vector2& pos, Color color, float fontSize, wchar_t const* const format, ...)
 {
 	m_pos = pos;
 	m_color = color;
 	m_color = color;
+	m_fontSize = fontSize;
 	va_list arg_ptr;
 	va_start(arg_ptr, format);
 	vswprintf(m_string, STRING_SIZE_MAX, format, arg_ptr);

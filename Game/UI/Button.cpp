@@ -1,5 +1,5 @@
 //======================================================
-// File Name	: Button.h
+// File Name	: Button.cpp
 // Summary		: UIボタン
 // Date			: 2020/5/12
 // Author		: Kyoya Sakamoto
@@ -35,12 +35,13 @@ Button::~Button()
 /// 初期化
 /// </summary>
 /// <param name="pos">座標</param>
+/// <param name="letter">表示文字</param>
 void Button::Initialize(const Vector2& pos, wchar_t* letter)
 {
 	m_spriteBatch = std::make_unique<SpriteBatch>(GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext());
 
 	m_position = pos;
-	m_letter = letter;
+	m_letter   = letter;
 }
 
 /// <summary>
@@ -49,6 +50,7 @@ void Button::Initialize(const Vector2& pos, wchar_t* letter)
 /// <param name="timer">タイマー</param>
 void Button::Update(const DX::StepTimer& timer)
 {
+	timer;
 }
 
 /// <summary>

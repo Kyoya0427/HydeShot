@@ -37,7 +37,7 @@ TitleBg::~TitleBg()
 void TitleBg::Initialize(const Vector3& pos)
 {
 	m_spriteBatch = std::make_unique<SpriteBatch>(GameContext().Get<DX::DeviceResources>()->GetD3DDeviceContext());
-	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\title.png", NULL, m_texture.ReleaseAndGetAddressOf());
+	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources//Textures//title.png", NULL, m_texture.ReleaseAndGetAddressOf());
 
 	m_position = pos;
 }
@@ -49,7 +49,6 @@ void TitleBg::Initialize(const Vector3& pos)
 void TitleBg::Update(const DX::StepTimer& timer)
 {
 	timer;
-
 }
 
 /// <summary>

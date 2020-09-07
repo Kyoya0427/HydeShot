@@ -35,12 +35,12 @@ public:
 	void OnCollision(const Collider* object) const;
 
 public:
-	// 座標を取得
-	const DirectX::SimpleMath::Vector3& GetPosition() const	{ return m_owner->GetPosition() + m_offset; }
 	 //差引勘定を取得
 	const DirectX::SimpleMath::Vector3& GetOffset() const   { return m_offset;}
 	//オブジェクトを取得
 	GameObject* GetGameObject()								{ return m_owner; }
+	// 座標を取得
+	const DirectX::SimpleMath::Vector3& GetPosition() const;
 
 public:
 	//座標を設定
@@ -53,4 +53,14 @@ protected:
 	GameObject*                         m_owner;
 	//差引勘定数値
 	DirectX::SimpleMath::Vector3		m_offset;
+
 };
+
+/// <summary>
+/// 座標を取得
+/// </summary>
+/// <returns>座標</returns>
+inline const DirectX::SimpleMath::Vector3& Collider::GetPosition() const
+{
+	return m_owner->GetPosition() + m_offset;
+}

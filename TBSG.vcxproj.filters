@@ -103,12 +103,6 @@
       <Filter>Game</Filter>
     </ClCompile>
     <!-- 共通 -->
-    <ClInclude Include="Game\Common\BinaryFile.h">
-      <Filter>Game\Common</Filter>
-    </ClInclude>
-    <ClCompile Include="Game\Common\BinaryFile.cpp">
-      <Filter>Game\Common</Filter>
-    </ClCompile>
     <ClInclude Include="Game\Common\DeviceResources.h">
       <Filter>Game\Common</Filter>
     </ClInclude>

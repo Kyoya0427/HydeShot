@@ -21,24 +21,29 @@ public:
 	static constexpr int SCREEN_W = 1280 - 960;
 	static constexpr int SCREEN_H = 720;
 	
-	//１グリット
-	static constexpr int GRIT_SIZE = 24;
 public:
 	//コンストラクタ
 	InfoWindow();
+	//デストラクタ
 	~InfoWindow();
 
 public:
+	//初期化
 	void Initialize();
+	//更新
 	void Update(const DX::StepTimer & timer) override;
+	//描画
 	void Render() override;
+	//当たった後の処理
 	void OnCollision(GameObject* object) override;
 
 private:
 	//テクスチャーハンドル（背景）
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_bg01Texture;
-
+	//ニューラルネットワークのデータ
 	std::unique_ptr<NeuralNetworkData>				 m_neuralNetworkData;
+	//UI背景
 	std::unique_ptr<UiBg>							 m_uiBg;
+	//選択したステイト
 	SelectStateUi*									 m_selectState;
 };

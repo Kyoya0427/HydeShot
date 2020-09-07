@@ -62,7 +62,7 @@ Character::~Character()
 /// 初期化
 /// </summary>
 /// <param name="pos">初期座標</param>
-void Character::Initialize(const DirectX::SimpleMath::Vector2 & pos)
+void Character::Initialize(const DirectX::SimpleMath::Vector2& pos)
 {
 	m_x = (int)pos.x;
 	m_y = (int)pos.y;
@@ -71,17 +71,16 @@ void Character::Initialize(const DirectX::SimpleMath::Vector2 & pos)
 	
 	m_hp = MAX_HP;
 
-
 	ID3D11DeviceContext* deviceContext = GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext();
 
 	m_model = GeometricPrimitive::CreateCone(deviceContext);
 
 	m_sphereCollider = GeometricPrimitive::CreateSphere(deviceContext,1.0f,8U);
 	m_bulletModel    = GeometricPrimitive::CreateSphere(deviceContext, Bullet::RADIUS,8U);
-	m_collider = std::make_unique<SphereCollider>(this, m_radius);
+	m_collider       = std::make_unique<SphereCollider>(this, m_radius);
 
-	m_sight = std::make_unique<Sight>(this);
-	m_wallApproach = std::make_unique<WallApproach>(this);
+	m_sight           = std::make_unique<Sight>(this);
+	m_wallApproach    = std::make_unique<WallApproach>(this);
 	m_wallApproachVel = std::make_unique<WallApproach>(this);
 }
 
@@ -146,25 +145,12 @@ void Character::Render()
 	m_sight->Render();
 	m_wallApproach->Render();
 	m_wallApproachVel->Render();
-
-	if (GetTag() == GameObject::ObjectTag::Player)
-	{
-		DebugFont* debugFont = DebugFont::GetInstance();
-		debugFont->print(10, 500, static_cast<Color>(Colors::White), 1.0f, L"hpP = %d", m_hp);
-		debugFont->draw();
-	}
-	if (GetTag() == GameObject::ObjectTag::Enemy1)
-	{
-		DebugFont* debugFont = DebugFont::GetInstance();
-		debugFont->print(10, 520, static_cast<Color>(Colors::White), 1.0f, L"hpE = %d", m_hp);
-		debugFont->draw();
-	}
-
 }
+
 /// <summary>
 /// 当たった後の処理
 /// </summary>
-/// <param name="object"></param>
+/// <param name="object">オブジェクト</param>
 void Character::OnCollision(GameObject* object)
 {
 	object;

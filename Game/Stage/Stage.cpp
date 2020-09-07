@@ -11,13 +11,14 @@
 #include <string>
 #include <Effects.h>
 
-#include <DirectXTK\CommonStates.h>
-#include <Game\Common\GameContext.h>
-#include <Game\Common\DeviceResources.h>
+#include <DirectXTK/CommonStates.h>
 
-#include <Game\GameObject\GameObjectManager.h>
-#include <Game\GameObject\ObjectManager.h>
-#include <Game\GameObject\GameObject.h>
+#include <Game/Common/GameContext.h>
+#include <Game/Common/DeviceResources.h>
+
+#include <Game/GameObject/GameObjectManager.h>
+#include <Game/GameObject/ObjectManager.h>
+#include <Game/GameObject/GameObject.h>
 
 using namespace DirectX;
 using namespace DirectX::SimpleMath;

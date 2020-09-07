@@ -190,8 +190,8 @@ bool CollisionManager::IsCollided(const BoxCollider* collider1, const SphereColl
 /// <summary>
 /// 球とレイの当たり判定
 /// </summary>
-/// <param name="collider1"></param>
-/// <param name="collider2"></param>
+/// <param name="collider1">オブジェクト1</param>
+/// <param name="collider2">オブジェクト2</param>
 bool CollisionManager::IsCollided(const SphereCollider* collider1, const RayCollider* collider2)
 {
 	float s, t;
@@ -209,18 +209,11 @@ bool CollisionManager::IsCollided(const SphereCollider* collider1, const RayColl
 /// <summary>
 /// 球とレイの当たり判定
 /// </summary>
-/// <param name="collider1"></param>
-/// <param name="collider2"></param>
+/// <param name="collider1">オブジェクト1</param>
+/// <param name="collider2">オブジェクト2</param>
 bool CollisionManager::IsCollided(const RayCollider* collider1, const SphereCollider* collider2)
 {
 	return IsCollided(collider2, collider1);
-}
-
-
-bool CollisionManager::IsCollided(const RayCollider* collider1, const RayCollider* collider2)
-{
-	collider1; collider2;
-	return false;
 }
 
 /// <summary>
@@ -395,4 +388,11 @@ bool CollisionManager::LineToAABB(const BoxCollider* collider1, const RayCollide
 	}
 	// 交差している
 	return true;
+}
+
+bool CollisionManager::IsCollided(const RayCollider* collider1, const RayCollider* collider2)
+{
+	collider1;
+	collider2;
+	return false;
 }

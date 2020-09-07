@@ -1,13 +1,18 @@
-
+//======================================================
+// File Name	: InfoWindow.cpp
+// Summary		: 情報ウィンドウ
+// Date			: 2020/5/12
+// Author		: Kyoya Sakamoto
+//======================================================
 #include "InfoWindow.h"
 
-#include <DirectXTK\WICTextureLoader.h>
+#include <DirectXTK/WICTextureLoader.h>
 
-#include <Game\Common\GameContext.h>
-#include <Game\Common\DeviceResources.h>
+#include <Game/Common/GameContext.h>
+#include <Game/Common/DeviceResources.h>
 
-#include <Game\GameObject\GameObjectManager.h>
-#include <Game\GameObject\ObjectManager.h>
+#include <Game/GameObject/GameObjectManager.h>
+#include <Game/GameObject/ObjectManager.h>
 
 #include <Game/UI/NeuralNetworkData.h>
 #include <Game/UI/UiBg.h>
@@ -16,15 +21,24 @@
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
+/// <summary>
+/// コンストラクタ
+/// </summary>
 InfoWindow::InfoWindow()
 {
 }
 
+/// <summary>
+/// デストラクタ
+/// </summary>
 InfoWindow::~InfoWindow()
 {
 
 }
 
+/// <summary>
+/// 初期化
+/// </summary>
 void InfoWindow::Initialize()
 {
 	m_uiBg = std::make_unique<UiBg>();
@@ -41,15 +55,26 @@ void InfoWindow::Initialize()
 
 }
 
+/// <summary>
+/// 更新
+/// </summary>
+/// <param name="timer"></param>
 void InfoWindow::Update(const DX::StepTimer & timer)
 {
 	timer;
 }
 
+/// <summary>
+/// 描画
+/// </summary>
 void InfoWindow::Render()
 {
 }
 
+/// <summary>
+/// 当たった後の処理
+/// </summary>
+/// <param name="object">オブジェクト</param>
 void InfoWindow::OnCollision(GameObject* object)
 {
 	object;

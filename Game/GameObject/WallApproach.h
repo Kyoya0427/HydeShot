@@ -53,15 +53,15 @@ public:
 
 private:
 	//当たり判定モデル
-	std::unique_ptr<DirectX::GeometricPrimitive> m_WallApproachCollider;
+	std::unique_ptr<DirectX::GeometricPrimitive>	m_WallApproachCollider;
 	//当たり判定
-	std::unique_ptr<BoxCollider>				 m_collider;
+	std::unique_ptr<BoxCollider>				    m_collider;
 	//サイズ
-	DirectX::SimpleMath::Vector3                 m_size;
+	DirectX::SimpleMath::Vector3                    m_size;
 	//所持してるキャラ
-	Character*									 m_chara;
+	Character*									    m_chara;
 	//オフセット角度
-	float                                        m_offsetAngle;
+	float                                           m_offsetAngle;
 	//移動方向
-	WallApproachVelID							 m_isWallApproach;
+	WallApproachVelID							    m_isWallApproach;
 };

@@ -53,13 +53,3 @@ void RightTurn::Update(const DX::StepTimer& timer)
 	m_chara->RightTurn(AIController::ROT_SPEED);
 	m_chara->GetWallApproachVel()->SetOffsetAngle(WallApproach::FORWARD_ANGLE);
 }
-
-/// <summary>
-/// •`‰æ
-/// </summary>
-void RightTurn::Render()
-{
-	DebugFont* debugFont = DebugFont::GetInstance();
-	debugFont->print(10, 80, static_cast<Color>(Colors::White), 1.0f, L"RightTurn");
-	debugFont->draw();
-}

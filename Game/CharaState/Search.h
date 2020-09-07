@@ -28,8 +28,6 @@ public:
 	void Initialize(Character* chara, Character* enemy) override;
 	//更新
 	void Update(const DX::StepTimer& timer) override;
-	//描画
-	void Render() override;
 
 public:
 	//ステイトを変更
@@ -45,7 +43,6 @@ private:
 	Character*                    m_enemy;
 	//現在のステート
 	CharaState*				      m_search;
-
 	//Forward状態
 	std::unique_ptr<Forward>      m_forward;
 	//Backward状態
@@ -54,4 +51,5 @@ private:
 	std::unique_ptr<LeftTurn>     m_leftTurn;
 	//RightTurn状態
 	std::unique_ptr<RightTurn>    m_rightTurn;
+
 };

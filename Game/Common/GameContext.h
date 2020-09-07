@@ -6,11 +6,7 @@
 //======================================================
 #pragma once
 
-
-
 #include "ServiceLocator.h"
-
-
 
 class GameContext final
 {

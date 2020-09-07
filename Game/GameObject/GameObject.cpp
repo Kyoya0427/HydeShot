@@ -48,7 +48,6 @@ void GameObject::Invalidate()
 /// <summary>
 /// 有効
 /// </summary>
-/// <returns></returns>
 bool GameObject::IsValid() const
 {
 	return m_isValid;
@@ -57,7 +56,6 @@ bool GameObject::IsValid() const
 /// <summary>
 /// 無効
 /// </summary>
-/// <returns></returns>
 bool GameObject::IsInvalid() const
 {
 	return !m_isValid;
@@ -66,7 +64,7 @@ bool GameObject::IsInvalid() const
 /// <summary>
 /// 非表示にする
 /// </summary>
-/// <param name="object"></param>
+/// <param name="object">オブジェクト</param>
 void GameObject::Destroy(GameObject * object)
 {
 	object->Invalidate();

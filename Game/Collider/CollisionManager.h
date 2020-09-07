@@ -53,17 +53,16 @@ public:
 	static bool IsCollided(const BoxCollider*    collider1, const BoxCollider*    collider2);
 	static bool IsCollided(const BoxCollider*    collider1, const SphereCollider* collider2);
 	static bool IsCollided(const BoxCollider*    collider1, const RayCollider*    collider2);
-	static bool IsCollided(const RayCollider*    collider1, const RayCollider*    collider2);
 	static bool IsCollided(const RayCollider*    collider1, const SphereCollider* collider2);
 	static bool IsCollided(const RayCollider*    collider1, const BoxCollider*    collider2);
-
+	static bool IsCollided(const RayCollider* collider1, const RayCollider* collider2);
 	//平方計算
 	static float SquareCalculation(const SphereCollider*    collider1, const BoxCollider*    collider2);
 	//最も近いポイントセグメント
 	static float ClosestPointSegment(DirectX::SimpleMath::Vector3 p1, DirectX::SimpleMath::Vector3 q1,
-		DirectX::SimpleMath::Vector3 p2, DirectX::SimpleMath::Vector3 q2, float& s, float& t,
-		DirectX::SimpleMath::Vector3& c1, DirectX::SimpleMath::Vector3& c2);
-
+									 DirectX::SimpleMath::Vector3 p2, DirectX::SimpleMath::Vector3 q2, float& s, float& t,
+									 DirectX::SimpleMath::Vector3& c1, DirectX::SimpleMath::Vector3& c2);
+	//線と箱の当たり判定
 	static bool LineToAABB(const BoxCollider* collider1, const RayCollider* collider2, RaycastHit* hit = nullptr);
 
 private:
@@ -71,4 +70,5 @@ private:
 	ColliderGroupList  m_colliderGroups;
 	//衝突するグループ名を記録
 	CollisionGroupList m_collisionGroups;
+
 };

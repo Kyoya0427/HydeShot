@@ -46,7 +46,7 @@ NeuralNetworkManager::NeuralNetworkManager(Character* character, Character* enem
 /// </summary>
 NeuralNetworkManager::~NeuralNetworkManager()
 {
-	OutputDataFile("Resources\\CSV\\OutputData.csv");
+	OutputDataFile("Resources//CSV//OutputData.csv");
 }
 
 /// <summary>
@@ -211,14 +211,6 @@ CharaStateID NeuralNetworkManager::BehaviorSelection()
 }
 
 /// <summary>
-/// ï`âÊ
-/// </summary>
-void NeuralNetworkManager::Render()
-{
-	
-}
-
-/// <summary>
 /// ç∂âEîªíË
 /// </summary>
 /// <param name="character">é©ã@</param>
@@ -284,6 +276,3 @@ void NeuralNetworkManager::OutputDataFile(char* fname)
 	}
 	fclose(f);
 }
-
-
-

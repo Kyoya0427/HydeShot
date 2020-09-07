@@ -39,8 +39,8 @@ void Bg::Initialize()
 {
 	// モデルデータの読み込み
 	EffectFactory fx(GameContext::Get<DX::DeviceResources>()->GetD3DDevice());
-	fx.SetDirectory(L"Resources\\Models");
-	m_model = Model::CreateFromCMO(GameContext::Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Models\\bg.cmo", fx);
+	fx.SetDirectory(L"Resources//Models");
+	m_model = Model::CreateFromCMO(GameContext::Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources//Models//bg.cmo", fx);
 
 	m_model->UpdateEffects([&](IEffect* effect)
 	{

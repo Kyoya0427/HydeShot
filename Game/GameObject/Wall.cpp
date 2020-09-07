@@ -8,17 +8,17 @@
 
 #include <Game/Stage/Stage.h>
 
-#include <DirectXTK\CommonStates.h>
-#include <DirectXTK\GeometricPrimitive.h>
+#include <DirectXTK/CommonStates.h>
+#include <DirectXTK/GeometricPrimitive.h>
 
-#include <Game\Common\GameContext.h>
-#include <Game\Common\DeviceResources.h>
+#include <Game/Common/GameContext.h>
+#include <Game/Common/DeviceResources.h>
 #include <Game/Common/DebugFont.h>
 
-#include <Game\Camera\Camera.h>
+#include <Game/Camera/Camera.h>
 
-#include <Game\Collider\CollisionManager.h>
-#include <Game\Collider\BoxCollider.h>
+#include <Game/Collider/CollisionManager.h>
+#include <Game/Collider/BoxCollider.h>
 
 #include <Game/GameState/PlayState.h>
 
@@ -108,4 +108,3 @@ void Wall::OnCollision(GameObject* object)
 {
 	object;
 }
-

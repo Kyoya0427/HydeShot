@@ -15,17 +15,17 @@ class Attack : public CharaState
 public:
 	//コンストラクタ
 	Attack();
+	//デストラクタ
+	~Attack();
 
 public:
 	//初期化
 	void Initialize(Character* chara , Character* enemy) override;
 	//更新
 	void Update(const DX::StepTimer& timer) override;
-	//描画
-	void Render() override;
 
 private:
 	//自機
-	Character* m_chara;
+	Character*		m_chara;
 
 };

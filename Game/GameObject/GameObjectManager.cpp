@@ -69,7 +69,7 @@ void GameObjectManager::Render()
 /// <summary>
 /// 追加
 /// </summary>
-/// <param name="object"></param>
+/// <param name="object">オブジェクト</param>
 void GameObjectManager::Add(GameObjectPtr&& object)
 {
 	m_objectQueue.push_back(std::move(object));
@@ -79,7 +79,7 @@ void GameObjectManager::Add(GameObjectPtr&& object)
 /// 指定タグのみを取得
 /// </summary>
 /// <param name="tag">指定タグ</param>
-/// <returns></returns>
+/// <returns>オブジェクトのベクター</returns>
 std::vector<GameObject*> GameObjectManager::Find(const GameObject::ObjectTag& tag)
 {
 	std::vector<GameObject*> result;
@@ -103,11 +103,10 @@ std::vector<GameObject*> GameObjectManager::Find(const GameObject::ObjectTag& ta
 	return result;
 }
 
-
 /// <summary>
 /// オブジェクト更新
 /// </summary>
-/// <param name="timer"></param>
+/// <param name="timer">タイマー</param>
 void GameObjectManager::UpdateObjects(const DX::StepTimer& timer)
 {
 	for (GameObjectList::iterator itr = m_objects.begin(); itr != m_objects.end(); itr++)

@@ -50,8 +50,6 @@ public:
 	void InitializeNeuralNetwork();
 	//行動パターンを選択
 	CharaStateID BehaviorSelection();
-	//描画
-	void Render();
 	//左右判定
 	void SearchDirection(Character* character, Character* enemy);
 	// 内積計算

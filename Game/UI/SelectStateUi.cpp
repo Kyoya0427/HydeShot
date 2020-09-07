@@ -1,6 +1,6 @@
 //======================================================
-// File Name	: InfoWindow.h
-// Summary		: 情報ウィンドウ
+// File Name	: SelectStateUi.h
+// Summary		: 選択したステイト
 // Date			: 2020/6/12
 // Author		: Kyoya  Sakamoto
 //======================================================
@@ -45,6 +45,7 @@ void SelectStateUi::Initialize()
 /// <param name="timer">タイマー</param>
 void SelectStateUi::Update(const DX::StepTimer& timer)
 {
+	timer;
 }
 
 /// <summary>
@@ -70,4 +71,5 @@ void SelectStateUi::Render()
 /// <param name="object">オブジェクト</param>
 void SelectStateUi::OnCollision(GameObject* object)
 {
+	object;
 }

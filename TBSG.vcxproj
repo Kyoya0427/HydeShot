@@ -236,8 +236,6 @@
     <ClInclude Include="Game\Game.h" />
     <ClCompile Include="Game\Game.cpp" />
     <!-- 共通 -->
-    <ClInclude Include="Game\Common\BinaryFile.h" />
-    <ClCompile Include="Game\Common\BinaryFile.cpp" />
     <ClInclude Include="Game\Common\DeviceResources.h" />
     <ClCompile Include="Game\Common\DeviceResources.cpp" />
     <ClInclude Include="Game\Common\StepTimer.h" />

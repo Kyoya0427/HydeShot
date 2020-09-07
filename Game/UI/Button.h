@@ -11,7 +11,9 @@
 class Button
 {
 public:
+	//コンストラクタ
 	Button();
+	//デストラクタ
 	~Button();
 
 public:
@@ -21,12 +23,13 @@ public:
 	void Update(const DX::StepTimer& timer);
 	// 描画関数
 	void Render();
-	//当たった後の処理
 	
-
 public:
+	//セレクトしているか設定
 	void SetSelect(const bool select) { m_isSelect = select; }
+	//通常時のテクスチャーを設定
 	void SetDefaultTexture(ID3D11ShaderResourceView* texture) { m_defaultTexture = texture; }
+	//選択時のテクスチャーを設定
 	void SetSelectTexture(ID3D11ShaderResourceView* texture)  { m_selectTexture = texture; }
 
 private:
@@ -40,7 +43,7 @@ private:
 	bool											 m_isSelect;
 	//ボタンの文字
 	wchar_t*                                         m_letter;
-
+	//座標
 	DirectX::SimpleMath::Vector2                     m_position;
 };
 

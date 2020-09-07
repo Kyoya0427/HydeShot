@@ -80,16 +80,3 @@ void PlayerController::Update(const DX::StepTimer& timer)
 
 
 }
-
-/// <summary>
-/// •`‰æ
-/// </summary>
-void PlayerController::Render()
-{
-
-}
-
-
-
-
-

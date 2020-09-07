@@ -123,4 +123,3 @@ void GameStateManager::ChangeState()
 
 	m_nextStateName = GameState::NONE_STATE;
 }
-

@@ -26,8 +26,6 @@ using GameObjectList = std::list<GameObjectPtr>;
 public:
 	//コンストラクタ
 	GameObjectManager();
-
-public:
 	//デストラクタ
 	~GameObjectManager();
 
@@ -56,8 +54,11 @@ public:
 	void SetDrawPrio(const int prio)    {  m_drawPrio = prio; }
 
 private:
+	//メインリスト
 	GameObjectList		m_objects;
+	//一時リスト
 	GameObjectList		m_objectQueue;
+	//描画順
 	int					m_drawPrio;
 
 };

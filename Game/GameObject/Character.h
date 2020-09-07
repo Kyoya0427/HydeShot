@@ -85,31 +85,32 @@ public:
 
 private:
 	//モデル
-	std::unique_ptr<DirectX::GeometricPrimitive> m_model;
+	std::unique_ptr<DirectX::GeometricPrimitive>	m_model;
 	//当たり判定モデル
-	std::unique_ptr<DirectX::GeometricPrimitive> m_sphereCollider;
+	std::unique_ptr<DirectX::GeometricPrimitive>    m_sphereCollider;
 	//弾モデル
-	std::unique_ptr<DirectX::GeometricPrimitive> m_bulletModel;
+	std::unique_ptr<DirectX::GeometricPrimitive>    m_bulletModel;
 	//射程
-	std::unique_ptr<Sight>                       m_sight;
+	std::unique_ptr<Sight>                          m_sight;
 	//壁に接近しているか(前方)
-	std::unique_ptr<WallApproach>                m_wallApproach;
+	std::unique_ptr<WallApproach>                   m_wallApproach;
 	//壁に接近しているか(移動方向)
-	std::unique_ptr<WallApproach>                m_wallApproachVel;
+	std::unique_ptr<WallApproach>                   m_wallApproachVel;
 	//当たり判定
-	std::unique_ptr<SphereCollider>              m_collider;
+	std::unique_ptr<SphereCollider>                 m_collider;
 	//現在のステート
-	CharaStateID								 m_state;
+	CharaStateID								    m_state;
 	//１フレーム前の座標
-	DirectX::SimpleMath::Vector3                 m_previousPos;
+	DirectX::SimpleMath::Vector3                    m_previousPos;
 	//壁にセンサーが接触してるか
-	bool                                         m_isWallSightContact;
+	bool                                            m_isWallSightContact;
 	//壁に接触してるか
-	bool										 m_isWallContact;
+	bool										    m_isWallContact;
 	//敵にセンサーが接触しているか
-	bool                                         m_isEnemySightContact;
+	bool                                            m_isEnemySightContact;
 	//壁発見
-	bool										 m_isWallDiscovery;
+	bool										    m_isWallDiscovery;
 	//HP
-	int                                          m_hp;
+	int                                             m_hp;
+
 };
