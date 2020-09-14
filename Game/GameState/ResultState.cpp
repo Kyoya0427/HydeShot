@@ -61,7 +61,7 @@ void ResultState::Update(const DX::StepTimer& timer)
 	timer;
 	DirectX::Keyboard::State keyState = DirectX::Keyboard::Get().GetState();
 	m_keyTracker.Update(keyState);
-	if (m_keyTracker.IsKeyReleased(DirectX::Keyboard::Z))
+	if (m_keyTracker.IsKeyReleased(DirectX::Keyboard::Space))
 	{
 		using State = GameStateManager::GameState;
 		GameStateManager* gameStateManager = GameContext().Get<GameStateManager>();

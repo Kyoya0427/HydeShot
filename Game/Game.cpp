@@ -23,7 +23,7 @@ using namespace DirectX;
 
 using Microsoft::WRL::ComPtr;
 
-const wchar_t* Game::WINDOW_TITLE  = L"TBSG";
+const wchar_t* Game::WINDOW_TITLE  = L"HydeShot";
 const int      Game::WINDOW_WIDTH  = 1280;
 const int      Game::WINDOW_HEIGHT = 720;
 
