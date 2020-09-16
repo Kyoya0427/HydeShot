@@ -40,7 +40,7 @@ public:
 	//オブジェクトを取得
 	GameObject* GetGameObject()								{ return m_owner; }
 	// 座標を取得
-	const DirectX::SimpleMath::Vector3& GetPosition() const;
+	DirectX::SimpleMath::Vector3 GetPosition() const;
 
 public:
 	//座標を設定
@@ -60,7 +60,7 @@ protected:
 /// 座標を取得
 /// </summary>
 /// <returns>座標</returns>
-inline const DirectX::SimpleMath::Vector3& Collider::GetPosition() const
+inline DirectX::SimpleMath::Vector3 Collider::GetPosition() const
 {
 	return m_owner->GetPosition() + m_offset;
 }

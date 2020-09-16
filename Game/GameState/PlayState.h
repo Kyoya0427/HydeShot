@@ -18,6 +18,7 @@ class ObjectManager;
 class Camera;
 class PlayerController;
 class AIController;
+class AutoPlayerController;
 class Stage;
 class Bg;
 class Character;
@@ -67,6 +68,8 @@ private:
 	std::unique_ptr<AIController>               m_aiController[2];
 	//プレイヤーコントローラー
 	std::unique_ptr<PlayerController>           m_playerControll;
+	//オートプレイヤーコントローラー
+	std::unique_ptr<AutoPlayerController>       m_autoPlayerController;
 	// ゲームオブジェクトマネージャー
 	std::unique_ptr<ObjectManager>              m_objectManager;
 	//当たり判定マネージャー

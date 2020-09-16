@@ -61,7 +61,7 @@ void NeuralNetworkManager::InitializeTraining(wchar_t* fname)
 
 	m_training = std::vector<std::vector<float>>(MAX_DATA_H, std::vector<float>(MAX_DATA_W, 0));
 
-	// ステージデータの読み込み
+	//データの読み込み
 	for (int i = 0; i < MAX_DATA_H; i++)
 	{
 		getline(ifs, str);

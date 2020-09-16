@@ -14,6 +14,20 @@
 class PlayerController : public  CharacterController
 {
 public:
+	enum class InputID
+	{
+		NONE,
+
+		FORWARD,
+		BACKWARD,
+		LEFTWARD,
+		RIGHTWARD,
+		LEFT_TURN,
+		RIGHT_TURN,
+		SHOOT
+	};
+
+public:
 	//コンストラク
 	PlayerController(Character* character);
 	//デストラクタ
@@ -22,7 +36,10 @@ public:
 public:
 	//更新
 	void Update(const DX::StepTimer& timer) override;
-	void Render();
+
+public:
+	// 入力と出力の値を外部に出力
+	void OutputDataFile(char* fname);
 
 public:
 	//移動速度
@@ -32,4 +49,11 @@ public:
 	//ショットインターバル
 	static const float  SHOT_INTERVAL;
 
+private:
+	//計算時のデータ
+	InputID					     m_data;
+	//全ての計算データ
+	std::vector<InputID>         m_outputData;
+	//データ保存するかどうか
+	bool						 m_isSaveData;
 };
