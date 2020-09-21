@@ -17,6 +17,7 @@
 #include <Game/UI/NeuralNetworkData.h>
 #include <Game/UI/UiBg.h>
 #include <Game/UI/SelectStateUi.h>
+#include <Game/UI/HpUi.h>
 
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
@@ -52,6 +53,11 @@ void InfoWindow::Initialize()
 	m_selectState = selectStateUi.get();
 	GameContext::Register<SelectStateUi>(m_selectState);
 	GameContext::Get<ObjectManager>()->GetInfoOM()->Add(std::move(selectStateUi));
+
+	std::unique_ptr<HpUi> hpUi = std::make_unique<HpUi>();
+	m_character = hpUi.get();
+	GameContext::Register<HpUi>(m_character);
+	GameContext::Get<ObjectManager>()->GetInfoOM()->Add(std::move(hpUi));
 
 }
 

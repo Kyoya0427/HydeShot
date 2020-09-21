@@ -16,6 +16,8 @@
 
 #include <Game/CharaState/CharaStateID.h>
 
+#include <Game/UI/Blink.h>
+
 class Sight;
 class WallApproach;
 
@@ -81,7 +83,8 @@ public:
 
 public:
 	//最大HP
-	static const int  MAX_HP;
+	static const int   MAX_HP;
+	static const float INVINCIBLE_TIME;
 
 private:
 	//モデル
@@ -100,6 +103,13 @@ private:
 	std::unique_ptr<SphereCollider>                 m_collider;
 	//現在のステート
 	CharaStateID								    m_state;
+	//ブリンク
+	std::unique_ptr<Blink>                          m_blink;
+	//ブリンクカラー
+	DirectX::SimpleMath::Color                      m_blinkColor;
+	//デフォルトカラー
+	DirectX::SimpleMath::Color                      m_defaultColor;
+
 	//１フレーム前の座標
 	DirectX::SimpleMath::Vector3                    m_previousPos;
 	//壁にセンサーが接触してるか
@@ -110,7 +120,11 @@ private:
 	bool                                            m_isEnemySightContact;
 	//壁発見
 	bool										    m_isWallDiscovery;
+	//ダメージ（無敵中）
+	bool                                            m_isDamage;
 	//HP
 	int                                             m_hp;
+	//無敵時間
+	float                                           m_invincibleTime;
 
 };

@@ -27,7 +27,8 @@
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
-const int Character::MAX_HP = 5;
+const int   Character::MAX_HP = 5;
+const float Character::INVINCIBLE_TIME = 2.0f;
 
 /// <summary>
 /// コンストラク
@@ -45,6 +46,7 @@ Character::Character(const ObjectTag tag)
 	, m_isWallContact(false)
 	, m_isEnemySightContact(false)
 	, m_isWallDiscovery(false)
+	, m_isDamage(false)
 	, m_hp()
 	, m_state(CharaStateID::NONE)
 {
@@ -70,6 +72,7 @@ void Character::Initialize(const DirectX::SimpleMath::Vector2& pos)
 	m_radius = 0.4f;
 	
 	m_hp = MAX_HP;
+	m_invincibleTime = INVINCIBLE_TIME;
 
 	ID3D11DeviceContext* deviceContext = GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext();
 
@@ -82,6 +85,11 @@ void Character::Initialize(const DirectX::SimpleMath::Vector2& pos)
 	m_sight           = std::make_unique<Sight>(this);
 	m_wallApproach    = std::make_unique<WallApproach>(this);
 	m_wallApproachVel = std::make_unique<WallApproach>(this);
+
+	m_blink = std::make_unique<Blink>();
+	
+	m_defaultColor = m_color;
+	m_blinkColor   = Colors::Gray;
 }
 
 /// <summary>
@@ -93,6 +101,8 @@ void Character::Update(const DX::StepTimer& timer)
 	timer;
 	m_isWallContact = false;
 	m_previousPos = m_position;
+
+	float elapsedTime = float(timer.GetElapsedSeconds());
 
 	GameContext::Get<CollisionManager>()->Add(GetTag(), m_collider.get());
 	Quaternion quaternion = Quaternion::CreateFromAxisAngle(Vector3::UnitY, m_rotation.y);
@@ -108,6 +118,24 @@ void Character::Update(const DX::StepTimer& timer)
 	m_wallApproach->Update(timer);
 	m_wallApproachVel->Update(timer);
 
+	
+
+	if (m_isDamage)
+	{
+		m_blink->Initialize(0.16f);
+		m_blink->Start();
+		m_invincibleTime -= elapsedTime;
+
+	}
+
+	if (m_invincibleTime <= 0.0f)
+	{
+		m_isDamage = false;
+		m_blink->Stop();
+		m_invincibleTime = INVINCIBLE_TIME;
+	}
+
+
 	if (m_hp <= 0)
 	{
 		if (GetTag() == GameObject::ObjectTag::Player)
@@ -119,6 +147,8 @@ void Character::Update(const DX::StepTimer& timer)
 		GameStateManager* gameStateManager = GameContext().Get<GameStateManager>();
 		gameStateManager->RequestState(State::RESULT_STATE);
 	}
+
+	m_blink->Update(timer);
 }
 
 /// <summary>
@@ -135,7 +165,14 @@ void Character::Render()
 
 	m_world = scalemat * r * rotMat * transMat;
 
+
+	if(m_blink->GetState())			
+		m_color = m_defaultColor;
+	else
+		m_color = m_blinkColor;
+
 	m_model->Draw(m_world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_color);
+
 
 	Matrix world = rotMat * transMat;
 
@@ -145,6 +182,19 @@ void Character::Render()
 	m_sight->Render();
 	m_wallApproach->Render();
 	m_wallApproachVel->Render();
+
+
+	DebugFont* debugFont = DebugFont::GetInstance();
+	if (m_isDamage && m_tag == GameObject::ObjectTag::Player)
+	{
+		debugFont->print(10, 10, static_cast<Color>(Colors::White), 1.0f, L"TRUE");
+		debugFont->draw();
+	}
+	if (m_isDamage == false && m_tag == GameObject::ObjectTag::Player)
+	{
+		debugFont->print(10, 10, static_cast<Color>(Colors::White), 1.0f, L"FALSE");
+		debugFont->draw();
+	}
 }
 
 /// <summary>
@@ -163,8 +213,10 @@ void Character::OnCollision(GameObject* object)
 
 	if (object->GetTag() == GameObject::ObjectTag::Bullet)
 	{
-		if (object->GetCharaTag() != GetTag())
+		if (object->GetCharaTag() != GetTag() && m_isDamage == false)
 		{
+			m_isDamage = true;
+			
 			m_hp -= 1;
 		}
 	}

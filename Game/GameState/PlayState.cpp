@@ -109,12 +109,12 @@ void PlayState::Initialize()
 	
 	//エネミー初期化
 	m_enemy[0] = std::make_unique<Character>(GameObject::ObjectTag::Enemy1);
-	m_enemy[0]->Initialize(m_stage->GetEnemyPos());
 	m_enemy[0]->SetColor(Color(Colors::Blue));
+	m_enemy[0]->Initialize(m_stage->GetEnemyPos());
 	
 	m_player = std::make_unique<Character>(GameObject::ObjectTag::Player);
-	m_player->Initialize(m_stage->GetPlayerPos());
 	m_player->SetColor(Color(Colors::Red));
+	m_player->Initialize(m_stage->GetPlayerPos());
 
 	m_aiController[0] = std::make_unique<AIController>(m_enemy[0].get(), m_player.get());
 	m_playerControll = std::make_unique<PlayerController>(m_player.get());

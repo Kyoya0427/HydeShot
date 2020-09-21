@@ -68,7 +68,11 @@ void ResultState::Update(const DX::StepTimer& timer)
 		gameStateManager->RequestState(State::TITLE_STATE);
 	}
 
-	SelectPartsMode(true);
+	if (m_keyTracker.IsKeyReleased(DirectX::Keyboard::Z))
+	{
+		m_isBlink = !m_isBlink;
+	}
+
 	m_blink->Update(timer);
 }
 
@@ -82,7 +86,7 @@ void ResultState::Render()
 	debugFont->draw();
 	debugFont->print(100, 100, static_cast<Color>(Colors::White), 1.0f, L"Z Key");
 	debugFont->draw();
-
+	
 	
 	m_resultBg->Render();
 	m_spriteBatch->Begin(SpriteSortMode_Deferred, GameContext::Get<CommonStates>()->NonPremultiplied());
@@ -90,7 +94,19 @@ void ResultState::Render()
 	{
 		m_spriteBatch->Draw(m_pushTexture.Get(), m_pushPos);
 	}
+
 	m_spriteBatch->End();
+
+	if (m_isBlink)
+	{
+		debugFont->print(10, 10, static_cast<Color>(Colors::White), 1.0f, L"TRUE");
+		debugFont->draw();
+	}
+	if (m_isBlink == false)
+	{
+		debugFont->print(10, 10, static_cast<Color>(Colors::White), 1.0f, L"FALSE");
+		debugFont->draw();
+	}
 }
 
 /// <summary>
@@ -100,20 +116,3 @@ void ResultState::Finalize()
 {
 }
 
-/// <summary>
-/// ブリンク処理
-/// </summary>
-/// <param name="flag">使うかどうか</param>
-void ResultState::SelectPartsMode(bool flag)
-{
-	m_isBlink = flag;
-	// 点滅間隔の設定
-	if (m_isBlink == true)
-	{
-		m_blink->Initialize(0.2f);
-	}
-	else
-	{
-		m_blink->Initialize(0.2f);
-	}
-}

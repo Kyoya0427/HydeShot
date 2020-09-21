@@ -9,8 +9,12 @@
 #include <Game/GameObject/Character.h>
 
 #include <Game/Common/DebugFont.h>
+#include <Game/Common/GameContext.h>
 
 #include <Game/GameState/PlayState.h>
+
+#include <Game/UI/HpUi.h>
+
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
@@ -69,7 +73,7 @@ void PlayerController::Update(const DX::StepTimer& timer)
 		m_data = InputID::RIGHTWARD;
 		m_character->Rightward(MOVE_SPEED);
 	}
-	else
+	
 	if (keyState.IsKeyDown(Keyboard::Keys::Left))
 	{
 		m_data = InputID::LEFTWARD;
@@ -80,7 +84,7 @@ void PlayerController::Update(const DX::StepTimer& timer)
 		m_data = InputID::RIGHTWARD;
 		m_character->RightTurn(ROT_SPEED);
 	}
-	else
+	
 	if (keyState.IsKeyDown(Keyboard::Keys::Space) && m_shotInterval < 0.0f)
 	{
 		m_data = InputID::SHOOT;
@@ -93,6 +97,8 @@ void PlayerController::Update(const DX::StepTimer& timer)
 	}
 
 	m_outputData.push_back(m_data);
+	GameContext::Get<HpUi>()->SetPlayerHp(m_character->GetHp());
+
 }
 
 /// <summary>

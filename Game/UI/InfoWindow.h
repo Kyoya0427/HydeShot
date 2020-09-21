@@ -13,6 +13,7 @@
 class NeuralNetworkData;
 class UiBg;
 class SelectStateUi;
+class HpUi;
 
 class InfoWindow :public GameObject
 {
@@ -46,4 +47,6 @@ private:
 	std::unique_ptr<UiBg>							 m_uiBg;
 	//選択したステイト
 	SelectStateUi*									 m_selectState;
+	//キャラクターのHp
+	HpUi*			                                 m_character;
 };

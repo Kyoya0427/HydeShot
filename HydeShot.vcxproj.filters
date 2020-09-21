@@ -397,6 +397,9 @@
     <ClInclude Include="Game\Controller\AutoPlayerController.h">
       <Filter>Game\Controller</Filter>
     </ClInclude>
+    <ClInclude Include="Game\UI\HpUi.h">
+      <Filter>Game\Ui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game\Common\DebugFont.cpp">
@@ -536,6 +539,9 @@
     </ClCompile>
     <ClCompile Include="Game\Controller\AutoPlayerController.cpp">
       <Filter>Game\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\UI\HpUi.cpp">
+      <Filter>Game\Ui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

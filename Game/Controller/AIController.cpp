@@ -23,6 +23,8 @@
 #include <Game/CharaState/WallAvoid.h>
 #include <Game/CharaState/Search.h>
 
+#include <Game/UI/HpUi.h>
+
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
@@ -117,4 +119,5 @@ void AIController::Update(const DX::StepTimer& timer)
 
 	m_charaState->Update(timer);	
 
+	GameContext::Get<HpUi>()->SetEnemyHp(m_character->GetHp());
 }

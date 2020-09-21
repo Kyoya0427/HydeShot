@@ -35,9 +35,6 @@ public:
 	void Finalize() override;
 
 public:
-	void SelectPartsMode(bool flag);
-
-public:
 	static bool		 m_isPlayerWin;
 
 private:

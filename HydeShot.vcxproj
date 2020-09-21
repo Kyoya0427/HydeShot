@@ -175,6 +175,7 @@
     <ClInclude Include="Game\Stage\Stage.h" />
     <ClInclude Include="Game\UI\Blink.h" />
     <ClInclude Include="Game\UI\Button.h" />
+    <ClInclude Include="Game\UI\HpUi.h" />
     <ClInclude Include="Game\UI\InfoWindow.h" />
     <ClInclude Include="Game\UI\NeuralNetworkData.h" />
     <ClInclude Include="Game\UI\SelectStateUi.h" />
@@ -222,6 +223,7 @@
     <ClCompile Include="Game\Stage\Stage.cpp" />
     <ClCompile Include="Game\UI\Blink.cpp" />
     <ClCompile Include="Game\UI\Button.cpp" />
+    <ClCompile Include="Game\UI\HpUi.cpp" />
     <ClCompile Include="Game\UI\InfoWindow.cpp" />
     <ClCompile Include="Game\UI\NeuralNetworkData.cpp" />
     <ClCompile Include="Game\UI\SelectStateUi.cpp" />
