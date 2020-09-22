@@ -118,7 +118,7 @@ void PlayState::Initialize()
 
 	m_aiController[0] = std::make_unique<AIController>(m_enemy[0].get(), m_player.get());
 	m_playerControll = std::make_unique<PlayerController>(m_player.get());
-//	m_autoPlayerController = std::make_unique<AutoPlayerController>(m_player.get());
+	m_autoPlayerController = std::make_unique<AutoPlayerController>(m_player.get());
 
 	GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(m_player));
 	GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(m_enemy[0]));
@@ -167,8 +167,8 @@ void PlayState::Update(const DX::StepTimer& timer)
 
 	m_aiController[0]->Update(timer);
 //	m_aiController[1]->Update(timer);
-	m_playerControll->Update(timer);
-//	m_autoPlayerController->Update(timer);
+//	m_playerControll->Update(timer);
+	m_autoPlayerController->Update(timer);
 	
 	DirectX::Keyboard::State keyState = DirectX::Keyboard::Get().GetState();
 	m_keyTracker.Update(keyState);

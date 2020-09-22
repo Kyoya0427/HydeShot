@@ -76,12 +76,12 @@ void PlayerController::Update(const DX::StepTimer& timer)
 	
 	if (keyState.IsKeyDown(Keyboard::Keys::Left))
 	{
-		m_data = InputID::LEFTWARD;
+		m_data = InputID::LEFT_TURN;
 		m_character->LeftTurn(ROT_SPEED);
 	}
 	else if (keyState.IsKeyDown(Keyboard::Keys::Right))
 	{
-		m_data = InputID::RIGHTWARD;
+		m_data = InputID::RIGHT_TURN;
 		m_character->RightTurn(ROT_SPEED);
 	}
 	

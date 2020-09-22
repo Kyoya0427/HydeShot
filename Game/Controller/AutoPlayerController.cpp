@@ -13,8 +13,13 @@
 #include <Game/GameObject/Character.h>
 
 #include <Game/Common/DebugFont.h>
+#include <Game/Common/GameContext.h>
 
 #include <Game/GameState/PlayState.h>
+#include <Game/GameState/GameStateManager.h>
+
+#include <Game/UI/HpUi.h>
+
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
 
@@ -51,9 +56,11 @@ void AutoPlayerController::Update(const DX::StepTimer& timer)
 {
 	timer;
 
-	if(m_count == MAX_DATA)
+	if (m_count >= MAX_DATA - 1)
 	{
-		m_count = 0;
+		using State = GameStateManager::GameState;
+		GameStateManager* gameStateManager = GameContext().Get<GameStateManager>();
+		gameStateManager->RequestState(State::RESULT_STATE);
 	}
 
 	switch (static_cast<InputID>(m_data[m_count]))
@@ -90,6 +97,7 @@ void AutoPlayerController::Update(const DX::StepTimer& timer)
 	}
 
 	m_count++;
+	GameContext::Get<HpUi>()->SetPlayerHp(m_character->GetHp());
 }
 
 /// <summary>

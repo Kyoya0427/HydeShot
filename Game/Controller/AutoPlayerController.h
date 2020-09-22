@@ -49,7 +49,7 @@ public:
 	//ショットインターバル
 	static const float  SHOT_INTERVAL;
 	//データの数
-	static const int MAX_DATA = 852;
+	static const int MAX_DATA = 1329;
 
 private:
 	//全ての計算データ
