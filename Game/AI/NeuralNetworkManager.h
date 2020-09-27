@@ -48,6 +48,8 @@ public:
 	void InitializeTraining(wchar_t* fname);
 	//ニューラルネットワークの初期化
 	void InitializeNeuralNetwork();
+	//学習データを入力して実行する
+	void InputTrainingData();
 	//行動パターンを選択
 	CharaStateID BehaviorSelection();
 	//左右判定

@@ -66,6 +66,7 @@ AIController::AIController(Character* character, Character* enemy)
 	m_neuralNetworkManager = std::make_unique<NeuralNetworkManager>(m_character, m_enemy);
 
 	m_neuralNetworkManager->InitializeNeuralNetwork();
+//	m_neuralNetworkManager->InputTrainingData();
 	GameContext::Register<NeuralNetworkManager>(m_neuralNetworkManager.get());
 
 
@@ -95,6 +96,7 @@ void AIController::Update(const DX::StepTimer& timer)
 	if (m_stateInterval < 0.0f)
 	{
 		m_state = m_neuralNetworkManager->BehaviorSelection();
+
 		m_stateInterval = STATE_INTERVAL;
 	}
 

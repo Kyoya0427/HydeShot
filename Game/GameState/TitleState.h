@@ -15,8 +15,8 @@ class TitleState :public IGameState
 {
 	enum class SelectButtton
 	{
-		Play,
-		Exit
+		PLAY,
+		EXIT
 	};
 public:
 	//コンストラクタ

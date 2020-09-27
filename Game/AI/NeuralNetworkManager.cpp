@@ -94,7 +94,7 @@ void NeuralNetworkManager::InitializeNeuralNetwork()
 	float	error = 1.0;
 	int		count = 0;    
 	// 誤差逆伝播する(Back propagate)
-	while (error > 0.01 && count < 1000)
+	while (error > 0.01 && count < 500)
 	{
 		error = 0.0;
 		count++;
@@ -134,7 +134,22 @@ void NeuralNetworkManager::InitializeNeuralNetwork()
 		error = error / MAX_DATA_H;
 	}
 	m_error = error;
-	
+
+	bool isDumpData = false;
+
+	if(isDumpData)
+	m_neuralNetwork->DumpData("Resources//CSV//TrainingData.csv");
+}
+
+/// <summary>
+/// 学習データを入力して実行する
+/// </summary>
+void NeuralNetworkManager::InputTrainingData()
+{
+	// ニューラルネットワークを初期化する(入力層:6、隠れ層:20、出力層:5)
+	m_neuralNetwork->Initialize(6, 20, 5);
+
+	m_neuralNetwork->LearningDataInput("Resources//CSV//TrainingData.csv");
 }
 
 /// <summary>
@@ -263,7 +278,7 @@ void NeuralNetworkManager::OutputDataFile(char* fname)
 	error = fopen_s(&f, fname, "w");
 
 	fprintf(f, "-------------------------------------------------------------------------------------------------------\n");
-	fprintf(f, "IN Distance, Left, Right, Wall, Shoot, Hp,  OUT Distance, Left, Right, Wall, Shoot ,ChoiceMode, Error  \n");
+	fprintf(f, "IN Distance, Left, Right, Wall, Shoot, OUT Distance, Left, Right, Wall, Shoot ,ChoiceMode, Error  \n");
 	fprintf(f, "-------------------------------------------------------------------------------------------------------\n");
 	fprintf(f, "\n");
 	

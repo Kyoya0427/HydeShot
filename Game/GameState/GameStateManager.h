@@ -23,8 +23,8 @@ public:
 	{
 		NONE_STATE = -1,
 		TITLE_STATE,
+		SELECT_STATE,
 		PLAY_STATE,
-		PAUSE_STATE,
 		RESULT_STATE,
 	};
 

@@ -66,6 +66,6 @@ void Button::Render()
 		m_spriteBatch->Draw(m_defaultTexture.Get(), m_position);
 	m_spriteBatch->End();
 
-	debugFont->print(m_position.x + 140.0f, m_position.y + 10.0f, static_cast<Color>(Colors::Black), 2.0f, m_letter);
+	debugFont->print(m_position.x + 120.0f, m_position.y + 8.0f, static_cast<Color>(Colors::Black), 2.0f, m_letter);
 	debugFont->draw();
 }

@@ -52,7 +52,7 @@ void TitleState::Initialize()
 	m_playButton->SetDefaultTexture(m_defaultTexture.Get());
 	m_playButton->SetSelectTexture(m_selectTexture.Get());
 	m_playButton->SetSelect(true);
-	m_selectButton = SelectButtton::Play;
+	m_selectButton = SelectButtton::PLAY;
 
 	m_exitButton = std::make_unique<Button>();
 	m_exitButton->Initialize(Vector2(800.0f, 500.0f), L"Exit");
@@ -74,14 +74,14 @@ void TitleState::Update(const DX::StepTimer& timer)
 	{
 		switch (m_selectButton)
 		{
-		case SelectButtton::Play:
+		case SelectButtton::PLAY:
 		{
 			using State = GameStateManager::GameState;
 			GameStateManager* gameStateManager = GameContext().Get<GameStateManager>();
-			gameStateManager->RequestState(State::PLAY_STATE);
+			gameStateManager->RequestState(State::SELECT_STATE);
 		}
 			break;
-		case SelectButtton::Exit:
+		case SelectButtton::EXIT:
 			ExitGame();
 			break;
 		}
@@ -92,13 +92,13 @@ void TitleState::Update(const DX::StepTimer& timer)
 	{
 		m_playButton->SetSelect(true);
 		m_exitButton->SetSelect(false);
-		m_selectButton = SelectButtton::Play;
+		m_selectButton = SelectButtton::PLAY;
 	}
 	if (m_keyTracker.IsKeyReleased(DirectX::Keyboard::Right))
 	{
 		m_playButton->SetSelect(false);
 		m_exitButton->SetSelect(true);
-		m_selectButton = SelectButtton::Exit;
+		m_selectButton = SelectButtton::EXIT;
 	}
 }
 

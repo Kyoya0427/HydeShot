@@ -129,6 +129,7 @@
     <ClInclude Include="Game\AI\NeuralNetworkManager.h" />
     <ClInclude Include="Game\Bg\Bg.h" />
     <ClInclude Include="Game\Bg\ResultBg.h" />
+    <ClInclude Include="Game\Bg\SelectBg.h" />
     <ClInclude Include="Game\Bg\TitleBg.h" />
     <ClInclude Include="Game\Camera\Camera.h" />
     <ClInclude Include="Game\CharaState\Attack.h" />
@@ -162,13 +163,14 @@
     <ClInclude Include="Game\GameObject\GameObject.h" />
     <ClInclude Include="Game\GameObject\GameObjectManager.h" />
     <ClInclude Include="Game\GameObject\ObjectManager.h" />
+    <ClInclude Include="Game\GameObject\SelectMode.h" />
     <ClInclude Include="Game\GameObject\Sight.h" />
     <ClInclude Include="Game\GameObject\Wall.h" />
     <ClInclude Include="Game\GameObject\WallApproach.h" />
     <ClInclude Include="Game\GameObject\WallApproachVelID.h" />
     <ClInclude Include="Game\GameState\GameStateManager.h" />
     <ClInclude Include="Game\GameState\IGameState.h" />
-    <ClInclude Include="Game\GameState\PauseState.h" />
+    <ClInclude Include="Game\GameState\SelectState.h" />
     <ClInclude Include="Game\GameState\PlayState.h" />
     <ClInclude Include="Game\GameState\ResultState.h" />
     <ClInclude Include="Game\GameState\TitleState.h" />
@@ -185,6 +187,7 @@
     <ClCompile Include="Game\AI\NeuralNetworkManager.cpp" />
     <ClCompile Include="Game\Bg\Bg.cpp" />
     <ClCompile Include="Game\Bg\ResultBg.cpp" />
+    <ClCompile Include="Game\Bg\SelectBg.cpp" />
     <ClCompile Include="Game\Bg\TitleBg.cpp" />
     <ClCompile Include="Game\Camera\Camera.cpp" />
     <ClCompile Include="Game\CharaState\Attack.cpp" />
@@ -216,7 +219,7 @@
     <ClCompile Include="Game\GameObject\Wall.cpp" />
     <ClCompile Include="Game\GameObject\WallApproach.cpp" />
     <ClCompile Include="Game\GameState\GameStateManager.cpp" />
-    <ClCompile Include="Game\GameState\PauseState.cpp" />
+    <ClCompile Include="Game\GameState\SelectState.cpp" />
     <ClCompile Include="Game\GameState\PlayState.cpp" />
     <ClCompile Include="Game\GameState\ResultState.cpp" />
     <ClCompile Include="Game\GameState\TitleState.cpp" />

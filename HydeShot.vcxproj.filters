@@ -307,9 +307,6 @@
     <ClInclude Include="Game\GameState\IGameState.h">
       <Filter>Game\GameState</Filter>
     </ClInclude>
-    <ClInclude Include="Game\GameState\PauseState.h">
-      <Filter>Game\GameState</Filter>
-    </ClInclude>
     <ClInclude Include="Game\GameState\ResultState.h">
       <Filter>Game\GameState</Filter>
     </ClInclude>
@@ -400,6 +397,15 @@
     <ClInclude Include="Game\UI\HpUi.h">
       <Filter>Game\Ui</Filter>
     </ClInclude>
+    <ClInclude Include="Game\GameState\SelectState.h">
+      <Filter>Game\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Bg\SelectBg.h">
+      <Filter>Game\Bg</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\SelectMode.h">
+      <Filter>Game\GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game\Common\DebugFont.cpp">
@@ -460,9 +466,6 @@
       <Filter>Game\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Game\GameState\GameStateManager.cpp">
-      <Filter>Game\GameState</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\GameState\PauseState.cpp">
       <Filter>Game\GameState</Filter>
     </ClCompile>
     <ClCompile Include="Game\GameState\ResultState.cpp">
@@ -542,6 +545,12 @@
     </ClCompile>
     <ClCompile Include="Game\UI\HpUi.cpp">
       <Filter>Game\Ui</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameState\SelectState.cpp">
+      <Filter>Game\GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Bg\SelectBg.cpp">
+      <Filter>Game\Bg</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

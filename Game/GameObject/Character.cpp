@@ -182,19 +182,6 @@ void Character::Render()
 	m_sight->Render();
 	m_wallApproach->Render();
 	m_wallApproachVel->Render();
-
-
-	DebugFont* debugFont = DebugFont::GetInstance();
-	if (m_isDamage && m_tag == GameObject::ObjectTag::Player)
-	{
-		debugFont->print(10, 10, static_cast<Color>(Colors::White), 1.0f, L"TRUE");
-		debugFont->draw();
-	}
-	if (m_isDamage == false && m_tag == GameObject::ObjectTag::Player)
-	{
-		debugFont->print(10, 10, static_cast<Color>(Colors::White), 1.0f, L"FALSE");
-		debugFont->draw();
-	}
 }
 
 /// <summary>

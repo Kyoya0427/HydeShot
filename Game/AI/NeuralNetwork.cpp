@@ -12,6 +12,9 @@
 #include <limits.h>
 #include <math.h>
 #include <stdio.h>
+#include <fstream>
+#include <sstream>
+#include <string>
 
 /// <summary>
 /// コンストラクタ
@@ -80,16 +83,16 @@ void NeuralNetworkLayer::Initialize(int NumNodes, NeuralNetworkLayer* parent, Ne
 	//すべてにゼロが含まれていることを確認
 	for (int i = 0; i < m_numNodes; i++) 
 	{
-		m_neuronValues[i]  = 0;
-		m_desiredValues[i] = 0;
-		m_errors[i]        = 0;
+		m_neuronValues[i]  = 0.0f;
+		m_desiredValues[i] = 0.0f;
+		m_errors[i]        = 0.0f;
 
 		if (m_childLayer != NULL)
 		{
 			for (int j = 0; j < m_numChildNodes; j++) 
 			{
-				m_weights[i][j]       = 0;
-				m_weightChanges[i][j] = 0;
+				m_weights[i][j]       = 0.0f;
+				m_weightChanges[i][j] = 0.0f;
 			}
 		}
 	}
@@ -438,57 +441,112 @@ void NeuralNetwork::DumpData(char* filename)
 	
 	errno_t error;
 	error = fopen_s(&f,filename, "w");
-
-	fprintf(f, "--------------------------------------------------------\n");
-	fprintf(f, "Input Layer\n");
-	fprintf(f, "--------------------------------------------------------\n");
-	fprintf(f, "\n");
-	fprintf(f, "Node Values:\n");
-	fprintf(f, "\n");
+	//input
+	//Node Values		
 	for (int i = 0; i < m_inputLayer.m_numNodes; i++)
-		fprintf(f, "(%d) = %f\n", i, m_inputLayer.m_neuronValues[i]);
+		fprintf(f, "%f,",  m_inputLayer.m_neuronValues[i]);
 	fprintf(f, "\n");
-	fprintf(f, "Weights:\n");
-	fprintf(f, "\n");
+
+	//Weights
 	for (int i = 0; i < m_inputLayer.m_numNodes; i++)
 		for (int j = 0; j < m_inputLayer.m_numChildNodes; j++)
-			fprintf(f, "(%d, %d) = %f\n", i, j, m_inputLayer.m_weights[i][j]);
-	fprintf(f, "\n");
-	fprintf(f, "Bias Weights:\n");
-	fprintf(f, "\n");
-	for (int j = 0; j < m_inputLayer.m_numChildNodes; j++)
-		fprintf(f, "(%d) = %f\n", j, m_inputLayer.m_biasWeights[j]);
-
-	fprintf(f, "\n");
+			fprintf(f, " %f,", m_inputLayer.m_weights[i][j]);
 	fprintf(f, "\n");
 
-	fprintf(f, "--------------------------------------------------------\n");
-	fprintf(f, "Hidden Layer\n");
-	fprintf(f, "--------------------------------------------------------\n");
+	//Bias Weights
+	for (int i = 0; i < m_inputLayer.m_numChildNodes; i++)
+		fprintf(f, " %f,", m_inputLayer.m_biasWeights[i]);
 	fprintf(f, "\n");
-	fprintf(f, "Weights:\n");
-	fprintf(f, "\n");
+
+	//hidden
+	//Weights
 	for (int i = 0; i < m_hiddenLayer.m_numNodes; i++)
 		for (int j = 0; j < m_hiddenLayer.m_numChildNodes; j++)
-			fprintf(f, "(%d, %d) = %f\n", i, j, m_hiddenLayer.m_weights[i][j]);
+			fprintf(f, "%f,", m_hiddenLayer.m_weights[i][j]);
 	fprintf(f, "\n");
-	fprintf(f, "Bias Weights:\n");
-	fprintf(f, "\n");
+
+	//Bias Weights
 	for (int j = 0; j < m_hiddenLayer.m_numChildNodes; j++)
-		fprintf(f, "(%d) = %f\n", j, m_hiddenLayer.m_biasWeights[j]);
-
-	fprintf(f, "\n");
+		fprintf(f, "%f,", m_hiddenLayer.m_biasWeights[j]);
 	fprintf(f, "\n");
 
-	fprintf(f, "--------------------------------------------------------\n");
-	fprintf(f, "Output Layer\n");
-	fprintf(f, "--------------------------------------------------------\n");
-	fprintf(f, "\n");
-	fprintf(f, "Node Values:\n");
-	fprintf(f, "\n");
+	//Output
+	//Node Values
 	for (int i = 0; i < m_outputLayer.m_numNodes; i++)
-		fprintf(f, "(%d) = %f\n", i, m_outputLayer.m_neuronValues[i]);
+		fprintf(f, "%f,", m_outputLayer.m_neuronValues[i]);
 	fprintf(f, "\n");
 
 	fclose(f);
+}
+
+/// <summary>
+/// 学習データを入力
+/// </summary>
+/// <param name="filename">ファイルネーム</param>
+void NeuralNetwork::LearningDataInput(char* filename)
+{
+	std::wstring str;
+	// ファイルのオープン
+	std::wifstream ifs(filename);
+
+	std::vector<std::vector<float>> tempData = std::vector<std::vector<float>>(6, std::vector<float>(120, 0));
+
+	for (int i = 0; i < 6; i++)
+	{
+		int j = 0;
+		getline(ifs, str);
+		std::wstring tmp;
+		std::wistringstream stream(str);
+		while (std::getline(stream, tmp, L','))
+		{
+			tempData[i][j] = std::stof(tmp);
+			j++;
+		}
+	}
+
+
+	for (int i = 0; i < m_inputLayer.m_numNodes; i++)
+	{
+		m_inputLayer.m_neuronValues[i] = tempData[0][i];
+	}
+
+	{
+		int num = 0;
+		for (int i = 0; i < m_inputLayer.m_numNodes; i++)
+		{
+			for (int j = 0; j < m_inputLayer.m_numChildNodes; j++)
+			{
+				m_inputLayer.m_weights[i][j] = tempData[1][num];
+				num++;
+			}
+		}
+	}
+	
+	for (int i = 0; i < m_inputLayer.m_numChildNodes; i++)
+	{
+		m_inputLayer.m_biasWeights[i] = tempData[2][i];
+	}
+
+	{
+		int num = 0;
+		for (int i = 0; i < m_hiddenLayer.m_numNodes; i++)
+		{
+			for (int j = 0; j < m_hiddenLayer.m_numChildNodes; j++)
+			{
+				m_hiddenLayer.m_weights[i][j] = tempData[3][num];
+				num++;
+			}
+		}
+	}
+
+	for (int i = 0; i < m_hiddenLayer.m_numChildNodes; i++)
+	{
+		m_hiddenLayer.m_biasWeights[i] = tempData[4][i];
+	}
+	
+	for (int i = 0; i < m_outputLayer.m_numNodes; i++)
+	{
+		m_outputLayer.m_neuronValues[i] = tempData[5][i];
+	}
+
 }

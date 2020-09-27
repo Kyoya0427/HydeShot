@@ -14,7 +14,7 @@
 #include <Game/GameState/GameStateManager.h>
 #include <Game/GameState/TitleState.h>
 #include <Game/GameState/PlayState.h>
-#include <Game/GameState/PauseState.h>
+#include <Game/GameState/SelectState.h>
 #include <Game/GameState/ResultState.h>
 
 extern void ExitGame();
@@ -80,7 +80,7 @@ void Game::Initialize(HWND window, int width, int height)
 	using State = GameStateManager::GameState;
 	m_gameStateManager->RegisterState<TitleState>(State::TITLE_STATE);
 	m_gameStateManager->RegisterState<PlayState>(State::PLAY_STATE);
-	m_gameStateManager->RegisterState<PauseState>(State::PAUSE_STATE);
+	m_gameStateManager->RegisterState<SelectState>(State::SELECT_STATE);
 	m_gameStateManager->RegisterState<ResultState>(State::RESULT_STATE);
 	//初期ステイト設定
 	m_gameStateManager->SetStartState(State::TITLE_STATE);
