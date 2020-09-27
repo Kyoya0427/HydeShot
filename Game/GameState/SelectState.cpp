@@ -14,19 +14,18 @@
 
 #include <Game\GameState\GameStateManager.h>
 
-
-
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
+
+SelectMode                                   SelectState::m_blueMode = SelectMode::TRAINING_1;
+SelectState::SelectCharacter	     	     SelectState::m_selectChara = SelectState::SelectCharacter::PLAYER;
+SelectMode                                   SelectState::m_redMode = SelectMode::TRAINING_1;
 
 /// <summary>
 /// コンストラクタ
 /// </summary>
 SelectState::SelectState()
 	: IGameState()
-	, m_blueMode()
-	, m_selectChara()
-	, m_redMode()
 	, m_menu()
 {
 	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\defaultButton.png", NULL, m_defaultTexture.ReleaseAndGetAddressOf());
@@ -50,7 +49,6 @@ void SelectState::Initialize()
 	m_selectBg->Initialize(Vector3(0.0F, 0.0f, 0.0f));
 	
 	m_menu = Menu::BLUE;
-
 
 	for (int i = 0; i < 4; i++)
 	{
@@ -232,9 +230,21 @@ void SelectState::Update(const DX::StepTimer& timer)
 		{
 		case SelectState::Menu::BLUE:
 			m_menu = Menu::SELECT;
+			m_charaSelectButton[static_cast<int>(SelectCharacter::PLAYER)]->SetSelect(true);
 			break;
 		case SelectState::Menu::SELECT:
+		{
 			m_menu = Menu::RED;
+			if (m_selectChara == SelectCharacter::PLAYER)
+			{
+				m_redButton[static_cast<int>(SelectMode::MANUAL_PLAYER)]->SetSelect(true);
+				m_redMode = SelectMode::MANUAL_PLAYER;
+			}
+
+			if (m_selectChara == SelectCharacter::ENEMY)
+				m_redButton[static_cast<int>(SelectMode::TRAINING_1)]->SetSelect(true);
+		
+		}
 			break;
 		case SelectState::Menu::RED:
 		{

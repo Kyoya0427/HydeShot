@@ -10,6 +10,8 @@
 
 #include <Game/CharaState/CharaStateID.h>
 
+#include <Game/GameObject/SelectMode.h>
+
 class Character;
 class NeuralNetwork;
 
@@ -49,7 +51,7 @@ public:
 	//ニューラルネットワークの初期化
 	void InitializeNeuralNetwork();
 	//学習データを入力して実行する
-	void InputTrainingData();
+	void InputTrainingData(SelectMode mode);
 	//行動パターンを選択
 	CharaStateID BehaviorSelection();
 	//左右判定

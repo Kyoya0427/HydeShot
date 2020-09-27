@@ -144,12 +144,28 @@ void NeuralNetworkManager::InitializeNeuralNetwork()
 /// <summary>
 /// 学習データを入力して実行する
 /// </summary>
-void NeuralNetworkManager::InputTrainingData()
+void NeuralNetworkManager::InputTrainingData(SelectMode mode)
 {
 	// ニューラルネットワークを初期化する(入力層:6、隠れ層:20、出力層:5)
 	m_neuralNetwork->Initialize(6, 20, 5);
 
-	m_neuralNetwork->LearningDataInput("Resources//CSV//TrainingData.csv");
+	switch (mode)
+	{
+	case SelectMode::TRAINING_1:
+		m_neuralNetwork->LearningDataInput("Resources//CSV//TrainingData_1.csv");
+		break;
+	case SelectMode::TRAINING_10:
+		m_neuralNetwork->LearningDataInput("Resources//CSV//TrainingData_10.csv");
+		break;
+	case SelectMode::TRAINING_50:
+		m_neuralNetwork->LearningDataInput("Resources//CSV//TrainingData_50.csv");
+		break;
+	case SelectMode::TRAINING_100:
+		m_neuralNetwork->LearningDataInput("Resources//CSV//TrainingData_100.csv");
+		break;
+	default:
+		break;
+	}
 }
 
 /// <summary>

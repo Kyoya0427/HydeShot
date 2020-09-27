@@ -14,6 +14,7 @@
 #include <Game/CharaState/WallAvoid.h>
 #include <Game/CharaState/Search.h>
 
+#include <Game/GameObject/SelectMode.h>
 
 class NeuralNetworkManager;
 
@@ -29,7 +30,7 @@ public:
 
 public:
 	//コンストラク
-	AIController(Character* character, Character* enemy);
+	AIController(Character* character, Character* enemy, SelectMode mode);
 	//デストラクタ
 	~AIController();
 
@@ -44,7 +45,7 @@ public:
 	void ChangeSearchState()    { m_charaState = static_cast<CharaState*>(m_search.get()); }
 	//壁回避にステイトを変更
 	void ChangeWallAvoidState() { m_charaState = static_cast<CharaState*>(m_wallAvoid.get()); }
-
+	//モードを設定
 public:
 	//移動速度
 	static const float  MOVE_SPEED;
@@ -74,5 +75,5 @@ private:
 	std::unique_ptr<Search>                 m_search;
 	//壁回避ステート
 	std::unique_ptr<WallAvoid>              m_wallAvoid;
-	
+
 };

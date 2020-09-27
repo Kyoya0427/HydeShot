@@ -38,7 +38,7 @@ const float AIController::STATE_INTERVAL = 0.05f;
 /// </summary>
 /// <param name="character">コントロールするオブジェクト</param>
 /// <param name="enemy">敵キャラクター</param>
-AIController::AIController(Character* character, Character* enemy)
+AIController::AIController(Character* character, Character* enemy, SelectMode mode)
 	: CharacterController(character)
 	, m_neuralNetworkManager()
 	, m_enemy()
@@ -65,8 +65,8 @@ AIController::AIController(Character* character, Character* enemy)
 
 	m_neuralNetworkManager = std::make_unique<NeuralNetworkManager>(m_character, m_enemy);
 
-	m_neuralNetworkManager->InitializeNeuralNetwork();
-//	m_neuralNetworkManager->InputTrainingData();
+//	m_neuralNetworkManager->InitializeNeuralNetwork();
+	m_neuralNetworkManager->InputTrainingData(mode);
 	GameContext::Register<NeuralNetworkManager>(m_neuralNetworkManager.get());
 
 

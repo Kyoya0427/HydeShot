@@ -15,6 +15,7 @@
 #include <Game/GameObject/ObjectManager.h>
 #include <Game/GameObject/GameObjectManager.h>
 #include <Game/GameObject/Character.h>
+#include <Game/GameObject/SelectMode.h>
 
 #include <Game/GameState/GameStateManager.h>
 #include <Game/GameState/SelectState.h>
@@ -113,31 +114,34 @@ void PlayState::Initialize()
 	m_enemy[0]->SetColor(Color(Colors::Blue));
 	m_enemy[0]->Initialize(m_stage->GetEnemyPos());
 	
-	if(SelectState::GetSelectChara == SelectState::SelectCharacter::ENEMY)
-	//m_enemy[1] = std::make_unique<Character>(GameObject::ObjectTag::Enemy2);
-	//m_enemy[1]->Initialize(m_stage->GetPlayerPos());
-	//m_enemy[1]->SetColor(Color(Colors::Red));
 
-	//プレイヤー初期化
-	m_player = std::make_unique<Character>(GameObject::ObjectTag::Player);
-	m_player->SetColor(Color(Colors::Red));
-	m_player->Initialize(m_stage->GetPlayerPos());
+	if (SelectState::GetSelectChara() == SelectState::SelectCharacter::ENEMY)
+	{
+		m_enemy[1] = std::make_unique<Character>(GameObject::ObjectTag::Enemy2);
+		m_enemy[1]->SetColor(Color(Colors::Red));
+		m_enemy[1]->Initialize(m_stage->GetPlayerPos());
+		m_aiController[0] = std::make_unique<AIController>(m_enemy[0].get(), m_enemy[1].get(), SelectState::GetBlueMode());
+		m_aiController[1] = std::make_unique<AIController>(m_enemy[1].get(), m_enemy[0].get(), SelectState::GetRedMode());
+		GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(m_enemy[1]));
+	}
 
+	if (SelectState::GetSelectChara() == SelectState::SelectCharacter::PLAYER)
+	{
+		//プレイヤー初期化
+		m_player = std::make_unique<Character>(GameObject::ObjectTag::Player);
+		m_player->SetColor(Color(Colors::Red));
+		m_player->Initialize(m_stage->GetPlayerPos());
+		m_aiController[0] = std::make_unique<AIController>(m_enemy[0].get(), m_player.get(), SelectState::GetBlueMode());
 
-	m_aiController[0] = std::make_unique<AIController>(m_enemy[0].get(), m_player.get());
-	m_playerControll = std::make_unique<PlayerController>(m_player.get());
+		if (SelectState::GetRedMode() == SelectMode::MANUAL_PLAYER)
+			m_playerControll = std::make_unique<PlayerController>(m_player.get());
+		if (SelectState::GetRedMode() == SelectMode::AUTO_PLAYER)
+			m_autoPlayerController = std::make_unique<AutoPlayerController>(m_player.get());
+		GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(m_player));
+	}
 
-	m_autoPlayerController = std::make_unique<AutoPlayerController>(m_player.get());
-
-	
-
-	m_aiController[0] = std::make_unique<AIController>(m_enemy[0].get(), m_enemy[1].get());
-	m_aiController[1] = std::make_unique<AIController>(m_enemy[1].get(), m_enemy[0].get());
-
-	GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(m_player));
 	GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(m_enemy[0]));
 
-	GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(m_enemy[1]));
 
 	//ゲームウィンドウ
 	m_bg = std::make_unique<Bg>();
@@ -176,8 +180,12 @@ void PlayState::Update(const DX::StepTimer& timer)
 	m_collisionManager->DetectCollision();
 
 	m_aiController[0]->Update(timer);
-//	m_aiController[1]->Update(timer);
-//	m_playerControll->Update(timer);
+	if (SelectState::GetSelectChara() == SelectState::SelectCharacter::ENEMY)
+		m_aiController[1]->Update(timer);
+
+	if (SelectState::GetRedMode() == SelectMode::MANUAL_PLAYER)
+	m_playerControll->Update(timer);
+	if (SelectState::GetRedMode() == SelectMode::AUTO_PLAYER)
 	m_autoPlayerController->Update(timer);
 	
 	DirectX::Keyboard::State keyState = DirectX::Keyboard::Get().GetState();

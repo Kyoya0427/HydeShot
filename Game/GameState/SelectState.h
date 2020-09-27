@@ -49,9 +49,17 @@ public:
 	void Finalize() override;
 
 public:
-	SelectMode GetBlueMode()         { return m_blueMode; }
-	SelectMode GetRedMode()          { return m_redMode; }
-	SelectCharacter GetSelectChara() { return m_selectChara; }
+	static SelectMode GetBlueMode()         { return m_blueMode; }
+	static SelectMode GetRedMode()          { return m_redMode; }
+	static SelectCharacter GetSelectChara() { return m_selectChara; }
+
+public:
+	//青キャラクター
+	static SelectMode                                   m_blueMode;
+	//赤キャラクターの選択
+	static SelectCharacter								m_selectChara;
+	//赤キャラクター
+	static SelectMode                                   m_redMode;
 
 private:
 	//キートラッカー
@@ -64,12 +72,6 @@ private:
 	std::unique_ptr<Button>							    m_charaSelectButton[static_cast<int>(SelectCharacter::NUM)];
 	//赤キャラクターモードセレクト
 	std::unique_ptr<Button>							    m_redButton[static_cast<int>(SelectMode::NUM)];
-	//青キャラクター
-	SelectMode                                          m_blueMode;
-	//赤キャラクターの選択
-	SelectCharacter										m_selectChara;
-	//赤キャラクター
-	SelectMode                                          m_redMode;
 	//選択中のメニュー
 	Menu                                                m_menu;
 	//デフォルトテクスチャー
