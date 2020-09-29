@@ -180,6 +180,7 @@
     <ClInclude Include="Game\UI\HpUi.h" />
     <ClInclude Include="Game\UI\InfoWindow.h" />
     <ClInclude Include="Game\UI\NeuralNetworkData.h" />
+    <ClInclude Include="Game\UI\OptionList.h" />
     <ClInclude Include="Game\UI\SelectStateUi.h" />
     <ClInclude Include="Game\UI\UiBg.h" />
     <ClInclude Include="pch.h" />
@@ -229,6 +230,7 @@
     <ClCompile Include="Game\UI\HpUi.cpp" />
     <ClCompile Include="Game\UI\InfoWindow.cpp" />
     <ClCompile Include="Game\UI\NeuralNetworkData.cpp" />
+    <ClCompile Include="Game\UI\OptionList.cpp" />
     <ClCompile Include="Game\UI\SelectStateUi.cpp" />
     <ClCompile Include="Game\UI\UiBg.cpp" />
     <ClCompile Include="pch.cpp">

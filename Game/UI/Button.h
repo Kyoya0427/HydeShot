@@ -17,7 +17,7 @@ public:
 	~Button();
 
 public:
-	// ‰Šú‰»ŠÖ”
+	// ‰Šú‰»
 	void Initialize(const DirectX::SimpleMath::Vector2& pos, wchar_t* letter);
 	// XV
 	void Update(const DX::StepTimer& timer);

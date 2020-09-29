@@ -1,7 +1,7 @@
 //======================================================
 // File Name	 : SelectState.h
 // Summary		 : セレクトステイト
-// Date		     : 2020/5/12
+
 // Author		 : Kyoya Sakamoto
 //======================================================
 #pragma once
@@ -11,6 +11,7 @@
 #include <Game/Bg/SelectBg.h>
 
 #include <Game/UI/Button.h>
+#include <Game/UI/OptionList.h>
 
 #include <Game/GameObject/SelectMode.h>
 
@@ -19,23 +20,15 @@ class SelectState :public IGameState
 public:
 	enum class SelectCharacter
 	{
-		PLAYER,
 		ENEMY,
-
+		PLAYER,
+		
 		NUM
 	};
-
-	enum class Menu
-	{
-		BLUE,
-		SELECT,
-		RED
-	};
-
 public:
+	//コンストラクタ
 	SelectState();
-
-public:
+	//デストラクタ
 	~SelectState();
 
 public:
@@ -61,21 +54,31 @@ public:
 	//赤キャラクター
 	static SelectMode                                   m_redMode;
 
-private:
-	//キートラッカー
-	DirectX::Keyboard::KeyboardStateTracker             m_keyTracker;
-	//セレクトの背景
-	std::unique_ptr<SelectBg>                           m_selectBg;
-	//青キャラクターモードセレクト
-	std::unique_ptr<Button>							    m_blueButton[4];
-	//キャラセレクトボタン
-	std::unique_ptr<Button>							    m_charaSelectButton[static_cast<int>(SelectCharacter::NUM)];
+public:
 	//赤キャラクターモードセレクト
-	std::unique_ptr<Button>							    m_redButton[static_cast<int>(SelectMode::NUM)];
-	//選択中のメニュー
-	Menu                                                m_menu;
+	void ChangeRedMode()  { m_currentOption = m_redOption.get(); }
+	//青キャラクターモードセレクト
+	void ChangeBlueMode() { m_currentOption = m_blueOption.get(); }
+	//赤のモードリストに追加
+	void AddRedMode();
+private:
 	//デフォルトテクスチャー
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>	m_defaultTexture;
 	//セレクトテクスチャー
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>    m_selectTexture;
+	//キートラッカー
+	DirectX::Keyboard::KeyboardStateTracker             m_keyTracker;
+	//セレクトの背景
+	std::unique_ptr<SelectBg>                           m_selectBg;
+	//モードを選択
+	std::unique_ptr<OptionList>						    m_selectMode;
+	//赤キャラクターモードセレクト
+	std::unique_ptr<OptionList>							m_redOption;
+	//青キャラクターモードセレクト
+	std::unique_ptr<OptionList>							m_blueOption;
+	//操作中のモードリスト
+	OptionList*                                         m_currentOption;
+	//モードを選択しているか
+	bool												m_isSelectMode;
+	
 };

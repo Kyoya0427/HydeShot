@@ -406,6 +406,9 @@
     <ClInclude Include="Game\GameObject\SelectMode.h">
       <Filter>Game\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="Game\UI\OptionList.h">
+      <Filter>Game\Ui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game\Common\DebugFont.cpp">
@@ -551,6 +554,9 @@
     </ClCompile>
     <ClCompile Include="Game\Bg\SelectBg.cpp">
       <Filter>Game\Bg</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\UI\OptionList.cpp">
+      <Filter>Game\Ui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

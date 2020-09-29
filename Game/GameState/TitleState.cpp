@@ -48,14 +48,14 @@ void TitleState::Initialize()
 	m_titleBg->Initialize(Vector3(0.0F,0.0f,0.0f));
 
 	m_playButton = std::make_unique<Button>();
-	m_playButton->Initialize(Vector2(100.0f, 500.0f), L"Play");
+	m_playButton->Initialize(Vector2(100.0f, 500.0f), L"      Play");
 	m_playButton->SetDefaultTexture(m_defaultTexture.Get());
 	m_playButton->SetSelectTexture(m_selectTexture.Get());
 	m_playButton->SetSelect(true);
 	m_selectButton = SelectButtton::PLAY;
 
 	m_exitButton = std::make_unique<Button>();
-	m_exitButton->Initialize(Vector2(800.0f, 500.0f), L"Exit");
+	m_exitButton->Initialize(Vector2(800.0f, 500.0f), L"       Exit");
 	m_exitButton->SetDefaultTexture(m_defaultTexture.Get());
 	m_exitButton->SetSelectTexture(m_selectTexture.Get());
 	m_exitButton->SetSelect(false);
