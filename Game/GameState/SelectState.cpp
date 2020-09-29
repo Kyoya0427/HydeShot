@@ -61,10 +61,10 @@ void SelectState::Initialize()
 
 	m_blueOption = std::make_unique<OptionList>();
 	m_blueOption->SetTexture(m_defaultTexture.Get(), m_selectTexture.Get());
-	m_blueOption->Add(Vector2(880.0f, 200.0f), L"  1");
-	m_blueOption->Add(Vector2(880.0f, 300.0f), L" 10");
-	m_blueOption->Add(Vector2(880.0f, 400.0f), L" 50");
-	m_blueOption->Add(Vector2(880.0f, 500.0f), L"100");
+	m_blueOption->Add(Vector2(880.0f, 200.0f), L"      1");
+	m_blueOption->Add(Vector2(880.0f, 300.0f), L"     10");
+	m_blueOption->Add(Vector2(880.0f, 400.0f), L"     50");
+	m_blueOption->Add(Vector2(880.0f, 500.0f), L"    100");
 
 }
 
@@ -150,14 +150,14 @@ void SelectState::AddRedMode()
 	switch (m_selectMode->GetCurrent())
 	{
 	case 0:
-		m_redOption->Add(Vector2(460.0f, 200.0f), L"  1");
-		m_redOption->Add(Vector2(460.0f, 300.0f), L" 10");
-		m_redOption->Add(Vector2(460.0f, 400.0f), L" 50");
-		m_redOption->Add(Vector2(460.0f, 500.0f), L"100");
+		m_redOption->Add(Vector2(460.0f, 200.0f), L"      1");
+		m_redOption->Add(Vector2(460.0f, 300.0f), L"     10");
+		m_redOption->Add(Vector2(460.0f, 400.0f), L"     50");
+		m_redOption->Add(Vector2(460.0f, 500.0f), L"    100");
 		break;
 	case 1:
-		m_redOption->Add(Vector2(460.0f, 200.0f), L"Manual");
-		m_redOption->Add(Vector2(460.0f, 400.0f), L"Auto");
+		m_redOption->Add(Vector2(460.0f, 200.0f), L"    Manual");
+		m_redOption->Add(Vector2(460.0f, 400.0f), L"      Auto");
 		break;
 	}
 }
