@@ -46,6 +46,7 @@ public:
 	static const int SCREEN_W = 960;
 	static const int SCREEN_H = 720;
 	static bool		 m_isDebug;
+	static const float END_TIMER;
 
 private:
 	// ゲーム画面のビューポート
@@ -76,6 +77,8 @@ private:
 	std::unique_ptr<CollisionManager>           m_collisionManager;
 	//キートラッカー
 	DirectX::Keyboard::KeyboardStateTracker		m_keyTracker;
+	//A.I同士のみ使用タイマー
+	float                                       m_gameEndTimer;
 
 };
 

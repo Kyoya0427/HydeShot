@@ -5,6 +5,8 @@
 //======================================================
 #pragma once
 
+#include <Game/Common/StepTimer.h>
+
 class Button;
 
 class OptionList
@@ -16,8 +18,6 @@ public:
 	~OptionList();
 
 public:
-	//更新
-	void Update();
 	//描画
 	void Render();
 	//追加
@@ -35,10 +35,12 @@ public:
 
 private:
 	//現在の選択肢
-	int									   m_current;
+	unsigned int						   m_current;
+	//ボタン
 	std::vector<std::unique_ptr<Button>>   m_button;
 	//デフォルトテクスチャー
 	ID3D11ShaderResourceView*              m_defaultTexture;
 	//セレクトテクスチャー
 	ID3D11ShaderResourceView*              m_selectTexture;
+
 };

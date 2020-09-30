@@ -39,10 +39,11 @@ Search::~Search()
 /// </summary>
 /// <param name="chara">ステイト操作するキャラクター</param>
 /// <param name="enemy">敵キャラクター</param>
-void Search::Initialize(Character* chara, Character* enemy)
+void Search::Initialize(Character* chara, Character* enemy, NeuralNetworkManager* neuralNetwork)
 {
 	m_chara = chara;
 	m_enemy = enemy;
+	m_neuralNetwork = neuralNetwork;
 
 	//ステイトを初期化
 	m_forward    = std::make_unique<Forward>();
@@ -50,10 +51,10 @@ void Search::Initialize(Character* chara, Character* enemy)
 	m_leftTurn   = std::make_unique<LeftTurn>();
 	m_rightTurn  = std::make_unique<RightTurn>();
 
-	m_forward->Initialize  (m_chara, m_enemy);
-	m_backward->Initialize (m_chara, m_enemy);
-	m_leftTurn->Initialize (m_chara, m_enemy);
-	m_rightTurn->Initialize(m_chara, m_enemy);
+	m_forward->Initialize  (m_chara, m_enemy, m_neuralNetwork);
+	m_backward->Initialize (m_chara, m_enemy, m_neuralNetwork);
+	m_leftTurn->Initialize (m_chara, m_enemy, m_neuralNetwork);
+	m_rightTurn->Initialize(m_chara, m_enemy, m_neuralNetwork);
 
 	//初期ステイト
 	ChangeForwardState();
@@ -65,11 +66,11 @@ void Search::Initialize(Character* chara, Character* enemy)
 /// <param name="timer">タイマー</param>
 void Search::Update(const DX::StepTimer& timer)
 {
-	NeuralNetwork* data = GameContext::Get<NeuralNetworkManager>()->m_neuralNetwork.get();
+	NeuralNetworkManager::OutputData data = m_neuralNetwork->GetOutputData();
 
-	float dis   = data->GetOutput(0);
-	float left  = data->GetOutput(1);
-	float right = data->GetOutput(2);
+	float dis   = data.outputDis;
+	float left  = data.outputLeft;
+	float right = data.outputRight;
 
 	//出力データから行動を選択
 	if (left >= 0.5f)

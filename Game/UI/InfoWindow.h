@@ -42,7 +42,7 @@ private:
 	//テクスチャーハンドル（背景）
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_bg01Texture;
 	//ニューラルネットワークのデータ
-	std::unique_ptr<NeuralNetworkData>				 m_neuralNetworkData;
+	NeuralNetworkData*								 m_neuralNetworkData;
 	//UI背景
 	std::unique_ptr<UiBg>							 m_uiBg;
 	//選択したステイト

@@ -39,10 +39,11 @@ WallAvoid::WallAvoid()
 /// </summary>
 /// <param name="chara">ステイト操作するキャラクター</param>
 /// <param name="controller">敵キャラクター</param>
-void WallAvoid::Initialize(Character* chara, Character* enemy)
+void WallAvoid::Initialize(Character* chara, Character* enemy, NeuralNetworkManager* neuralNetwork)
 {
 	m_chara = chara;
 	m_enemy = enemy;
+	m_neuralNetwork = neuralNetwork;
 
 	//ステイトを初期化
 	m_forward   = std::make_unique<Forward>();
@@ -50,10 +51,10 @@ void WallAvoid::Initialize(Character* chara, Character* enemy)
 	m_leftward  = std::make_unique<Leftward>();
 	m_rightward = std::make_unique<Rightward>();
 
-	m_forward ->Initialize (m_chara, m_enemy);
-	m_backward->Initialize (m_chara, m_enemy);
-	m_leftward->Initialize (m_chara, m_enemy);
-	m_rightward->Initialize(m_chara, m_enemy);
+	m_forward ->Initialize (m_chara, m_enemy, m_neuralNetwork);
+	m_backward->Initialize (m_chara, m_enemy, m_neuralNetwork);
+	m_leftward->Initialize (m_chara, m_enemy, m_neuralNetwork);
+	m_rightward->Initialize(m_chara, m_enemy, m_neuralNetwork);
 
 	//初期ステイト
 	ChangeForwardState();

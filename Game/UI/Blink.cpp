@@ -42,10 +42,21 @@ void Blink::Update(const DX::StepTimer & timer)
 	float elapsedTime = float(timer.GetElapsedSeconds());
 
 	m_blinkTime += elapsedTime;
-	if (m_blinkTime >= m_interval)
+	if (m_isBlink)
 	{
-		m_isBlink   = !m_isBlink;
-		m_blinkTime = 0.0f;
+		if (m_blinkTime >= m_interval * 2)
+		{
+			m_isBlink = !m_isBlink;
+			m_blinkTime = 0.0f;
+		}
+	}
+	else
+	{
+		if (m_blinkTime >= m_interval / 3)
+		{
+			m_isBlink = !m_isBlink;
+			m_blinkTime = 0.0f;
+		}
 	}
 
 }

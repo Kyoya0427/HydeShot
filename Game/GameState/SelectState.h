@@ -15,6 +15,8 @@
 
 #include <Game/GameObject/SelectMode.h>
 
+class Blink;
+
 class SelectState :public IGameState
 {
 public:
@@ -65,7 +67,17 @@ private:
 	//デフォルトテクスチャー
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>	m_defaultTexture;
 	//セレクトテクスチャー
-	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>    m_selectTexture;
+	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>    m_selectTexture;	
+	//テクスチャー
+	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>    m_redTexture;	
+	//テクスチャー
+	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>    m_blueTexture;
+	//テクスチャー
+	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>    m_redCharaTexture;
+	//テクスチャー
+	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>    m_blueCharaTexture;
+	//スプライトバッチ
+	std::unique_ptr<DirectX::SpriteBatch>               m_spriteBatch;
 	//キートラッカー
 	DirectX::Keyboard::KeyboardStateTracker             m_keyTracker;
 	//セレクトの背景
@@ -80,5 +92,8 @@ private:
 	OptionList*                                         m_currentOption;
 	//モードを選択しているか
 	bool												m_isSelectMode;
-	
+	//ブリンク
+	std::unique_ptr<Blink>                              m_blink;
+	//赤を選択中
+	bool                                                m_isRedSelect;
 };

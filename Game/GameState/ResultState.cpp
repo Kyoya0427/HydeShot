@@ -96,17 +96,6 @@ void ResultState::Render()
 	}
 
 	m_spriteBatch->End();
-
-	if (m_isBlink)
-	{
-		debugFont->print(10, 10, static_cast<Color>(Colors::White), 1.0f, L"TRUE");
-		debugFont->draw();
-	}
-	if (m_isBlink == false)
-	{
-		debugFont->print(10, 10, static_cast<Color>(Colors::White), 1.0f, L"FALSE");
-		debugFont->draw();
-	}
 }
 
 /// <summary>

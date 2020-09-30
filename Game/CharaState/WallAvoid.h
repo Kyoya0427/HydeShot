@@ -23,7 +23,7 @@ public:
 
 public:
 	//‰Šú‰»
-	void Initialize(Character* chara, Character* enemy) override;
+	void Initialize(Character* chara, Character* enemy, NeuralNetworkManager* neuralNetwork) override;
 	//XV
 	void Update(const DX::StepTimer& timer) override;
 	

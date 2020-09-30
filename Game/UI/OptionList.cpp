@@ -7,13 +7,13 @@
 
 #include <Game/UI/Button.h>
 
+
 /// <summary>
 /// コンストラクタ
 /// </summary>
 OptionList::OptionList()
 	: m_current(0)
 {
-	
 }
 
 /// <summary>
@@ -24,23 +24,10 @@ OptionList::~OptionList()
 }
 
 /// <summary>
-/// 更新
-/// </summary>
-void OptionList::Update()
-{
-
-}
-
-/// <summary>
 /// 描画
 /// </summary>
 void OptionList::Render()
 {
-	for (const auto& button : m_button)
-	{
-		button->SetSelect(false);
-	}
-	m_button[m_current]->SetSelect(true);
 	for (const auto& button : m_button)
 	{
 		button->Render();
@@ -60,10 +47,9 @@ void OptionList::Add(DirectX::SimpleMath::Vector2 pos, wchar_t* letter)
 	button->Initialize(pos, letter);
 	button->SetDefaultTexture(m_defaultTexture);
 	button->SetSelectTexture(m_selectTexture);
-	button->SetSelect(false);
+	button->SetSelect(m_button.size() == m_current);
 
 	m_button.push_back(std::move(button));
-
 }
 
 /// <summary>
@@ -71,7 +57,9 @@ void OptionList::Add(DirectX::SimpleMath::Vector2 pos, wchar_t* letter)
 /// </summary>
 void OptionList::CurrentUp()
 {
-	m_current = (m_current - 1 + m_button.size()) % m_button.size();
+	m_button[m_current]->SetSelect(false);
+	m_current = (m_button.size() + m_current -1) % m_button.size();
+	m_button[m_current]->SetSelect(true);
 }
 
 /// <summary>
@@ -79,7 +67,9 @@ void OptionList::CurrentUp()
 /// </summary>
 void OptionList::CurrentDown()
 {
-	m_current = (m_current + 1 + m_button.size()) % m_button.size();
+	m_button[m_current]->SetSelect(false);
+	m_current = (m_button.size() + m_current + 1) % m_button.size();
+	m_button[m_current]->SetSelect(true);
 }
 
 /// <summary>

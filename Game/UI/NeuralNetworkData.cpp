@@ -51,7 +51,8 @@ void NeuralNetworkData::Update(const DX::StepTimer& timer)
 /// </summary>
 void NeuralNetworkData::Render()
 {
-	NeuralNetworkManager::OutputData data = GameContext::Get<NeuralNetworkManager>()->GetOutputData();
+	NeuralNetworkManager::OutputData data = m_neuralNetwork->GetOutputData();
+
 	DebugFont* debugFont = DebugFont::GetInstance();
 	 
 	debugFont->print(70, 20, static_cast<Color>(Colors::White), 1.3f, L" Input data", data.inputDis);

@@ -1,6 +1,6 @@
 //======================================================
 // File Name	 : SelectState.cpp
-// Summary		 : ポーズステイト
+// Summary		 : セレクトステイト
 // Date			 : 2020/5/12
 // Author		 : Kyoya Sakamoto
 //======================================================
@@ -13,6 +13,8 @@
 #include <Game\Common\DeviceResources.h>
 
 #include <Game\GameState\GameStateManager.h>
+
+#include <Game/UI/Blink.h>
 
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
@@ -29,6 +31,10 @@ SelectState::SelectState()
 {
 	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\defaultButton.png", NULL, m_defaultTexture.ReleaseAndGetAddressOf());
 	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\selectButton.png", NULL, m_selectTexture.ReleaseAndGetAddressOf());
+	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\red.png", NULL, m_redTexture.ReleaseAndGetAddressOf());
+	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\blue.png", NULL, m_blueTexture.ReleaseAndGetAddressOf());
+	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\redChara.png", NULL, m_redCharaTexture.ReleaseAndGetAddressOf());
+	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\blueChara.png", NULL, m_blueCharaTexture.ReleaseAndGetAddressOf());
 }
 
 
@@ -44,7 +50,13 @@ SelectState::~SelectState()
 /// </summary>
 void SelectState::Initialize()
 {
+	m_blink = std::make_unique<Blink>();
+	m_blink->Initialize(0.5f);
+
+	m_spriteBatch = std::make_unique<DirectX::SpriteBatch>(GameContext().Get<DX::DeviceResources>()->GetD3DDeviceContext());
+
 	m_isSelectMode = true;
+	m_isRedSelect = true;
 	m_selectBg = std::make_unique<SelectBg>();
 	m_selectBg->Initialize(Vector3(0.0F, 0.0f, 0.0f));
 	
@@ -74,9 +86,7 @@ void SelectState::Initialize()
 /// <param name="elapsedTime">タイマー</param>
 void SelectState::Update(const DX::StepTimer& timer)
 {
-	timer;
-
-	m_currentOption->Update();
+	m_blink->Update(timer);
 
 	DirectX::Keyboard::State keyState = DirectX::Keyboard::Get().GetState();
 	m_keyTracker.Update(keyState);
@@ -94,9 +104,15 @@ void SelectState::Update(const DX::StepTimer& timer)
 	if (!m_isSelectMode)
 	{
 		if (m_keyTracker.IsKeyReleased(DirectX::Keyboard::Left))
+		{
 			ChangeRedMode();
+			m_isRedSelect = true;
+		}
 		if (m_keyTracker.IsKeyReleased(DirectX::Keyboard::Right))
+		{
 			ChangeBlueMode();
+			m_isRedSelect = false;
+		}
 	}
 
 	if (m_keyTracker.IsKeyReleased(DirectX::Keyboard::Space))
@@ -104,13 +120,14 @@ void SelectState::Update(const DX::StepTimer& timer)
 		if (m_isSelectMode)
 		{
 			m_isSelectMode = false;
+			m_blink->Start();
 			AddRedMode();
 			ChangeRedMode();
 		}
 		else
 		{
 			m_selectChara = static_cast<SelectCharacter>(m_selectMode->GetCurrent());
-			m_redMode     = static_cast<SelectMode>(m_selectMode->GetCurrent() * 5 + m_redOption->GetCurrent());	
+			m_redMode     = static_cast<SelectMode>(m_selectMode->GetCurrent() * 4 + m_redOption->GetCurrent());	
 			m_blueMode    = static_cast<SelectMode>(m_blueOption->GetCurrent());
 			
 			using State = GameStateManager::GameState;
@@ -132,6 +149,24 @@ void SelectState::Render()
 	{
 		m_redOption->Render();
 		m_blueOption->Render();
+
+		Vector2 redPos = Vector2(490, 40);
+		Vector2 bluePos = Vector2(890, 40);
+
+		m_spriteBatch->Begin(SpriteSortMode_Deferred, GameContext::Get<CommonStates>()->NonPremultiplied());
+
+		if (m_blink->GetState() && m_isRedSelect)
+			m_spriteBatch->Draw(m_redTexture.Get(), redPos);
+
+		if (m_blink->GetState() && !m_isRedSelect)
+			m_spriteBatch->Draw(m_blueTexture.Get(), bluePos);
+
+		Vector2 redCharaPos = Vector2(650, 30);
+		Vector2 blueCharaPos = Vector2(1050, 36);
+		m_spriteBatch->Draw(m_redCharaTexture.Get(), redCharaPos);
+		m_spriteBatch->Draw(m_blueCharaTexture.Get(), blueCharaPos);
+
+		m_spriteBatch->End();
 	}
 }
 

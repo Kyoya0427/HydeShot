@@ -46,8 +46,10 @@ void InfoWindow::Initialize()
 	m_uiBg->Initialize(Vector3::Zero);
 	GameContext::Get<ObjectManager>()->GetInfoOM()->Add(std::move(m_uiBg));
 
-	m_neuralNetworkData = std::make_unique<NeuralNetworkData>();
-	GameContext::Get<ObjectManager>()->GetInfoOM()->Add(std::move(m_neuralNetworkData));
+	std::unique_ptr<NeuralNetworkData> neuralNetworkData = std::make_unique<NeuralNetworkData>();
+	m_neuralNetworkData = neuralNetworkData.get();
+	GameContext::Register<NeuralNetworkData>(m_neuralNetworkData);
+	GameContext::Get<ObjectManager>()->GetInfoOM()->Add(std::move(neuralNetworkData));
 
 	std::unique_ptr<SelectStateUi> selectStateUi = std::make_unique<SelectStateUi>();
 	m_selectState = selectStateUi.get();

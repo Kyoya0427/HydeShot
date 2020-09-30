@@ -41,13 +41,15 @@ using namespace DirectX;
 using namespace DirectX::SimpleMath;
 using namespace DX;
 
-bool  PlayState::m_isDebug = false;
+bool  PlayState::m_isDebug        = false;
+const float  PlayState::END_TIMER = 10.0f;
 
 /// <summary>
 /// コンストラクタ
 /// </summary>
 PlayState::PlayState()
 	: IGameState()
+	, m_gameEndTimer()
 {
 }
 
@@ -123,6 +125,7 @@ void PlayState::Initialize()
 		m_aiController[0] = std::make_unique<AIController>(m_enemy[0].get(), m_enemy[1].get(), SelectState::GetBlueMode());
 		m_aiController[1] = std::make_unique<AIController>(m_enemy[1].get(), m_enemy[0].get(), SelectState::GetRedMode());
 		GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(m_enemy[1]));
+		m_gameEndTimer = END_TIMER;
 	}
 
 	if (SelectState::GetSelectChara() == SelectState::SelectCharacter::PLAYER)
@@ -170,9 +173,17 @@ void PlayState::Initialize()
 /// <param name="elapsedTime">タイマー</param>
 void PlayState::Update(const DX::StepTimer& timer)
 {
-	timer;
+	float elapsedTime = float(timer.GetElapsedSeconds());
+
 	m_bg->Update(timer);
 	// ゲーム画面のオブジェクト更新
+
+	if (m_gameEndTimer < 0)
+	{
+		using State = GameStateManager::GameState;
+		GameStateManager* gameStateManager = GameContext().Get<GameStateManager>();
+		gameStateManager->RequestState(State::RESULT_STATE);
+	}
 
 	m_objectManager->GetGameOM()->Update(timer);
 	m_objectManager->GetInfoOM()->Update(timer);
@@ -181,8 +192,10 @@ void PlayState::Update(const DX::StepTimer& timer)
 
 	m_aiController[0]->Update(timer);
 	if (SelectState::GetSelectChara() == SelectState::SelectCharacter::ENEMY)
+	{
 		m_aiController[1]->Update(timer);
-
+		m_gameEndTimer -= elapsedTime;
+	}
 	if (SelectState::GetRedMode() == SelectMode::MANUAL_PLAYER)
 	m_playerControll->Update(timer);
 	if (SelectState::GetRedMode() == SelectMode::AUTO_PLAYER)

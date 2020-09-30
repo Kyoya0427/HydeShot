@@ -12,6 +12,7 @@
 
 class Character;
 class CharacterController;
+class NeuralNetworkManager;
 
 class CharaState
 {
@@ -21,8 +22,11 @@ public:
 
 public:
 	//‰Šú‰»
-	virtual void Initialize(Character* chara, Character* enemy) = 0;
+	virtual void Initialize(Character* chara, Character* enemy, NeuralNetworkManager* neuralNetwork) = 0;
 	//XV
 	virtual void Update(const DX::StepTimer& timer) = 0;
 
+protected:
+
+	NeuralNetworkManager*		m_neuralNetwork;
 };

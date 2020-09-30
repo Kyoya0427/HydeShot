@@ -36,10 +36,11 @@ Attack::~Attack()
 /// </summary>
 /// <param name="chara">ステイト操作するキャラクター</param>
 /// <param name="enemy">敵キャラクター</param>
-void Attack::Initialize(Character* chara, Character* enemy)
+void Attack::Initialize(Character* chara, Character* enemy, NeuralNetworkManager* neuralNetwork)
 {
 	enemy;
 	m_chara = chara;
+	m_neuralNetwork = neuralNetwork;
 }
 
 /// <summary>

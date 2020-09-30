@@ -8,6 +8,8 @@
 
 #include <Game\GameObject\GameObject.h>
 
+class NeuralNetworkManager;
+
 class NeuralNetworkData :public GameObject
 {
 public:
@@ -21,7 +23,10 @@ public:
 	void Render() override;
 	void OnCollision(GameObject* object) override;
 
+public:
+	void SetNeuralNetwork(NeuralNetworkManager* neuralNetwork) { m_neuralNetwork = neuralNetwork; }
+
 private:
 
-
+	NeuralNetworkManager* m_neuralNetwork;
 };

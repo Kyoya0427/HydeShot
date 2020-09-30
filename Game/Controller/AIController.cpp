@@ -24,6 +24,7 @@
 #include <Game/CharaState/Search.h>
 
 #include <Game/UI/HpUi.h>
+#include <Game/UI/NeuralNetworkData.h>
 
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
@@ -54,9 +55,7 @@ AIController::AIController(Character* character, Character* enemy, SelectMode mo
 	m_attack    = std::make_unique<Attack>();
 	m_wallAvoid = std::make_unique<WallAvoid>();
 
-	m_search->Initialize(m_character, m_enemy);
-	m_attack->Initialize(m_character, m_enemy);
-	m_wallAvoid->Initialize(m_character, m_enemy);
+	
 
 	GameContext::Register<Search>(m_search.get());
 	GameContext::Register<WallAvoid>(m_wallAvoid.get());
@@ -67,11 +66,17 @@ AIController::AIController(Character* character, Character* enemy, SelectMode mo
 
 //	m_neuralNetworkManager->InitializeNeuralNetwork();
 	m_neuralNetworkManager->InputTrainingData(mode);
-	GameContext::Register<NeuralNetworkManager>(m_neuralNetworkManager.get());
 
+	m_search->Initialize(m_character, m_enemy, m_neuralNetworkManager.get());
+	m_attack->Initialize(m_character, m_enemy, m_neuralNetworkManager.get());
+	m_wallAvoid->Initialize(m_character, m_enemy, m_neuralNetworkManager.get());
+	
 
 	if (m_character->GetTag() == GameObject::ObjectTag::Enemy1)
+	{
 		m_character->SetRotation(Vector3(0.0f, 3.15f, 0.0f));
+		GameContext::Get<NeuralNetworkData>()->SetNeuralNetwork(m_neuralNetworkManager.get());
+	}	
 	if (m_character->GetTag() == GameObject::ObjectTag::Enemy2)
 		m_character->SetRotation(Vector3(0.0f, 0.0f, 0.0f));
 }
@@ -120,6 +125,8 @@ void AIController::Update(const DX::StepTimer& timer)
 	}
 
 	m_charaState->Update(timer);	
-
-	GameContext::Get<HpUi>()->SetEnemyHp(m_character->GetHp());
+	if (m_character->GetTag() == GameObject::ObjectTag::Enemy1)
+		GameContext::Get<HpUi>()->SetEnemyHp(m_character->GetHp());
+	if (m_character->GetTag() == GameObject::ObjectTag::Enemy2)
+		GameContext::Get<HpUi>()->SetPlayerHp(m_character->GetHp());
 }

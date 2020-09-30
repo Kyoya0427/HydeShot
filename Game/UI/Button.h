@@ -26,12 +26,13 @@ public:
 	
 public:
 	//セレクトしているか設定
-	void SetSelect(const bool select) { m_isSelect = select; }
+	void SetSelect(const bool select)                         { m_isSelect = select; }
 	//通常時のテクスチャーを設定
 	void SetDefaultTexture(ID3D11ShaderResourceView* texture) { m_defaultTexture = texture; }
 	//選択時のテクスチャーを設定
 	void SetSelectTexture(ID3D11ShaderResourceView* texture)  { m_selectTexture = texture; }
-
+	//フラグを取得
+	bool GetIsSelect()                                        { return m_isSelect; }
 private:
 	//デフォルトテクスチャー
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_defaultTexture;
