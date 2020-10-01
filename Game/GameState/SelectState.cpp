@@ -73,10 +73,10 @@ void SelectState::Initialize()
 
 	m_blueOption = std::make_unique<OptionList>();
 	m_blueOption->SetTexture(m_defaultTexture.Get(), m_selectTexture.Get());
-	m_blueOption->Add(Vector2(880.0f, 200.0f), L"      1");
-	m_blueOption->Add(Vector2(880.0f, 300.0f), L"     10");
-	m_blueOption->Add(Vector2(880.0f, 400.0f), L"     50");
-	m_blueOption->Add(Vector2(880.0f, 500.0f), L"    100");
+	m_blueOption->Add(Vector2(880.0f, 200.0f), L"       1");
+	m_blueOption->Add(Vector2(880.0f, 300.0f), L"      10");
+	m_blueOption->Add(Vector2(880.0f, 400.0f), L"      50");
+	m_blueOption->Add(Vector2(880.0f, 500.0f), L"     100");
 
 }
 
@@ -91,50 +91,9 @@ void SelectState::Update(const DX::StepTimer& timer)
 	DirectX::Keyboard::State keyState = DirectX::Keyboard::Get().GetState();
 	m_keyTracker.Update(keyState);
 
-	if (m_keyTracker.IsKeyReleased(DirectX::Keyboard::Up))
-	{
-		m_currentOption->CurrentUp();
-	}
-
-	if (m_keyTracker.IsKeyReleased(DirectX::Keyboard::Down))
-	{
-		m_currentOption->CurrentDown();
-	}
-
-	if (!m_isSelectMode)
-	{
-		if (m_keyTracker.IsKeyReleased(DirectX::Keyboard::Left))
-		{
-			ChangeRedMode();
-			m_isRedSelect = true;
-		}
-		if (m_keyTracker.IsKeyReleased(DirectX::Keyboard::Right))
-		{
-			ChangeBlueMode();
-			m_isRedSelect = false;
-		}
-	}
-
-	if (m_keyTracker.IsKeyReleased(DirectX::Keyboard::Space))
-	{
-		if (m_isSelectMode)
-		{
-			m_isSelectMode = false;
-			m_blink->Start();
-			AddRedMode();
-			ChangeRedMode();
-		}
-		else
-		{
-			m_selectChara = static_cast<SelectCharacter>(m_selectMode->GetCurrent());
-			m_redMode     = static_cast<SelectMode>(m_selectMode->GetCurrent() * 4 + m_redOption->GetCurrent());	
-			m_blueMode    = static_cast<SelectMode>(m_blueOption->GetCurrent());
-			
-			using State = GameStateManager::GameState;
-			GameStateManager* gameStateManager = GameContext().Get<GameStateManager>();
-			gameStateManager->RequestState(State::PLAY_STATE);
-		}
-	}
+	ArrowKey();
+	SpaceKey();
+	
 }
 
 /// <summary>
@@ -185,14 +144,71 @@ void SelectState::AddRedMode()
 	switch (m_selectMode->GetCurrent())
 	{
 	case 0:
-		m_redOption->Add(Vector2(460.0f, 200.0f), L"      1");
-		m_redOption->Add(Vector2(460.0f, 300.0f), L"     10");
-		m_redOption->Add(Vector2(460.0f, 400.0f), L"     50");
-		m_redOption->Add(Vector2(460.0f, 500.0f), L"    100");
+		m_redOption->Add(Vector2(460.0f, 200.0f), L"       1");
+		m_redOption->Add(Vector2(460.0f, 300.0f), L"      10");
+		m_redOption->Add(Vector2(460.0f, 400.0f), L"      50");
+		m_redOption->Add(Vector2(460.0f, 500.0f), L"     100");
 		break;
 	case 1:
 		m_redOption->Add(Vector2(460.0f, 200.0f), L"    Manual");
 		m_redOption->Add(Vector2(460.0f, 400.0f), L"      Auto");
 		break;
+	}
+}
+
+/// <summary>
+/// やじるしキー
+/// </summary>
+void SelectState::ArrowKey()
+{
+	if (m_keyTracker.IsKeyReleased(DirectX::Keyboard::Up))
+	{
+		m_currentOption->CurrentUp();
+	}
+
+	if (m_keyTracker.IsKeyReleased(DirectX::Keyboard::Down))
+	{
+		m_currentOption->CurrentDown();
+	}
+
+	if (!m_isSelectMode)
+	{
+		if (m_keyTracker.IsKeyReleased(DirectX::Keyboard::Left))
+		{
+			ChangeRedMode();
+			m_isRedSelect = true;
+		}
+		if (m_keyTracker.IsKeyReleased(DirectX::Keyboard::Right))
+		{
+			ChangeBlueMode();
+			m_isRedSelect = false;
+		}
+	}
+}
+
+/// <summary>
+/// スペースキー
+/// </summary>
+void SelectState::SpaceKey()
+{
+	if (m_keyTracker.IsKeyReleased(DirectX::Keyboard::Space))
+	{
+		if (m_isSelectMode)
+		{
+			m_isSelectMode = false;
+			m_blink->Start();
+			AddRedMode();
+			ChangeRedMode();
+		}
+		else
+		{
+			m_selectChara = static_cast<SelectCharacter>(m_selectMode->GetCurrent());
+			m_redMode = static_cast<SelectMode>(m_selectMode->GetCurrent() * 4 + m_redOption->GetCurrent());
+			m_blueMode = static_cast<SelectMode>(m_blueOption->GetCurrent());
+
+			using State = GameStateManager::GameState;
+			GameStateManager* gameStateManager = GameContext().Get<GameStateManager>();
+			gameStateManager->RequestState(State::PLAY_STATE);
+		}
 	}
 }

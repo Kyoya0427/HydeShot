@@ -22,8 +22,9 @@ public:
 	void Render();
 	//追加
 	void Add(DirectX::SimpleMath::Vector2 pos, wchar_t* letter);
-	
+	//現在より一つ上に上げる
 	void CurrentUp();
+	//現在より一つ下に下げる
 	void CurrentDown();
 
 public:
@@ -31,7 +32,6 @@ public:
 	int GetCurrent() { return m_current; }
 	//テクスチャーを設定
 	void SetTexture(ID3D11ShaderResourceView* default, ID3D11ShaderResourceView* select);
-
 
 private:
 	//現在の選択肢

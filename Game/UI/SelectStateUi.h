@@ -39,4 +39,5 @@ private:
 	wchar_t*        m_selectState;
 	//ÉÇÅ[Éh
 	wchar_t*		m_selectMode;
+
 };

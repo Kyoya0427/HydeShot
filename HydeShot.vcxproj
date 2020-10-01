@@ -121,6 +121,7 @@
   <!-- ファイル設定 -->
   <ItemGroup>
     <!-- アプリケーションマニフェスト -->
+    <Image Include="Resources\Textures\youLose.png" />
     <Manifest Include="settings.manifest" />
     <!-- プリコンパイル済みヘッダ -->
     <ClInclude Include="3rdParty\PicoJSON\Include\PicoJSON\picojson.h" />
@@ -287,15 +288,37 @@
     <!-- アイコン -->
     <Image Include="Resources\Icon\Icon.ico" />
     <ResourceCompile Include="Resources\Icon\Icon.rc" />
+    <None Include="Resources\CSV\InputKey.csv" />
+    <None Include="Resources\CSV\OutputData.csv" />
     <None Include="Resources\CSV\Stage01.csv" />
     <None Include="Resources\CSV\Stage02.csv" />
+    <None Include="Resources\CSV\Stage03.csv" />
     <None Include="Resources\CSV\test.csv" />
     <None Include="Resources\CSV\test2.csv" />
-    <None Include="Resources\CSV\TrainingSet.csv" />
+    <None Include="Resources\CSV\test3.csv" />
+    <None Include="Resources\CSV\test4.csv" />
+    <None Include="Resources\CSV\test5.csv" />
+    <None Include="Resources\CSV\test6.csv" />
+    <None Include="Resources\CSV\TrainingData_1.csv" />
+    <None Include="Resources\CSV\TrainingData_10.csv" />
+    <None Include="Resources\CSV\TrainingData_100.csv" />
+    <None Include="Resources\CSV\TrainingData_1000.csv" />
+    <None Include="Resources\CSV\TrainingData_50.csv" />
+    <None Include="Resources\CSV\TrainingData_500.csv" />
     <!-- フォント -->
     <None Include="Resources\Fonts\SegoeUI_18.spritefont" />
     <Image Include="Resources\Textures\bg01.png" />
+    <Image Include="Resources\Textures\blue.png" />
+    <Image Include="Resources\Textures\blueChara.png" />
+    <Image Include="Resources\Textures\defaultButton.png" />
     <Image Include="Resources\Textures\floor01.png" />
+    <Image Include="Resources\Textures\playerWin.png" />
+    <Image Include="Resources\Textures\red.png" />
+    <Image Include="Resources\Textures\redChara.png" />
+    <Image Include="Resources\Textures\select.png" />
+    <Image Include="Resources\Textures\selectButton.png" />
+    <Image Include="Resources\Textures\Space.png" />
+    <Image Include="Resources\Textures\title.png" />
     <!-- テクスチャ -->
     <Image Include="Resources\Textures\TridentLogo.png" />
   </ItemGroup>

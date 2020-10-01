@@ -1,5 +1,5 @@
 //======================================================
-// File Name	: SelectStateUi.h
+// File Name	: SelectStateUi.cpp
 // Summary		: 選択したステイト
 // Date			: 2020/6/12
 // Author		: Kyoya  Sakamoto

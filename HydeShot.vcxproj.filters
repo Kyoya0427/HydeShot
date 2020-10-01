@@ -224,7 +224,43 @@
     <None Include="Resources\CSV\test2.csv">
       <Filter>Resources\CSV</Filter>
     </None>
-    <None Include="Resources\CSV\TrainingSet.csv">
+    <None Include="Resources\CSV\InputKey.csv">
+      <Filter>Resources\CSV</Filter>
+    </None>
+    <None Include="Resources\CSV\OutputData.csv">
+      <Filter>Resources\CSV</Filter>
+    </None>
+    <None Include="Resources\CSV\Stage03.csv">
+      <Filter>Resources\CSV</Filter>
+    </None>
+    <None Include="Resources\CSV\test3.csv">
+      <Filter>Resources\CSV</Filter>
+    </None>
+    <None Include="Resources\CSV\test4.csv">
+      <Filter>Resources\CSV</Filter>
+    </None>
+    <None Include="Resources\CSV\test5.csv">
+      <Filter>Resources\CSV</Filter>
+    </None>
+    <None Include="Resources\CSV\test6.csv">
+      <Filter>Resources\CSV</Filter>
+    </None>
+    <None Include="Resources\CSV\TrainingData_1.csv">
+      <Filter>Resources\CSV</Filter>
+    </None>
+    <None Include="Resources\CSV\TrainingData_10.csv">
+      <Filter>Resources\CSV</Filter>
+    </None>
+    <None Include="Resources\CSV\TrainingData_50.csv">
+      <Filter>Resources\CSV</Filter>
+    </None>
+    <None Include="Resources\CSV\TrainingData_100.csv">
+      <Filter>Resources\CSV</Filter>
+    </None>
+    <None Include="Resources\CSV\TrainingData_500.csv">
+      <Filter>Resources\CSV</Filter>
+    </None>
+    <None Include="Resources\CSV\TrainingData_1000.csv">
       <Filter>Resources\CSV</Filter>
     </None>
   </ItemGroup>
@@ -575,6 +611,39 @@
       <Filter>Resources\Textures</Filter>
     </Image>
     <Image Include="Resources\Textures\floor01.png">
+      <Filter>Resources\Textures</Filter>
+    </Image>
+    <Image Include="Resources\Textures\blue.png">
+      <Filter>Resources\Textures</Filter>
+    </Image>
+    <Image Include="Resources\Textures\blueChara.png">
+      <Filter>Resources\Textures</Filter>
+    </Image>
+    <Image Include="Resources\Textures\defaultButton.png">
+      <Filter>Resources\Textures</Filter>
+    </Image>
+    <Image Include="Resources\Textures\playerWin.png">
+      <Filter>Resources\Textures</Filter>
+    </Image>
+    <Image Include="Resources\Textures\red.png">
+      <Filter>Resources\Textures</Filter>
+    </Image>
+    <Image Include="Resources\Textures\redChara.png">
+      <Filter>Resources\Textures</Filter>
+    </Image>
+    <Image Include="Resources\Textures\select.png">
+      <Filter>Resources\Textures</Filter>
+    </Image>
+    <Image Include="Resources\Textures\selectButton.png">
+      <Filter>Resources\Textures</Filter>
+    </Image>
+    <Image Include="Resources\Textures\Space.png">
+      <Filter>Resources\Textures</Filter>
+    </Image>
+    <Image Include="Resources\Textures\title.png">
+      <Filter>Resources\Textures</Filter>
+    </Image>
+    <Image Include="Resources\Textures\youLose.png">
       <Filter>Resources\Textures</Filter>
     </Image>
   </ItemGroup>

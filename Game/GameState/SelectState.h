@@ -1,7 +1,6 @@
 //======================================================
 // File Name	 : SelectState.h
 // Summary		 : セレクトステイト
-
 // Author		 : Kyoya Sakamoto
 //======================================================
 #pragma once
@@ -63,6 +62,11 @@ public:
 	void ChangeBlueMode() { m_currentOption = m_blueOption.get(); }
 	//赤のモードリストに追加
 	void AddRedMode();
+	//やじるしキー
+	void ArrowKey();
+	//スペースキー
+	void SpaceKey();
+
 private:
 	//デフォルトテクスチャー
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>	m_defaultTexture;
@@ -96,4 +100,5 @@ private:
 	std::unique_ptr<Blink>                              m_blink;
 	//赤を選択中
 	bool                                                m_isRedSelect;
+
 };

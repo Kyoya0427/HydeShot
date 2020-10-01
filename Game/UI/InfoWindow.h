@@ -49,4 +49,5 @@ private:
 	SelectStateUi*									 m_selectState;
 	//キャラクターのHp
 	HpUi*			                                 m_character;
+
 };

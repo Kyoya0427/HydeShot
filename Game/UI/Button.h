@@ -46,5 +46,6 @@ private:
 	wchar_t*                                         m_letter;
 	//ç¿ïW
 	DirectX::SimpleMath::Vector2                     m_position;
+
 };
 
