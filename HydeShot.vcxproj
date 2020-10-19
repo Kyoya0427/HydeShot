@@ -35,6 +35,7 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
     <Import Project="$(VCTargetsPath)\BuildCustomizations\MeshContentTask.props" />
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\ShaderGraphContentTask.props" />
   </ImportGroup>
   <ImportGroup Label="ExtensionTargets">
     <Import Project="$(VCTargetsPath)\BuildCustomizations\MeshContentTask.targets" />
@@ -251,8 +252,10 @@
     <ClInclude Include="Game\Common\StepTimer.h" />
     <!-- アセット -->
     <MeshContentTask Include="Resources\FBX\bg.FBX" />
+    <MeshContentTask Include="Resources\FBX\blueTank.FBX" />
     <MeshContentTask Include="Resources\FBX\floorPanel_00.FBX" />
     <MeshContentTask Include="Resources\FBX\floorPanel_01.FBX" />
+    <MeshContentTask Include="Resources\FBX\redTank.FBX" />
     <None Include="3rdParty\PicoJSON\PicoJSON.props" />
     <!-- [3rdParty]フォルダ -->
     <!-- DirectXTK -->
@@ -324,5 +327,6 @@
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\ShaderGraphContentTask.targets" />
   </ImportGroup>
 </Project>

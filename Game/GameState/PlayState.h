@@ -12,6 +12,8 @@
 
 #include <Game\Common\StepTimer.h>
 
+#include <DirectXTK/Model.h>
+
 class GameWindow;
 class InfoWindow;
 class ObjectManager;
@@ -28,6 +30,14 @@ class CollisionManager;
 
 class PlayState : public IGameState
 {
+private:
+	enum Tank
+	{
+		RED,
+		BLUE,
+
+		NUM
+	};
 public:
 	PlayState();
 	 ~PlayState();
@@ -77,6 +87,8 @@ private:
 	std::unique_ptr<CollisionManager>           m_collisionManager;
 	//キートラッカー
 	DirectX::Keyboard::KeyboardStateTracker		m_keyTracker;
+	//キャラクターのモデル
+	std::unique_ptr<DirectX::Model>		        m_tankModels[static_cast<int>(Tank::NUM)];
 	//A.I同士のみ使用タイマー
 	float                                       m_gameEndTimer;
 

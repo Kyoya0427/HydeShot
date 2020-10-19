@@ -35,7 +35,6 @@ const float Character::INVINCIBLE_TIME = 2.0f;
 /// </summary>
 Character::Character(const ObjectTag tag)
 	: GameObject(tag)
-	, m_model()
 	, m_sphereCollider()
 	, m_bulletModel()
 	, m_sight()
@@ -49,8 +48,8 @@ Character::Character(const ObjectTag tag)
 	, m_isDamage(false)
 	, m_hp()
 	, m_state(CharaStateID::NONE)
+	, m_charaModel()
 {
-	
 }
 
 /// <summary>
@@ -70,13 +69,12 @@ void Character::Initialize(const DirectX::SimpleMath::Vector2& pos)
 	m_y = (int)pos.y;
 	m_position = Vector3((float)m_x, 0.0f, (float)m_y);
 	m_radius = 0.4f;
-	
+	m_scale *= 0.5f;
 	m_hp = MAX_HP;
 	m_invincibleTime = INVINCIBLE_TIME;
 
 	ID3D11DeviceContext* deviceContext = GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext();
 
-	m_model = GeometricPrimitive::CreateCone(deviceContext);
 
 	m_sphereCollider = GeometricPrimitive::CreateSphere(deviceContext,1.0f,8U);
 	m_bulletModel    = GeometricPrimitive::CreateSphere(deviceContext, Bullet::RADIUS,8U);
@@ -163,17 +161,17 @@ void Character::Render()
 	Matrix transMat = Matrix::CreateTranslation(m_position);
 	// ƒ[ƒ‹ƒhs—ñ‚ðì¬
 
-	m_world = scalemat * r * rotMat * transMat;
+	m_world = scalemat * rotMat * transMat;
 
 
-	if(m_blink->GetState())			
-		m_color = m_defaultColor;
-	else
-		m_color = m_blinkColor;
-
-	m_model->Draw(m_world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_color);
-
-
+	if(m_blink->GetState())				
+	m_charaModel->Draw(GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext()
+		               , *GameContext::Get<DirectX::CommonStates>()
+		               , m_world
+		               , GameContext::Get<Camera>()->GetView()
+		               , GameContext::Get<Camera>()->GetProjection(), false);
+	
+	
 	Matrix world = rotMat * transMat;
 
 	if(PlayState::m_isDebug)

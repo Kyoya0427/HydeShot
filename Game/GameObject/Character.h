@@ -7,6 +7,7 @@
 #pragma once
 
 #include <DirectXTK/GeometricPrimitive.h>
+#include <DirectXTK/Model.h>
 
 #include <Game/GameObject/GameObject.h>
 
@@ -80,6 +81,8 @@ public:
 	void SetEnemySightContact(const bool contact)     { m_isEnemySightContact = contact; }
 	//現在のステートを設定
 	void SetCharaState(const CharaStateID& state)     { m_state = state; }
+	// モデル設定関数
+	void SetModel(DirectX::Model* model)              { m_charaModel = model; }
 
 public:
 	//最大HP
@@ -87,8 +90,6 @@ public:
 	static const float INVINCIBLE_TIME;
 
 private:
-	//モデル
-	std::unique_ptr<DirectX::GeometricPrimitive>	m_model;
 	//当たり判定モデル
 	std::unique_ptr<DirectX::GeometricPrimitive>    m_sphereCollider;
 	//弾モデル
@@ -109,9 +110,10 @@ private:
 	DirectX::SimpleMath::Color                      m_blinkColor;
 	//デフォルトカラー
 	DirectX::SimpleMath::Color                      m_defaultColor;
-
 	//１フレーム前の座標
 	DirectX::SimpleMath::Vector3                    m_previousPos;
+	//キャラクターのモデル
+	DirectX::Model*									m_charaModel;
 	//壁にセンサーが接触してるか
 	bool                                            m_isWallSightContact;
 	//壁に接触してるか

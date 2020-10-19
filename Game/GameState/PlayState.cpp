@@ -51,6 +51,10 @@ PlayState::PlayState()
 	: IGameState()
 	, m_gameEndTimer()
 {
+	DirectX::EffectFactory fx(GameContext::Get<DX::DeviceResources>()->GetD3DDevice());
+	fx.SetDirectory(L"Resources\\Models");
+	m_tankModels[Tank::RED] = DirectX::Model::CreateFromCMO(GameContext::Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Models\\redTank.cmo", fx);
+	m_tankModels[Tank::BLUE] = DirectX::Model::CreateFromCMO(GameContext::Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Models\\blueTank.cmo", fx);
 }
 
 /// <summary>
@@ -114,6 +118,7 @@ void PlayState::Initialize()
 	//エネミー初期化
 	m_enemy[0] = std::make_unique<Character>(GameObject::ObjectTag::Enemy1);
 	m_enemy[0]->SetColor(Color(Colors::Blue));
+	m_enemy[0]->SetModel(m_tankModels[Tank::BLUE].get());
 	m_enemy[0]->Initialize(m_stage->GetEnemyPos());
 	
 
@@ -121,6 +126,7 @@ void PlayState::Initialize()
 	{
 		m_enemy[1] = std::make_unique<Character>(GameObject::ObjectTag::Enemy2);
 		m_enemy[1]->SetColor(Color(Colors::Red));
+		m_enemy[1]->SetModel(m_tankModels[Tank::RED].get());
 		m_enemy[1]->Initialize(m_stage->GetPlayerPos());
 		m_aiController[0] = std::make_unique<AIController>(m_enemy[0].get(), m_enemy[1].get(), SelectState::GetBlueMode());
 		m_aiController[1] = std::make_unique<AIController>(m_enemy[1].get(), m_enemy[0].get(), SelectState::GetRedMode());
@@ -133,6 +139,7 @@ void PlayState::Initialize()
 		//プレイヤー初期化
 		m_player = std::make_unique<Character>(GameObject::ObjectTag::Player);
 		m_player->SetColor(Color(Colors::Red));
+		m_player->SetModel(m_tankModels[Tank::RED].get());
 		m_player->Initialize(m_stage->GetPlayerPos());
 		m_aiController[0] = std::make_unique<AIController>(m_enemy[0].get(), m_player.get(), SelectState::GetBlueMode());
 
