@@ -39,8 +39,8 @@ Rightward::~Rightward()
 /// <param name="controller">コントローラー</param>
 void Rightward::Initialize(Character* chara, Character* enemy, NeuralNetworkManager* neuralNetwork)
 {
-	m_chara = chara;
-	m_enemy = enemy;
+	m_chara         = chara;
+	m_enemy         = enemy;
 	m_neuralNetwork = neuralNetwork;
 }
 

@@ -100,4 +100,5 @@ public:
 	void DumpData(char* filename);
 	//学習データを入力
 	void LearningDataInput(char* filename);
+
 };

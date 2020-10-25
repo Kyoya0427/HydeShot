@@ -26,7 +26,9 @@ public:
 	void Initialize(Character* chara, Character* enemy, NeuralNetworkManager* neuralNetwork) override;
 	//更新
 	void Update(const DX::StepTimer& timer) override;
-	
+	//行動を選択
+	void ChooseAction();
+
 public:
 	//ステイトを変更
 	void ChangeForwardState()   { m_wallAvoid = static_cast<CharaState*>(m_forward.get());   }

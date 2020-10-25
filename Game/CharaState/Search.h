@@ -28,6 +28,8 @@ public:
 	void Initialize(Character* chara, Character* enemy, NeuralNetworkManager* neuralNetwork) override;
 	//更新
 	void Update(const DX::StepTimer& timer) override;
+	//行動を選択
+	void ChooseAction();
 
 public:
 	//ステイトを変更
@@ -37,10 +39,6 @@ public:
 	void ChangeRightTurnState() { m_search = static_cast<CharaState*>(m_rightTurn.get()); }
 
 private:
-	//ステイト操作するキャラクター
-	Character*                    m_chara;
-	//敵キャラクター
-	Character*                    m_enemy;
 	//現在のステート
 	CharaState*				      m_search;
 	//Forward状態

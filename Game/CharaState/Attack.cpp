@@ -38,8 +38,8 @@ Attack::~Attack()
 /// <param name="enemy">敵キャラクター</param>
 void Attack::Initialize(Character* chara, Character* enemy, NeuralNetworkManager* neuralNetwork)
 {
-	enemy;
-	m_chara = chara;
+    enemy;
+	m_chara         = chara;
 	m_neuralNetwork = neuralNetwork;
 }
 

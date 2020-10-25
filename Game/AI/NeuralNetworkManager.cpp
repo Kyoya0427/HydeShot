@@ -36,7 +36,7 @@ NeuralNetworkManager::NeuralNetworkManager(Character* character, Character* enem
 	, m_enemy(enemy)
 {
 	m_neuralNetwork = std::make_unique<NeuralNetwork>();
-	InitializeTraining(L"Resources//CSV//test6.csv");
+	InitializeTraining(L"Resources//CSV//LearningData6.csv");
 	InitializeNeuralNetwork();
 	m_error = 0.0f;
 }
@@ -94,7 +94,7 @@ void NeuralNetworkManager::InitializeNeuralNetwork()
 	float	error = 1.0;
 	int		count = 0;    
 	// Œë·‹t“`”d‚·‚é(Back propagate)
-	while (error > 0.01 && count < 500)
+	while (error > 0.01 && count < 100)
 	{
 		error = 0.0;
 		count++;
@@ -138,7 +138,7 @@ void NeuralNetworkManager::InitializeNeuralNetwork()
 	bool isDumpData = false;
 
 	if(isDumpData)
-	m_neuralNetwork->DumpData("Resources//CSV//TrainingData.csv");
+	m_neuralNetwork->DumpData("Resources//CSV//TrainingData100.csv");
 }
 
 /// <summary>
@@ -152,16 +152,16 @@ void NeuralNetworkManager::InputTrainingData(SelectMode mode)
 	switch (mode)
 	{
 	case SelectMode::TRAINING_1:
-		m_neuralNetwork->LearningDataInput("Resources//CSV//TrainingData_1.csv");
+		m_neuralNetwork->LearningDataInput("Resources//CSV//TrainingData1.csv");
 		break;
 	case SelectMode::TRAINING_10:
-		m_neuralNetwork->LearningDataInput("Resources//CSV//TrainingData_10.csv");
+		m_neuralNetwork->LearningDataInput("Resources//CSV//TrainingData10.csv");
 		break;
 	case SelectMode::TRAINING_50:
-		m_neuralNetwork->LearningDataInput("Resources//CSV//TrainingData_50.csv");
+		m_neuralNetwork->LearningDataInput("Resources//CSV//TrainingData50.csv");
 		break;
 	case SelectMode::TRAINING_100:
-		m_neuralNetwork->LearningDataInput("Resources//CSV//TrainingData_100.csv");
+		m_neuralNetwork->LearningDataInput("Resources//CSV//TrainingData100.csv");
 		break;
 	default:
 		break;

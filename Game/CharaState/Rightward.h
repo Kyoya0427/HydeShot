@@ -23,10 +23,4 @@ public:
 	//更新
 	void Update(const DX::StepTimer& timer) override;
 
-private:
-	//ステイト操作するキャラクター
-	Character*		m_chara;
-	//敵キャラクター
-	Character*		m_enemy;
-
 };

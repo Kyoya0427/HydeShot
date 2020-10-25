@@ -39,8 +39,8 @@ Forward::~Forward()
 /// <param name="controller">敵キャラクター</param>
 void Forward::Initialize(Character* chara, Character* enemy, NeuralNetworkManager* neuralNetwork)
 {
-	m_chara = chara;
-	m_enemy = enemy;
+	m_chara         = chara;
+	m_enemy         = enemy;
 	m_neuralNetwork = neuralNetwork;
 }
 

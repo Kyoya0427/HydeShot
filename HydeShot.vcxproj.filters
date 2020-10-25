@@ -82,7 +82,7 @@
     <Filter Include="Game\Ui">
       <UniqueIdentifier>{b539fbdf-c0c8-479b-af95-418f7e6c7f05}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\AI\Bg">
+    <Filter Include="Game\Bg">
       <UniqueIdentifier>{6b513902-ec90-4dd5-9aa4-c317cdb11476}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -308,7 +308,7 @@
       <Filter>Game\Controller</Filter>
     </ClInclude>
     <ClInclude Include="Game\Bg\Bg.h">
-      <Filter>Game\AI\Bg</Filter>
+      <Filter>Game\Bg</Filter>
     </ClInclude>
     <ClInclude Include="Game\Controller\AIController.h">
       <Filter>Game\Controller</Filter>
@@ -410,13 +410,13 @@
       <Filter>Game\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="Game\Bg\TitleBg.h">
-      <Filter>Game\AI\Bg</Filter>
+      <Filter>Game\Bg</Filter>
     </ClInclude>
     <ClInclude Include="Game\UI\Button.h">
       <Filter>Game\Ui</Filter>
     </ClInclude>
     <ClInclude Include="Game\Bg\ResultBg.h">
-      <Filter>Game\AI\Bg</Filter>
+      <Filter>Game\Bg</Filter>
     </ClInclude>
     <ClInclude Include="Game\UI\NeuralNetworkData.h">
       <Filter>Game\Ui</Filter>
@@ -437,7 +437,7 @@
       <Filter>Game\GameState</Filter>
     </ClInclude>
     <ClInclude Include="Game\Bg\SelectBg.h">
-      <Filter>Game\AI\Bg</Filter>
+      <Filter>Game\Bg</Filter>
     </ClInclude>
     <ClInclude Include="Game\GameObject\SelectMode.h">
       <Filter>Game\GameObject</Filter>
@@ -475,7 +475,7 @@
       <Filter>Game\Controller</Filter>
     </ClCompile>
     <ClCompile Include="Game\Bg\Bg.cpp">
-      <Filter>Game\AI\Bg</Filter>
+      <Filter>Game\Bg</Filter>
     </ClCompile>
     <ClCompile Include="Game\Controller\AIController.cpp">
       <Filter>Game\Controller</Filter>
@@ -562,13 +562,13 @@
       <Filter>Game\CharaState</Filter>
     </ClCompile>
     <ClCompile Include="Game\Bg\TitleBg.cpp">
-      <Filter>Game\AI\Bg</Filter>
+      <Filter>Game\Bg</Filter>
     </ClCompile>
     <ClCompile Include="Game\UI\Button.cpp">
       <Filter>Game\Ui</Filter>
     </ClCompile>
     <ClCompile Include="Game\Bg\ResultBg.cpp">
-      <Filter>Game\AI\Bg</Filter>
+      <Filter>Game\Bg</Filter>
     </ClCompile>
     <ClCompile Include="Game\UI\NeuralNetworkData.cpp">
       <Filter>Game\Ui</Filter>
@@ -589,7 +589,7 @@
       <Filter>Game\GameState</Filter>
     </ClCompile>
     <ClCompile Include="Game\Bg\SelectBg.cpp">
-      <Filter>Game\AI\Bg</Filter>
+      <Filter>Game\Bg</Filter>
     </ClCompile>
     <ClCompile Include="Game\UI\OptionList.cpp">
       <Filter>Game\Ui</Filter>

@@ -40,8 +40,8 @@ LeftTurn::~LeftTurn()
 /// <param name="controller">敵キャラクター</param>
 void LeftTurn::Initialize(Character* chara, Character* enemy, NeuralNetworkManager* neuralNetwork)
 {
-	m_chara = chara;
-	m_enemy = enemy;
+	m_chara         = chara;
+	m_enemy         = enemy;
 	m_neuralNetwork = neuralNetwork;
 }
 

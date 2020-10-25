@@ -64,6 +64,7 @@ public:
 	void OutputDataFile(char* fname);
 	//データを取得
 	const OutputData& GetOutputData() { return m_data; }
+
 public: 
 	//データを格納
 	std::vector<std::vector<float>>  m_training;
@@ -86,5 +87,6 @@ public:
 	bool                             m_isDirectionRight;
 	//距離
 	float                            m_distance;
+
 };
 

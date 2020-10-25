@@ -41,8 +41,8 @@ WallAvoid::WallAvoid()
 /// <param name="controller">敵キャラクター</param>
 void WallAvoid::Initialize(Character* chara, Character* enemy, NeuralNetworkManager* neuralNetwork)
 {
-	m_chara = chara;
-	m_enemy = enemy;
+	m_chara         = chara;
+	m_enemy         = enemy;
 	m_neuralNetwork = neuralNetwork;
 
 	//ステイトを初期化
@@ -66,6 +66,16 @@ void WallAvoid::Initialize(Character* chara, Character* enemy, NeuralNetworkMana
 /// <param name="timer">タイマー</param>
 void WallAvoid::Update(const DX::StepTimer& timer)
 {
+	ChooseAction();
+	//現在のステートの更新
+	m_wallAvoid->Update(timer);
+}
+
+/// <summary>
+/// 行動を選択
+/// </summary>
+void WallAvoid::ChooseAction()
+{
 	//相対座標
 	float dis = Vector3::Distance(m_chara->GetPosition(), m_enemy->GetPosition()) / 18.0f;
 	//ステイト操作するキャラクターを原点とした絶対座標
@@ -80,10 +90,10 @@ void WallAvoid::Update(const DX::StepTimer& timer)
 			m_chara->SetCharaState(CharaStateID::LEFTWARD);
 			ChangeLeftwardState();
 		}
-		else
+		else if(x > 0.0f)
 		{
 			GameContext::Get<SelectStateUi>()->SetSelectState(L"RIGHTWARD");
-			m_chara->SetCharaState(CharaStateID::RIGHTWARD);	
+			m_chara->SetCharaState(CharaStateID::RIGHTWARD);
 			ChangeRightwardState();
 		}
 	}
@@ -93,7 +103,7 @@ void WallAvoid::Update(const DX::StepTimer& timer)
 		if (dis >= 0.45f)
 		{
 			GameContext::Get<SelectStateUi>()->SetSelectState(L"FORWARD");
-			m_chara->SetCharaState(CharaStateID::FORWARD);		
+			m_chara->SetCharaState(CharaStateID::FORWARD);
 			ChangeForwardState();
 		}
 		else if (dis > 0.1f)
@@ -103,8 +113,4 @@ void WallAvoid::Update(const DX::StepTimer& timer)
 			ChangeBackwardState();
 		}
 	}
-
-	//現在のステートの更新
-	m_wallAvoid->Update(timer);
-
 }

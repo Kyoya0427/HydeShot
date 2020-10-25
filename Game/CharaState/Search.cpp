@@ -21,9 +21,7 @@ using namespace DirectX::SimpleMath;
 /// コンストラクタ
 /// </summary>
 Search::Search()
-	: m_chara()
-	, m_enemy()
-	, m_search()
+	: m_search()
 {
 }
 
@@ -41,8 +39,8 @@ Search::~Search()
 /// <param name="enemy">敵キャラクター</param>
 void Search::Initialize(Character* chara, Character* enemy, NeuralNetworkManager* neuralNetwork)
 {
-	m_chara = chara;
-	m_enemy = enemy;
+	m_chara         = chara;
+	m_enemy         = enemy;
 	m_neuralNetwork = neuralNetwork;
 
 	//ステイトを初期化
@@ -66,10 +64,20 @@ void Search::Initialize(Character* chara, Character* enemy, NeuralNetworkManager
 /// <param name="timer">タイマー</param>
 void Search::Update(const DX::StepTimer& timer)
 {
+	ChooseAction();
+	//現在のステートの更新
+	m_search->Update(timer);
+}
+
+/// <summary>
+/// 行動を選択
+/// </summary>
+void Search::ChooseAction()
+{
 	NeuralNetworkManager::OutputData data = m_neuralNetwork->GetOutputData();
 
-	float dis   = data.outputDis;
-	float left  = data.outputLeft;
+	float dis = data.outputDis;
+	float left = data.outputLeft;
 	float right = data.outputRight;
 
 	//出力データから行動を選択
@@ -97,7 +105,4 @@ void Search::Update(const DX::StepTimer& timer)
 		ChangeBackwardState();
 		m_chara->SetCharaState(CharaStateID::BACKWARD);
 	}
-
-	//現在のステートの更新
-	m_search->Update(timer);
 }

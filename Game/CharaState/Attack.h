@@ -24,8 +24,4 @@ public:
 	//XV
 	void Update(const DX::StepTimer& timer) override;
 
-private:
-	//©‹@
-	Character*		m_chara;
-
 };

@@ -39,8 +39,8 @@ Backward::~Backward()
 /// <param name="controller">敵キャラクター</param>
 void Backward::Initialize(Character* chara, Character* enemy, NeuralNetworkManager* neuralNetwork)
 {
-	m_chara = chara;
-	m_enemy = enemy;
+	m_chara         = chara;
+	m_enemy         = enemy;
 	m_neuralNetwork = neuralNetwork;
 }
 
