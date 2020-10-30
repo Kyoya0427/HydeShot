@@ -15,6 +15,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <random>
 
 /// <summary>
 /// コンストラクタ
@@ -49,60 +50,67 @@ void NeuralNetworkLayer::Initialize(int NumNodes, NeuralNetworkLayer* parent, Ne
 {
 	NumNodes;
 	//メモリを割り当てる
-	m_neuronValues  = (float*)malloc(sizeof(float) * m_numNodes);
-	m_desiredValues = (float*)malloc(sizeof(float) * m_numNodes);
-	m_errors        = (float*)malloc(sizeof(float) * m_numNodes);
+	m_neuronValues  = static_cast<float*>(malloc(sizeof(float) * m_numNodes));
+	m_desiredValues = static_cast<float*>(malloc(sizeof(float) * m_numNodes));
+	m_errors        = static_cast<float*>(malloc(sizeof(float) * m_numNodes));
 
-	if (parent != NULL)
+	if (parent != nullptr)
 	{
 		m_parentLayer = parent;
 	}
 
-	if (child != NULL)
+	if (child != nullptr)
 	{
 		m_childLayer    = child;
-		m_weights       = (float**)malloc(sizeof(float*) * m_numNodes);
-		m_weightChanges = (float**)malloc(sizeof(float*) * m_numNodes);
+		m_weights       = static_cast<float**>(malloc(sizeof(float*) * m_numNodes));
+		m_weightChanges = static_cast<float**>(malloc(sizeof(float*) * m_numNodes));
 
 		for (int i = 0; i < m_numNodes; i++)
 		{
-			m_weights[i]       = (float*)malloc(sizeof(float) * m_numChildNodes);
-			m_weightChanges[i] = (float*)malloc(sizeof(float) * m_numChildNodes);
+			m_weights[i]       = static_cast<float*>(malloc(sizeof(float) * m_numChildNodes));
+			m_weightChanges[i] = static_cast<float*>(malloc(sizeof(float) * m_numChildNodes));
 		}
 
-		m_biasValues  = (float*)malloc(sizeof(float) * m_numChildNodes);
-		m_biasWeights = (float*)malloc(sizeof(float) * m_numChildNodes);
+		m_biasValues  = static_cast<float*>(malloc(sizeof(float) * m_numChildNodes));
+		m_biasWeights = static_cast<float*>(malloc(sizeof(float) * m_numChildNodes));
 	}
 	else 
 	{
-		m_weights     = NULL;
-		m_biasValues  = NULL;
-		m_biasWeights = NULL;
+		m_weights     = nullptr;
+		m_biasValues  = nullptr;
+		m_biasWeights = nullptr;
 	}
 
 	//すべてにゼロが含まれていることを確認
-	for (int i = 0; i < m_numNodes; i++) 
+	for (int i = 0; i < m_numNodes; i++)
 	{
-		m_neuronValues[i]  = 0.0f;
-		m_desiredValues[i] = 0.0f;
-		m_errors[i]        = 0.0f;
+		if (m_neuronValues)
+			m_neuronValues[i] = 0.0f;
+		if (m_desiredValues)
+			m_desiredValues[i] = 0.0f;
+		if (m_errors)
+			m_errors[i] = 0.0f;
 
-		if (m_childLayer != NULL)
+		if (m_childLayer != nullptr)
 		{
-			for (int j = 0; j < m_numChildNodes; j++) 
+			for (int j = 0; j < m_numChildNodes; j++)
 			{
-				m_weights[i][j]       = 0.0f;
-				m_weightChanges[i][j] = 0.0f;
+				if (m_weights)
+					m_weights[i][j] = 0.0f;
+				if (m_weightChanges)
+					m_weightChanges[i][j] = 0.0f;
 			}
 		}
 	}
 
-	if (m_childLayer != NULL) 
+	if (m_childLayer != nullptr)
 	{
-		for (int j = 0; j < m_numChildNodes; j++) 
+		for (int j = 0; j < m_numChildNodes; j++)
 		{
-			m_biasValues[j]  = -1;
-			m_biasWeights[j] = 0;
+			if (m_biasValues)
+				m_biasValues[j] = -1.0f;
+			if (m_biasWeights)
+				m_biasWeights[j] = 0.0f;
 		}
 	}
 }
@@ -116,7 +124,7 @@ void NeuralNetworkLayer::CleanUp()
 	free(m_desiredValues);
 	free(m_errors);
 
-	if (m_weights != NULL)
+	if (m_weights != nullptr)
 	{
 		for (int i = 0; i < m_numNodes; i++)
 		{
@@ -128,9 +136,9 @@ void NeuralNetworkLayer::CleanUp()
 		free(m_weightChanges);
 	}
 
-	if (m_biasValues != NULL)
+	if (m_biasValues != nullptr)
 		free(m_biasValues);
-	if (m_biasWeights != NULL)
+	if (m_biasWeights != nullptr)
 		free(m_biasWeights);
 }
 
@@ -143,29 +151,23 @@ void NeuralNetworkLayer::RandomizeWeights()
 	int	max = 200;
 	int	number;
 
-	srand((unsigned)time(NULL));
+	//srand((unsigned)time(nullptr));
+	std::random_device seed;
+	std::mt19937 random(seed());
+	std::uniform_int_distribution<> dist(min, max);
 
 	for (int i = 0; i < m_numNodes; i++)
 	{
 		for (int j = 0; j < m_numChildNodes; j++)
 		{
-			number = (((abs(rand()) % (max - min + 1)) + min));
-			if (number > max)
-				number = max;
-			if (number < min)
-				number = min;
-
+			number = dist(random);
 			m_weights[i][j] = number / 100.0f - 1;
 		}
 	}
 
 	for (int j = 0; j < m_numChildNodes; j++) 
 	{
-		number = (((abs(rand()) % (max - min + 1)) + min));
-		if (number > max)
-			number = max;
-		if (number < min)
-			number = min;
+		number = dist(random);
 		m_biasWeights[j] = number / 100.0f - 1;
 	}
 }
@@ -177,14 +179,14 @@ void NeuralNetworkLayer::CalculateErrors()
 {
 	float	sum = 0.0;
 	// 出力層(output layer)
-	if (m_childLayer == NULL)
+	if (m_childLayer == nullptr)
 	{
 		for (int i = 0; i < m_numNodes; i++) 
 		{
 			m_errors[i] = (m_desiredValues[i] - m_neuronValues[i]) * m_neuronValues[i] * (1.0f - m_neuronValues[i]);
 		}
 	} // 入力層(input layer)
-	else if (m_parentLayer == NULL)
+	else if (m_parentLayer == nullptr)
 	{
 		for (int i = 0; i < m_numNodes; i++)
 		{
@@ -212,7 +214,7 @@ void NeuralNetworkLayer::CalculateErrors()
 void NeuralNetworkLayer::AdjustWeights()
 {
 	float	dw = 0.0;
-	if (m_childLayer != NULL) 
+	if (m_childLayer != nullptr) 
 	{
 		for (int i = 0; i < m_numNodes; i++)
 		{
@@ -237,7 +239,7 @@ void NeuralNetworkLayer::AdjustWeights()
 void NeuralNetworkLayer::CalculateNeuronValues()
 {
 	float	x;
-	if (m_parentLayer != NULL)
+	if (m_parentLayer != nullptr)
 	{
 		for (int j = 0; j < m_numNodes; j++)
 		{
@@ -248,7 +250,7 @@ void NeuralNetworkLayer::CalculateNeuronValues()
 			}
 			x += m_parentLayer->m_biasValues[j] * m_parentLayer->m_biasWeights[j];
 
-			if ((m_childLayer == NULL) && m_linearOutput)
+			if ((m_childLayer == nullptr) && m_linearOutput)
 				m_neuronValues[j] = x;
 			else
 				m_neuronValues[j] = 1.0f / (1.0f + static_cast<float>(exp(-x)));
@@ -270,7 +272,7 @@ void NeuralNetwork::Initialize(int nodesInput, int nodesHidden, int nodesOutput)
 	m_inputLayer.m_numNodes       = nodesInput;
 	m_inputLayer.m_numChildNodes  = nodesHidden;
 	m_inputLayer.m_numParentNodes = 0;
-	m_inputLayer.Initialize(nodesInput, NULL, &m_hiddenLayer);
+	m_inputLayer.Initialize(nodesInput, nullptr, &m_hiddenLayer);
 	m_inputLayer.RandomizeWeights();
 
 	m_hiddenLayer.m_numNodes       = nodesHidden;
@@ -282,7 +284,7 @@ void NeuralNetwork::Initialize(int nodesInput, int nodesHidden, int nodesOutput)
 	m_outputLayer.m_numNodes       = nodesOutput;
 	m_outputLayer.m_numChildNodes  = 0;
 	m_outputLayer.m_numParentNodes = nodesHidden;
-	m_outputLayer.Initialize(nodesOutput, &m_hiddenLayer, NULL);
+	m_outputLayer.Initialize(nodesOutput, &m_hiddenLayer, nullptr);
 }
 
 /// <summary>

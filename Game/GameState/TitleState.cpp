@@ -28,8 +28,8 @@ using namespace DirectX::SimpleMath;
 TitleState::TitleState()
 	: IGameState()
 {
-	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\defaultButton.png", NULL, m_defaultTexture.ReleaseAndGetAddressOf());
-	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\selectButton.png", NULL, m_selectTexture.ReleaseAndGetAddressOf());
+	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\defaultButton.png", nullptr, m_defaultTexture.ReleaseAndGetAddressOf());
+	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\selectButton.png", nullptr, m_selectTexture.ReleaseAndGetAddressOf());
 }
 
 /// <summary>

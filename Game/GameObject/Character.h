@@ -55,6 +55,8 @@ public:
 	void RightTurn(const float speed) { m_rotation.y -= speed; }
 	//”­–C
 	void Shoot();
+	//HPŠÖ˜A‚Ìˆ—
+	void HpProcessing(float elapsedTime);
 
 public:
 	//hp‚ğæ“¾

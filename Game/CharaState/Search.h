@@ -33,10 +33,10 @@ public:
 
 public:
 	//ステイトを変更
-	void ChangeForwardState()   { m_search = static_cast<CharaState*>(m_forward.get());   }
-	void ChangeBackwardState()  { m_search = static_cast<CharaState*>(m_backward.get());  }
-	void ChangeLeftTurnState()  { m_search = static_cast<CharaState*>(m_leftTurn.get());  }
-	void ChangeRightTurnState() { m_search = static_cast<CharaState*>(m_rightTurn.get()); }
+	void ChangeForwardState()   { m_search = m_forward.get();   }
+	void ChangeBackwardState()  { m_search = m_backward.get();  }
+	void ChangeLeftTurnState()  { m_search = m_leftTurn.get();  }
+	void ChangeRightTurnState() { m_search = m_rightTurn.get(); }
 
 private:
 	//現在のステート

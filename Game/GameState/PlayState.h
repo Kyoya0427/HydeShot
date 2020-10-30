@@ -52,11 +52,20 @@ public:
 	//終了
 	void Finalize() override;
 
+public:
+	//当たり判定するオブジェクトタグを登録
+	void RegisterTheObject();
+	//キャラクターを登録
+	void CreateCharacter();
+
+	//デバック表記
+	void Debug();
+
 public: 
 	static const int SCREEN_W = 960;
 	static const int SCREEN_H = 720;
-	static bool		 m_isDebug;
 	static const float END_TIMER;
+	static bool		 m_isDebug;
 
 private:
 	// ゲーム画面のビューポート

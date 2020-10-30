@@ -57,7 +57,7 @@ void Bullet::Update(const DX::StepTimer& timer)
 	//座標を移動
 	m_position += m_velocity;
 	// 衝突判定マネージャーに登録
-	GameContext::Get<CollisionManager>()->Add(GetTag(), m_collider.get());
+	GameContext::Get<CollisionManager>()->Add(m_tag, m_collider.get());
 }
 
 /// <summary>

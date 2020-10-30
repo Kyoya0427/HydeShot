@@ -44,7 +44,7 @@ void ResultState::Initialize()
 	m_resultBg = std::make_unique<ResultBg>();
 	m_resultBg->Initialize(Vector3(0.0F, 0.0f, 0.0f));
 
-	DirectX::CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\space.png", NULL, m_pushTexture.ReleaseAndGetAddressOf());
+	DirectX::CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\space.png", nullptr, m_pushTexture.ReleaseAndGetAddressOf());
 	m_pushPos = DirectX::SimpleMath::Vector2(430, 500);
 
 	m_blink = std::make_unique<Blink>();

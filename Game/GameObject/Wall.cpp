@@ -49,7 +49,7 @@ Wall::~Wall()
 /// <param name="y">yç¿ïW</param>
 void Wall::Initialize(int x, int y)
 {
-	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\floor01.png.png", NULL, m_texture.ReleaseAndGetAddressOf());
+	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\floor01.png.png", nullptr, m_texture.ReleaseAndGetAddressOf());
 	m_position = Vector3((float)x, 0.0f, (float)y);
 	m_color = Colors::Yellow;
 	

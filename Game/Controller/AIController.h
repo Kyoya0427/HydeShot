@@ -40,11 +40,11 @@ public:
 
 public:
 	//攻撃にステイトを変更
-	void ChangeAttackState()    { m_charaState = static_cast<CharaState*>(m_attack.get());}
+	void ChangeAttackState()    { m_charaState = m_attack.get();}
 	//サーチにステイトを変更
-	void ChangeSearchState()    { m_charaState = static_cast<CharaState*>(m_search.get()); }
+	void ChangeSearchState()    { m_charaState = m_search.get(); }
 	//壁回避にステイトを変更
-	void ChangeWallAvoidState() { m_charaState = static_cast<CharaState*>(m_wallAvoid.get()); }
+	void ChangeWallAvoidState() { m_charaState = m_wallAvoid.get(); }
 	//モードを設定
 public:
 	//移動速度

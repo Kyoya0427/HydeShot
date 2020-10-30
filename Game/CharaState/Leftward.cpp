@@ -20,8 +20,6 @@ using namespace DirectX::SimpleMath;
 /// コンストラクタ
 /// </summary>
 Leftward::Leftward()
-	: m_chara()
-	, m_enemy()
 {
 }
 

@@ -82,29 +82,6 @@ void PlayState::Initialize()
 	m_camera->Initialize();
 	GameContext::Register<Camera>(m_camera.get());
 
-	//コライダーマネジャー生成
-	m_collisionManager = std::make_unique<CollisionManager>();
-	GameContext().Register<CollisionManager>(m_collisionManager.get());
-
-	//当たり判定するオブジェクトタグを登録
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1,	    GameObject::ObjectTag::Wall);
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1,	    GameObject::ObjectTag::Bullet);
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1,	    GameObject::ObjectTag::Sight02);
-																		   
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2,	    GameObject::ObjectTag::Wall);
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2,	    GameObject::ObjectTag::Bullet);
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2,	    GameObject::ObjectTag::Sight01);
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2,	    GameObject::ObjectTag::Enemy1);
-																		   
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player,	    GameObject::ObjectTag::Wall);
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player,	    GameObject::ObjectTag::Bullet);
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player,	    GameObject::ObjectTag::Sight01);
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Player,	    GameObject::ObjectTag::Enemy1);
-																		   
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Bullet,	    GameObject::ObjectTag::Wall);	
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Sight01,	    GameObject::ObjectTag::Wall);	
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::Sight02,	    GameObject::ObjectTag::Wall);	
-	m_collisionManager->AllowCollision(GameObject::ObjectTag::WallApproach, GameObject::ObjectTag::Wall);	
 	
 	//ステージを生成
 	m_stage = std::make_unique<Stage>();
@@ -114,44 +91,12 @@ void PlayState::Initialize()
 	m_stage->SetStageData();
 	m_stage->Initialize();
 	GameContext::Register<Stage>(m_stage.get());
-	
-	//エネミー初期化
-	m_enemy[0] = std::make_unique<Character>(GameObject::ObjectTag::Enemy1);
-	m_enemy[0]->SetColor(Color(Colors::Blue));
-	m_enemy[0]->SetModel(m_tankModels[Tank::BLUE].get());
-	m_enemy[0]->Initialize(m_stage->GetEnemyPos());
-	
 
-	if (SelectState::GetSelectChara() == SelectState::SelectCharacter::ENEMY)
-	{
-		m_enemy[1] = std::make_unique<Character>(GameObject::ObjectTag::Enemy2);
-		m_enemy[1]->SetColor(Color(Colors::Red));
-		m_enemy[1]->SetModel(m_tankModels[Tank::RED].get());
-		m_enemy[1]->Initialize(m_stage->GetPlayerPos());
-		m_aiController[0] = std::make_unique<AIController>(m_enemy[0].get(), m_enemy[1].get(), SelectState::GetBlueMode());
-		m_aiController[1] = std::make_unique<AIController>(m_enemy[1].get(), m_enemy[0].get(), SelectState::GetRedMode());
-		GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(m_enemy[1]));
-		m_gameEndTimer = END_TIMER;
-	}
+	//当たり判定するオブジェクトタグを登録
+	RegisterTheObject();
 
-	if (SelectState::GetSelectChara() == SelectState::SelectCharacter::PLAYER)
-	{
-		//プレイヤー初期化
-		m_player = std::make_unique<Character>(GameObject::ObjectTag::Player);
-		m_player->SetColor(Color(Colors::Red));
-		m_player->SetModel(m_tankModels[Tank::RED].get());
-		m_player->Initialize(m_stage->GetPlayerPos());
-		m_aiController[0] = std::make_unique<AIController>(m_enemy[0].get(), m_player.get(), SelectState::GetBlueMode());
-
-		if (SelectState::GetRedMode() == SelectMode::MANUAL_PLAYER)
-			m_playerControll = std::make_unique<PlayerController>(m_player.get());
-		if (SelectState::GetRedMode() == SelectMode::AUTO_PLAYER)
-			m_autoPlayerController = std::make_unique<AutoPlayerController>(m_player.get());
-		GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(m_player));
-	}
-
-	GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(m_enemy[0]));
-
+	//キャラクターを登録
+	CreateCharacter();
 
 	//ゲームウィンドウ
 	m_bg = std::make_unique<Bg>();
@@ -183,44 +128,30 @@ void PlayState::Update(const DX::StepTimer& timer)
 	float elapsedTime = float(timer.GetElapsedSeconds());
 
 	m_bg->Update(timer);
-	// ゲーム画面のオブジェクト更新
+	m_objectManager->GetGameOM()->Update(timer);
+	m_objectManager->GetInfoOM()->Update(timer);
+	m_collisionManager->DetectCollision();
+	m_aiController[0]->Update(timer);
 
+	if (SelectState::GetRedMode() == SelectMode::MANUAL_PLAYER)
+		m_playerControll->Update(timer);
+	if (SelectState::GetRedMode() == SelectMode::AUTO_PLAYER)
+		m_autoPlayerController->Update(timer);
+
+	//A.I.同士の戦いに決着が付かない時の処理
+	if (SelectState::GetSelectChara() == SelectState::SelectCharacter::ENEMY)
+	{
+		m_aiController[1]->Update(timer);
+		m_gameEndTimer -= elapsedTime;
+	}
 	if (m_gameEndTimer < 0)
 	{
 		using State = GameStateManager::GameState;
 		GameStateManager* gameStateManager = GameContext().Get<GameStateManager>();
 		gameStateManager->RequestState(State::RESULT_STATE);
 	}
-
-	m_objectManager->GetGameOM()->Update(timer);
-	m_objectManager->GetInfoOM()->Update(timer);
-
-	m_collisionManager->DetectCollision();
-
-	m_aiController[0]->Update(timer);
-	if (SelectState::GetSelectChara() == SelectState::SelectCharacter::ENEMY)
-	{
-		m_aiController[1]->Update(timer);
-		m_gameEndTimer -= elapsedTime;
-	}
-	if (SelectState::GetRedMode() == SelectMode::MANUAL_PLAYER)
-	m_playerControll->Update(timer);
-	if (SelectState::GetRedMode() == SelectMode::AUTO_PLAYER)
-	m_autoPlayerController->Update(timer);
 	
-	DirectX::Keyboard::State keyState = DirectX::Keyboard::Get().GetState();
-	m_keyTracker.Update(keyState);
-	if (m_keyTracker.IsKeyReleased(DirectX::Keyboard::Z))
-	{
-		using State = GameStateManager::GameState;
-		GameStateManager* gameStateManager = GameContext().Get<GameStateManager>();
-		gameStateManager->RequestState(State::RESULT_STATE);
-	}
-
-	if (m_keyTracker.IsKeyReleased(DirectX::Keyboard::X))
-	{
-		m_isDebug = !m_isDebug;
-	}
+	Debug();
 }
 
 /// <summary>
@@ -270,3 +201,92 @@ void PlayState::Finalize()
 	GameContext().Reset<InfoWindow>();
 }
 
+/// <summary>
+/// 当たり判定するオブジェクトタグを登録
+/// </summary>
+void PlayState::RegisterTheObject()
+{
+	//コライダーマネジャー生成
+	m_collisionManager = std::make_unique<CollisionManager>();
+	GameContext().Register<CollisionManager>(m_collisionManager.get());
+
+	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1, GameObject::ObjectTag::Wall);
+	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1, GameObject::ObjectTag::Bullet);
+	m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy1, GameObject::ObjectTag::Sight02);
+
+	if (SelectState::GetSelectChara() == SelectState::SelectCharacter::ENEMY)
+	{
+		m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2, GameObject::ObjectTag::Wall);
+		m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2, GameObject::ObjectTag::Bullet);
+		m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2, GameObject::ObjectTag::Sight01);
+		m_collisionManager->AllowCollision(GameObject::ObjectTag::Enemy2, GameObject::ObjectTag::Enemy1);
+	}
+
+	if (SelectState::GetSelectChara() == SelectState::SelectCharacter::PLAYER)
+	{
+		m_collisionManager->AllowCollision(GameObject::ObjectTag::Player, GameObject::ObjectTag::Wall);
+		m_collisionManager->AllowCollision(GameObject::ObjectTag::Player, GameObject::ObjectTag::Bullet);
+		m_collisionManager->AllowCollision(GameObject::ObjectTag::Player, GameObject::ObjectTag::Sight01);
+		m_collisionManager->AllowCollision(GameObject::ObjectTag::Player, GameObject::ObjectTag::Enemy1);
+	}
+
+	m_collisionManager->AllowCollision(GameObject::ObjectTag::Bullet, GameObject::ObjectTag::Wall);
+	m_collisionManager->AllowCollision(GameObject::ObjectTag::Sight01, GameObject::ObjectTag::Wall);
+	m_collisionManager->AllowCollision(GameObject::ObjectTag::Sight02, GameObject::ObjectTag::Wall);
+	m_collisionManager->AllowCollision(GameObject::ObjectTag::WallApproach, GameObject::ObjectTag::Wall);
+
+}
+
+/// <summary>
+/// キャラクターを登録
+/// </summary>
+void PlayState::CreateCharacter()
+{
+	//エネミー初期化
+	m_enemy[0] = std::make_unique<Character>(GameObject::ObjectTag::Enemy1);
+	m_enemy[0]->SetColor(Color(Colors::Blue));
+	m_enemy[0]->SetModel(m_tankModels[Tank::BLUE].get());
+	m_enemy[0]->Initialize(m_stage->GetEnemyPos());
+
+
+	if (SelectState::GetSelectChara() == SelectState::SelectCharacter::ENEMY)
+	{
+		m_enemy[1] = std::make_unique<Character>(GameObject::ObjectTag::Enemy2);
+		m_enemy[1]->SetColor(Color(Colors::Red));
+		m_enemy[1]->SetModel(m_tankModels[Tank::RED].get());
+		m_enemy[1]->Initialize(m_stage->GetPlayerPos());
+		m_aiController[0] = std::make_unique<AIController>(m_enemy[0].get(), m_enemy[1].get(), SelectState::GetBlueMode());
+		m_aiController[1] = std::make_unique<AIController>(m_enemy[1].get(), m_enemy[0].get(), SelectState::GetRedMode());
+		GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(m_enemy[1]));
+		m_gameEndTimer = END_TIMER;
+	}
+
+	if (SelectState::GetSelectChara() == SelectState::SelectCharacter::PLAYER)
+	{
+		//プレイヤー初期化
+		m_player = std::make_unique<Character>(GameObject::ObjectTag::Player);
+		m_player->SetColor(Color(Colors::Red));
+		m_player->SetModel(m_tankModels[Tank::RED].get());
+		m_player->Initialize(m_stage->GetPlayerPos());
+		m_aiController[0] = std::make_unique<AIController>(m_enemy[0].get(), m_player.get(), SelectState::GetBlueMode());
+
+		if (SelectState::GetRedMode() == SelectMode::MANUAL_PLAYER)
+			m_playerControll = std::make_unique<PlayerController>(m_player.get());
+		if (SelectState::GetRedMode() == SelectMode::AUTO_PLAYER)
+			m_autoPlayerController = std::make_unique<AutoPlayerController>(m_player.get());
+		GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(m_player));
+	}
+
+	GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(m_enemy[0]));
+}
+
+/// <summary>
+/// デバック表記
+/// </summary>
+void PlayState::Debug()
+{
+	if (m_keyTracker.IsKeyReleased(DirectX::Keyboard::X))
+	{
+		m_isDebug = !m_isDebug;
+	}
+}

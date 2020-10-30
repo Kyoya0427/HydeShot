@@ -67,7 +67,7 @@ void Character::Initialize(const DirectX::SimpleMath::Vector2& pos)
 {
 	m_x = (int)pos.x;
 	m_y = (int)pos.y;
-	m_position = Vector3((float)m_x, 0.0f, (float)m_y);
+	m_position = Vector3(static_cast<float>(m_x), 0.0f, static_cast<float>(m_y));
 	m_radius = 0.4f;
 	m_scale *= 0.5f;
 	m_hp = MAX_HP;
@@ -102,7 +102,7 @@ void Character::Update(const DX::StepTimer& timer)
 
 	float elapsedTime = float(timer.GetElapsedSeconds());
 
-	GameContext::Get<CollisionManager>()->Add(GetTag(), m_collider.get());
+	GameContext::Get<CollisionManager>()->Add(m_tag, m_collider.get());
 	Quaternion quaternion = Quaternion::CreateFromAxisAngle(Vector3::UnitY, m_rotation.y);
 	m_velocity = Vector3::Transform(m_velocity, quaternion);
 
@@ -116,36 +116,8 @@ void Character::Update(const DX::StepTimer& timer)
 	m_wallApproach->Update(timer);
 	m_wallApproachVel->Update(timer);
 
+	HpProcessing(elapsedTime);
 	
-
-	if (m_isDamage)
-	{
-		m_blink->Initialize(0.16f);
-		m_blink->Start();
-		m_invincibleTime -= elapsedTime;
-
-	}
-
-	if (m_invincibleTime <= 0.0f)
-	{
-		m_isDamage = false;
-		m_blink->Stop();
-		m_invincibleTime = INVINCIBLE_TIME;
-	}
-
-
-	if (m_hp <= 0)
-	{
-		if (GetTag() == GameObject::ObjectTag::Player)
-			ResultState::m_isPlayerWin = false;
-		else
-			ResultState::m_isPlayerWin = true;;
-		Destroy(this);
-		using State = GameStateManager::GameState;
-		GameStateManager* gameStateManager = GameContext().Get<GameStateManager>();
-		gameStateManager->RequestState(State::RESULT_STATE);
-	}
-
 	m_blink->Update(timer);
 }
 
@@ -154,10 +126,9 @@ void Character::Update(const DX::StepTimer& timer)
 /// </summary>
 void Character::Render()
 {
-	Quaternion rot = Quaternion::CreateFromAxisAngle(Vector3::UnitY, m_rotation.y);
+	Quaternion rot  = Quaternion::CreateFromAxisAngle(Vector3::UnitY, m_rotation.y);
 	Matrix scalemat = Matrix::CreateScale(m_scale);
-	Matrix r = Matrix::CreateRotationX(DirectX::XMConvertToRadians(-90.0f));
-	Matrix rotMat = Matrix::CreateFromQuaternion(rot);
+	Matrix rotMat   = Matrix::CreateFromQuaternion(rot);
 	Matrix transMat = Matrix::CreateTranslation(m_position);
 	// ワールド行列を作成
 
@@ -176,7 +147,7 @@ void Character::Render()
 
 	if(PlayState::m_isDebug)
 	m_sphereCollider->Draw(world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_color, nullptr, true);
-
+	
 	m_sight->Render();
 	m_wallApproach->Render();
 	m_wallApproachVel->Render();
@@ -198,7 +169,7 @@ void Character::OnCollision(GameObject* object)
 
 	if (object->GetTag() == GameObject::ObjectTag::Bullet)
 	{
-		if (object->GetCharaTag() != GetTag() && m_isDamage == false)
+		if (object->GetCharaTag() != m_tag && m_isDamage == false)
 		{
 			m_isDamage = true;
 			
@@ -213,7 +184,42 @@ void Character::OnCollision(GameObject* object)
 void Character::Shoot()
 {
 	Quaternion rot = DirectX::SimpleMath::Quaternion::CreateFromAxisAngle(Vector3::UnitY, m_rotation.y);
-	std::unique_ptr<Bullet> shell = std::make_unique<Bullet>(ObjectTag::Bullet, GetTag(), m_position, rot);
+	std::unique_ptr<Bullet> shell = std::make_unique<Bullet>(ObjectTag::Bullet, m_tag, m_position, rot);
 	shell->SetModel(m_bulletModel.get());
 	GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(shell));
+}
+
+/// <summary>
+/// HP関連の処理
+/// </summary>
+/// <param name="elapsedTime">タイマー</param>
+void Character::HpProcessing(float elapsedTime)
+{
+	if (m_isDamage)
+	{
+		m_blink->Initialize(0.16f);
+		m_blink->Start();
+		m_invincibleTime -= elapsedTime;
+
+	}
+
+	if (m_invincibleTime <= 0.0f)
+	{
+		m_isDamage = false;
+		m_blink->Stop();
+		m_invincibleTime = INVINCIBLE_TIME;
+	}
+
+
+	if (m_hp <= 0)
+	{
+		if (m_tag == GameObject::ObjectTag::Player)
+			ResultState::m_isPlayerWin = false;
+		else
+			ResultState::m_isPlayerWin = true;
+		GameStateManager* gameStateManager = GameContext().Get<GameStateManager>();
+		gameStateManager->RequestState(GameStateManager::GameState::RESULT_STATE);
+		Destroy(this);
+		
+	}
 }

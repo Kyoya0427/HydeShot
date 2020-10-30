@@ -20,7 +20,6 @@ using namespace DirectX::SimpleMath;
 /// コンストラクタ
 /// </summary>
 Attack::Attack()
-	: m_chara()
 {
 }
 
@@ -38,8 +37,8 @@ Attack::~Attack()
 /// <param name="enemy">敵キャラクター</param>
 void Attack::Initialize(Character* chara, Character* enemy, NeuralNetworkManager* neuralNetwork)
 {
-    enemy;
 	m_chara         = chara;
+	m_enemy         = enemy;
 	m_neuralNetwork = neuralNetwork;
 }
 

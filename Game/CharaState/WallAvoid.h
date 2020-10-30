@@ -31,10 +31,10 @@ public:
 
 public:
 	//ステイトを変更
-	void ChangeForwardState()   { m_wallAvoid = static_cast<CharaState*>(m_forward.get());   }
-	void ChangeBackwardState()  { m_wallAvoid = static_cast<CharaState*>(m_backward.get());  }
-	void ChangeLeftwardState()  { m_wallAvoid = static_cast<CharaState*>(m_leftward.get());  }
-	void ChangeRightwardState() { m_wallAvoid = static_cast<CharaState*>(m_rightward.get()); }
+	void ChangeForwardState()   { m_wallAvoid = m_forward.get();   }
+	void ChangeBackwardState()  { m_wallAvoid = m_backward.get();  }
+	void ChangeLeftwardState()  { m_wallAvoid = m_leftward.get();  }
+	void ChangeRightwardState() { m_wallAvoid = m_rightward.get(); }
 
 private:
 	//ステイト操作するキャラクター

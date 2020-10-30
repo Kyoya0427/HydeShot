@@ -20,8 +20,6 @@ using namespace DirectX::SimpleMath;
 /// コンストラクタ
 /// </summary>
 Forward::Forward()
-	: m_chara()
-	, m_enemy()
 {
 }
 

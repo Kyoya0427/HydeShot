@@ -38,7 +38,7 @@ UiBg::~UiBg()
 void UiBg::Initialize(const Vector3& pos)
 {
 	m_spriteBatch = std::make_unique<SpriteBatch>(GameContext().Get<DX::DeviceResources>()->GetD3DDeviceContext());
-	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\bg01.png", NULL, m_texture.ReleaseAndGetAddressOf());
+	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\bg01.png", nullptr, m_texture.ReleaseAndGetAddressOf());
 
 	m_position = pos;
 }

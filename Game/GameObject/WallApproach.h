@@ -64,4 +64,5 @@ private:
 	float                                           m_offsetAngle;
 	//ˆÚ“®•ûŒü
 	WallApproachVelID							    m_isWallApproach;
+
 };

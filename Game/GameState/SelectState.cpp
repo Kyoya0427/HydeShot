@@ -29,12 +29,12 @@ SelectMode                                   SelectState::m_redMode = SelectMode
 SelectState::SelectState()
 	: IGameState()
 {
-	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\defaultButton.png", NULL, m_defaultTexture.ReleaseAndGetAddressOf());
-	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\selectButton.png", NULL, m_selectTexture.ReleaseAndGetAddressOf());
-	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\red.png", NULL, m_redTexture.ReleaseAndGetAddressOf());
-	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\blue.png", NULL, m_blueTexture.ReleaseAndGetAddressOf());
-	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\redChara.png", NULL, m_redCharaTexture.ReleaseAndGetAddressOf());
-	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\blueChara.png", NULL, m_blueCharaTexture.ReleaseAndGetAddressOf());
+	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\defaultButton.png", nullptr, m_defaultTexture.ReleaseAndGetAddressOf());
+	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\selectButton.png", nullptr, m_selectTexture.ReleaseAndGetAddressOf());
+	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\red.png", nullptr, m_redTexture.ReleaseAndGetAddressOf());
+	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\blue.png", nullptr, m_blueTexture.ReleaseAndGetAddressOf());
+	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\redChara.png", nullptr, m_redCharaTexture.ReleaseAndGetAddressOf());
+	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\blueChara.png", nullptr, m_blueCharaTexture.ReleaseAndGetAddressOf());
 }
 
 

@@ -20,8 +20,6 @@ using namespace DirectX::SimpleMath;
 /// コンストラクタ
 /// </summary>
 RightTurn::RightTurn()
-	: m_chara()
-	, m_enemy()
 {
 }
 

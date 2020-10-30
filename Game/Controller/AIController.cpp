@@ -46,6 +46,7 @@ AIController::AIController(Character* character, Character* enemy, SelectMode mo
 	, m_state()
 	, m_stateInterval()
 {
+	mode;
 	m_enemy = enemy;
 	m_shotInterval  = SHOT_INTERVAL;
 	m_stateInterval = STATE_INTERVAL;
@@ -64,8 +65,8 @@ AIController::AIController(Character* character, Character* enemy, SelectMode mo
 
 	m_neuralNetworkManager = std::make_unique<NeuralNetworkManager>(m_character, m_enemy);
 
-//	m_neuralNetworkManager->InitializeNeuralNetwork();
-	m_neuralNetworkManager->InputTrainingData(mode);
+	m_neuralNetworkManager->InitializeNeuralNetwork();
+//	m_neuralNetworkManager->InputTrainingData(mode);
 
 	m_search->Initialize(m_character, m_enemy, m_neuralNetworkManager.get());
 	m_attack->Initialize(m_character, m_enemy, m_neuralNetworkManager.get());

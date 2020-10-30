@@ -21,8 +21,6 @@ using namespace DirectX::SimpleMath;
 /// コンストラクタ
 /// </summary>
 LeftTurn::LeftTurn()
-	: m_chara()
-	, m_enemy()
 {
 }
 
