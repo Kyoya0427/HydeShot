@@ -1,7 +1,6 @@
 //======================================================
 // File Name	: WallApproach.cpp
 // Summary		: 壁に接近しているか
-// Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 #include "WallApproach.h"
@@ -25,8 +24,8 @@ using namespace DirectX::SimpleMath;
 
 const float WallApproach::FORWARD_ANGLE = 0.0f;
 const float WallApproach::BACKWARD_ANGLE = -XM_PI;
-const float WallApproach::LEFT_ANGLE = XM_PI / 2;
-const float WallApproach::RIGHT_ANGLE = -XM_PI / 2;
+const float WallApproach::LEFT_ANGLE = XM_PI / 2.0f;
+const float WallApproach::RIGHT_ANGLE = -XM_PI / 2.0f;
 
 /// <summary>
 /// コンストラクタ
@@ -87,7 +86,7 @@ void WallApproach::Render()
 	Quaternion rot    = Quaternion::CreateFromAxisAngle(Vector3::UnitY, m_chara->GetRadiansY() + m_offsetAngle);
 	Matrix rotMat     = Matrix::CreateFromQuaternion(rot);
 	Matrix transMat   = Matrix::CreateTranslation(m_position);
-	Matrix offset = Matrix::CreateTranslation(Vector3(0.0f, 0.0f, -m_size.z / 2));
+	Matrix offset = Matrix::CreateTranslation(Vector3(0.0f, 0.0f, -m_size.z / 2.0f));
 
 	m_world  = offset * rotMat * transMat;
 	

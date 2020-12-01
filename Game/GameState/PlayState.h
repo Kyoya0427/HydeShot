@@ -1,7 +1,6 @@
 //======================================================
 // File Name	 : PlayState.h
 // Summary		 : プレイステイト
-// Date			 : 2020/5/12
 // Author		 : Kyoya  Sakamoto
 //======================================================
 #pragma once
@@ -62,9 +61,15 @@ public:
 	void Debug();
 
 public: 
+	//ゲーム画面横
 	static const int SCREEN_W = 960;
+	//ゲーム画面縦
 	static const int SCREEN_H = 720;
+	//情報画面横
+	static const int WINDOW_W = 320;
+	//AI同士の場合の強制処理
 	static const float END_TIMER;
+	//デバック表記
 	static bool		 m_isDebug;
 
 private:

@@ -1,7 +1,6 @@
 //======================================================
 // File Name	: NeuralNetworkManager.cpp
 // Summary		: ニューラルネットワークでモード選択
-// Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 #include "NeuralNetworkManager.h"
@@ -23,6 +22,14 @@
 
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
+
+const float NeuralNetworkManager::MAX_DISTANCE  = 16.0f;
+const float NeuralNetworkManager::LEARNING_RATE = 0.2f;
+const float NeuralNetworkManager::MOMENTUM      = 0.9f;
+const float NeuralNetworkManager::SHOT_JUDGMENT = 0.5f;
+const float NeuralNetworkManager::WALL_JUDGMENT = 0.8f;
+const float NeuralNetworkManager::DIS_JUDGMENT  = 0.01f;
+
 
 /// <summary>
 /// コンストラクタ
@@ -59,7 +66,7 @@ void NeuralNetworkManager::InitializeTraining(wchar_t* fname)
 	// ファイルのオープン
 	std::wifstream ifs(fname);
 
-	m_training = std::vector<std::vector<float>>(MAX_DATA_H, std::vector<float>(MAX_DATA_W, 0));
+	m_training = std::vector<std::vector<float>>(MAX_DATA_H, std::vector<float>(MAX_DATA_W, 0.0f));
 
 	//データの読み込み
 	for (int i = 0; i < MAX_DATA_H; i++)
@@ -80,23 +87,21 @@ void NeuralNetworkManager::InitializeTraining(wchar_t* fname)
 /// </summary>
 void NeuralNetworkManager::InitializeNeuralNetwork()
 {
-	// ニューラルネットワークを初期化する(入力層:6、隠れ層:20、出力層:5)
-	m_neuralNetwork->Initialize(6, 20, 5);
+	//ニューラルネットワークを初期化する(入力層:6、隠れ層:20、出力層:5)
+	m_neuralNetwork->Initialize(INNPUT_LAYER, MIDDLE_LAYER, OUTPUT_LAYER);
 
-	// 学習率を設定する
-	// Setup learning rate
-	m_neuralNetwork->SetLearningRate(0.2);
+	//学習率を設定する
+	m_neuralNetwork->SetLearningRate(LEARNING_RATE);
 
-	// モメンタムを設定する
-	// Setup momentum
-	m_neuralNetwork->SetMomentum(true, 0.9);
+	//モメンタムを設定する
+	m_neuralNetwork->SetMomentum(true, MOMENTUM);
 
-	float	error = 1.0;
+	float	error = 1.0f;
 	int		count = 0;    
-	// 誤差逆伝播する(Back propagate)
+	//誤差逆伝播する(Back propagate)
 	while (error > 0.01 && count < 100)
 	{
-		error = 0.0;
+		error = 0.0f;
 		count++;
 		for (int i = 0; i < MAX_DATA_H; i++)
 		{
@@ -109,7 +114,7 @@ void NeuralNetworkManager::InitializeNeuralNetwork()
 			m_neuralNetwork->SetInput(2, m_training[i][2]);			
 			//壁
 			m_neuralNetwork->SetInput(3, m_training[i][3]);		
-			//打つ
+			//撃つ
 			m_neuralNetwork->SetInput(4, m_training[i][4]);			
 			
 			//出力値
@@ -121,14 +126,14 @@ void NeuralNetworkManager::InitializeNeuralNetwork()
 			m_neuralNetwork->SetDesiredOutput(2, m_training[i][7]);
 			//壁
 			m_neuralNetwork->SetDesiredOutput(3, m_training[i][8]);
-			//打つ
+			//撃つ
 			m_neuralNetwork->SetDesiredOutput(4, m_training[i][9]);
 
-			//// 前方伝播する(Feed forward)
+			//前方伝播する(Feed forward)
 			m_neuralNetwork->FeedForward();
-			//// 誤差を計算する(Calculate error)
+			//誤差を計算する(Calculate error)
 			error += m_neuralNetwork->CalculateError();
-			//// 誤差逆伝播する(Back propagate)		
+			//誤差逆伝播する(Back propagate)		
 			m_neuralNetwork->BackPropagate();
 		}
 		error = error / MAX_DATA_H;
@@ -147,7 +152,7 @@ void NeuralNetworkManager::InitializeNeuralNetwork()
 void NeuralNetworkManager::InputTrainingData(SelectMode mode)
 {
 	// ニューラルネットワークを初期化する(入力層:6、隠れ層:20、出力層:5)
-	m_neuralNetwork->Initialize(6, 20, 5);
+	m_neuralNetwork->Initialize(INNPUT_LAYER, MIDDLE_LAYER, OUTPUT_LAYER);
 
 	switch (mode)
 	{
@@ -182,7 +187,7 @@ CharaStateID NeuralNetworkManager::BehaviorSelection()
 	//左右判定
 	SearchDirection(m_character, m_enemy);
 	//距離
-	m_neuralNetwork->SetInput(0, distance / 16.0f);
+	m_neuralNetwork->SetInput(0, distance / MAX_DISTANCE);
 	//左判定
 	m_neuralNetwork->SetInput(1, static_cast<float>(m_isDirectionLeft));
 	//右判定
@@ -197,7 +202,7 @@ CharaStateID NeuralNetworkManager::BehaviorSelection()
 	//外部にデータ出力する為に保管
 	m_data = {};
 
-	m_data.inputDis        = distance / 16.0f;
+	m_data.inputDis        = distance / MAX_DISTANCE;
 	m_data.inputLeft       = static_cast<float>(m_isDirectionLeft);
 	m_data.inputRight      = static_cast<float>(m_isDirectionRight);
 	m_data.inputWall       = static_cast<float>(m_character->GetWallDiscovery());
@@ -214,21 +219,21 @@ CharaStateID NeuralNetworkManager::BehaviorSelection()
 	float wall  = m_neuralNetwork->GetOutput(3);
 	float shot  = m_neuralNetwork->GetOutput(4);
 
-	if (shot >= 0.5f)
+	if (shot >= SHOT_JUDGMENT)
 	{
 		m_data.outputChoiceMode = "ATTACK";
 		m_outputData.push_back(m_data);
 		GameContext::Get<SelectStateUi>()->SetSelectMode(L"ATTACK");
 		return	CharaStateID::ATTACK;
 	}
-	else if (wall >= 0.8)
+	else if (wall >= WALL_JUDGMENT)
 	{
 		m_data.outputChoiceMode = "WALLAVOID";
 		m_outputData.push_back(m_data);
 		GameContext::Get<SelectStateUi>()->SetSelectMode(L"WALLAVOID");
 		return	CharaStateID::WALLAVOID;
 	}
-	else if (dis > 0.001f)
+	else if (dis > DIS_JUDGMENT)
 	{
 		m_data.outputChoiceMode = "SEARCH";
 		m_outputData.push_back(m_data);
@@ -279,7 +284,7 @@ Vector3 NeuralNetworkManager::Rotate(float angle, const Vector3& u)
 	x = u.x * cos(angle) + u.z * sin(angle);
 	z = -u.x * sin(angle) + u.z * cos(angle);
 
-	return Vector3(x, 0, z);
+	return Vector3(x, 0.0f, z);
 }
 
 /// <summary>
@@ -301,9 +306,9 @@ void NeuralNetworkManager::OutputDataFile(char* fname)
 	for (auto& output : m_outputData)
 	{
 		fprintf(f, "%2f, %2f, %2f, %2f, %2f, %2f, %2f, %2f, %2f, %2f, %s, %f%%  \n"
-			,output.inputDis, output.inputLeft, output.inputRight, output.inputWall,output.inputShoot
-			,output.outputDis, output.outputLeft, output.outputRight, output.outputWall, output.outputShoot
-			,output.outputChoiceMode, m_error*100);
+			, output.inputDis, output.inputLeft, output.inputRight, output.inputWall, output.inputShoot
+			, output.outputDis, output.outputLeft, output.outputRight, output.outputWall, output.outputShoot
+			, output.outputChoiceMode, m_error * 100);
 	}
 	fclose(f);
 }

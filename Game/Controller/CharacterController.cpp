@@ -1,7 +1,6 @@
 //======================================================
 // File Name	: CharacterController.cpp
 // Summary		: キャラクターコントローラー
-// Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 #include "CharacterController.h"

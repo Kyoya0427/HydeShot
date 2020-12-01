@@ -1,7 +1,6 @@
 //======================================================
 // File Name	: RayCollider.h
-// Summary		: ” 
-// Date			: 2020/5/12
+// Summary		: ƒŒƒC
 // Author		: Kyoya Sakamoto
 //======================================================
 #pragma once

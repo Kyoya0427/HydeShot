@@ -1,7 +1,6 @@
 //======================================================
 // File Name	: NeuralNetworkData.cpp
 // Summary		: ニューラルネットワークの情報
-// Date			: 2020/6/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 
@@ -64,7 +63,7 @@ void NeuralNetworkData::Render()
 	debugFont->print(30, 80, static_cast<Color>(Colors::White), 1.0f, L" Left        = %.2f", data.inputLeft);
 	debugFont->draw();
 
-	debugFont->print(30, 100, static_cast<Color>(Colors::White), 1.0f, L" Rigjt       = %.2f", data.inputRight);
+	debugFont->print(30, 100, static_cast<Color>(Colors::White), 1.0f, L" Right       = %.2f", data.inputRight);
 	debugFont->draw();
 
 	debugFont->print(30, 120, static_cast<Color>(Colors::White), 1.0f, L" Wall       = %.2f", data.inputWall);
@@ -82,7 +81,7 @@ void NeuralNetworkData::Render()
 	debugFont->print(30, 240, static_cast<Color>(Colors::White), 1.0f, L" Left        = %.2f", data.outputLeft);
 	debugFont->draw();
 
-	debugFont->print(30, 260, static_cast<Color>(Colors::White), 1.0f, L" Rigjt       = %.2f", data.outputRight);
+	debugFont->print(30, 260, static_cast<Color>(Colors::White), 1.0f, L" Right       = %.2f", data.outputRight);
 	debugFont->draw();
 
 	debugFont->print(30, 280, static_cast<Color>(Colors::White), 1.0f, L" Wall       = %.2f", data.outputWall);

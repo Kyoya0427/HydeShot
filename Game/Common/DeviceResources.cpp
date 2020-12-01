@@ -1,8 +1,6 @@
 ﻿//======================================================
 // File Name	: DeviceResources.cpp
 // Summary	    : デバイスリソーシーズ
-// Date		    : 2020/5/12
-// Author		: Kyoya  Sakamoto
 //======================================================
 
 #include "DeviceResources.h"

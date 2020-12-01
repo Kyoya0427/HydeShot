@@ -1,7 +1,6 @@
 //======================================================
 // File Name	: InfoWindow.cpp
 // Summary		: 情報ウィンドウ
-// Date			: 2020/5/12
 // Author		: Kyoya Sakamoto
 //======================================================
 #include "InfoWindow.h"

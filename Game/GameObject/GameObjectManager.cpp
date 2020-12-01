@@ -1,7 +1,6 @@
 //======================================================
 // File Name	: GameObjectManager.cpp
 // Summary		: ゲームオブジェクトマネジャー
-// Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 #include "GameObjectManager.h"

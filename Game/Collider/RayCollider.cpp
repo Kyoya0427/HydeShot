@@ -1,7 +1,6 @@
 //======================================================
 // File Name	: RayCollider.cpp
 // Summary		: ƒŒƒC
-// Date			: 2020/5/12
 // Author		: Kyoya Sakamoto
 //======================================================
 #include "RayCollider.h"

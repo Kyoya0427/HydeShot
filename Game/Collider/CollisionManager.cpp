@@ -1,7 +1,6 @@
 //======================================================
 // File Name	: CollisionManager.cpp
 // Summary		: コライダーマネジャー
-// Date			: 2020/5/12
 // Author		: Kyoya Sakamoto
 //======================================================
 #include "CollisionManager.h"
@@ -134,10 +133,10 @@ void CollisionManager::AllowCollision(GameObject::ObjectTag groupName1, GameObje
 /// <param name="collider2">オブジェクト２</param>
 bool CollisionManager::IsCollided(const SphereCollider* collider1, const SphereCollider* collider2)
 {
-	// 中心間の距離の平方を計算
+	//中心間の距離の平方を計算
 	Vector3 d       = collider1->GetPosition() - collider2->GetPosition();
 	float dist2     = d.Dot(d);
-	// 平方した距離が平方した半径の合計よりも小さい場合に球は交差している
+	//平方した距離が平方した半径の合計よりも小さい場合に球は交差している
 	float radiusSum = collider1->GetRadius() + collider2->GetRadius();
 	return dist2   <= radiusSum * radiusSum;
 }
@@ -336,10 +335,10 @@ bool CollisionManager::LineToAABB(const BoxCollider* collider1, const RayCollide
 	Vector3 p_l   = collider2->GetPosA();
 	Vector3 dir_l = collider2->GetPosB() - collider2->GetPosA();
 
-	// 方向ベクトル正規化
+	//方向ベクトル正規化
 	dir_l.Normalize();
 
-	// 交差判定
+	//交差判定
 	union
 	{
 		float f[3];
@@ -358,12 +357,12 @@ bool CollisionManager::LineToAABB(const BoxCollider* collider1, const RayCollide
 		if (abs(d.f[i]) < FLT_EPSILON)
 		{
 			if (p.f[i] < min.f[i] || p.f[i] > max.f[i])
-				return false; // 交差していない
+				return false; //交差していない
 		}
 		else
 		{
-			// スラブとの距離を算出
-			// t1が近スラブ、t2が遠スラブとの距離
+			//スラブとの距離を算出
+			//t1が近スラブ、t2が遠スラブとの距離
 			float odd = 1.0f / d.f[i];
 			float t1  = (min.f[i] - p.f[i]) * odd;
 			float t2  = (max.f[i] - p.f[i]) * odd;
@@ -386,7 +385,7 @@ bool CollisionManager::LineToAABB(const BoxCollider* collider1, const RayCollide
 		hit->normNear = tmp_t_norm.v;
 		hit->normFar  = t_max_norm.v;
 	}
-	// 交差している
+	//交差している
 	return true;
 }
 

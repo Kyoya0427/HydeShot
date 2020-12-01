@@ -1,7 +1,6 @@
 //======================================================
 // File Name	: AutoPlayerController.cpp
 // Summary		: プレイヤーコントローラー
-// Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 #include "AutoPlayerController.h"

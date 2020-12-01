@@ -1,7 +1,6 @@
 //======================================================
 // File Name	: SelectBg.cpp
 // Summary		: îwåi
-// Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 #include "SelectBg.h"
@@ -38,7 +37,6 @@ void SelectBg::Initialize(const Vector3& pos)
 {
 	m_spriteBatch = std::make_unique<SpriteBatch>(GameContext().Get<DX::DeviceResources>()->GetD3DDeviceContext());
 	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources//Textures//select.png", NULL, m_texture.ReleaseAndGetAddressOf());
-
 	m_position = pos;
 }
 

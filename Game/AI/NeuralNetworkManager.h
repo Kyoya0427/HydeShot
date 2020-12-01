@@ -44,7 +44,24 @@ public:
 	//データの数
 	static const int MAX_DATA_H = 54;
 	static const int MAX_DATA_W = 10;
-
+	//入力層
+	static const int INNPUT_LAYER = 6;
+	//中間層
+	static const int MIDDLE_LAYER = 20;
+	//出力値
+	static const int OUTPUT_LAYER = 5;
+	//学習率
+	static const float  LEARNING_RATE;
+	//モメンタム
+	static const float  MOMENTUM;
+	//最大距離
+	static const float  MAX_DISTANCE;
+	//撃つ
+	static const float SHOT_JUDGMENT;
+	//壁
+	static const float WALL_JUDGMENT;
+	//距離
+	static const float DIS_JUDGMENT;
 public:
 	//データを取得
 	void InitializeTraining(wchar_t* fname);

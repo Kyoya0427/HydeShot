@@ -1,7 +1,6 @@
 //======================================================
 // File Name	: ResultBg.cpp
 // Summary		: ƒŠƒUƒ‹ƒg”wŒi
-// Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 #include "ResultBg.h"

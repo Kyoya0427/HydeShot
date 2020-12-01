@@ -1,7 +1,6 @@
 //======================================================
 // File Name	: NeuralNetwork.cpp
 // Summary		: ニューラルネットワーク
-// Date			: 2020/6/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 #include "NeuralNetwork.h"
@@ -147,28 +146,25 @@ void NeuralNetworkLayer::CleanUp()
 /// </summary>
 void NeuralNetworkLayer::RandomizeWeights()
 {
-	int	min = 0;
-	int	max = 200;
-	int	number;
+	float	min = -1.0f;
+	float	max =  1.0f;
 
-	//srand((unsigned)time(nullptr));
 	std::random_device seed;
 	std::mt19937 random(seed());
-	std::uniform_int_distribution<> dist(min, max);
 
+	std::uniform_real_distribution<float> dist(min, std::nextafter(max, FLT_MAX));
+	
 	for (int i = 0; i < m_numNodes; i++)
 	{
 		for (int j = 0; j < m_numChildNodes; j++)
 		{
-			number = dist(random);
-			m_weights[i][j] = number / 100.0f - 1;
+			m_weights[i][j] = dist(random);
 		}
 	}
 
 	for (int j = 0; j < m_numChildNodes; j++) 
 	{
-		number = dist(random);
-		m_biasWeights[j] = number / 100.0f - 1;
+		m_biasWeights[j] = dist(random);
 	}
 }
 
@@ -197,7 +193,7 @@ void NeuralNetworkLayer::CalculateErrors()
 	{
 		for (int i = 0; i < m_numNodes; i++) 
 		{
-			sum = 0;
+			sum = 0.0f;
 			for (int j = 0; j < m_numChildNodes; j++)
 			{
 				sum += m_childLayer->m_errors[j] * m_weights[i][j];
@@ -491,7 +487,7 @@ void NeuralNetwork::LearningDataInput(char* filename)
 	// ファイルのオープン
 	std::wifstream ifs(filename);
 
-	std::vector<std::vector<float>> tempData = std::vector<std::vector<float>>(6, std::vector<float>(120, 0));
+	std::vector<std::vector<float>> tempData = std::vector<std::vector<float>>(6, std::vector<float>(120, 0.0f));
 
 	for (int i = 0; i < 6; i++)
 	{

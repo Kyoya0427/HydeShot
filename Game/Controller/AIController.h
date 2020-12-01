@@ -1,7 +1,6 @@
 //======================================================
 // File Name	: AIController.h
 // Summary		: ＡＩコントローラー
-// Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 #pragma once
@@ -57,8 +56,6 @@ public:
 	static const float  SHOT_INTERVAL;
 	//ステートインターバル
 	static const float  STATE_INTERVAL;
-
-	static const int    MODE_COUNT = 7;
 
 private:
 	//敵キャラ

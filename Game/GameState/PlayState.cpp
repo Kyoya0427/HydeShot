@@ -1,7 +1,6 @@
 //======================================================
 // File Name	: PlayState.cpp
 // Summary		: プレイステイト
-// Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 #include "PlayState.h"
@@ -42,7 +41,7 @@ using namespace DirectX::SimpleMath;
 using namespace DX;
 
 bool  PlayState::m_isDebug        = false;
-const float  PlayState::END_TIMER = 10.0f;
+const float  PlayState::END_TIMER = 15.0f;
 
 /// <summary>
 /// コンストラクタ
@@ -106,15 +105,15 @@ void PlayState::Initialize()
 	m_viewportGame = CD3D11_VIEWPORT(
 		0.0f,
 		0.0f,
-		static_cast<float>(960),
-		static_cast<float>(720)
+		static_cast<float>(SCREEN_W),
+		static_cast<float>(SCREEN_H)
 	);
 	// ビューポートの矩形領域の設定（情報画面）
 	m_viewportInfo = CD3D11_VIEWPORT(
-		static_cast<float>(960),
+		static_cast<float>(SCREEN_W),
 		0.0f,
-		static_cast<float>(320),
-		static_cast<float>(720)
+		static_cast<float>(WINDOW_W),
+		static_cast<float>(SCREEN_H)
 	);
 
 }
@@ -144,7 +143,7 @@ void PlayState::Update(const DX::StepTimer& timer)
 		m_aiController[1]->Update(timer);
 		m_gameEndTimer -= elapsedTime;
 	}
-	if (m_gameEndTimer < 0)
+	if (m_gameEndTimer < 0.0f)
 	{
 		using State = GameStateManager::GameState;
 		GameStateManager* gameStateManager = GameContext().Get<GameStateManager>();

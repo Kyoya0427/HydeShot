@@ -1,7 +1,6 @@
 //======================================================
 // File Name	 : SelectState.cpp
 // Summary		 : セレクトステイト
-// Date			 : 2020/5/12
 // Author		 : Kyoya Sakamoto
 //======================================================
 #include "SelectState.h"
@@ -62,8 +61,8 @@ void SelectState::Initialize()
 	
 	m_selectMode = std::make_unique<OptionList>();
 	m_selectMode->SetTexture(m_defaultTexture.Get(), m_selectTexture.Get());
-	m_selectMode->Add(Vector2(30.0f, 200.0f), L"   A.I VS A.I");
-	m_selectMode->Add(Vector2(30.0f, 400.0f), L"Player VS A.I");
+	m_selectMode->Add(Vector2(30.0f, 200.0f), L"   AI VS AI");
+	m_selectMode->Add(Vector2(30.0f, 400.0f), L"Player VS AI");
 
 	m_currentOption = m_selectMode.get();
 
@@ -109,8 +108,8 @@ void SelectState::Render()
 		m_redOption->Render();
 		m_blueOption->Render();
 
-		Vector2 redPos = Vector2(490, 40);
-		Vector2 bluePos = Vector2(890, 40);
+		Vector2 redPos = Vector2(490.0f, 40.0f);
+		Vector2 bluePos = Vector2(890.0f, 40.0f);
 
 		m_spriteBatch->Begin(SpriteSortMode_Deferred, GameContext::Get<CommonStates>()->NonPremultiplied());
 
@@ -120,8 +119,8 @@ void SelectState::Render()
 		if (m_blink->GetState() && !m_isRedSelect)
 			m_spriteBatch->Draw(m_blueTexture.Get(), bluePos);
 
-		Vector2 redCharaPos = Vector2(650, 30);
-		Vector2 blueCharaPos = Vector2(1050, 36);
+		Vector2 redCharaPos = Vector2(650.0f, 30.0f);
+		Vector2 blueCharaPos = Vector2(1050.0f, 36.0f);
 		m_spriteBatch->Draw(m_redCharaTexture.Get(), redCharaPos);
 		m_spriteBatch->Draw(m_blueCharaTexture.Get(), blueCharaPos);
 

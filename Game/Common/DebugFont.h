@@ -1,8 +1,6 @@
 //======================================================
 // File Name	: DebugFont.h
 // Summary		: デバックフォント
-// Date			: 2020/5/12
-// Author		: Kyoya  Sakamoto
 //======================================================
 #pragma once
 
@@ -10,10 +8,7 @@
 #include <DirectXTK\SpriteBatch.h>
 #include <DirectXTK\SpriteFont.h>
 
-// シングルトンのタイプ
-// 0:自身の生ポインタで管理（注：明示的な解放をしないとメモリリークする）
-// 1:自身のユニークポインタで管理（注：ユニークポインタの理解推奨）
-// 2:静的な実態で管理（注：プログラム終了のタイミングでしか解放できない）
+
 #define DEBUG_FONT_SINGLETON_TYPE 1
 class DebugFont
 {

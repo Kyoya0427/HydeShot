@@ -1,7 +1,6 @@
 //======================================================
 // File Name	: AIController.cpp
 // Summary		: ＡＩコントローラー
-// Date			: 2020/5/12
 // Author		: Kyoya  Sakamoto
 //======================================================
 #include "AIController.h"
@@ -56,8 +55,6 @@ AIController::AIController(Character* character, Character* enemy, SelectMode mo
 	m_attack    = std::make_unique<Attack>();
 	m_wallAvoid = std::make_unique<WallAvoid>();
 
-	
-
 	GameContext::Register<Search>(m_search.get());
 	GameContext::Register<WallAvoid>(m_wallAvoid.get());
 
@@ -65,14 +62,15 @@ AIController::AIController(Character* character, Character* enemy, SelectMode mo
 
 	m_neuralNetworkManager = std::make_unique<NeuralNetworkManager>(m_character, m_enemy);
 
-	m_neuralNetworkManager->InitializeNeuralNetwork();
-//	m_neuralNetworkManager->InputTrainingData(mode);
+	//学習をさせる
+//	m_neuralNetworkManager->InitializeNeuralNetwork();
+	//学習後のデータを使用
+	m_neuralNetworkManager->InputTrainingData(mode);
 
 	m_search->Initialize(m_character, m_enemy, m_neuralNetworkManager.get());
 	m_attack->Initialize(m_character, m_enemy, m_neuralNetworkManager.get());
 	m_wallAvoid->Initialize(m_character, m_enemy, m_neuralNetworkManager.get());
 	
-
 	if (m_character->GetTag() == GameObject::ObjectTag::Enemy1)
 	{
 		m_character->SetRotation(Vector3(0.0f, 3.15f, 0.0f));

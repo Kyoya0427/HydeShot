@@ -1,7 +1,6 @@
 //======================================================
 // File Name	: Bg.cpp
-// Summary		: 背景
-// Date			: 2020/5/12
+// Summary		: ゲーム背景
 // Author		: Kyoya  Sakamoto
 //======================================================
 #include "Bg.h"
@@ -21,7 +20,6 @@ using namespace DirectX::SimpleMath;
 /// コンストラクタ
 /// </summary>
 Bg::Bg()
-	: m_angle()
 {
 }
 
@@ -70,7 +68,7 @@ void Bg::Update(const DX::StepTimer& timer)
 {
 	timer;
 	//回転
-	m_angle += 0.0002f;
+	m_rotation.y += 0.0002f;
 }
 
 /// <summary>
@@ -79,10 +77,10 @@ void Bg::Update(const DX::StepTimer& timer)
 void Bg::Render()
 {
 	//ワールド行列作成
-	Matrix world = Matrix::CreateRotationY(m_angle);
+	Matrix world = Matrix::CreateRotationY(m_rotation.y);
 	world       *= Matrix::CreateTranslation(4.5f, -10.0f, 5.5f);
 	//ビュー行列作成
-	Matrix view  = Matrix::CreateLookAt(Vector3(0, 0, 0), Vector3(0, 0, -1), Vector3::Up);
+	Matrix view  = Matrix::CreateLookAt(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.0f, 0.0f, -1.0f), Vector3::Up);
 
 	// モデルの描画
 	m_model->Draw(
