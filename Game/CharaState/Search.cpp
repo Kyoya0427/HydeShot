@@ -13,9 +13,6 @@
 
 #include <Game/UI/SelectStateUi.h>
 
-using namespace DirectX;
-using namespace DirectX::SimpleMath;
-
 /// <summary>
 /// コンストラクタ
 /// </summary>

@@ -7,8 +7,7 @@
 
 using namespace DirectX;
 using namespace DX;
-
-using Microsoft::WRL::ComPtr;
+using namespace Microsoft::WRL;
 
 namespace
 {
@@ -90,7 +89,7 @@ void DeviceResources::CreateDeviceResources()
     {
         BOOL allowTearing = FALSE;
 
-        ComPtr<IDXGIFactory5> factory5;
+        Microsoft::WRL::ComPtr<IDXGIFactory5> factory5;
         HRESULT hr = m_dxgiFactory.As(&factory5);
         if (SUCCEEDED(hr))
         {
@@ -109,7 +108,7 @@ void DeviceResources::CreateDeviceResources()
     // Disable HDR if we are on an OS that can't support FLIP swap effects
     if (m_options & c_EnableHDR)
     {
-        ComPtr<IDXGIFactory5> factory5;
+        Microsoft::WRL::ComPtr<IDXGIFactory5> factory5;
         if (FAILED(m_dxgiFactory.As(&factory5)))
         {
             m_options &= ~c_EnableHDR;
@@ -122,7 +121,7 @@ void DeviceResources::CreateDeviceResources()
     // Disable FLIP if not on a supporting OS
     if (m_options & c_FlipPresent)
     {
-        ComPtr<IDXGIFactory4> factory4;
+        Microsoft::WRL::ComPtr<IDXGIFactory4> factory4;
         if (FAILED(m_dxgiFactory.As(&factory4)))
         {
             m_options &= ~c_FlipPresent;
@@ -156,12 +155,12 @@ void DeviceResources::CreateDeviceResources()
         throw std::out_of_range("minFeatureLevel too high");
     }
 
-    ComPtr<IDXGIAdapter1> adapter;
+    Microsoft::WRL::ComPtr<IDXGIAdapter1> adapter;
     GetHardwareAdapter(adapter.GetAddressOf());
 
     // Create the Direct3D 11 API device object and a corresponding context.
-    ComPtr<ID3D11Device> device;
-    ComPtr<ID3D11DeviceContext> context;
+    Microsoft::WRL::ComPtr<ID3D11Device> device;
+    Microsoft::WRL::ComPtr<ID3D11DeviceContext> context;
 
     HRESULT hr = E_FAIL;
     if (adapter)
@@ -529,7 +528,7 @@ void DeviceResources::GetHardwareAdapter(IDXGIAdapter1** ppAdapter)
 {
     *ppAdapter = nullptr;
 
-    ComPtr<IDXGIAdapter1> adapter;
+    Microsoft::WRL::ComPtr<IDXGIAdapter1> adapter;
 
 #if defined(__dxgi1_6_h__) && defined(NTDDI_WIN10_RS4)
     ComPtr<IDXGIFactory6> factory6;
@@ -642,7 +641,7 @@ void DeviceResources::UpdateColorSpace()
 
     m_colorSpace = colorSpace;
 
-    ComPtr<IDXGISwapChain3> swapChain3;
+    Microsoft::WRL::ComPtr<IDXGISwapChain3> swapChain3;
     if (SUCCEEDED(m_swapChain.As(&swapChain3)))
     {
         UINT colorSpaceSupport = 0;

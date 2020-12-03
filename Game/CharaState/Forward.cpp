@@ -12,8 +12,6 @@
 
 #include <Game/GameObject/WallApproach.h>
 
-using namespace DirectX;
-using namespace DirectX::SimpleMath;
 
 /// <summary>
 /// コンストラクタ

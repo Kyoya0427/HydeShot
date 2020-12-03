@@ -25,9 +25,6 @@
 #include <Game/UI/HpUi.h>
 #include <Game/UI/NeuralNetworkData.h>
 
-using namespace DirectX;
-using namespace DirectX::SimpleMath;
-
 const float AIController::MOVE_SPEED     = 0.03f;
 const float AIController::ROT_SPEED      = 0.01f;
 const float AIController::SHOT_INTERVAL  = 0.5f;
@@ -73,11 +70,12 @@ AIController::AIController(Character* character, Character* enemy, SelectMode mo
 	
 	if (m_character->GetTag() == GameObject::ObjectTag::Enemy1)
 	{
-		m_character->SetRotation(Vector3(0.0f, 3.15f, 0.0f));
+		m_character->SetRotation(DirectX::SimpleMath::Vector3(0.0f, 3.15f, 0.0f));
 		GameContext::Get<NeuralNetworkData>()->SetNeuralNetwork(m_neuralNetworkManager.get());
 	}	
+
 	if (m_character->GetTag() == GameObject::ObjectTag::Enemy2)
-		m_character->SetRotation(Vector3(0.0f, 0.0f, 0.0f));
+		m_character->SetRotation(DirectX::SimpleMath::Vector3(0.0f, 0.0f, 0.0f));
 }
 
 /// <summary>

@@ -23,9 +23,6 @@
 #include <Game/GameState/PlayState.h>
 #include <Game/GameState/ResultState.h>
 
-using namespace DirectX;
-using namespace DirectX::SimpleMath;
-
 const int   Character::MAX_HP = 5;
 const float Character::INVINCIBLE_TIME = 2.0f;
 
@@ -66,7 +63,7 @@ void Character::Initialize(const DirectX::SimpleMath::Vector2& pos)
 {
 	m_x = (int)pos.x;
 	m_y = (int)pos.y;
-	m_position = Vector3(static_cast<float>(m_x), 0.0f, static_cast<float>(m_y));
+	m_position = DirectX::SimpleMath::Vector3(static_cast<float>(m_x), 0.0f, static_cast<float>(m_y));
 	m_radius = 0.4f;
 	m_scale *= 0.5f;
 	m_hp = MAX_HP;
@@ -75,8 +72,8 @@ void Character::Initialize(const DirectX::SimpleMath::Vector2& pos)
 	ID3D11DeviceContext* deviceContext = GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext();
 
 
-	m_sphereCollider = GeometricPrimitive::CreateSphere(deviceContext,1.0f,8U);
-	m_bulletModel    = GeometricPrimitive::CreateSphere(deviceContext, Bullet::RADIUS,8U);
+	m_sphereCollider = DirectX::GeometricPrimitive::CreateSphere(deviceContext,1.0f,8U);
+	m_bulletModel    = DirectX::GeometricPrimitive::CreateSphere(deviceContext, Bullet::RADIUS,8U);
 	m_collider       = std::make_unique<SphereCollider>(this, m_radius);
 
 	m_sight           = std::make_unique<Sight>(this);
@@ -86,7 +83,7 @@ void Character::Initialize(const DirectX::SimpleMath::Vector2& pos)
 	m_blink = std::make_unique<Blink>();
 	
 	m_defaultColor = m_color;
-	m_blinkColor   = Colors::Gray;
+	m_blinkColor   = DirectX::Colors::Gray;
 }
 
 /// <summary>
@@ -102,12 +99,12 @@ void Character::Update(const DX::StepTimer& timer)
 	float elapsedTime = float(timer.GetElapsedSeconds());
 
 	GameContext::Get<CollisionManager>()->Add(m_tag, m_collider.get());
-	Quaternion quaternion = Quaternion::CreateFromAxisAngle(Vector3::UnitY, m_rotation.y);
-	m_velocity = Vector3::Transform(m_velocity, quaternion);
+	DirectX::SimpleMath::Quaternion quaternion = DirectX::SimpleMath::Quaternion::CreateFromAxisAngle(DirectX::SimpleMath::Vector3::UnitY, m_rotation.y);
+	m_velocity = DirectX::SimpleMath::Vector3::Transform(m_velocity, quaternion);
 
 
 	m_position += m_velocity;
-	m_velocity = Vector3::Zero;
+	m_velocity = DirectX::SimpleMath::Vector3::Zero;
 
 
 
@@ -125,10 +122,10 @@ void Character::Update(const DX::StepTimer& timer)
 /// </summary>
 void Character::Render()
 {
-	Quaternion rot  = Quaternion::CreateFromAxisAngle(Vector3::UnitY, m_rotation.y);
-	Matrix scalemat = Matrix::CreateScale(m_scale);
-	Matrix rotMat   = Matrix::CreateFromQuaternion(rot);
-	Matrix transMat = Matrix::CreateTranslation(m_position);
+	DirectX::SimpleMath::Quaternion rot  = DirectX::SimpleMath::Quaternion::CreateFromAxisAngle(DirectX::SimpleMath::Vector3::UnitY, m_rotation.y);
+	DirectX::SimpleMath::Matrix scalemat = DirectX::SimpleMath::Matrix::CreateScale(m_scale);
+	DirectX::SimpleMath::Matrix rotMat   = DirectX::SimpleMath::Matrix::CreateFromQuaternion(rot);
+	DirectX::SimpleMath::Matrix transMat = DirectX::SimpleMath::Matrix::CreateTranslation(m_position);
 	// ÉèÅ[ÉãÉhçsóÒÇçÏê¨
 
 	m_world = scalemat * rotMat * transMat;
@@ -142,7 +139,7 @@ void Character::Render()
 		               , GameContext::Get<Camera>()->GetProjection(), false);
 	
 	
-	Matrix world = rotMat * transMat;
+	DirectX::SimpleMath::Matrix world = rotMat * transMat;
 
 	if(PlayState::m_isDebug)
 	m_sphereCollider->Draw(world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_color, nullptr, true);
@@ -162,7 +159,7 @@ void Character::OnCollision(GameObject* object)
 	if (object->GetTag() == GameObject::ObjectTag::Wall)
 	{
 		m_position = m_previousPos;
-		m_velocity = Vector3::Zero;
+		m_velocity = DirectX::SimpleMath::Vector3::Zero;
 		m_isWallContact = true;
 	}
 
@@ -182,7 +179,7 @@ void Character::OnCollision(GameObject* object)
 /// </summary>
 void Character::Shoot()
 {
-	Quaternion rot = DirectX::SimpleMath::Quaternion::CreateFromAxisAngle(Vector3::UnitY, m_rotation.y);
+	DirectX::SimpleMath::Quaternion rot = DirectX::SimpleMath::Quaternion::CreateFromAxisAngle(DirectX::SimpleMath::Vector3::UnitY, m_rotation.y);
 	std::unique_ptr<Bullet> shell = std::make_unique<Bullet>(ObjectTag::Bullet, m_tag, m_position, rot);
 	shell->SetModel(m_bulletModel.get());
 	GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(shell));

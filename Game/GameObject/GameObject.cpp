@@ -5,9 +5,6 @@
 //======================================================
 #include "GameObject.h"
 
-using namespace DirectX;
-using namespace DirectX::SimpleMath;
-
 /// <summary>
 /// コンストラクタ
 /// </summary>

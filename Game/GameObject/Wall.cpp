@@ -21,9 +21,6 @@
 
 #include <Game/GameState/PlayState.h>
 
-using namespace DirectX;
-using namespace DirectX::SimpleMath;
-
 /// <summary>
 /// コンストラクタ
 /// </summary>
@@ -48,15 +45,15 @@ Wall::~Wall()
 /// <param name="y">y座標</param>
 void Wall::Initialize(int x, int y)
 {
-	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\floor01.png.png", nullptr, m_texture.ReleaseAndGetAddressOf());
-	m_position = Vector3((float)x, 0.0f, (float)y);
-	m_color = Colors::Yellow;
+	DirectX::CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\floor01.png.png", nullptr, m_texture.ReleaseAndGetAddressOf());
+	m_position = DirectX::SimpleMath::Vector3((float)x, 0.0f, (float)y);
+	m_color = DirectX::Colors::Yellow;
 	
-	m_collSize = Vector3(0.5f, 0.5f, 0.5f);
+	m_collSize = DirectX::SimpleMath::Vector3(0.5f, 0.5f, 0.5f);
 
-	Vector3 size = Vector3(1.0f, 1.0f, 1.0f);
+	DirectX::SimpleMath::Vector3 size = DirectX::SimpleMath::Vector3(1.0f, 1.0f, 1.0f);
 	ID3D11DeviceContext* deviceContext = GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext();
-	m_boxCollider = GeometricPrimitive::CreateBox(deviceContext, size);
+	m_boxCollider = DirectX::GeometricPrimitive::CreateBox(deviceContext, size);
 
 	m_collider = std::make_unique<BoxCollider>(this, m_collSize);
 	m_collider->SetSize(m_collSize);
@@ -78,8 +75,8 @@ void Wall::Update(const DX::StepTimer & timer)
 void Wall::Render()
 {
 	// ワールド行列の作成
-	Matrix world  = Matrix::CreateScale(Vector3(1.0f,10.0f,1.0f));
-	world        *= Matrix::CreateTranslation(m_position);
+	DirectX::SimpleMath::Matrix world  = DirectX::SimpleMath::Matrix::CreateScale(DirectX::SimpleMath::Vector3(1.0f,10.0f,1.0f));
+	world        *= DirectX::SimpleMath::Matrix::CreateTranslation(m_position);
 
 	// モデルの描画
 	m_model->Draw(GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext()
@@ -92,7 +89,7 @@ void Wall::Render()
 		GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext()->OMSetBlendState(GameContext::Get<DirectX::CommonStates>()->Additive(), nullptr, 0xffffffff);
 	});
 
-		m_world = Matrix::CreateTranslation(m_position);
+		m_world = DirectX::SimpleMath::Matrix::CreateTranslation(m_position);
 
 		if (PlayState::m_isDebug)
 		m_boxCollider->Draw(m_world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_color, m_texture.Get(), true);

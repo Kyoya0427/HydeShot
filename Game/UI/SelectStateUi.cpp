@@ -12,9 +12,6 @@
 #include <Game/AI/NeuralNetworkManager.h>
 #include <Game/AI/NeuralNetwork.h>
 
-using namespace DirectX;
-using namespace DirectX::SimpleMath;
-
 /// <summary>
 /// コンストラクタ
 /// </summary>
@@ -54,13 +51,13 @@ void SelectStateUi::Render()
 {
 	DebugFont* debugFont = DebugFont::GetInstance();
 
-	debugFont->print(10, 350, static_cast<Color>(Colors::White), 1.0f, L" Mode =");
+	debugFont->print(10, 350, static_cast<DirectX::SimpleMath::Color>(DirectX::Colors::White), 1.0f, L" Mode =");
 	debugFont->draw();
-	debugFont->print(130, 350, static_cast<Color>(Colors::White), 1.0f, m_selectMode);
+	debugFont->print(130, 350, static_cast<DirectX::SimpleMath::Color>(DirectX::Colors::White), 1.0f, m_selectMode);
 	debugFont->draw();
-	debugFont->print(10, 380, static_cast<Color>(Colors::White), 1.0f, L" State =");
+	debugFont->print(10, 380, static_cast<DirectX::SimpleMath::Color>(DirectX::Colors::White), 1.0f, L" State =");
 	debugFont->draw();
-	debugFont->print(130, 380, static_cast<Color>(Colors::White), 1.0f, m_selectState);
+	debugFont->print(130, 380, static_cast<DirectX::SimpleMath::Color>(DirectX::Colors::White), 1.0f, m_selectState);
 	debugFont->draw();
 }
 

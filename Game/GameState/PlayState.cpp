@@ -35,11 +35,6 @@
 
 #include <Game/Collider/CollisionManager.h>
 
-
-using namespace DirectX;
-using namespace DirectX::SimpleMath;
-using namespace DX;
-
 bool  PlayState::m_isDebug        = false;
 const float  PlayState::END_TIMER = 15.0f;
 
@@ -158,17 +153,17 @@ void PlayState::Update(const DX::StepTimer& timer)
 /// </summary>
 void PlayState::Render()
 {
-	DeviceResources* deviceResources = GameContext::Get<DeviceResources>();
-	SpriteBatch* spriteBach = GameContext::Get<SpriteBatch>();
-	CommonStates* state = GameContext::Get<CommonStates>();
+	DX::DeviceResources* deviceResources = GameContext::Get<DX::DeviceResources>();
+	DirectX::SpriteBatch* spriteBach = GameContext::Get<DirectX::SpriteBatch>();
+	DirectX::CommonStates* state = GameContext::Get<DirectX::CommonStates>();
 	auto context = deviceResources->GetD3DDeviceContext();
 
 	// ビューポートを変更する（左側へ描画エリアを変更する）
 	context->RSSetViewports(1, &m_viewportGame);
-	spriteBach->Begin(SpriteSortMode_Deferred, state->NonPremultiplied());
+	spriteBach->Begin(DirectX::SpriteSortMode_Deferred, state->NonPremultiplied());
 
 	// TODO: ビュー行列とプロジェクション行列を設定
-	SimpleMath::Matrix viewMat, projMat;
+	DirectX::SimpleMath::Matrix viewMat, projMat;
 	
 	// ゲーム画面のオブジェクト描画
 	m_bg->Render();
@@ -180,7 +175,7 @@ void PlayState::Render()
 
 	// ビューポートを変更する（右側へ描画エリアを変更する）
 	context->RSSetViewports(1, &m_viewportInfo);
-	spriteBach->Begin(SpriteSortMode_Deferred, state->NonPremultiplied());
+	spriteBach->Begin(DirectX::SpriteSortMode_Deferred, state->NonPremultiplied());
 
 	// 情報画面のオブジェクト描画
 	m_objectManager->GetInfoOM()->Render();
@@ -243,7 +238,7 @@ void PlayState::CreateCharacter()
 {
 	//エネミー初期化
 	m_enemy[0] = std::make_unique<Character>(GameObject::ObjectTag::Enemy1);
-	m_enemy[0]->SetColor(Color(Colors::Blue));
+	m_enemy[0]->SetColor(DirectX::SimpleMath::Color(DirectX::Colors::Blue));
 	m_enemy[0]->SetModel(m_tankModels[Tank::BLUE].get());
 	m_enemy[0]->Initialize(m_stage->GetEnemyPos());
 
@@ -251,7 +246,7 @@ void PlayState::CreateCharacter()
 	if (SelectState::GetSelectChara() == SelectState::SelectCharacter::ENEMY)
 	{
 		m_enemy[1] = std::make_unique<Character>(GameObject::ObjectTag::Enemy2);
-		m_enemy[1]->SetColor(Color(Colors::Red));
+		m_enemy[1]->SetColor(DirectX::SimpleMath::Color(DirectX::Colors::Red));
 		m_enemy[1]->SetModel(m_tankModels[Tank::RED].get());
 		m_enemy[1]->Initialize(m_stage->GetPlayerPos());
 		m_aiController[0] = std::make_unique<AIController>(m_enemy[0].get(), m_enemy[1].get(), SelectState::GetBlueMode());
@@ -264,7 +259,7 @@ void PlayState::CreateCharacter()
 	{
 		//プレイヤー初期化
 		m_player = std::make_unique<Character>(GameObject::ObjectTag::Player);
-		m_player->SetColor(Color(Colors::Red));
+		m_player->SetColor(DirectX::SimpleMath::Color(DirectX::Colors::Red));
 		m_player->SetModel(m_tankModels[Tank::RED].get());
 		m_player->Initialize(m_stage->GetPlayerPos());
 		m_aiController[0] = std::make_unique<AIController>(m_enemy[0].get(), m_player.get(), SelectState::GetBlueMode());

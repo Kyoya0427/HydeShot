@@ -13,9 +13,6 @@
 
 #include <Game/Camera/Camera.h>
 
-using namespace DirectX;
-using namespace DirectX::SimpleMath;
-
 /// <summary>
 /// コンストラクタ
 /// </summary>
@@ -35,9 +32,9 @@ Button::~Button()
 /// </summary>
 /// <param name="pos">座標</param>
 /// <param name="letter">表示文字</param>
-void Button::Initialize(const Vector2& pos, wchar_t* letter)
+void Button::Initialize(const DirectX::SimpleMath::Vector2& pos, wchar_t* letter)
 {
-	m_spriteBatch = std::make_unique<SpriteBatch>(GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext());
+	m_spriteBatch = std::make_unique<DirectX::SpriteBatch>(GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext());
 
 	m_position = pos;
 	m_letter   = letter;
@@ -58,13 +55,13 @@ void Button::Update(const DX::StepTimer& timer)
 void Button::Render()
 {
 	DebugFont* debugFont = DebugFont::GetInstance();
-	m_spriteBatch->Begin(SpriteSortMode_Deferred, GameContext::Get<CommonStates>()->NonPremultiplied());
+	m_spriteBatch->Begin(DirectX::SpriteSortMode_Deferred, GameContext::Get<DirectX::CommonStates>()->NonPremultiplied());
 	if (m_isSelect)
 		m_spriteBatch->Draw(m_selectTexture.Get(), m_position);
 	else
 		m_spriteBatch->Draw(m_defaultTexture.Get(), m_position);
 	m_spriteBatch->End();
 
-	debugFont->print(m_position.x + 40.0f, m_position.y + 8.0f, static_cast<Color>(Colors::Black), 2.0f, m_letter);
+	debugFont->print(m_position.x + 40.0f, m_position.y + 8.0f, static_cast<DirectX::SimpleMath::Color>(DirectX::Colors::Black), 2.0f, m_letter);
 	debugFont->draw();
 }

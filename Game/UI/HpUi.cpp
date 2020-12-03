@@ -12,9 +12,6 @@
 #include <Game/AI/NeuralNetworkManager.h>
 #include <Game/AI/NeuralNetwork.h>
 
-using namespace DirectX;
-using namespace DirectX::SimpleMath;
-
 /// <summary>
 /// コンストラクタ
 /// </summary>
@@ -54,10 +51,10 @@ void HpUi::Render()
 {
 	DebugFont* debugFont = DebugFont::GetInstance();
 
-	debugFont->print(30, 500, static_cast<Color>(Colors::White), 1.3f, L"Player = %d", m_playerHp);
+	debugFont->print(30, 500, static_cast<DirectX::SimpleMath::Color>(DirectX::Colors::White), 1.3f, L"Player = %d", m_playerHp);
 	debugFont->draw();
 
-	debugFont->print(30, 530, static_cast<Color>(Colors::White), 1.3f, L"Enemy = %d", m_enemyHp);
+	debugFont->print(30, 530, static_cast<DirectX::SimpleMath::Color>(DirectX::Colors::White), 1.3f, L"Enemy = %d", m_enemyHp);
 	debugFont->draw();
 }
 

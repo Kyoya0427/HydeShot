@@ -13,9 +13,6 @@
 
 #include <Game/Camera/Camera.h>
 
-using namespace DirectX;
-using namespace DirectX::SimpleMath;
-
 /// <summary>
 /// コンストラクタ
 /// </summary>
@@ -36,26 +33,26 @@ Bg::~Bg()
 void Bg::Initialize()
 {
 	// モデルデータの読み込み
-	EffectFactory fx(GameContext::Get<DX::DeviceResources>()->GetD3DDevice());
+	DirectX::EffectFactory fx(GameContext::Get<DX::DeviceResources>()->GetD3DDevice());
 	fx.SetDirectory(L"Resources//Models");
-	m_model = Model::CreateFromCMO(GameContext::Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources//Models//bg.cmo", fx);
+	m_model = DirectX::Model::CreateFromCMO(GameContext::Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources//Models//bg.cmo", fx);
 
-	m_model->UpdateEffects([&](IEffect* effect)
+	m_model->UpdateEffects([&](DirectX::IEffect* effect)
 	{
-		IEffectLights* lights = dynamic_cast<IEffectLights*>(effect);
+		DirectX::IEffectLights* lights = dynamic_cast<DirectX::IEffectLights*>(effect);
 		if (lights)
 		{
 			// ライトの影響をなくす
-			lights->SetAmbientLightColor(Vector3(0.0f, 0.0f, 0.0f));
+			lights->SetAmbientLightColor(DirectX::SimpleMath::Vector3(0.0f, 0.0f, 0.0f));
 			lights->SetLightEnabled(0, false);
 			lights->SetLightEnabled(1, false);
 			lights->SetLightEnabled(2, false);
 		}
-		BasicEffect* basicEffect = dynamic_cast<BasicEffect*>(effect);
+		DirectX::BasicEffect* basicEffect = dynamic_cast<DirectX::BasicEffect*>(effect);
 		if (basicEffect)
 		{
 			// エミッション色を白に設定する
-			basicEffect->SetEmissiveColor(Vector3(1.0f, 1.0f, 1.0f));
+			basicEffect->SetEmissiveColor(DirectX::SimpleMath::Vector3(1.0f, 1.0f, 1.0f));
 		}
 	});
 }
@@ -77,15 +74,15 @@ void Bg::Update(const DX::StepTimer& timer)
 void Bg::Render()
 {
 	//ワールド行列作成
-	Matrix world = Matrix::CreateRotationY(m_rotation.y);
-	world       *= Matrix::CreateTranslation(4.5f, -10.0f, 5.5f);
+	DirectX::SimpleMath::Matrix world = DirectX::SimpleMath::Matrix::CreateRotationY(m_rotation.y);
+	world       *= DirectX::SimpleMath::Matrix::CreateTranslation(4.5f, -10.0f, 5.5f);
 	//ビュー行列作成
-	Matrix view  = Matrix::CreateLookAt(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.0f, 0.0f, -1.0f), Vector3::Up);
+	DirectX::SimpleMath::Matrix view  = DirectX::SimpleMath::Matrix::CreateLookAt(DirectX::SimpleMath::Vector3(0.0f, 0.0f, 0.0f), DirectX::SimpleMath::Vector3(0.0f, 0.0f, -1.0f), DirectX::SimpleMath::Vector3::Up);
 
 	// モデルの描画
 	m_model->Draw(
 		GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext(),
-		*GameContext::Get<CommonStates>(),
+		*GameContext::Get<DirectX::CommonStates>(),
 		world, view, GameContext::Get<Camera>()->GetProjection());
 }
 

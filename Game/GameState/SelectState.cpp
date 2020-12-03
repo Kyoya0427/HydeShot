@@ -15,9 +15,6 @@
 
 #include <Game/UI/Blink.h>
 
-using namespace DirectX;
-using namespace DirectX::SimpleMath;
-
 SelectMode                                   SelectState::m_blueMode = SelectMode::TRAINING_1;
 SelectState::SelectCharacter	     	     SelectState::m_selectChara = SelectState::SelectCharacter::PLAYER;
 SelectMode                                   SelectState::m_redMode = SelectMode::TRAINING_1;
@@ -28,12 +25,12 @@ SelectMode                                   SelectState::m_redMode = SelectMode
 SelectState::SelectState()
 	: IGameState()
 {
-	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\defaultButton.png", nullptr, m_defaultTexture.ReleaseAndGetAddressOf());
-	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\selectButton.png", nullptr, m_selectTexture.ReleaseAndGetAddressOf());
-	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\red.png", nullptr, m_redTexture.ReleaseAndGetAddressOf());
-	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\blue.png", nullptr, m_blueTexture.ReleaseAndGetAddressOf());
-	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\redChara.png", nullptr, m_redCharaTexture.ReleaseAndGetAddressOf());
-	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\blueChara.png", nullptr, m_blueCharaTexture.ReleaseAndGetAddressOf());
+	DirectX::CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\defaultButton.png", nullptr, m_defaultTexture.ReleaseAndGetAddressOf());
+	DirectX::CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\selectButton.png", nullptr, m_selectTexture.ReleaseAndGetAddressOf());
+	DirectX::CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\red.png", nullptr, m_redTexture.ReleaseAndGetAddressOf());
+	DirectX::CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\blue.png", nullptr, m_blueTexture.ReleaseAndGetAddressOf());
+	DirectX::CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\redChara.png", nullptr, m_redCharaTexture.ReleaseAndGetAddressOf());
+	DirectX::CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\blueChara.png", nullptr, m_blueCharaTexture.ReleaseAndGetAddressOf());
 }
 
 
@@ -57,12 +54,12 @@ void SelectState::Initialize()
 	m_isSelectMode = true;
 	m_isRedSelect = true;
 	m_selectBg = std::make_unique<SelectBg>();
-	m_selectBg->Initialize(Vector3(0.0F, 0.0f, 0.0f));
+	m_selectBg->Initialize(DirectX::SimpleMath::Vector3(0.0F, 0.0f, 0.0f));
 	
 	m_selectMode = std::make_unique<OptionList>();
 	m_selectMode->SetTexture(m_defaultTexture.Get(), m_selectTexture.Get());
-	m_selectMode->Add(Vector2(30.0f, 200.0f), L"   AI VS AI");
-	m_selectMode->Add(Vector2(30.0f, 400.0f), L"Player VS AI");
+	m_selectMode->Add(DirectX::SimpleMath::Vector2(30.0f, 200.0f), L"   AI VS AI");
+	m_selectMode->Add(DirectX::SimpleMath::Vector2(30.0f, 400.0f), L"Player VS AI");
 
 	m_currentOption = m_selectMode.get();
 
@@ -72,10 +69,10 @@ void SelectState::Initialize()
 
 	m_blueOption = std::make_unique<OptionList>();
 	m_blueOption->SetTexture(m_defaultTexture.Get(), m_selectTexture.Get());
-	m_blueOption->Add(Vector2(880.0f, 200.0f), L"       1");
-	m_blueOption->Add(Vector2(880.0f, 300.0f), L"      10");
-	m_blueOption->Add(Vector2(880.0f, 400.0f), L"      50");
-	m_blueOption->Add(Vector2(880.0f, 500.0f), L"     100");
+	m_blueOption->Add(DirectX::SimpleMath::Vector2(880.0f, 200.0f), L"       1");
+	m_blueOption->Add(DirectX::SimpleMath::Vector2(880.0f, 300.0f), L"      10");
+	m_blueOption->Add(DirectX::SimpleMath::Vector2(880.0f, 400.0f), L"      50");
+	m_blueOption->Add(DirectX::SimpleMath::Vector2(880.0f, 500.0f), L"     100");
 
 }
 
@@ -108,10 +105,10 @@ void SelectState::Render()
 		m_redOption->Render();
 		m_blueOption->Render();
 
-		Vector2 redPos = Vector2(490.0f, 40.0f);
-		Vector2 bluePos = Vector2(890.0f, 40.0f);
+		DirectX::SimpleMath::Vector2 redPos  = DirectX::SimpleMath::Vector2(490.0f, 40.0f);
+		DirectX::SimpleMath::Vector2 bluePos = DirectX::SimpleMath::Vector2(890.0f, 40.0f);
 
-		m_spriteBatch->Begin(SpriteSortMode_Deferred, GameContext::Get<CommonStates>()->NonPremultiplied());
+		m_spriteBatch->Begin(DirectX::SpriteSortMode_Deferred, GameContext::Get<DirectX::CommonStates>()->NonPremultiplied());
 
 		if (m_blink->GetState() && m_isRedSelect)
 			m_spriteBatch->Draw(m_redTexture.Get(), redPos);
@@ -119,8 +116,8 @@ void SelectState::Render()
 		if (m_blink->GetState() && !m_isRedSelect)
 			m_spriteBatch->Draw(m_blueTexture.Get(), bluePos);
 
-		Vector2 redCharaPos = Vector2(650.0f, 30.0f);
-		Vector2 blueCharaPos = Vector2(1050.0f, 36.0f);
+		DirectX::SimpleMath::Vector2 redCharaPos  = DirectX::SimpleMath::Vector2(650.0f, 30.0f);
+		DirectX::SimpleMath::Vector2 blueCharaPos = DirectX::SimpleMath::Vector2(1050.0f, 36.0f);
 		m_spriteBatch->Draw(m_redCharaTexture.Get(), redCharaPos);
 		m_spriteBatch->Draw(m_blueCharaTexture.Get(), blueCharaPos);
 
@@ -143,14 +140,14 @@ void SelectState::AddRedMode()
 	switch (m_selectMode->GetCurrent())
 	{
 	case 0:
-		m_redOption->Add(Vector2(460.0f, 200.0f), L"       1");
-		m_redOption->Add(Vector2(460.0f, 300.0f), L"      10");
-		m_redOption->Add(Vector2(460.0f, 400.0f), L"      50");
-		m_redOption->Add(Vector2(460.0f, 500.0f), L"     100");
+		m_redOption->Add(DirectX::SimpleMath::Vector2(460.0f, 200.0f), L"       1");
+		m_redOption->Add(DirectX::SimpleMath::Vector2(460.0f, 300.0f), L"      10");
+		m_redOption->Add(DirectX::SimpleMath::Vector2(460.0f, 400.0f), L"      50");
+		m_redOption->Add(DirectX::SimpleMath::Vector2(460.0f, 500.0f), L"     100");
 		break;
 	case 1:
-		m_redOption->Add(Vector2(460.0f, 200.0f), L"    Manual");
-		m_redOption->Add(Vector2(460.0f, 400.0f), L"      Auto");
+		m_redOption->Add(DirectX::SimpleMath::Vector2(460.0f, 200.0f), L"    Manual");
+		m_redOption->Add(DirectX::SimpleMath::Vector2(460.0f, 400.0f), L"      Auto");
 		break;
 	}
 }

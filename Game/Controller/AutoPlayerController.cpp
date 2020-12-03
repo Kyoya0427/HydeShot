@@ -19,9 +19,6 @@
 
 #include <Game/UI/HpUi.h>
 
-using namespace DirectX;
-using namespace DirectX::SimpleMath;
-
 const float AutoPlayerController::MOVE_SPEED    = 0.05f;
 const float AutoPlayerController::ROT_SPEED     = 0.02f;
 const float AutoPlayerController::SHOT_INTERVAL = 0.3f;

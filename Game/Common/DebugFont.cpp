@@ -12,9 +12,6 @@ std::unique_ptr<DebugFont> DebugFont::m_pInstance = nullptr;
 DebugFont DebugFont::m_instance;
 #endif
 
-using namespace DirectX;
-using namespace DirectX::SimpleMath;
-
 /// <summary>
 /// コンストラクタ
 /// </summary>
@@ -52,7 +49,7 @@ void DebugFont::create(ID3D11Device1* device, ID3D11DeviceContext1* context)
 void DebugFont::draw()
 {
 	m_spriteBatch->Begin();
-	m_spriteFont->DrawString(m_spriteBatch.get(), m_string, m_pos, m_color, 0.0f, Vector2::Zero, m_fontSize);
+	m_spriteFont->DrawString(m_spriteBatch.get(), m_string, m_pos, m_color, 0.0f, DirectX::SimpleMath::Vector2::Zero, m_fontSize);
 	m_spriteBatch->End();
 }
 
@@ -68,7 +65,7 @@ void DebugFont::reset()
 /// <summary>
 /// 表示情報登録
 /// </summary>
-void DebugFont::print(float posX, float posY, Color color, float fontSize, wchar_t const* const format, ...)
+void DebugFont::print(float posX, float posY, DirectX::SimpleMath::Color color, float fontSize, wchar_t const* const format, ...)
 {
 	m_pos.x = posX;
 	m_pos.y = posY;
@@ -83,7 +80,7 @@ void DebugFont::print(float posX, float posY, Color color, float fontSize, wchar
 /// <summary>
 /// 表示情報登録（Vector2版）
 /// </summary>
-void DebugFont::print(const Vector2& pos, Color color, float fontSize, wchar_t const* const format, ...)
+void DebugFont::print(const DirectX::SimpleMath::Vector2& pos, DirectX::SimpleMath::Color color, float fontSize, wchar_t const* const format, ...)
 {
 	m_pos = pos;
 	m_color = color;

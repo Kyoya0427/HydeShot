@@ -17,8 +17,6 @@
 
 extern void ExitGame();
 
-using namespace DirectX;
-
 using Microsoft::WRL::ComPtr;
 
 const wchar_t* Game::WINDOW_TITLE  = L"HydeShot";
@@ -55,21 +53,21 @@ void Game::Initialize(HWND window, int width, int height)
 
 	 
 	// コモンステート作成
-	m_state = std::make_unique<CommonStates>(m_deviceResources->GetD3DDevice());
+	m_state = std::make_unique<DirectX::CommonStates>(m_deviceResources->GetD3DDevice());
 	GameContext().Register<DirectX::CommonStates>(m_state);
 
 	// マウスの作成
-	m_mouse = std::make_unique<Mouse>();
+	m_mouse = std::make_unique<DirectX::Mouse>();
 	m_mouse->SetWindow(window);
 	//キーボードの作成
-	m_keyboard = std::make_unique<Keyboard>();
+	m_keyboard = std::make_unique<DirectX::Keyboard>();
 	//キーボードトラッカー作成
 	m_keyTracker = std::make_unique<DirectX::Keyboard::KeyboardStateTracker>();
 	GameContext().Register<DirectX::Keyboard::KeyboardStateTracker>(m_keyTracker);
 
 	// スプライトバッチの作成
-	m_spriteBatch = std::make_unique<SpriteBatch>(m_deviceResources->GetD3DDeviceContext());
-	GameContext::Register<SpriteBatch>(m_spriteBatch);
+	m_spriteBatch = std::make_unique<DirectX::SpriteBatch>(m_deviceResources->GetD3DDeviceContext());
+	GameContext::Register<DirectX::SpriteBatch>(m_spriteBatch);
 	
 
 	//ステイトマネジャー生成
@@ -163,7 +161,7 @@ void Game::Clear()
     auto renderTarget = m_deviceResources->GetRenderTargetView();
     auto depthStencil = m_deviceResources->GetDepthStencilView();
 
-    context->ClearRenderTargetView(renderTarget, Colors::CornflowerBlue);
+    context->ClearRenderTargetView(renderTarget, DirectX::Colors::CornflowerBlue);
     context->ClearDepthStencilView(depthStencil, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
     context->OMSetRenderTargets(1, &renderTarget, depthStencil);
 

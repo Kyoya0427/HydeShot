@@ -13,9 +13,6 @@
 
 #include <Game/Bg/ResultBg.h>
 
-using namespace DirectX;
-using namespace DirectX::SimpleMath;
-
 bool  ResultState::m_isPlayerWin = true;
 
 /// <summary>
@@ -41,7 +38,7 @@ void ResultState::Initialize()
 	m_spriteBatch = std::make_unique<DirectX::SpriteBatch>(GameContext().Get<DX::DeviceResources>()->GetD3DDeviceContext());
 
 	m_resultBg = std::make_unique<ResultBg>();
-	m_resultBg->Initialize(Vector3(0.0F, 0.0f, 0.0f));
+	m_resultBg->Initialize(DirectX::SimpleMath::Vector3(0.0F, 0.0f, 0.0f));
 
 	DirectX::CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\space.png", nullptr, m_pushTexture.ReleaseAndGetAddressOf());
 	m_pushPos = DirectX::SimpleMath::Vector2(430, 500);
@@ -81,14 +78,14 @@ void ResultState::Update(const DX::StepTimer& timer)
 void ResultState::Render()
 {
 	DebugFont* debugFont = DebugFont::GetInstance();
-	debugFont->print(10, 10, static_cast<Color>(Colors::White), 1.0f, L"ResultState");
+	debugFont->print(10, 10, static_cast<DirectX::SimpleMath::Color>(DirectX::Colors::White), 1.0f, L"ResultState");
 	debugFont->draw();
-	debugFont->print(100, 100, static_cast<Color>(Colors::White), 1.0f, L"Z Key");
+	debugFont->print(100, 100, static_cast<DirectX::SimpleMath::Color>(DirectX::Colors::White), 1.0f, L"Z Key");
 	debugFont->draw();
 	
 	
 	m_resultBg->Render();
-	m_spriteBatch->Begin(SpriteSortMode_Deferred, GameContext::Get<CommonStates>()->NonPremultiplied());
+	m_spriteBatch->Begin(DirectX::SpriteSortMode_Deferred, GameContext::Get<DirectX::CommonStates>()->NonPremultiplied());
 	if (m_isBlink == false || m_blink->GetState())
 	{
 		m_spriteBatch->Draw(m_pushTexture.Get(), m_pushPos);

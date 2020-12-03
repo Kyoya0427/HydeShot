@@ -19,10 +19,6 @@
 
 #include <Game/UI/SelectStateUi.h>
 
-using namespace DirectX;
-using namespace DirectX::SimpleMath;
-
-
 /// <summary>
 /// コンストラクタ
 /// </summary>
@@ -76,7 +72,7 @@ void WallAvoid::Update(const DX::StepTimer& timer)
 void WallAvoid::ChooseAction()
 {
 	//相対座標
-	float dis = Vector3::Distance(m_chara->GetPosition(), m_enemy->GetPosition()) / 18.0f;
+	float dis = DirectX::SimpleMath::Vector3::Distance(m_chara->GetPosition(), m_enemy->GetPosition()) / 18.0f;
 	//ステイト操作するキャラクターを原点とした絶対座標
 	float x = m_chara->GetPosition().x - m_enemy->GetPosition().x;
 

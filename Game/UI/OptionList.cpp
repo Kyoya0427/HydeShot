@@ -7,7 +7,6 @@
 
 #include <Game/UI/Button.h>
 
-
 /// <summary>
 /// コンストラクタ
 /// </summary>

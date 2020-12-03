@@ -18,9 +18,6 @@
 #include <Game/UI/SelectStateUi.h>
 #include <Game/UI/HpUi.h>
 
-using namespace DirectX;
-using namespace DirectX::SimpleMath;
-
 /// <summary>
 /// コンストラクタ
 /// </summary>
@@ -42,7 +39,7 @@ InfoWindow::~InfoWindow()
 void InfoWindow::Initialize()
 {
 	m_uiBg = std::make_unique<UiBg>();
-	m_uiBg->Initialize(Vector3::Zero);
+	m_uiBg->Initialize(DirectX::SimpleMath::Vector3::Zero);
 	GameContext::Get<ObjectManager>()->GetInfoOM()->Add(std::move(m_uiBg));
 
 	std::unique_ptr<NeuralNetworkData> neuralNetworkData = std::make_unique<NeuralNetworkData>();

@@ -20,9 +20,6 @@
 
 #include <Game/UI/SelectStateUi.h>
 
-using namespace DirectX;
-using namespace DirectX::SimpleMath;
-
 const float NeuralNetworkManager::MAX_DISTANCE  = 16.0f;
 const float NeuralNetworkManager::LEARNING_RATE = 0.2f;
 const float NeuralNetworkManager::MOMENTUM      = 0.9f;
@@ -182,7 +179,7 @@ void NeuralNetworkManager::InputTrainingData(SelectMode mode)
 CharaStateID NeuralNetworkManager::BehaviorSelection()
 {
 	//距離計算
-	float distance = Vector3::Distance(m_character->GetPosition(), m_enemy->GetPosition());
+	float distance = DirectX::SimpleMath::Vector3::Distance(m_character->GetPosition(), m_enemy->GetPosition());
 	m_distance     = distance;
 	//左右判定
 	SearchDirection(m_character, m_enemy);
@@ -253,13 +250,13 @@ CharaStateID NeuralNetworkManager::BehaviorSelection()
 /// <param name="enemy">敵</param>
 void NeuralNetworkManager::SearchDirection(Character* character, Character* enemy)
 {
-	Vector3 u;
+	DirectX::SimpleMath::Vector3 u;
 	//フラグを初期化
 	m_isDirectionLeft = false;
 	m_isDirectionRight = false;
 
 	//左右判定計算
-	Vector3 cv = Rotate(character->GetRadiansY(), Vector3::Forward);
+	DirectX::SimpleMath::Vector3 cv = Rotate(character->GetRadiansY(), DirectX::SimpleMath::Vector3::Forward);
 	DirectX::SimpleMath::Vector3 rv = enemy->GetPosition() - character->GetPosition();
 	rv.Normalize();
 	DirectX::SimpleMath::Vector3 n = cv.Cross(rv);
@@ -277,14 +274,14 @@ void NeuralNetworkManager::SearchDirection(Character* character, Character* enem
 /// <param name="angle">ラジアン</param>
 /// <param name="u">方向</param>
 /// <returns></returns>
-Vector3 NeuralNetworkManager::Rotate(float angle, const Vector3& u)
+DirectX::SimpleMath::Vector3 NeuralNetworkManager::Rotate(float angle, const DirectX::SimpleMath::Vector3& u)
 {
 	float	x, z;
 
 	x = u.x * cos(angle) + u.z * sin(angle);
 	z = -u.x * sin(angle) + u.z * cos(angle);
 
-	return Vector3(x, 0.0f, z);
+	return DirectX::SimpleMath::Vector3(x, 0.0f, z);
 }
 
 /// <summary>

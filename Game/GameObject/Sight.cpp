@@ -18,9 +18,6 @@
 
 #include <Game/GameState/PlayState.h>
 
-using namespace DirectX;
-using namespace DirectX::SimpleMath;
-
 /// <summary>
 /// コンストラクタ
 /// </summary>
@@ -44,9 +41,9 @@ Sight::Sight(Character* chara)
 	if (m_chara->GetTag() == ObjectTag::Enemy2)
 		m_tag = ObjectTag::Sight02;
 
-	m_size = Vector3(0.3f, 0.1f, 9.0f);
+	m_size = DirectX::SimpleMath::Vector3(0.3f, 0.1f, 9.0f);
 
-	m_sightCollider = GeometricPrimitive::CreateBox(deviceContext, m_size);
+	m_sightCollider = DirectX::GeometricPrimitive::CreateBox(deviceContext, m_size);
 	m_collider      = std::make_unique<RayCollider>(this);
 
 	m_chara->SetEnemySightContact(false);
@@ -74,8 +71,8 @@ void Sight::Update(const DX::StepTimer& timer)
 	m_enemyToDistance = 0.0f;
 	m_wallToDistance  = 0.0f;
 
-	Quaternion quaternion = Quaternion::CreateFromAxisAngle(Vector3::UnitY, m_chara->GetRotation().y);
-	m_velocity = Vector3::Transform(Vector3(0.0f, 0.0f, -m_size.z), quaternion);
+	DirectX::SimpleMath::Quaternion quaternion = DirectX::SimpleMath::Quaternion::CreateFromAxisAngle(DirectX::SimpleMath::Vector3::UnitY, m_chara->GetRotation().y);
+	m_velocity = DirectX::SimpleMath::Vector3::Transform(DirectX::SimpleMath::Vector3(0.0f, 0.0f, -m_size.z), quaternion);
 	m_position = m_chara->GetPosition();
 
 	m_posA = m_chara->GetPosition();
@@ -101,10 +98,10 @@ void Sight::Update(const DX::StepTimer& timer)
 /// </summary>
 void Sight::Render()
 {
-	Quaternion rot    = Quaternion::CreateFromAxisAngle(Vector3::UnitY, m_chara->GetRotation().y);
-	Matrix rotMat     = Matrix::CreateFromQuaternion(rot);
-	Matrix transMat   = Matrix::CreateTranslation(m_position);
-	Matrix offset = Matrix::CreateTranslation(Vector3(0.0f, 0.0f, -m_size.z / 2.0f));
+	DirectX::SimpleMath::Quaternion rot    = DirectX::SimpleMath::Quaternion::CreateFromAxisAngle(DirectX::SimpleMath::Vector3::UnitY, m_chara->GetRotation().y);
+	DirectX::SimpleMath::Matrix rotMat     = DirectX::SimpleMath::Matrix::CreateFromQuaternion(rot);
+	DirectX::SimpleMath::Matrix transMat   = DirectX::SimpleMath::Matrix::CreateTranslation(m_position);
+	DirectX::SimpleMath::Matrix offset     = DirectX::SimpleMath::Matrix::CreateTranslation(DirectX::SimpleMath::Vector3(0.0f, 0.0f, -m_size.z / 2.0f));
 
 	m_world = offset * rotMat * transMat;
 
@@ -121,12 +118,12 @@ void Sight::OnCollision(GameObject* object)
 	if (object->GetTag() == ObjectTag::Wall)
 	{
 		m_chara->SetWallSightContact(true);
-		m_wallToDistance = Vector3::Distance(m_chara->GetPosition(), object->GetPosition());		
+		m_wallToDistance = DirectX::SimpleMath::Vector3::Distance(m_chara->GetPosition(), object->GetPosition());
 	}
 	else if (object->GetTag() != m_chara->GetTag())
 	{
 		m_chara->SetEnemySightContact(true);
-		m_enemyToDistance = Vector3::Distance(m_chara->GetPosition(), object->GetPosition());
+		m_enemyToDistance = DirectX::SimpleMath::Vector3::Distance(m_chara->GetPosition(), object->GetPosition());
 	}
 
 	if (m_chara->GetWallSightContact() && m_enemyToDistance != 0.0f)

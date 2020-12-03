@@ -14,9 +14,6 @@
 
 #include <Game/UI/HpUi.h>
 
-using namespace DirectX;
-using namespace DirectX::SimpleMath;
-
 const float PlayerController::MOVE_SPEED    = 0.05f;
 const float PlayerController::ROT_SPEED     = 0.02f;
 const float PlayerController::SHOT_INTERVAL = 0.3f;
@@ -48,43 +45,43 @@ PlayerController::~PlayerController()
 void PlayerController::Update(const DX::StepTimer& timer)
 {
 	timer;
-	Keyboard::State keyState = Keyboard::Get().GetState();
+	DirectX::Keyboard::State keyState = DirectX::Keyboard::Get().GetState();
 
 	m_shotInterval -= float(timer.GetElapsedSeconds());
 	
-	if (keyState.IsKeyDown(Keyboard::Keys::W))
+	if (keyState.IsKeyDown(DirectX::Keyboard::Keys::W))
 	{
 		m_data = InputID::FORWARD;
 		m_character->Forward(MOVE_SPEED);
 	}
-	else if (keyState.IsKeyDown(Keyboard::Keys::S))
+	else if (keyState.IsKeyDown(DirectX::Keyboard::Keys::S))
 	{
 		m_data = InputID::BACKWARD;
 		m_character->Backward(MOVE_SPEED);
 	}
-	else if (keyState.IsKeyDown(Keyboard::Keys::A))
+	else if (keyState.IsKeyDown(DirectX::Keyboard::Keys::A))
 	{
 		m_data = InputID::LEFTWARD;
 		m_character->Leftward(MOVE_SPEED);
 	}
-	else if (keyState.IsKeyDown(Keyboard::Keys::D))
+	else if (keyState.IsKeyDown(DirectX::Keyboard::Keys::D))
 	{
 		m_data = InputID::RIGHTWARD;
 		m_character->Rightward(MOVE_SPEED);
 	}
 	
-	if (keyState.IsKeyDown(Keyboard::Keys::Left))
+	if (keyState.IsKeyDown(DirectX::Keyboard::Keys::Left))
 	{
 		m_data = InputID::LEFT_TURN;
 		m_character->LeftTurn(ROT_SPEED);
 	}
-	else if (keyState.IsKeyDown(Keyboard::Keys::Right))
+	else if (keyState.IsKeyDown(DirectX::Keyboard::Keys::Right))
 	{
 		m_data = InputID::RIGHT_TURN;
 		m_character->RightTurn(ROT_SPEED);
 	}
 	
-	if (keyState.IsKeyDown(Keyboard::Keys::Space) && m_shotInterval < 0.0f)
+	if (keyState.IsKeyDown(DirectX::Keyboard::Keys::Space) && m_shotInterval < 0.0f)
 	{
 		m_data = InputID::SHOOT;
 		m_character->Shoot();

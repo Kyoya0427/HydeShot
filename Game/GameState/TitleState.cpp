@@ -18,17 +18,14 @@
 
 extern void ExitGame();
 
-using namespace DirectX;
-using namespace DirectX::SimpleMath;
-
 /// <summary>
 /// コンストラクタ
 /// </summary>
 TitleState::TitleState()
 	: IGameState()
 {
-	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\defaultButton.png", nullptr, m_defaultTexture.ReleaseAndGetAddressOf());
-	CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\selectButton.png", nullptr, m_selectTexture.ReleaseAndGetAddressOf());
+	DirectX::CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\defaultButton.png", nullptr, m_defaultTexture.ReleaseAndGetAddressOf());
+	DirectX::CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources\\Textures\\selectButton.png", nullptr, m_selectTexture.ReleaseAndGetAddressOf());
 }
 
 /// <summary>
@@ -44,17 +41,17 @@ TitleState::~TitleState()
 void TitleState::Initialize()
 {
 	m_titleBg = std::make_unique<TitleBg>();
-	m_titleBg->Initialize(Vector3(0.0F,0.0f,0.0f));
+	m_titleBg->Initialize(DirectX::SimpleMath::Vector3(0.0F,0.0f,0.0f));
 
 	m_playButton = std::make_unique<Button>();
-	m_playButton->Initialize(Vector2(100.0f, 500.0f), L"      Play");
+	m_playButton->Initialize(DirectX::SimpleMath::Vector2(100.0f, 500.0f), L"      Play");
 	m_playButton->SetDefaultTexture(m_defaultTexture.Get());
 	m_playButton->SetSelectTexture(m_selectTexture.Get());
 	m_playButton->SetSelect(true);
 	m_selectButton = SelectButtton::PLAY;
 
 	m_exitButton = std::make_unique<Button>();
-	m_exitButton->Initialize(Vector2(800.0f, 500.0f), L"       Exit");
+	m_exitButton->Initialize(DirectX::SimpleMath::Vector2(800.0f, 500.0f), L"       Exit");
 	m_exitButton->SetDefaultTexture(m_defaultTexture.Get());
 	m_exitButton->SetSelectTexture(m_selectTexture.Get());
 	m_exitButton->SetSelect(false);

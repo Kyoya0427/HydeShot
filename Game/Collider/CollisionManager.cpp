@@ -13,8 +13,6 @@
 
 #include <Game/GameObject/GameObject.h>
 
-using namespace DirectX;
-using namespace DirectX::SimpleMath;
 /// <summary>
 /// コンストラクタ
 /// </summary>
@@ -134,7 +132,7 @@ void CollisionManager::AllowCollision(GameObject::ObjectTag groupName1, GameObje
 bool CollisionManager::IsCollided(const SphereCollider* collider1, const SphereCollider* collider2)
 {
 	//中心間の距離の平方を計算
-	Vector3 d       = collider1->GetPosition() - collider2->GetPosition();
+	DirectX::SimpleMath::Vector3 d       = collider1->GetPosition() - collider2->GetPosition();
 	float dist2     = d.Dot(d);
 	//平方した距離が平方した半径の合計よりも小さい場合に球は交差している
 	float radiusSum = collider1->GetRadius() + collider2->GetRadius();
@@ -150,7 +148,7 @@ bool CollisionManager::IsCollided(const BoxCollider* collider1, const RayCollide
 {
 	RaycastHit hit;
 	bool b     = LineToAABB(collider1, collider2, &hit);
-	float dist = Vector3::Distance(collider2->GetPosA(), collider2->GetPosB());
+	float dist = DirectX::SimpleMath::Vector3::Distance(collider2->GetPosA(), collider2->GetPosB());
 	
 	return b && 0 < hit.distFar && 0 < (dist - hit.distNear);
 }
@@ -194,10 +192,10 @@ bool CollisionManager::IsCollided(const BoxCollider* collider1, const SphereColl
 bool CollisionManager::IsCollided(const SphereCollider* collider1, const RayCollider* collider2)
 {
 	float s, t;
-	Vector3 c1, c2;
+	DirectX::SimpleMath::Vector3 c1, c2;
 	//カプセルの中心の線分間の距離の平方を計算
-	Vector3 sphereTop = collider1->GetPosition();
-	Vector3 sphereBot = collider1->GetPosition();
+	DirectX::SimpleMath::Vector3 sphereTop = collider1->GetPosition();
+	DirectX::SimpleMath::Vector3 sphereBot = collider1->GetPosition();
 	sphereTop.y      += collider1->GetRadius();
 	sphereBot.y      -= collider1->GetRadius();
 	float dist2       = ClosestPointSegment(collider2->GetPosA(), collider2->GetPosB(), sphereTop, sphereBot, s, t, c1, c2);
@@ -261,11 +259,13 @@ float CollisionManager::SquareCalculation(const SphereCollider* collider1, const
 /// <param name="c1">線分１上の最短距離の位置</param>
 /// <param name="c2">線分２上の最短距離の位置</param>
 /// <returns>２つの線分の最短距離の平方</returns>
-float CollisionManager::ClosestPointSegment(Vector3 p1, Vector3 q1, Vector3 p2, Vector3 q2, float& s, float& t, Vector3& c1, Vector3& c2)
+float CollisionManager::ClosestPointSegment(DirectX::SimpleMath::Vector3 p1, DirectX::SimpleMath::Vector3 q1, 
+	                                        DirectX::SimpleMath::Vector3 p2, DirectX::SimpleMath::Vector3 q2, 
+	                                        float& s, float& t, DirectX::SimpleMath::Vector3& c1, DirectX::SimpleMath::Vector3& c2)
 {
-	Vector3 d1 = q1 - p1;
-	Vector3 d2 = q2 - p2;
-	Vector3 r = p1 - p2;
+	DirectX::SimpleMath::Vector3 d1 = q1 - p1;
+	DirectX::SimpleMath::Vector3 d2 = q2 - p2;
+	DirectX::SimpleMath::Vector3 r = p1 - p2;
 
 	float a = d1.Dot(d1); float e = d2.Dot(d2); float f = d2.Dot(r);
 	if (a <= FLT_EPSILON && e <= FLT_EPSILON)
@@ -332,8 +332,8 @@ float CollisionManager::ClosestPointSegment(Vector3 p1, Vector3 q1, Vector3 p2, 
 /// <returns>交差判定</returns>
 bool CollisionManager::LineToAABB(const BoxCollider* collider1, const RayCollider* collider2, RaycastHit* hit)
 {
-	Vector3 p_l   = collider2->GetPosA();
-	Vector3 dir_l = collider2->GetPosB() - collider2->GetPosA();
+	DirectX::SimpleMath::Vector3 p_l   = collider2->GetPosA();
+	DirectX::SimpleMath::Vector3 dir_l = collider2->GetPosB() - collider2->GetPosA();
 
 	//方向ベクトル正規化
 	dir_l.Normalize();
@@ -342,7 +342,7 @@ bool CollisionManager::LineToAABB(const BoxCollider* collider1, const RayCollide
 	union
 	{
 		float f[3];
-		XMFLOAT3 v;
+		DirectX::XMFLOAT3 v;
 	} p, d, min, max, tmp_t_norm, t_max_norm;
 
 	p.v   = p_l;
@@ -368,8 +368,8 @@ bool CollisionManager::LineToAABB(const BoxCollider* collider1, const RayCollide
 			float t2  = (max.f[i] - p.f[i]) * odd;
 			if (t1 > t2)
 				std::swap(t1, t2);
-			if (t1 > tmp_t) { tmp_t = t1; tmp_t_norm.v = Vector3::Zero; tmp_t_norm.f[i] = d.f[i] > 0 ? -1.0f : 1.0f; }
-			if (t2 < t_max) { t_max = t2; t_max_norm.v = Vector3::Zero; t_max_norm.f[i] = d.f[i] < 0 ? -1.0f : 1.0f; }
+			if (t1 > tmp_t) { tmp_t = t1; tmp_t_norm.v = DirectX::SimpleMath::Vector3::Zero; tmp_t_norm.f[i] = d.f[i] > 0 ? -1.0f : 1.0f; }
+			if (t2 < t_max) { t_max = t2; t_max_norm.v = DirectX::SimpleMath::Vector3::Zero; t_max_norm.f[i] = d.f[i] < 0 ? -1.0f : 1.0f; }
 			// スラブ交差チェック
 			if (tmp_t >= t_max)
 				return false;
