@@ -234,7 +234,7 @@ void NeuralNetworkLayer::AdjustWeights()
 /// </summary>
 void NeuralNetworkLayer::CalculateNeuronValues()
 {
-	float	x;
+	float x;
 	if (m_parentLayer != nullptr)
 	{
 		for (int j = 0; j < m_numNodes; j++)
