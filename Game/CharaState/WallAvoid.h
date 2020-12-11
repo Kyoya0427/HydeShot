@@ -36,10 +36,6 @@ public:
 	void ChangeRightwardState() { m_wallAvoid = m_rightward.get(); }
 
 private:
-	//ステイト操作するキャラクター
-	Character*                      m_chara;
-	//敵キャラクター
-	Character*                      m_enemy;
 	//現在のステート
 	CharaState*                     m_wallAvoid;
 

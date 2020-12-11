@@ -16,6 +16,7 @@
 /// コンストラクタ
 /// </summary>
 Attack::Attack()
+	: CharaState()
 {
 }
 
@@ -33,9 +34,9 @@ Attack::~Attack()
 /// <param name="enemy">敵キャラクター</param>
 void Attack::Initialize(Character* chara, Character* enemy, NeuralNetworkManager* neuralNetwork)
 {
-	m_chara         = chara;
-	m_enemy         = enemy;
-	m_neuralNetwork = neuralNetwork;
+	SetChara(chara);
+	SetEnemy(enemy);
+	SetNeuralNetworkManager(neuralNetwork);
 }
 
 /// <summary>
@@ -46,5 +47,5 @@ void Attack::Update(const DX::StepTimer& timer)
 {
 	timer;
 	GameContext::Get<SelectStateUi>()->SetSelectState(L"SHOOT");
-	m_chara->Shoot();
+	GetChara()->Shoot();
 }

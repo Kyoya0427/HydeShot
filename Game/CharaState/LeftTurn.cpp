@@ -17,6 +17,7 @@
 /// コンストラクタ
 /// </summary>
 LeftTurn::LeftTurn()
+	: CharaState()
 {
 }
 
@@ -34,9 +35,9 @@ LeftTurn::~LeftTurn()
 /// <param name="controller">敵キャラクター</param>
 void LeftTurn::Initialize(Character* chara, Character* enemy, NeuralNetworkManager* neuralNetwork)
 {
-	m_chara         = chara;
-	m_enemy         = enemy;
-	m_neuralNetwork = neuralNetwork;
+	SetChara(chara);
+	SetEnemy(enemy);
+	SetNeuralNetworkManager(neuralNetwork);
 }
 
 /// <summary>
@@ -46,6 +47,6 @@ void LeftTurn::Initialize(Character* chara, Character* enemy, NeuralNetworkManag
 void LeftTurn::Update(const DX::StepTimer& timer)
 {
 	timer;
-	m_chara->LeftTurn(AIController::ROT_SPEED);
-	m_chara->GetWallApproachVel()->SetOffsetAngle(WallApproach::FORWARD_ANGLE);
+	GetChara()->LeftTurn(AIController::ROT_SPEED);
+	GetChara()->GetWallApproachVel()->SetOffsetAngle(WallApproach::FORWARD_ANGLE);
 }

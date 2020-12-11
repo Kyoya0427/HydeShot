@@ -1,11 +1,11 @@
 //======================================================
-// File Name	: WallApproach.h
+// File Name	: WallApproachVelID.h
 // Summary		: ˆÚ“®•ûŒü
 // Author		: Kyoya  Sakamoto
 //======================================================
 #pragma once
 
-enum WallApproachVelID
+enum class WallApproachVelID
 {
 	NONE,
 
