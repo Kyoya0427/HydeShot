@@ -19,7 +19,6 @@ GameObject::GameObject(const ObjectTag& tag)
 	, m_scale(1.0f,1.0f,1.0f)
 	, m_world()
 	, m_color()
-	, m_x() , m_y()
 	, m_radius()
 	, m_charaTag()
 	

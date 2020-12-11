@@ -65,7 +65,7 @@ void Bg::Update(const DX::StepTimer& timer)
 {
 	timer;
 	//‰ñ“]
-	SetRotationY(GetRadiansY() + 0.0002f);
+	SetRotationY(GetRotation().y + 0.0002f);
 }
 
 /// <summary>

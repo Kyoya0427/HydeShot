@@ -31,7 +31,7 @@ Floor::Floor()
 /// <param name="y">y座標</param>
 void Floor::Initialize(const int x, const int y)
 {
-	m_position = DirectX::SimpleMath::Vector3((float)x, 0.0f, (float)y);
+	SetPosition(DirectX::SimpleMath::Vector3(static_cast<float>(x), 0.0f, static_cast<float>(y)));
 }
 
 /// <summary>
@@ -49,14 +49,14 @@ void Floor::Update(const DX::StepTimer & timer)
 void Floor::Render()
 {
 	// ワールド行列の作成
-	m_world = DirectX::SimpleMath::Matrix::CreateTranslation(m_position);
+	SetWorld(DirectX::SimpleMath::Matrix::CreateTranslation(GetPosition()));
 
 	// ダメージが入った瞬間からモデル切り替えする
 
 	// モデルの描画
 	m_model->Draw(GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext()
 		, *GameContext::Get<DirectX::CommonStates>()
-		, m_world
+		, GetWorld()
 		, GameContext::Get<Camera>()->GetView()
 		, GameContext::Get<Camera>()->GetProjection(), false, [&]()
 	{

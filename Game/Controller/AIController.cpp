@@ -121,7 +121,7 @@ void AIController::Update(const DX::StepTimer& timer)
 		break;
 	}
 
-	GetCharacter()->Update(timer);	
+	GetCharaState()->Update(timer);	
 	if (GetCharacter()->GetTag() == GameObject::ObjectTag::Enemy1)
 		GameContext::Get<HpUi>()->SetEnemyHp(GetCharacter()->GetHp());
 	if (GetCharacter()->GetTag() == GameObject::ObjectTag::Enemy2)

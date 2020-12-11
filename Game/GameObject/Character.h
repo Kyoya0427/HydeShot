@@ -49,9 +49,9 @@ public:
 	//右に進む
 	void Rightward(const float speed) { SetVelocityX(speed);  }
 	//左に旋回
-	void LeftTurn (const float speed) { SetRotationY(GetRadiansY() + speed); }
+	void LeftTurn (const float speed) { SetRotationY(GetRotation().y + speed); }
 	//右に旋回
-	void RightTurn(const float speed) { SetRotationY(GetRadiansY() + speed); }
+	void RightTurn(const float speed) { SetRotationY(GetRotation().y - speed); }
 	//発砲
 	void Shoot();
 	//HP関連の処理
@@ -89,6 +89,8 @@ public:
 	//最大HP
 	static const int   MAX_HP;
 	static const float INVINCIBLE_TIME;
+	static const float RADIUS;
+	static const float SCALE;
 
 private:
 	//当たり判定モデル

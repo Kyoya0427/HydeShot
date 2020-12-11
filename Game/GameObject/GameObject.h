@@ -73,8 +73,6 @@ public:
 	const DirectX::SimpleMath::Color& GetColor() const      { return m_color; }
 	//描画順を取得
 	const int GetDrawPrio() const							{ return m_drawPrio; }
-	//Y軸デグリそ取得  
-	float GetRadiansY() const							    { return m_rotation.y; }
 	//弾を撃ったオブジェクトのタグを取得
 	ObjectTag GetCharaTag() const                           { return m_charaTag; }
 	//半径を取得
@@ -89,17 +87,17 @@ public:
 	//速度Xを設定
 	void SetVelocityX(const float x)                               { m_velocity.x = x; }
 	//速度Yを設定
-	void SetVelocityY(const float y)                               { m_velocity.x = y; }
+	void SetVelocityY(const float y)                               { m_velocity.y = y; }
 	//速度Zを設定
-	void SetVelocityZ(const float z)                               { m_velocity.x = z; }
+	void SetVelocityZ(const float z)                               { m_velocity.z = z; }
 	//回転量を設定
 	void SetRotation(const DirectX::SimpleMath::Vector3& rotation);
 	//回転量Xを設定
 	void SetRotationX(const float x)                               { m_rotation.x = x; }
 	//回転量Yを設定
-	void SetRotationY(const float y)                               { m_rotation.x = y; }
+	void SetRotationY(const float y)                               { m_rotation.y = y; }
 	//回転量Zを設定
-	void SetRotationZ(const float z)                               { m_rotation.x = z; }
+	void SetRotationZ(const float z)                               { m_rotation.z = z; }
 	//サイズを設定
 	void SetScale(const DirectX::SimpleMath::Vector3& scale)       { m_scale = scale; }
 	//ワールド座標を設定

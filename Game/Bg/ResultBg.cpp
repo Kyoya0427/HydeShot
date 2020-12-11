@@ -38,7 +38,7 @@ void ResultBg::Initialize(const DirectX::SimpleMath::Vector3& pos)
 	m_spriteBatch = std::make_unique<DirectX::SpriteBatch>(GameContext().Get<DX::DeviceResources>()->GetD3DDeviceContext());
 	DirectX::CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources//Textures//playerWin.png", NULL, m_winTexture.ReleaseAndGetAddressOf());
 	DirectX::CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources//Textures//youLose.png", NULL, m_loseTexture.ReleaseAndGetAddressOf());
-	m_position = pos;
+	SetPosition(pos);
 }
 
 /// <summary>
@@ -57,9 +57,9 @@ void ResultBg::Render()
 {
 	m_spriteBatch->Begin();
 	if (ResultState::m_isPlayerWin)
-		m_spriteBatch->Draw(m_winTexture.Get(), m_position);
+		m_spriteBatch->Draw(m_winTexture.Get(), GetPosition());
 	else
-		m_spriteBatch->Draw(m_loseTexture.Get(), m_position);
+		m_spriteBatch->Draw(m_loseTexture.Get(), GetPosition());
 
 	m_spriteBatch->End();
 }

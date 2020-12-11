@@ -26,13 +26,14 @@ Bullet::Bullet(const ObjectTag& tag, const ObjectTag& charaTag,const DirectX::Si
 	, m_collider()
 {
 	//初期設定
-	m_position   = position;
-	m_velocity.z = -MOVE_SPEED;
-	m_velocity   = DirectX::SimpleMath::Vector3::Transform(m_velocity, azimuth);
-	m_charaTag   = charaTag;
-	m_radius     = RADIUS;
-	m_color      = DirectX::Colors::Silver;
-	m_collider   = std::make_unique<SphereCollider>(this, m_radius);
+	SetPosition(position);
+	SetVelocityZ(-MOVE_SPEED);
+	SetVelocity(DirectX::SimpleMath::Vector3::Transform(GetVelocity(), azimuth));
+	SetCharaTag(charaTag);
+	SetRadius(RADIUS);
+	DirectX::SimpleMath::Color color = DirectX::Colors::Silver;
+	SetColor(color);
+	m_collider   = std::make_unique<SphereCollider>(this, GetRadius());
 
 }
 
@@ -51,9 +52,9 @@ void Bullet::Update(const DX::StepTimer& timer)
 {
 	timer;
 	//座標を移動
-	m_position += m_velocity;
+	SetPosition(GetPosition() + GetVelocity());
 	// 衝突判定マネージャーに登録
-	GameContext::Get<CollisionManager>()->Add(m_tag, m_collider.get());
+	GameContext::Get<CollisionManager>()->Add(GetTag(), m_collider.get());
 }
 
 /// <summary>
@@ -63,11 +64,10 @@ void Bullet::Update(const DX::StepTimer& timer)
 void Bullet::Render()
 {
 	//ワールド座標を生成
-	DirectX::SimpleMath::Matrix transMat = DirectX::SimpleMath::Matrix::CreateTranslation(m_position);
-	m_world = transMat;
-
+	DirectX::SimpleMath::Matrix transMat = DirectX::SimpleMath::Matrix::CreateTranslation(GetPosition());
+	SetWorld(transMat);
 	//モデルを描画
-	m_sphereModel->Draw(m_world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_color);
+	m_sphereModel->Draw(GetWorld(), GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), GetColor());
 }
 
 /// <summary>
@@ -77,7 +77,7 @@ void Bullet::Render()
 void Bullet::OnCollision(GameObject* object)
 {
 	object;
-	if (m_charaTag != object->GetTag())
+	if (GetCharaTag() != object->GetTag())
 	{
 		Destroy(this);
 	}
