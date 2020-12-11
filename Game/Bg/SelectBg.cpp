@@ -34,7 +34,7 @@ void SelectBg::Initialize(const DirectX::SimpleMath::Vector3& pos)
 {
 	m_spriteBatch = std::make_unique<DirectX::SpriteBatch>(GameContext().Get<DX::DeviceResources>()->GetD3DDeviceContext());
 	DirectX::CreateWICTextureFromFile(GameContext().Get<DX::DeviceResources>()->GetD3DDevice(), L"Resources//Textures//select.png", NULL, m_texture.ReleaseAndGetAddressOf());
-	m_position = pos;
+	SetPosition(pos);
 }
 
 /// <summary>
@@ -52,7 +52,7 @@ void SelectBg::Update(const DX::StepTimer& timer)
 void SelectBg::Render()
 {
 	m_spriteBatch->Begin();
-	m_spriteBatch->Draw(m_texture.Get(), m_position);
+	m_spriteBatch->Draw(m_texture.Get(), GetPosition());
 	m_spriteBatch->End();
 }
 

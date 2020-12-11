@@ -37,13 +37,11 @@ WallApproach::WallApproach(Character* chara)
 {
 	ID3D11DeviceContext* deviceContext = GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext();
 
-
-	m_tag  = ObjectTag::WallApproach;
+	SetTag(ObjectTag::WallApproach);
 	m_size = DirectX::SimpleMath::Vector3(0.3f, 0.1f, 0.8f);
 
 	m_WallApproachCollider = DirectX::GeometricPrimitive::CreateBox(deviceContext, m_size);
-	m_collider             = std::make_unique<BoxCollider>(this,m_size);
-	
+	m_collider             = std::make_unique<BoxCollider>(this,m_size);	
 }
 
 /// <summary>
@@ -63,13 +61,13 @@ void WallApproach::Update(const DX::StepTimer& timer)
 	m_chara->GetWallApproachVel()->SetWallApproach(WallApproachVelID::NONE);
 	m_chara->SetWallDiscovery(false);
 
-	DirectX::SimpleMath::Quaternion quaternion = DirectX::SimpleMath::Quaternion::CreateFromAxisAngle(DirectX::SimpleMath::Vector3::UnitY, m_chara->GetRadiansY() + m_offsetAngle);
-	m_velocity = DirectX::SimpleMath::Vector3::Transform(DirectX::SimpleMath::Vector3(0.0f, 0.0f, -m_size.z), quaternion);
-	m_position = m_chara->GetPosition();
+	DirectX::SimpleMath::Quaternion quaternion = DirectX::SimpleMath::Quaternion::CreateFromAxisAngle(DirectX::SimpleMath::Vector3::UnitY, m_chara->GetRotation().y + m_offsetAngle);
+	SetVelocity(DirectX::SimpleMath::Vector3::Transform(DirectX::SimpleMath::Vector3(0.0f, 0.0f, -m_size.z), quaternion));
+	SetPosition(m_chara->GetPosition());
 
-	m_position += m_velocity;
+	SetPosition(GetPosition() + GetVelocity());
 
-	m_collider->SetPosition(m_position);
+	m_collider->SetPosition(GetPosition());
 
 	GameContext().Get<CollisionManager>()->Add(ObjectTag::WallApproach, m_collider.get());
 	
@@ -80,16 +78,17 @@ void WallApproach::Update(const DX::StepTimer& timer)
 /// </summary>
 void WallApproach::Render()
 {
-	DirectX::SimpleMath::Quaternion rot    = DirectX::SimpleMath::Quaternion::CreateFromAxisAngle(DirectX::SimpleMath::Vector3::UnitY, m_chara->GetRadiansY() + m_offsetAngle);
+	DirectX::SimpleMath::Quaternion rot    = DirectX::SimpleMath::Quaternion::CreateFromAxisAngle(DirectX::SimpleMath::Vector3::UnitY, m_chara->GetRotation().y + m_offsetAngle);
 	DirectX::SimpleMath::Matrix rotMat     = DirectX::SimpleMath::Matrix::CreateFromQuaternion(rot);
-	DirectX::SimpleMath::Matrix transMat   = DirectX::SimpleMath::Matrix::CreateTranslation(m_position);
+	DirectX::SimpleMath::Matrix transMat   = DirectX::SimpleMath::Matrix::CreateTranslation(GetPosition());
 	DirectX::SimpleMath::Matrix offset     = DirectX::SimpleMath::Matrix::CreateTranslation(DirectX::SimpleMath::Vector3(0.0f, 0.0f, -m_size.z / 2.0f));
 
-	m_world  = offset * rotMat * transMat;
-	
+	DirectX::SimpleMath::Matrix matrix  = offset * rotMat * transMat;
+	SetWorld(matrix);
+
 	if (PlayState::m_isDebug)
 	{
-		m_WallApproachCollider->Draw(m_world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), DirectX::Colors::Green, nullptr, true);
+		m_WallApproachCollider->Draw(GetWorld(), GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), DirectX::Colors::Green, nullptr, true);
 	}
 }
 

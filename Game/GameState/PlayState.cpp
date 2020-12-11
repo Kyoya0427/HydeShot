@@ -279,6 +279,8 @@ void PlayState::CreateCharacter()
 /// </summary>
 void PlayState::Debug()
 {
+	DirectX::Keyboard::State keyState = DirectX::Keyboard::Get().GetState();
+	m_keyTracker.Update(keyState);
 	if (m_keyTracker.IsKeyReleased(DirectX::Keyboard::X))
 	{
 		m_isDebug = !m_isDebug;

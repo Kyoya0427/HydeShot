@@ -256,7 +256,7 @@ void NeuralNetworkManager::SearchDirection(Character* character, Character* enem
 	m_isDirectionRight = false;
 
 	//¶‰E”»’èŒvŽZ
-	DirectX::SimpleMath::Vector3 cv = Rotate(character->GetRadiansY(), DirectX::SimpleMath::Vector3::Forward);
+	DirectX::SimpleMath::Vector3 cv = Rotate(character->GetRotation().y, DirectX::SimpleMath::Vector3::Forward);
 	DirectX::SimpleMath::Vector3 rv = enemy->GetPosition() - character->GetPosition();
 	rv.Normalize();
 	DirectX::SimpleMath::Vector3 n = cv.Cross(rv);

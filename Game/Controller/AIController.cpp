@@ -44,7 +44,7 @@ AIController::AIController(Character* character, Character* enemy, SelectMode mo
 {
 	mode;
 	m_enemy = enemy;
-	m_shotInterval  = SHOT_INTERVAL;
+	SetShotInterval(SHOT_INTERVAL);
 	m_stateInterval = STATE_INTERVAL;
 	m_state = CharaStateID::NONE;
 	
@@ -57,25 +57,25 @@ AIController::AIController(Character* character, Character* enemy, SelectMode mo
 
 	ChangeSearchState();
 
-	m_neuralNetworkManager = std::make_unique<NeuralNetworkManager>(m_character, m_enemy);
+	m_neuralNetworkManager = std::make_unique<NeuralNetworkManager>(GetCharacter(), m_enemy);
 
 	//学習をさせる
 //	m_neuralNetworkManager->InitializeNeuralNetwork();
 	//学習後のデータを使用
 	m_neuralNetworkManager->InputTrainingData(mode);
 
-	m_search->Initialize(m_character, m_enemy, m_neuralNetworkManager.get());
-	m_attack->Initialize(m_character, m_enemy, m_neuralNetworkManager.get());
-	m_wallAvoid->Initialize(m_character, m_enemy, m_neuralNetworkManager.get());
+	m_search->Initialize(GetCharacter(), m_enemy, m_neuralNetworkManager.get());
+	m_attack->Initialize(GetCharacter(), m_enemy, m_neuralNetworkManager.get());
+	m_wallAvoid->Initialize(GetCharacter(), m_enemy, m_neuralNetworkManager.get());
 	
-	if (m_character->GetTag() == GameObject::ObjectTag::Enemy1)
+	if (GetCharacter()->GetTag() == GameObject::ObjectTag::Enemy1)
 	{
-		m_character->SetRotation(DirectX::SimpleMath::Vector3(0.0f, 3.15f, 0.0f));
+		GetCharacter()->SetRotation(DirectX::SimpleMath::Vector3(0.0f, 3.15f, 0.0f));
 		GameContext::Get<NeuralNetworkData>()->SetNeuralNetwork(m_neuralNetworkManager.get());
 	}	
 
-	if (m_character->GetTag() == GameObject::ObjectTag::Enemy2)
-		m_character->SetRotation(DirectX::SimpleMath::Vector3(0.0f, 0.0f, 0.0f));
+	if (GetCharacter()->GetTag() == GameObject::ObjectTag::Enemy2)
+		GetCharacter()->SetRotation(DirectX::SimpleMath::Vector3(0.0f, 0.0f, 0.0f));
 }
 
 /// <summary>
@@ -92,8 +92,8 @@ AIController::~AIController()
 void AIController::Update(const DX::StepTimer& timer)
 {
 	//カウントダウン
-	m_stateInterval -= float(timer.GetElapsedSeconds());
-	m_shotInterval  -= float(timer.GetElapsedSeconds());
+	m_stateInterval -= static_cast<float>(timer.GetElapsedSeconds());
+	SetShotInterval(GetShotInterval() - static_cast<float>(timer.GetElapsedSeconds()));
 	//インターバル
 	if (m_stateInterval < 0.0f)
 	{
@@ -105,10 +105,10 @@ void AIController::Update(const DX::StepTimer& timer)
 	switch (m_state)
 	{
 	case CharaStateID::ATTACK:
-		if (m_shotInterval < 0.0f)
+		if (GetShotInterval() < 0.0f)
 		{
 			ChangeAttackState();
-			m_shotInterval = SHOT_INTERVAL;
+			SetShotInterval(SHOT_INTERVAL);
 		}
 		else
 			ChangeSearchState();
@@ -121,9 +121,9 @@ void AIController::Update(const DX::StepTimer& timer)
 		break;
 	}
 
-	m_charaState->Update(timer);	
-	if (m_character->GetTag() == GameObject::ObjectTag::Enemy1)
-		GameContext::Get<HpUi>()->SetEnemyHp(m_character->GetHp());
-	if (m_character->GetTag() == GameObject::ObjectTag::Enemy2)
-		GameContext::Get<HpUi>()->SetPlayerHp(m_character->GetHp());
+	GetCharaState()->Update(timer);	
+	if (GetCharacter()->GetTag() == GameObject::ObjectTag::Enemy1)
+		GameContext::Get<HpUi>()->SetEnemyHp(GetCharacter()->GetHp());
+	if (GetCharacter()->GetTag() == GameObject::ObjectTag::Enemy2)
+		GameContext::Get<HpUi>()->SetPlayerHp(GetCharacter()->GetHp());
 }

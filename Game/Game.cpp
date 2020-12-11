@@ -39,8 +39,6 @@ Game::~Game()
 // Initialize the Direct3D resources required to run.
 void Game::Initialize(HWND window, int width, int height)
 {
-   
-
 	width; height;
 
     m_deviceResources->SetWindow(window, WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -51,7 +49,6 @@ void Game::Initialize(HWND window, int width, int height)
     m_deviceResources->CreateWindowSizeDependentResources();
     CreateWindowSizeDependentResources();
 
-	 
 	// コモンステート作成
 	m_state = std::make_unique<DirectX::CommonStates>(m_deviceResources->GetD3DDevice());
 	GameContext().Register<DirectX::CommonStates>(m_state);
@@ -69,7 +66,6 @@ void Game::Initialize(HWND window, int width, int height)
 	m_spriteBatch = std::make_unique<DirectX::SpriteBatch>(m_deviceResources->GetD3DDeviceContext());
 	GameContext::Register<DirectX::SpriteBatch>(m_spriteBatch);
 	
-
 	//ステイトマネジャー生成
 	m_gameStateManager = std::make_unique<GameStateManager>();
 	//ゲームステイト登録
@@ -83,7 +79,6 @@ void Game::Initialize(HWND window, int width, int height)
 	//コンテキストに登録
 	GameContext().Register<GameStateManager>(m_gameStateManager);
 	
-
 	DebugFont* debugFont = DebugFont::GetInstance();
 	debugFont->create(m_deviceResources->GetD3DDevice(), m_deviceResources->GetD3DDeviceContext());
 
@@ -92,7 +87,6 @@ void Game::Initialize(HWND window, int width, int height)
 
     m_timer.SetFixedTimeStep(true);
 	m_timer.SetTargetElapsedSeconds(1.0 / 60.0);
-    
 }
 
 #pragma region Frame Update

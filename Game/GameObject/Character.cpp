@@ -25,6 +25,8 @@
 
 const int   Character::MAX_HP = 5;
 const float Character::INVINCIBLE_TIME = 2.0f;
+const float Character::RADIUS = 0.4f;
+const float Character::SCALE = 0.5;
 
 /// <summary>
 /// コンストラク
@@ -61,11 +63,13 @@ Character::~Character()
 /// <param name="pos">初期座標</param>
 void Character::Initialize(const DirectX::SimpleMath::Vector2& pos)
 {
-	m_x = (int)pos.x;
-	m_y = (int)pos.y;
-	m_position = DirectX::SimpleMath::Vector3(static_cast<float>(m_x), 0.0f, static_cast<float>(m_y));
-	m_radius = 0.4f;
-	m_scale *= 0.5f;
+	int x, y;
+	x = static_cast<int>(pos.x);
+	y = static_cast<int>(pos.y);
+	SetPosition(DirectX::SimpleMath::Vector3(static_cast<float>(x), 0.0f, static_cast<float>(y)));
+	SetRadius(RADIUS);
+	SetScale(GetScale() * SCALE);
+
 	m_hp = MAX_HP;
 	m_invincibleTime = INVINCIBLE_TIME;
 
@@ -74,7 +78,7 @@ void Character::Initialize(const DirectX::SimpleMath::Vector2& pos)
 
 	m_sphereCollider = DirectX::GeometricPrimitive::CreateSphere(deviceContext,1.0f,8U);
 	m_bulletModel    = DirectX::GeometricPrimitive::CreateSphere(deviceContext, Bullet::RADIUS,8U);
-	m_collider       = std::make_unique<SphereCollider>(this, m_radius);
+	m_collider       = std::make_unique<SphereCollider>(this, GetRadius());
 
 	m_sight           = std::make_unique<Sight>(this);
 	m_wallApproach    = std::make_unique<WallApproach>(this);
@@ -82,7 +86,7 @@ void Character::Initialize(const DirectX::SimpleMath::Vector2& pos)
 
 	m_blink = std::make_unique<Blink>();
 	
-	m_defaultColor = m_color;
+	m_defaultColor = GetColor();
 	m_blinkColor   = DirectX::Colors::Gray;
 }
 
@@ -94,19 +98,15 @@ void Character::Update(const DX::StepTimer& timer)
 {
 	timer;
 	m_isWallContact = false;
-	m_previousPos = m_position;
+	m_previousPos = GetPosition();
 
 	float elapsedTime = float(timer.GetElapsedSeconds());
 
-	GameContext::Get<CollisionManager>()->Add(m_tag, m_collider.get());
-	DirectX::SimpleMath::Quaternion quaternion = DirectX::SimpleMath::Quaternion::CreateFromAxisAngle(DirectX::SimpleMath::Vector3::UnitY, m_rotation.y);
-	m_velocity = DirectX::SimpleMath::Vector3::Transform(m_velocity, quaternion);
-
-
-	m_position += m_velocity;
-	m_velocity = DirectX::SimpleMath::Vector3::Zero;
-
-
+	GameContext::Get<CollisionManager>()->Add(GetTag(), m_collider.get());
+	DirectX::SimpleMath::Quaternion quaternion = DirectX::SimpleMath::Quaternion::CreateFromAxisAngle(DirectX::SimpleMath::Vector3::UnitY, GetRotation().y);
+	SetVelocity(DirectX::SimpleMath::Vector3::Transform(GetVelocity(), quaternion));
+	SetPosition(GetPosition() + GetVelocity());
+	SetVelocity(DirectX::SimpleMath::Vector3::Zero);
 
 	m_sight->Update(timer);
 	m_wallApproach->Update(timer);
@@ -122,27 +122,27 @@ void Character::Update(const DX::StepTimer& timer)
 /// </summary>
 void Character::Render()
 {
-	DirectX::SimpleMath::Quaternion rot  = DirectX::SimpleMath::Quaternion::CreateFromAxisAngle(DirectX::SimpleMath::Vector3::UnitY, m_rotation.y);
-	DirectX::SimpleMath::Matrix scalemat = DirectX::SimpleMath::Matrix::CreateScale(m_scale);
+	DirectX::SimpleMath::Quaternion rot  = DirectX::SimpleMath::Quaternion::CreateFromAxisAngle(DirectX::SimpleMath::Vector3::UnitY, GetRotation().y);
+	DirectX::SimpleMath::Matrix scalemat = DirectX::SimpleMath::Matrix::CreateScale(GetScale());
 	DirectX::SimpleMath::Matrix rotMat   = DirectX::SimpleMath::Matrix::CreateFromQuaternion(rot);
-	DirectX::SimpleMath::Matrix transMat = DirectX::SimpleMath::Matrix::CreateTranslation(m_position);
+	DirectX::SimpleMath::Matrix transMat = DirectX::SimpleMath::Matrix::CreateTranslation(GetPosition());
 	// ワールド行列を作成
+	DirectX::SimpleMath::Matrix matrix = scalemat * rotMat * transMat;
 
-	m_world = scalemat * rotMat * transMat;
+	SetWorld(matrix);
 
-
-	if(m_blink->GetState())				
-	m_charaModel->Draw(GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext()
-		               , *GameContext::Get<DirectX::CommonStates>()
-		               , m_world
-		               , GameContext::Get<Camera>()->GetView()
-		               , GameContext::Get<Camera>()->GetProjection(), false);
+	if (m_blink->GetState())
+		m_charaModel->Draw(GameContext::Get<DX::DeviceResources>()->GetD3DDeviceContext()
+			               , *GameContext::Get<DirectX::CommonStates>()
+			               , GetWorld()
+			               , GameContext::Get<Camera>()->GetView()
+			               , GameContext::Get<Camera>()->GetProjection(), false);
 	
 	
 	DirectX::SimpleMath::Matrix world = rotMat * transMat;
 
 	if(PlayState::m_isDebug)
-	m_sphereCollider->Draw(world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_color, nullptr, true);
+	m_sphereCollider->Draw(world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), GetColor(), nullptr, true);
 	
 	m_sight->Render();
 	m_wallApproach->Render();
@@ -158,14 +158,14 @@ void Character::OnCollision(GameObject* object)
 	object;
 	if (object->GetTag() == GameObject::ObjectTag::Wall)
 	{
-		m_position = m_previousPos;
-		m_velocity = DirectX::SimpleMath::Vector3::Zero;
+		SetPosition(m_previousPos);
+		SetVelocity(DirectX::SimpleMath::Vector3::Zero);
 		m_isWallContact = true;
 	}
 
 	if (object->GetTag() == GameObject::ObjectTag::Bullet)
 	{
-		if (object->GetCharaTag() != m_tag && m_isDamage == false)
+		if (object->GetCharaTag() != GetTag() && m_isDamage == false)
 		{
 			m_isDamage = true;
 			
@@ -179,8 +179,8 @@ void Character::OnCollision(GameObject* object)
 /// </summary>
 void Character::Shoot()
 {
-	DirectX::SimpleMath::Quaternion rot = DirectX::SimpleMath::Quaternion::CreateFromAxisAngle(DirectX::SimpleMath::Vector3::UnitY, m_rotation.y);
-	std::unique_ptr<Bullet> shell = std::make_unique<Bullet>(ObjectTag::Bullet, m_tag, m_position, rot);
+	DirectX::SimpleMath::Quaternion rot = DirectX::SimpleMath::Quaternion::CreateFromAxisAngle(DirectX::SimpleMath::Vector3::UnitY, GetRotation().y);
+	std::unique_ptr<Bullet> shell = std::make_unique<Bullet>(ObjectTag::Bullet, GetTag(), GetPosition(), rot);
 	shell->SetModel(m_bulletModel.get());
 	GameContext::Get<ObjectManager>()->GetGameOM()->Add(std::move(shell));
 }
@@ -209,7 +209,7 @@ void Character::HpProcessing(float elapsedTime)
 
 	if (m_hp <= 0)
 	{
-		if (m_tag == GameObject::ObjectTag::Player)
+		if (GetTag() == GameObject::ObjectTag::Player)
 			ResultState::m_isPlayerWin = false;
 		else
 			ResultState::m_isPlayerWin = true;

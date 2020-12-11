@@ -37,9 +37,9 @@ Sight::Sight(Character* chara)
 
 	//ƒ^ƒO‚ðÝ’è
 	if (m_chara->GetTag() == ObjectTag::Enemy1)
-		m_tag = ObjectTag::Sight01;
+		SetTag(ObjectTag::Sight01);
 	if (m_chara->GetTag() == ObjectTag::Enemy2)
-		m_tag = ObjectTag::Sight02;
+		SetTag(ObjectTag::Sight02);
 
 	m_size = DirectX::SimpleMath::Vector3(0.3f, 0.1f, 9.0f);
 
@@ -72,11 +72,11 @@ void Sight::Update(const DX::StepTimer& timer)
 	m_wallToDistance  = 0.0f;
 
 	DirectX::SimpleMath::Quaternion quaternion = DirectX::SimpleMath::Quaternion::CreateFromAxisAngle(DirectX::SimpleMath::Vector3::UnitY, m_chara->GetRotation().y);
-	m_velocity = DirectX::SimpleMath::Vector3::Transform(DirectX::SimpleMath::Vector3(0.0f, 0.0f, -m_size.z), quaternion);
-	m_position = m_chara->GetPosition();
+	SetVelocity(DirectX::SimpleMath::Vector3::Transform(DirectX::SimpleMath::Vector3(0.0f, 0.0f, -m_size.z), quaternion));
+	SetPosition(m_chara->GetPosition());
 
 	m_posA = m_chara->GetPosition();
-	m_posB = m_position + m_velocity;
+	m_posB = GetPosition() + GetVelocity();
 
 	m_collider->SetPosA(m_posA);
 	m_collider->SetPosB(m_posB);
@@ -100,13 +100,14 @@ void Sight::Render()
 {
 	DirectX::SimpleMath::Quaternion rot    = DirectX::SimpleMath::Quaternion::CreateFromAxisAngle(DirectX::SimpleMath::Vector3::UnitY, m_chara->GetRotation().y);
 	DirectX::SimpleMath::Matrix rotMat     = DirectX::SimpleMath::Matrix::CreateFromQuaternion(rot);
-	DirectX::SimpleMath::Matrix transMat   = DirectX::SimpleMath::Matrix::CreateTranslation(m_position);
+	DirectX::SimpleMath::Matrix transMat   = DirectX::SimpleMath::Matrix::CreateTranslation(GetPosition());
 	DirectX::SimpleMath::Matrix offset     = DirectX::SimpleMath::Matrix::CreateTranslation(DirectX::SimpleMath::Vector3(0.0f, 0.0f, -m_size.z / 2.0f));
 
-	m_world = offset * rotMat * transMat;
+	DirectX::SimpleMath::Matrix matrix = offset * rotMat * transMat;
+	SetWorld(matrix);
 
 	if (PlayState::m_isDebug)
-	m_sightCollider->Draw(m_world, GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_chara->GetColor(), nullptr, true);
+		m_sightCollider->Draw(GetWorld(), GameContext::Get<Camera>()->GetView(), GameContext::Get<Camera>()->GetProjection(), m_chara->GetColor(), nullptr, true);
 }
 
 /// <summary>

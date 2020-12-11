@@ -41,17 +41,17 @@ public:
 
 public:
 	//前進
-	void Forward(const float speed)   { m_velocity.z = -speed; }
+	void Forward(const float speed)   { SetVelocityZ(-speed); }
 	//後進
-	void Backward(const float speed)  { m_velocity.z = speed;  }
+	void Backward(const float speed)  { SetVelocityZ(speed);  }
 	//左に進む
-	void Leftward (const float speed) { m_velocity.x = -speed; }
+	void Leftward (const float speed) { SetVelocityX(-speed); }
 	//右に進む
-	void Rightward(const float speed) { m_velocity.x = speed;  }
+	void Rightward(const float speed) { SetVelocityX(speed);  }
 	//左に旋回
-	void LeftTurn (const float speed) { m_rotation.y += speed; }
+	void LeftTurn (const float speed) { SetRotationY(GetRotation().y + speed); }
 	//右に旋回
-	void RightTurn(const float speed) { m_rotation.y -= speed; }
+	void RightTurn(const float speed) { SetRotationY(GetRotation().y - speed); }
 	//発砲
 	void Shoot();
 	//HP関連の処理
@@ -89,6 +89,8 @@ public:
 	//最大HP
 	static const int   MAX_HP;
 	static const float INVINCIBLE_TIME;
+	static const float RADIUS;
+	static const float SCALE;
 
 private:
 	//当たり判定モデル
