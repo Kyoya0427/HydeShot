@@ -63,12 +63,6 @@ void ResultState::Update(const DX::StepTimer& timer)
 		GameStateManager* gameStateManager = GameContext().Get<GameStateManager>();
 		gameStateManager->RequestState(State::TITLE_STATE);
 	}
-
-	if (m_keyTracker.IsKeyReleased(DirectX::Keyboard::Z))
-	{
-		m_isBlink = !m_isBlink;
-	}
-
 	m_blink->Update(timer);
 }
 
@@ -83,13 +77,12 @@ void ResultState::Render()
 	debugFont->print(100, 100, static_cast<DirectX::SimpleMath::Color>(DirectX::Colors::White), 1.0f, L"Z Key");
 	debugFont->draw();
 	
-	
 	m_resultBg->Render();
 	m_spriteBatch->Begin(DirectX::SpriteSortMode_Deferred, GameContext::Get<DirectX::CommonStates>()->NonPremultiplied());
-	if (m_isBlink == false || m_blink->GetState())
-	{
+	
+	if (m_blink->GetState())
 		m_spriteBatch->Draw(m_pushTexture.Get(), m_pushPos);
-	}
+	
 
 	m_spriteBatch->End();
 }
