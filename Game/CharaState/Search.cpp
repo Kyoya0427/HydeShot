@@ -17,7 +17,8 @@
 /// コンストラクタ
 /// </summary>
 Search::Search()
-	: m_search()
+	: CharaState()
+	, m_search()
 {
 }
 
@@ -35,9 +36,9 @@ Search::~Search()
 /// <param name="enemy">敵キャラクター</param>
 void Search::Initialize(Character* chara, Character* enemy, NeuralNetworkManager* neuralNetwork)
 {
-	m_chara         = chara;
-	m_enemy         = enemy;
-	m_neuralNetwork = neuralNetwork;
+	SetChara(chara);
+	SetEnemy(enemy);
+	SetNeuralNetworkManager(neuralNetwork);
 
 	//ステイトを初期化
 	m_forward    = std::make_unique<Forward>();
@@ -45,10 +46,10 @@ void Search::Initialize(Character* chara, Character* enemy, NeuralNetworkManager
 	m_leftTurn   = std::make_unique<LeftTurn>();
 	m_rightTurn  = std::make_unique<RightTurn>();
 
-	m_forward->Initialize  (m_chara, m_enemy, m_neuralNetwork);
-	m_backward->Initialize (m_chara, m_enemy, m_neuralNetwork);
-	m_leftTurn->Initialize (m_chara, m_enemy, m_neuralNetwork);
-	m_rightTurn->Initialize(m_chara, m_enemy, m_neuralNetwork);
+	m_forward->Initialize  (GetChara(), GetEnemy(), GetNeuralNetworkManager());
+	m_backward->Initialize (GetChara(), GetEnemy(), GetNeuralNetworkManager());
+	m_leftTurn->Initialize (GetChara(), GetEnemy(), GetNeuralNetworkManager());
+	m_rightTurn->Initialize(GetChara(), GetEnemy(), GetNeuralNetworkManager());
 
 	//初期ステイト
 	ChangeForwardState();
@@ -70,7 +71,7 @@ void Search::Update(const DX::StepTimer& timer)
 /// </summary>
 void Search::ChooseAction()
 {
-	NeuralNetworkManager::OutputData data = m_neuralNetwork->GetOutputData();
+	NeuralNetworkManager::OutputData data = GetNeuralNetworkManager()->GetOutputData();
 
 	float dis = data.outputDis;
 	float left = data.outputLeft;
@@ -81,24 +82,24 @@ void Search::ChooseAction()
 	{
 		GameContext::Get<SelectStateUi>()->SetSelectState(L"LEFT_TURN");
 		ChangeLeftTurnState();
-		m_chara->SetCharaState(CharaStateID::LEFT_TURN);
+		GetChara()->SetCharaState(CharaStateID::LEFT_TURN);
 	}
 	else if (right >= 0.5f)
 	{
 		GameContext::Get<SelectStateUi>()->SetSelectState(L"RIGHT_TURN");
 		ChangeRightTurnState();
-		m_chara->SetCharaState(CharaStateID::RIGHT_TURN);
+		GetChara()->SetCharaState(CharaStateID::RIGHT_TURN);
 	}
 	else if (dis >= 0.45f)
 	{
 		GameContext::Get<SelectStateUi>()->SetSelectState(L"FORWARD");
 		ChangeForwardState();
-		m_chara->SetCharaState(CharaStateID::FORWARD);
+		GetChara()->SetCharaState(CharaStateID::FORWARD);
 	}
 	else if (dis >= 0.0f)
 	{
 		GameContext::Get<SelectStateUi>()->SetSelectState(L"BACKWARD");
 		ChangeBackwardState();
-		m_chara->SetCharaState(CharaStateID::BACKWARD);
+		GetChara()->SetCharaState(CharaStateID::BACKWARD);
 	}
 }

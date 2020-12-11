@@ -17,6 +17,7 @@
 /// コンストラクタ
 /// </summary>
 Forward::Forward()
+	: CharaState()
 {
 }
 
@@ -34,9 +35,9 @@ Forward::~Forward()
 /// <param name="controller">敵キャラクター</param>
 void Forward::Initialize(Character* chara, Character* enemy, NeuralNetworkManager* neuralNetwork)
 {
-	m_chara         = chara;
-	m_enemy         = enemy;
-	m_neuralNetwork = neuralNetwork;
+	SetChara(chara);
+	SetEnemy(enemy);
+	SetNeuralNetworkManager(neuralNetwork);
 }
 
 /// <summary>
@@ -46,6 +47,6 @@ void Forward::Initialize(Character* chara, Character* enemy, NeuralNetworkManage
 void Forward::Update(const DX::StepTimer& timer)
 {
 	timer;
-	m_chara->Forward(AIController::MOVE_SPEED);
-	m_chara->GetWallApproachVel()->SetOffsetAngle(WallApproach::FORWARD_ANGLE);
+	GetChara()->Forward(AIController::MOVE_SPEED);
+	GetChara()->GetWallApproachVel()->SetOffsetAngle(WallApproach::FORWARD_ANGLE);
 }

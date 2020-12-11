@@ -23,9 +23,7 @@
 /// コンストラクタ
 /// </summary>
 WallAvoid::WallAvoid()
-	: m_chara()
-	, m_enemy()
-	, m_wallAvoid()
+	: m_wallAvoid()
 {
 }
 
@@ -36,9 +34,9 @@ WallAvoid::WallAvoid()
 /// <param name="controller">敵キャラクター</param>
 void WallAvoid::Initialize(Character* chara, Character* enemy, NeuralNetworkManager* neuralNetwork)
 {
-	m_chara         = chara;
-	m_enemy         = enemy;
-	m_neuralNetwork = neuralNetwork;
+	SetChara(chara);
+	SetEnemy(enemy);
+	SetNeuralNetworkManager(neuralNetwork);
 
 	//ステイトを初期化
 	m_forward   = std::make_unique<Forward>();
@@ -46,10 +44,10 @@ void WallAvoid::Initialize(Character* chara, Character* enemy, NeuralNetworkMana
 	m_leftward  = std::make_unique<Leftward>();
 	m_rightward = std::make_unique<Rightward>();
 
-	m_forward ->Initialize (m_chara, m_enemy, m_neuralNetwork);
-	m_backward->Initialize (m_chara, m_enemy, m_neuralNetwork);
-	m_leftward->Initialize (m_chara, m_enemy, m_neuralNetwork);
-	m_rightward->Initialize(m_chara, m_enemy, m_neuralNetwork);
+	m_forward ->Initialize (GetChara(), GetEnemy(), GetNeuralNetworkManager());
+	m_backward->Initialize (GetChara(), GetEnemy(), GetNeuralNetworkManager());
+	m_leftward->Initialize (GetChara(), GetEnemy(), GetNeuralNetworkManager());
+	m_rightward->Initialize(GetChara(), GetEnemy(), GetNeuralNetworkManager());
 
 	//初期ステイト
 	ChangeForwardState();
@@ -72,39 +70,39 @@ void WallAvoid::Update(const DX::StepTimer& timer)
 void WallAvoid::ChooseAction()
 {
 	//相対座標
-	float dis = DirectX::SimpleMath::Vector3::Distance(m_chara->GetPosition(), m_enemy->GetPosition()) / 18.0f;
+	float dis = DirectX::SimpleMath::Vector3::Distance(GetChara()->GetPosition(), GetEnemy()->GetPosition()) / 18.0f;
 	//ステイト操作するキャラクターを原点とした絶対座標
-	float x = m_chara->GetPosition().x - m_enemy->GetPosition().x;
+	float x = GetChara()->GetPosition().x - GetEnemy()->GetPosition().x;
 
 	//データから行動を選択
-	if (m_chara->GetWallApproachVel()->GetWallApproach() == WallApproachVelID::FORWARD || m_chara->GetWallApproachVel()->GetWallApproach() == WallApproachVelID::BACKWARD)
+	if (GetChara()->GetWallApproachVel()->GetWallApproach() == WallApproachVelID::FORWARD || GetChara()->GetWallApproachVel()->GetWallApproach() == WallApproachVelID::BACKWARD)
 	{
 		if (x < 0.0f)
 		{
 			GameContext::Get<SelectStateUi>()->SetSelectState(L"LEFTWARD");
-			m_chara->SetCharaState(CharaStateID::LEFTWARD);
+			GetChara()->SetCharaState(CharaStateID::LEFTWARD);
 			ChangeLeftwardState();
 		}
 		else if(x > 0.0f)
 		{
 			GameContext::Get<SelectStateUi>()->SetSelectState(L"RIGHTWARD");
-			m_chara->SetCharaState(CharaStateID::RIGHTWARD);
+			GetChara()->SetCharaState(CharaStateID::RIGHTWARD);
 			ChangeRightwardState();
 		}
 	}
 
-	if (m_chara->GetWallApproachVel()->GetWallApproach() == WallApproachVelID::LEFTWARD || m_chara->GetWallApproachVel()->GetWallApproach() == WallApproachVelID::RIGHTWARD)
+	if (GetChara()->GetWallApproachVel()->GetWallApproach() == WallApproachVelID::LEFTWARD || GetChara()->GetWallApproachVel()->GetWallApproach() == WallApproachVelID::RIGHTWARD)
 	{
 		if (dis >= 0.45f)
 		{
 			GameContext::Get<SelectStateUi>()->SetSelectState(L"FORWARD");
-			m_chara->SetCharaState(CharaStateID::FORWARD);
+			GetChara()->SetCharaState(CharaStateID::FORWARD);
 			ChangeForwardState();
 		}
 		else if (dis > 0.1f)
 		{
 			GameContext::Get<SelectStateUi>()->SetSelectState(L"BACKWARD");
-			m_chara->SetCharaState(CharaStateID::BACKWARD);
+			GetChara()->SetCharaState(CharaStateID::BACKWARD);
 			ChangeBackwardState();
 		}
 	}

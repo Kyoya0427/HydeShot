@@ -31,11 +31,11 @@ public:
 
 public:
 	//壁に接近しているか
-	const WallApproachVelID& GetWallApproach() const        { return m_isWallApproach; }
+	WallApproachVelID GetWallApproach() const        { return m_isWallApproach; }
 
 public:
 	//壁に接近しているか設定
-	void SetWallApproach(const WallApproachVelID& approach) { m_isWallApproach = approach; }
+	void SetWallApproach(WallApproachVelID approach) { m_isWallApproach = approach; }
 	//オフセットを設定
 	void SetOffsetAngle(const float angle)                  { m_offsetAngle = angle; }
 	

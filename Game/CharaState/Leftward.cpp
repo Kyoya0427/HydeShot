@@ -16,6 +16,7 @@
 /// コンストラクタ
 /// </summary>
 Leftward::Leftward()
+	: CharaState()
 {
 }
 
@@ -33,9 +34,9 @@ Leftward::~Leftward()
 /// <param name="controller">敵キャラクター</param>
 void Leftward::Initialize(Character* chara, Character* enemy, NeuralNetworkManager* neuralNetwork)
 {
-	m_chara         = chara;
-	m_enemy         = enemy;
-	m_neuralNetwork = neuralNetwork;
+	SetChara(chara);
+	SetEnemy(enemy);
+	SetNeuralNetworkManager(neuralNetwork);
 }
 
 /// <summary>
@@ -45,6 +46,6 @@ void Leftward::Initialize(Character* chara, Character* enemy, NeuralNetworkManag
 void Leftward::Update(const DX::StepTimer& timer)
 {
 	timer;
-	m_chara->Leftward(AIController::MOVE_SPEED);
-	m_chara->GetWallApproachVel()->SetOffsetAngle(WallApproach::LEFT_ANGLE);
+	GetChara()->Leftward(AIController::MOVE_SPEED);
+	GetChara()->GetWallApproachVel()->SetOffsetAngle(WallApproach::LEFT_ANGLE);
 }

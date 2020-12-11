@@ -16,6 +16,7 @@
 /// コンストラクタ
 /// </summary>
 Backward::Backward()
+	: CharaState()
 {
 }
 
@@ -33,9 +34,9 @@ Backward::~Backward()
 /// <param name="controller">敵キャラクター</param>
 void Backward::Initialize(Character* chara, Character* enemy, NeuralNetworkManager* neuralNetwork)
 {
-	m_chara         = chara;
-	m_enemy         = enemy;
-	m_neuralNetwork = neuralNetwork;
+	SetChara(chara);
+	SetEnemy(enemy);
+	SetNeuralNetworkManager(neuralNetwork);
 }
 
 /// <summary>
@@ -45,6 +46,6 @@ void Backward::Initialize(Character* chara, Character* enemy, NeuralNetworkManag
 void Backward::Update(const DX::StepTimer& timer)
 {
 	timer;
-	m_chara->Backward(AIController::MOVE_SPEED);
-	m_chara->GetWallApproachVel()->SetOffsetAngle(WallApproach::BACKWARD_ANGLE);
+	GetChara()->Backward(AIController::MOVE_SPEED);
+	GetChara()->GetWallApproachVel()->SetOffsetAngle(WallApproach::BACKWARD_ANGLE);
 }

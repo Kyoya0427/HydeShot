@@ -16,6 +16,7 @@
 /// コンストラクタ
 /// </summary>
 Rightward::Rightward()
+	: CharaState()
 {
 }
 
@@ -33,9 +34,9 @@ Rightward::~Rightward()
 /// <param name="controller">コントローラー</param>
 void Rightward::Initialize(Character* chara, Character* enemy, NeuralNetworkManager* neuralNetwork)
 {
-	m_chara         = chara;
-	m_enemy         = enemy;
-	m_neuralNetwork = neuralNetwork;
+	SetChara(chara);
+	SetEnemy(enemy);
+	SetNeuralNetworkManager(neuralNetwork);
 }
 
 /// <summary>
@@ -45,6 +46,6 @@ void Rightward::Initialize(Character* chara, Character* enemy, NeuralNetworkMana
 void Rightward::Update(const DX::StepTimer& timer)
 {
 	timer;
-	m_chara->Rightward(AIController::MOVE_SPEED);
-	m_chara->GetWallApproachVel()->SetOffsetAngle(WallApproach::RIGHT_ANGLE);
+	GetChara()->Rightward(AIController::MOVE_SPEED);
+	GetChara()->GetWallApproachVel()->SetOffsetAngle(WallApproach::RIGHT_ANGLE);
 }
