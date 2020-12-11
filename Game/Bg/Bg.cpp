@@ -65,7 +65,7 @@ void Bg::Update(const DX::StepTimer& timer)
 {
 	timer;
 	//回転
-	m_rotation.y += 0.0002f;
+	SetRotationY(GetRadiansY() + 0.0002f);
 }
 
 /// <summary>
@@ -74,7 +74,7 @@ void Bg::Update(const DX::StepTimer& timer)
 void Bg::Render()
 {
 	//ワールド行列作成
-	DirectX::SimpleMath::Matrix world = DirectX::SimpleMath::Matrix::CreateRotationY(m_rotation.y);
+	DirectX::SimpleMath::Matrix world = DirectX::SimpleMath::Matrix::CreateRotationY(GetRotation().y);
 	world       *= DirectX::SimpleMath::Matrix::CreateTranslation(4.5f, -10.0f, 5.5f);
 	//ビュー行列作成
 	DirectX::SimpleMath::Matrix view  = DirectX::SimpleMath::Matrix::CreateLookAt(DirectX::SimpleMath::Vector3(0.0f, 0.0f, 0.0f), DirectX::SimpleMath::Vector3(0.0f, 0.0f, -1.0f), DirectX::SimpleMath::Vector3::Up);

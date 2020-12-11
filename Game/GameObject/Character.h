@@ -41,17 +41,17 @@ public:
 
 public:
 	//前進
-	void Forward(const float speed)   { m_velocity.z = -speed; }
+	void Forward(const float speed)   { SetVelocityZ(-speed); }
 	//後進
-	void Backward(const float speed)  { m_velocity.z = speed;  }
+	void Backward(const float speed)  { SetVelocityZ(speed);  }
 	//左に進む
-	void Leftward (const float speed) { m_velocity.x = -speed; }
+	void Leftward (const float speed) { SetVelocityX(-speed); }
 	//右に進む
-	void Rightward(const float speed) { m_velocity.x = speed;  }
+	void Rightward(const float speed) { SetVelocityX(speed);  }
 	//左に旋回
-	void LeftTurn (const float speed) { m_rotation.y += speed; }
+	void LeftTurn (const float speed) { SetRotationY(GetRadiansY() + speed); }
 	//右に旋回
-	void RightTurn(const float speed) { m_rotation.y -= speed; }
+	void RightTurn(const float speed) { SetRotationY(GetRadiansY() + speed); }
 	//発砲
 	void Shoot();
 	//HP関連の処理

@@ -77,7 +77,8 @@ public:
 	float GetRadiansY() const							    { return m_rotation.y; }
 	//弾を撃ったオブジェクトのタグを取得
 	ObjectTag GetCharaTag() const                           { return m_charaTag; }
-
+	//半径を取得
+	float GetRadius() const                                 { return m_radius; }
 public:
 	//タグ名を設定
 	void SetTag(const ObjectTag& tag)                              { m_tag = tag; }
@@ -85,16 +86,32 @@ public:
 	void SetPosition(const DirectX::SimpleMath::Vector3& position) { m_position = position; }
 	//速度を設定
 	void SetVelocity(const DirectX::SimpleMath::Vector3& velocity) { m_velocity = velocity; }
+	//速度Xを設定
+	void SetVelocityX(const float x)                               { m_velocity.x = x; }
+	//速度Yを設定
+	void SetVelocityY(const float y)                               { m_velocity.x = y; }
+	//速度Zを設定
+	void SetVelocityZ(const float z)                               { m_velocity.x = z; }
 	//回転量を設定
 	void SetRotation(const DirectX::SimpleMath::Vector3& rotation);
+	//回転量Xを設定
+	void SetRotationX(const float x)                               { m_rotation.x = x; }
+	//回転量Yを設定
+	void SetRotationY(const float y)                               { m_rotation.x = y; }
+	//回転量Zを設定
+	void SetRotationZ(const float z)                               { m_rotation.x = z; }
 	//サイズを設定
 	void SetScale(const DirectX::SimpleMath::Vector3& scale)       { m_scale = scale; }
+	//ワールド座標を設定
+	void SetWorld(const DirectX::SimpleMath::Matrix& world)        { m_world = world; }
 	//色を設定
 	void SetColor(const DirectX::SimpleMath::Color color)          { m_color = color; }
 	//描画順を設定
 	void SetDrawPrio(int drawPrio)                                 { m_drawPrio = drawPrio; }
 	//弾を撃ったオブジェクトのタグを設定
 	void SetCharaTag(const ObjectTag& tag)                         { m_charaTag = tag; }
+	//半径を設定
+	void SetRadius(float radius)                                   { m_radius = radius; }
 
 public:
 	//非表示にする
@@ -106,7 +123,7 @@ private:
 	// 描画順序管理用(小さいほど手前に描画される）
 	int                             m_drawPrio;
 	
-protected:
+private:
 	//オブジェクトタグ名
 	ObjectTag                       m_tag;
 	//座標
@@ -121,8 +138,6 @@ protected:
 	DirectX::SimpleMath::Matrix     m_world;
 	//オブジェクトカラー
 	DirectX::SimpleMath::Color      m_color;
-	//ステージ上の位置
-	int                             m_x, m_y;
 	//半径
 	float                           m_radius;
 	//弾を撃ったオブジェクトのタグ名
