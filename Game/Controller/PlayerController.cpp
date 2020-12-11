@@ -25,7 +25,7 @@ const float PlayerController::SHOT_INTERVAL = 0.3f;
 PlayerController::PlayerController(Character* character)
 	: CharacterController(character)
 {
-	m_shotInterval = SHOT_INTERVAL;
+	SetShotInterval(SHOT_INTERVAL);
 	m_isSaveData   = false;
 }
 
@@ -47,45 +47,45 @@ void PlayerController::Update(const DX::StepTimer& timer)
 	timer;
 	DirectX::Keyboard::State keyState = DirectX::Keyboard::Get().GetState();
 
-	m_shotInterval -= float(timer.GetElapsedSeconds());
-	
+	SetShotInterval(GetShotInterval() - static_cast<float>(timer.GetElapsedSeconds()));
+
 	if (keyState.IsKeyDown(DirectX::Keyboard::Keys::W))
 	{
 		m_data = InputID::FORWARD;
-		m_character->Forward(MOVE_SPEED);
+		GetCharacter()->Forward(MOVE_SPEED);
 	}
 	else if (keyState.IsKeyDown(DirectX::Keyboard::Keys::S))
 	{
 		m_data = InputID::BACKWARD;
-		m_character->Backward(MOVE_SPEED);
+		GetCharacter()->Backward(MOVE_SPEED);
 	}
 	else if (keyState.IsKeyDown(DirectX::Keyboard::Keys::A))
 	{
 		m_data = InputID::LEFTWARD;
-		m_character->Leftward(MOVE_SPEED);
+		GetCharacter()->Leftward(MOVE_SPEED);
 	}
 	else if (keyState.IsKeyDown(DirectX::Keyboard::Keys::D))
 	{
 		m_data = InputID::RIGHTWARD;
-		m_character->Rightward(MOVE_SPEED);
+		GetCharacter()->Rightward(MOVE_SPEED);
 	}
 	
 	if (keyState.IsKeyDown(DirectX::Keyboard::Keys::Left))
 	{
 		m_data = InputID::LEFT_TURN;
-		m_character->LeftTurn(ROT_SPEED);
+		GetCharacter()->LeftTurn(ROT_SPEED);
 	}
 	else if (keyState.IsKeyDown(DirectX::Keyboard::Keys::Right))
 	{
 		m_data = InputID::RIGHT_TURN;
-		m_character->RightTurn(ROT_SPEED);
+		GetCharacter()->RightTurn(ROT_SPEED);
 	}
 	
-	if (keyState.IsKeyDown(DirectX::Keyboard::Keys::Space) && m_shotInterval < 0.0f)
+	if (keyState.IsKeyDown(DirectX::Keyboard::Keys::Space) && GetShotInterval() < 0.0f)
 	{
 		m_data = InputID::SHOOT;
-		m_character->Shoot();
-		m_shotInterval = SHOT_INTERVAL;
+		GetCharacter()->Shoot();
+		SetShotInterval(SHOT_INTERVAL);
 	}
 	else
 	{
@@ -93,7 +93,7 @@ void PlayerController::Update(const DX::StepTimer& timer)
 	}
 
 	m_outputData.push_back(m_data);
-	GameContext::Get<HpUi>()->SetPlayerHp(m_character->GetHp());
+	GameContext::Get<HpUi>()->SetPlayerHp(GetCharacter()->GetHp());
 
 }
 

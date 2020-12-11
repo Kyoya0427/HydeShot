@@ -47,7 +47,7 @@ public:
 	//差引勘定を設定
 	void SetOffset(const DirectX::SimpleMath::Vector3& offset) { m_offset = offset; }
 
-protected:
+private:
 	//オブジェクト
 	GameObject*                         m_owner;
 	//差引勘定数値

@@ -30,7 +30,7 @@ const float AutoPlayerController::SHOT_INTERVAL = 0.3f;
 AutoPlayerController::AutoPlayerController(Character* character)
 	: CharacterController(character)
 {
-	m_shotInterval = SHOT_INTERVAL;
+	SetShotInterval(SHOT_INTERVAL);
 	m_isSaveData = false;
 	m_count = 0;
 	InitializeTraining(L"Resources//CSV//InputKey.csv");
@@ -64,36 +64,36 @@ void AutoPlayerController::Update(const DX::StepTimer& timer)
 	case InputID::NONE:
 		break;
 	case InputID::FORWARD:
-		m_character->Forward(MOVE_SPEED);
+		GetCharacter()->Forward(MOVE_SPEED);
 		break;
 	case InputID::BACKWARD:
-		m_character->Backward(MOVE_SPEED);
+		GetCharacter()->Backward(MOVE_SPEED);
 		break;
 	case InputID::LEFTWARD:
-		m_character->Leftward(MOVE_SPEED);
+		GetCharacter()->Leftward(MOVE_SPEED);
 		break;
 	case InputID::RIGHTWARD:
-		m_character->Rightward(MOVE_SPEED);
+		GetCharacter()->Rightward(MOVE_SPEED);
 		break;
 	case InputID::LEFT_TURN:
-		m_character->LeftTurn(ROT_SPEED);
+		GetCharacter()->LeftTurn(ROT_SPEED);
 		break;
 	case InputID::RIGHT_TURN:
-		m_character->RightTurn(ROT_SPEED);
+		GetCharacter()->RightTurn(ROT_SPEED);
 		break;
 	case InputID::SHOOT:
-		m_character->Shoot();
-		m_shotInterval = SHOT_INTERVAL;
+		GetCharacter()->Shoot();
+		SetShotInterval(SHOT_INTERVAL);
 		break;
 
 	default:
-		m_character->Shoot();
-		m_shotInterval = SHOT_INTERVAL;
+		GetCharacter()->Shoot();
+		SetShotInterval(SHOT_INTERVAL);
 		break;
 	}
 
 	m_count++;
-	GameContext::Get<HpUi>()->SetPlayerHp(m_character->GetHp());
+	GameContext::Get<HpUi>()->SetPlayerHp(GetCharacter()->GetHp());
 }
 
 /// <summary>

@@ -23,14 +23,3 @@ CharacterController::~CharacterController()
 {
 	m_character = nullptr;
 }
-
-/// <summary>
-/// ƒLƒƒƒ‰‚ğæ“¾
-/// </summary>
-/// <returns>ƒLƒƒƒ‰</returns>
-Character* CharacterController::GetCharacter()
-{
-	return m_character;
-}
-
-
