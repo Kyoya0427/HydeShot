@@ -49,7 +49,5 @@ private:
 	DirectX::SimpleMath::Vector2                     m_pushPos;
 	//ブリンク
 	std::unique_ptr<Blink>                           m_blink;
-	//ブリンクを使用するか
-	bool                                             m_isBlink;
 
 };
